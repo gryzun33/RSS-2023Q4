@@ -1,0 +1,68 @@
+@mixin flex($justify: normal, $align: normal) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-column($justify: normal, $align: normal) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin text-heading-1($font-style) {
+  font-family: 'Inter';
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 105%;
+  font-style: $font-style;
+}
+
+@mixin text-heading-2($font-style) {
+  font-family: 'Inter';
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: $font-style;
+}
+
+@mixin text-heading-3($font-style) {
+  font-family: 'Inter';
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: $font-style;
+}
+
+@mixin text-medium {
+  font-family: 'Inter';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  font-style: normal;
+}
+
+@mixin text-caption {
+  font-family: 'Inter';
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 140%;
+  font-style: normal;
+}
+
+@mixin text-link-and-btn {
+  font-family: 'Inter';
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+}
+
+@mixin text-burger-link {
+  font-family: 'Inter';
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+}
