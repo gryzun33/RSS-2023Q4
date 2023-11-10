@@ -66,3 +66,10 @@
   line-height: 125%;
   font-style: normal;
 }
+
+@mixin wrapper {
+  width: 1440px;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+}
