@@ -11,6 +11,13 @@
   align-items: $align;
 }
 
+@mixin flex-wrap($justify: normal, $align: normal) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: $justify;
+  align-content: $align;
+}
+
 @mixin text-heading-1($font-style:normal) {
   font-family: 'Inter';
   font-size: 72px;
