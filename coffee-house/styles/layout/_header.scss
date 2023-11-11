@@ -1,0 +1,83 @@
+.header {
+  background-color: $color-bg-body;
+
+  &__wrapper {
+    @include wrapper;
+    @include flex(space-between, center);
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .logo {
+      width: 100px;
+      height: 60px;
+    }
+
+    .navigation {
+      width: 1188px;
+      height: 60px;
+      @include flex (center, center);
+
+      .nav-list {
+      
+        @include flex(space-between);
+       
+        list-style-type: none;
+        gap: 40px;
+  
+        .nav-item {
+          position: relative;
+          height: 28px;
+  
+          a {
+            @include text-link-and-btn;
+            line-height: 150%;
+            color: $color-text-dark;
+          }
+
+          .nav-line {
+            @include line-under-link;
+          }
+
+          &:hover .nav-line{
+            width: 100%;
+            opacity: 1;
+          }          
+        }
+      }
+    }
+
+    .coffee-menu {
+      width: 72px;
+      height: 28px;
+      position: relative;
+
+
+
+      .menu-link {
+        @include flex(space-between);
+
+        p {
+          @include text-link-and-btn;
+          line-height: 150%;
+          color: $color-text-dark;
+        }
+ 
+
+        img {
+          width:20px;
+          height: 20px;
+        }    
+      } 
+
+      .menu-line {
+        @include line-under-link;
+      }
+
+
+      &:hover .menu-line {
+        width: 100%;
+        opacity: 1;
+      } 
+    }
+  }
+}

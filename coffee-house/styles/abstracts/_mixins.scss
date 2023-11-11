@@ -73,3 +73,16 @@
   padding-left: 40px;
   padding-right: 40px;
 }
+
+@mixin line-under-link {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  display: block;
+  width: 0;
+  opacity: 0;
+  transition: 0.5s ease-out;
+  height: 2px;
+  background: $color-text-dark;
+}
