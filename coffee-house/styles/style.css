@@ -346,6 +346,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  background-color: #E1D4C9;
+}
+
 a {
   text-decoration: none;
 }
@@ -533,4 +537,126 @@ a {
 }
 .enjoy__btn:hover img {
   opacity: 1;
+}
+
+.favorites__wrapper {
+  width: 1440px;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 100px;
+  padding-bottom: 100px;
+}
+.favorites__title {
+  font-family: "Inter";
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+  color: #403F3D;
+  text-align: center;
+}
+.favorites__title span {
+  font-style: italic;
+  color: #B0907A;
+}
+.favorites .slider {
+  margin-top: 40px;
+}
+.favorites .slider__box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.favorites .slider__box .arrow-btn {
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border: 1px solid #665F55;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.favorites .slider__box .arrow-btn:hover {
+  background-color: #665F55;
+}
+.favorites .slider__box .arrow-btn:hover svg g path {
+  stroke: #E1D4C9;
+}
+.favorites .slider__box .arrow-btn svg g path {
+  stroke: #403F3D;
+}
+.favorites .slider__outer {
+  width: 480px;
+  height: 640px;
+}
+.favorites .slider__inner {
+  display: flex;
+  justify-content: normal;
+  align-items: normal;
+}
+.favorites .slider__inner .slide {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: normal;
+  align-items: center;
+}
+.favorites .slider__inner .slide__image {
+  width: 100%;
+  height: 480px;
+}
+.favorites .slider__inner .slide__title {
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+  color: #403F3D;
+  margin-top: 20px;
+}
+.favorites .slider__inner .slide__description {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  font-style: normal;
+  color: #403F3D;
+  margin-top: 16px;
+  text-align: center;
+}
+.favorites .slider__inner .slide__price {
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+  color: #403F3D;
+  margin-top: 16px;
+}
+.favorites .slider__pagination {
+  margin-top: 40px;
+  width: 144px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: normal;
+}
+.favorites .slider__pagination input {
+  display: none;
+}
+.favorites .slider__pagination input:checked + label {
+  background-color: #665F55;
+}
+.favorites .slider__pagination label {
+  width: 40px;
+  height: 4px;
+  background-color: #C1B6AD;
+  border-radius: 100px;
 }/*# sourceMappingURL=style.css.map */

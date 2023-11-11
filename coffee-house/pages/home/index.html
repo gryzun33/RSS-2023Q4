@@ -42,7 +42,6 @@
   <section class="enjoy">
     <div class="enjoy__wrapper">
       <div class="enjoy__box">
-
         <div class="enjoy__content">
           <h1 class="enjoy__title"><span>Enjoy</span>premium coffee at our charming cafe</h1>
           <p class="enjoy__text">With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite beverage.</p>
@@ -50,15 +49,51 @@
             <span>Menu</span>
             <img src="../../assets/icons/coffee-cup.svg" alt="coffee-cup">
           </a>
-
-        </div>
-
-       
+        </div>      
       </div>
-
-
     </div>
-
+  </section>
+  <section class="favorites">
+    <div class="favorites__wrapper">
+      <h2 class="favorites__title">Choose your <span>favorite</span> coffee</h2>
+      <div class="slider">
+        <div class="slider__box">
+          <button class="arrow-btn arrow-left">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <g id="arrow-left">
+              <path id="Vector" d="M18.5 12H6M6 12L12 6M6 12L12 18" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              </svg>
+          </button>
+          <div class="slider__outer">
+            <div class="slider__inner">
+              <div class="slide">
+                <img class="slide__image" src="../../assets/images/coffee-slider-1.png" alt="frappuccino">
+                <h3 class="slide__title">S’mores Frappuccino</h3>
+                <p class="slide__description">This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.</p>
+                <p class="slide__price">$5.50</p>
+              </div>
+            </div>
+          </div>
+          <button class="arrow-btn arrow-right">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <g id="arrow-right">
+              <path id="Vector" d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+            </svg>
+          </button>
+        </div>
+        <div class="slider__pagination">
+          <input type="radio" id="slide1" name="coffee-slider" checked>
+          <label for="slide1"></label>
+          <input type="radio" id="slide2" name="coffee-slider">
+          <label for="slide2"></label>
+          <input type="radio" id="slide3" name="coffee-slider">
+          <label for="slide3"></label>
+        </div>
+      </div>
+    </div>
+    
   </section>
 </body>
 </html>
