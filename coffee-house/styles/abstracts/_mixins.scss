@@ -72,6 +72,8 @@
   margin: 0 auto;
   padding-left: 40px;
   padding-right: 40px;
+  padding-bottom: 100px;
+  
 }
 
 @mixin line-under-link {
@@ -85,4 +87,13 @@
   transition: 0.5s ease-out;
   height: 2px;
   background: $color-text-dark;
+}
+
+@mixin btn-primary {
+  @include flex(center, center);
+  width: 200px;
+  height: 64px;
+  border-radius: 100px;
+
+  background-color: $color-bg-body;
 }
