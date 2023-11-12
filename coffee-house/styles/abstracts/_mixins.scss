@@ -101,6 +101,22 @@
   width: 200px;
   height: 64px;
   border-radius: 100px;
-
   background-color: $color-bg-body;
+}
+
+@mixin btn-app {
+  @include flex;
+  gap: 6px;
+  width: 200px;
+  height: 64px;
+  border-radius: 100px;
+  background-color: $color-bg-body;
+  border: 1px solid $color-border-dark;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+
+  &:hover {
+    background-color: $color-bg-container;
+  }
 }
