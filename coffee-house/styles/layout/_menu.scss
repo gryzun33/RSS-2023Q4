@@ -1,0 +1,75 @@
+.menu {
+
+  &__wrapper {
+    @include wrapper;
+    @include flex-column(normal, center);
+    padding-bottom: 605px;
+  }
+
+  &__title {
+    @include text-heading-2;
+    color: $color-text-dark;
+    width: 800px;
+    text-align: center;
+
+    span {
+      color: $color-text-accent;
+      font-style: italic;
+    }
+  }
+
+  &__tabs {
+    @include flex;
+    gap: 16px;
+    margin-top: 40px; 
+
+    label {
+      @include flex(normal, center);
+      padding: 8px 16px 8px 8px;
+      background-color: $color-bg-body;
+      border: 1px solid $color-border-light;
+      border-radius: 100px;
+      cursor: pointer;
+
+      .label-img {
+        width: 30px;
+        height: 30px;
+        border-radius: 100px;
+        background-color: $color-border-light;
+        @include flex(center, center);
+      }
+
+      .label-item {
+        @include text-link-and-btn;
+        margin-left: 8px;
+        color: $color-text-dark;
+      }
+
+
+
+    }
+
+    input {
+      display: none;
+    }
+
+    input:checked + label{
+      background-color: $color-bg-container;
+      border-color: $color-border-dark;
+    }
+
+    
+
+    input:checked + label .label-img {
+      background-color: $color-bg-body;
+    }
+
+    input:checked + label .label-item {
+      color: $color-text-light;
+    }
+
+   
+  }
+
+  
+}
