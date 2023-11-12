@@ -3,7 +3,7 @@
   &__wrapper {
     @include wrapper;
     @include flex-column(normal, center);
-    padding-bottom: 605px;
+    padding-bottom: 665px;
   }
 
   &__title {
@@ -25,7 +25,7 @@
 
     label {
       @include flex(normal, center);
-      padding: 8px 16px 8px 8px;
+      padding: 7px 15px 7px 7px;
       background-color: $color-bg-body;
       border: 1px solid $color-border-light;
       border-radius: 100px;
@@ -71,5 +71,56 @@
    
   }
 
-  
+  &__items {
+    @include flex-wrap;
+    list-style-type: none;
+    margin-top: 40px;
+    gap: 40px;
+
+
+    .menu-item {
+      width: 310px;
+      height: 506px;
+      border: 1px solid $color-border-light;
+      border-radius: 40px;
+      overflow: hidden;
+
+      &__image-wrapper {
+        width: 308px;
+        height: 308px;
+        border-radius: 0 0 40px 40px;
+        @include flex(center, center);
+        overflow: hidden;
+      }
+
+      &__description {
+        height: 196px;
+        padding: 20px;
+        @include flex-column(space-between);
+      }
+
+      &__title {
+        @include text-heading-3;
+        color: $color-text-dark;
+      }
+
+      &__text {
+        @include text-medium;
+        color: $color-text-dark;
+        margin-top: 12px;
+      }
+
+      &__price {
+        @include text-heading-3;
+        color: $color-text-dark;
+      }
+    }
+  }
+
+
+
+
+
+
+ 
 }
