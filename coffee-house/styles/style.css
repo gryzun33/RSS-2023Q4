@@ -803,4 +803,136 @@ a {
 }
 .mobile-app__buttons .mobile-btn:hover div p {
   color: #E1D4C9;
+}
+
+.footer__wrapper {
+  width: 1440px;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 100px;
+}
+.footer__container {
+  border-radius: 40px;
+  background-color: #665F55;
+  padding: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer__content {
+  width: 530px;
+}
+.footer__title {
+  font-family: "Inter";
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+  color: #E1D4C9;
+}
+.footer__title span {
+  font-style: italic;
+  color: #B0907A;
+  margin-right: 15px;
+}
+.footer__social {
+  display: flex;
+  justify-content: normal;
+  align-items: normal;
+  margin-top: 40px;
+  gap: 12px;
+  list-style-type: none;
+}
+.footer__social .social-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #E1D4C9;
+  border-radius: 50%;
+  background-color: #665F55;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+.footer__social .social-link:hover {
+  background-color: #E1D4C9;
+}
+.footer__social .social-link:hover svg g path {
+  stroke: #403F3D;
+}
+.footer__social .social-link:hover svg path {
+  stroke: #403F3D;
+}
+.footer__contacts {
+  width: 530px;
+}
+.footer__contacts .contacts-title {
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+  color: #E1D4C9;
+}
+.footer__contacts .contact-list {
+  margin-top: 38px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: normal;
+  align-items: normal;
+  gap: 16px;
+}
+.footer__contacts .contact-list .contacts-text {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+  line-height: 150%;
+  color: #E1D4C9;
+  margin-left: 8px;
+}
+.footer__contacts .contact-list .link-box, .footer__contacts .contact-list .schedule {
+  display: flex;
+  justify-content: normal;
+  align-items: normal;
+}
+.footer__contacts .contact-list li {
+  display: flex;
+}
+.footer__contacts .contact-list a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: normal;
+  align-items: normal;
+  height: 28px;
+}
+.footer__contacts .contact-list a img {
+  width: 20px;
+  height: 20px;
+}
+.footer__contacts .contact-list a:hover .link-line {
+  width: 100%;
+  opacity: 1;
+}
+.footer__contacts .contact-list .link-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  display: block;
+  width: 0;
+  opacity: 0;
+  transition: 0.5s ease-out;
+  height: 2px;
+  background: #403F3D;
+  background-color: #E1D4C9;
+}
+.footer__contacts .contact-list img {
+  width: 20px;
+  height: 20px;
 }/*# sourceMappingURL=style.css.map */
