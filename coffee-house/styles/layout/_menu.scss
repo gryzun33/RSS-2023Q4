@@ -29,6 +29,7 @@
       background-color: $color-bg-body;
       border: 1px solid $color-border-light;
       border-radius: 100px;
+      transition: 0.5s ease-in-out;
       cursor: pointer;
 
       .label-img {
@@ -49,6 +50,19 @@
 
     }
 
+    label:hover {
+      background-color: $color-bg-container;
+      border-color: $color-border-dark;
+    }
+
+    label:hover .label-img {
+      background-color: $color-bg-body;
+    }
+
+    label:hover .label-item {
+      color: $color-text-light;
+    }
+
     input {
       display: none;
     }
@@ -56,6 +70,7 @@
     input:checked + label{
       background-color: $color-bg-container;
       border-color: $color-border-dark;
+      pointer-events: none;
     }
 
     
@@ -84,6 +99,16 @@
       border: 1px solid $color-border-light;
       border-radius: 40px;
       overflow: hidden;
+      cursor: pointer;
+      // transition: 0.5s ease-in-out;
+
+      img {
+        transition: 0.5s ease-in-out;
+      }
+
+      &:hover img {
+        transform: scale(0.91);
+      }
 
       &__image-wrapper {
         width: 308px;
@@ -91,6 +116,7 @@
         border-radius: 0 0 40px 40px;
         @include flex(center, center);
         overflow: hidden;
+
       }
 
       &__description {

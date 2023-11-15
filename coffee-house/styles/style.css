@@ -549,7 +549,7 @@ a {
   opacity: 1;
 }
 
-.favorites__wrapper {
+.favorites-coffee__wrapper {
   width: 1440px;
   margin: 0 auto;
   padding-left: 40px;
@@ -557,7 +557,7 @@ a {
   padding-bottom: 100px;
   padding-bottom: 100px;
 }
-.favorites__title {
+.favorites-coffee__title {
   font-family: "Inter";
   font-size: 60px;
   font-weight: 600;
@@ -566,21 +566,21 @@ a {
   color: #403F3D;
   text-align: center;
 }
-.favorites__title span {
+.favorites-coffee__title span {
   font-style: italic;
   color: #B0907A;
 }
-.favorites .slider {
+.favorites-coffee .slider {
   margin-top: 40px;
 }
-.favorites .slider__box {
+.favorites-coffee .slider__box {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-left: 4px;
   padding-right: 4px;
 }
-.favorites .slider__box .arrow-btn {
+.favorites-coffee .slider__box .arrow-btn {
   width: 60px;
   height: 60px;
   background-color: transparent;
@@ -592,36 +592,36 @@ a {
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
-.favorites .slider__box .arrow-btn:hover {
+.favorites-coffee .slider__box .arrow-btn:hover {
   background-color: #665F55;
 }
-.favorites .slider__box .arrow-btn:hover svg g path {
+.favorites-coffee .slider__box .arrow-btn:hover svg g path {
   stroke: #E1D4C9;
 }
-.favorites .slider__box .arrow-btn svg g path {
+.favorites-coffee .slider__box .arrow-btn svg g path {
   stroke: #403F3D;
 }
-.favorites .slider__outer {
+.favorites-coffee .slider__outer {
   width: 480px;
   height: 640px;
 }
-.favorites .slider__inner {
+.favorites-coffee .slider__inner {
   display: flex;
   justify-content: normal;
   align-items: normal;
 }
-.favorites .slider__inner .slide {
+.favorites-coffee .slider__inner .slide {
   width: 480px;
   display: flex;
   flex-direction: column;
   justify-content: normal;
   align-items: center;
 }
-.favorites .slider__inner .slide__image {
+.favorites-coffee .slider__inner .slide__image {
   width: 100%;
   height: 480px;
 }
-.favorites .slider__inner .slide__title {
+.favorites-coffee .slider__inner .slide__title {
   font-family: "Inter";
   font-size: 24px;
   font-weight: 600;
@@ -630,7 +630,7 @@ a {
   color: #403F3D;
   margin-top: 20px;
 }
-.favorites .slider__inner .slide__description {
+.favorites-coffee .slider__inner .slide__description {
   font-family: "Inter";
   font-size: 16px;
   font-weight: 400;
@@ -640,7 +640,7 @@ a {
   margin-top: 16px;
   text-align: center;
 }
-.favorites .slider__inner .slide__price {
+.favorites-coffee .slider__inner .slide__price {
   font-family: "Inter";
   font-size: 24px;
   font-weight: 600;
@@ -649,7 +649,7 @@ a {
   color: #403F3D;
   margin-top: 16px;
 }
-.favorites .slider__pagination {
+.favorites-coffee .slider__pagination {
   margin-top: 40px;
   width: 144px;
   margin-left: auto;
@@ -658,13 +658,13 @@ a {
   justify-content: space-between;
   align-items: normal;
 }
-.favorites .slider__pagination input {
+.favorites-coffee .slider__pagination input {
   display: none;
 }
-.favorites .slider__pagination input:checked + label {
+.favorites-coffee .slider__pagination input:checked + label {
   background-color: #665F55;
 }
-.favorites .slider__pagination label {
+.favorites-coffee .slider__pagination label {
   width: 40px;
   height: 4px;
   background-color: #C1B6AD;
@@ -818,6 +818,8 @@ a {
 .footer {
   position: absolute;
   bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
 }
 .footer__wrapper {
   width: 1440px;
@@ -993,6 +995,7 @@ a {
   background-color: #E1D4C9;
   border: 1px solid #C1B6AD;
   border-radius: 100px;
+  transition: 0.5s ease-in-out;
   cursor: pointer;
 }
 .menu__tabs label .label-img {
@@ -1013,12 +1016,23 @@ a {
   margin-left: 8px;
   color: #403F3D;
 }
+.menu__tabs label:hover {
+  background-color: #665F55;
+  border-color: #665F55;
+}
+.menu__tabs label:hover .label-img {
+  background-color: #E1D4C9;
+}
+.menu__tabs label:hover .label-item {
+  color: #E1D4C9;
+}
 .menu__tabs input {
   display: none;
 }
 .menu__tabs input:checked + label {
   background-color: #665F55;
   border-color: #665F55;
+  pointer-events: none;
 }
 .menu__tabs input:checked + label .label-img {
   background-color: #E1D4C9;
@@ -1041,6 +1055,13 @@ a {
   border: 1px solid #C1B6AD;
   border-radius: 40px;
   overflow: hidden;
+  cursor: pointer;
+}
+.menu__items .menu-item img {
+  transition: 0.5s ease-in-out;
+}
+.menu__items .menu-item:hover img {
+  transform: scale(0.91);
 }
 .menu__items .menu-item__image-wrapper {
   width: 308px;
