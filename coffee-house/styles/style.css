@@ -374,6 +374,7 @@ a {
 .header__wrapper .logo-wrapper {
   width: 100px;
   height: 60px;
+  cursor: pointer;
 }
 .header__wrapper .logo-wrapper .logo {
   width: 100%;
@@ -460,6 +461,9 @@ a {
 .header__wrapper .coffee-menu:hover .menu-line {
   width: 100%;
   opacity: 1;
+}
+.header__wrapper .menu-disabled {
+  pointer-events: none;
 }
 
 .enjoy {
@@ -777,10 +781,14 @@ a {
 .mobile-app__buttons .mobile-btn:hover {
   background-color: #665F55;
 }
-.mobile-app__buttons .mobile-btn div {
+.mobile-app__buttons .mobile-btn span {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: normal;
+  align-items: normal;
 }
-.mobile-app__buttons .mobile-btn div p:first-child {
+.mobile-app__buttons .mobile-btn span span:first-child {
   font-family: "Inter";
   font-size: 10px;
   font-weight: 600;
@@ -788,14 +796,13 @@ a {
   font-style: normal;
   color: #403F3D;
 }
-.mobile-app__buttons .mobile-btn div p:last-child {
+.mobile-app__buttons .mobile-btn span span:last-child {
   font-family: "Inter";
   font-size: 16px;
   font-weight: 600;
   line-height: 150%;
   font-style: normal;
   color: #403F3D;
-  line-height: 150%;
   margin-top: 2px;
 }
 .mobile-app__buttons .mobile-btn:hover svg g path {
@@ -804,7 +811,7 @@ a {
 .mobile-app__buttons .mobile-btn:hover svg path {
   fill: #E1D4C9;
 }
-.mobile-app__buttons .mobile-btn:hover div p {
+.mobile-app__buttons .mobile-btn:hover > span > span {
   color: #E1D4C9;
 }
 

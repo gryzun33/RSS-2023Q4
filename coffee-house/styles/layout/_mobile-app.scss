@@ -34,19 +34,18 @@
     .mobile-btn {
       @include btn-app;
 
-      div {
+      span {
         text-align: left;
-        // padding-left: 2px;
+        @include flex-column;
 
-        p:first-child {
+        span:first-child {
           @include text-caption;
           color: $color-text-dark;
         }
 
-        p:last-child {
+        span:last-child {
           @include text-link-and-btn;
           color: $color-text-dark;
-          line-height: 150%;
           margin-top: 2px;
         }
       }
@@ -59,7 +58,7 @@
         fill: $color-text-light;
       }
 
-      &:hover div p {
+      &:hover > span > span {
         color: $color-text-light;
       }
     }
