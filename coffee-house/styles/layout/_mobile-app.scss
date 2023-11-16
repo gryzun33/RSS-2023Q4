@@ -3,7 +3,6 @@
   &__wrapper {
     @include wrapper;
     @include flex(space-between, center);
-    padding-bottom: 665px;
   }
 
   &__content {

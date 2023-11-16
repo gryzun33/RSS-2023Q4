@@ -79,6 +79,11 @@
 
       .menu-line {
         @include line-under-link;
+
+        &__visible {
+          width: 100%;
+          opacity: 1;
+        }
       }
 
 

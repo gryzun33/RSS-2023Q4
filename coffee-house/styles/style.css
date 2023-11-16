@@ -348,7 +348,6 @@ html {
 
 body {
   background-color: #E1D4C9;
-  position: relative;
   min-height: 100dvh;
 }
 
@@ -457,6 +456,10 @@ a {
   transition: 0.5s ease-out;
   height: 2px;
   background: #403F3D;
+}
+.header__wrapper .coffee-menu .menu-line__visible {
+  width: 100%;
+  opacity: 1;
 }
 .header__wrapper .coffee-menu:hover .menu-line {
   width: 100%;
@@ -731,7 +734,6 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 665px;
 }
 .mobile-app__content {
   width: 630px;
@@ -815,12 +817,6 @@ a {
   color: #E1D4C9;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%);
-}
 .footer__wrapper {
   width: 1440px;
   margin: 0 auto;
@@ -964,7 +960,6 @@ a {
   flex-direction: column;
   justify-content: normal;
   align-items: center;
-  padding-bottom: 665px;
 }
 .menu__title {
   font-family: "Inter";

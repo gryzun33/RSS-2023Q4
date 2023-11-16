@@ -3,7 +3,6 @@
   &__wrapper {
     @include wrapper;
     @include flex-column(normal, center);
-    padding-bottom: 665px;
   }
 
   &__title {
