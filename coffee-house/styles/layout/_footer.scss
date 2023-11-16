@@ -1,5 +1,4 @@
 .footer {
-
   &__wrapper {
     @include wrapper;
     padding-bottom: 40px;
@@ -10,7 +9,6 @@
     background-color: $color-bg-container;
     padding: 100px;
     @include flex(space-between, center);
-
   }
 
   &__content {
@@ -67,11 +65,10 @@
     }
 
     .contact-list {
-      margin-top: 38px;
+      margin-top: 40px;
       list-style-type: none;
       @include flex-column;
       gap: 16px;
-
 
       .contacts-text {
         @include text-link-and-btn;
@@ -80,14 +77,19 @@
         margin-left: 8px;
       }
 
-      .link-box, .schedule {
+      .link-box,
+      .schedule {
         @include flex;
-      } 
-       
+      }
+
       li {
         display: flex;
+
+        .schedule {
+          height: 28px;
+        }
       }
-      
+
       a {
         position: relative;
         @include flex-column;
@@ -113,6 +115,6 @@
         width: 20px;
         height: 20px;
       }
-    }  
+    }
   }
 }

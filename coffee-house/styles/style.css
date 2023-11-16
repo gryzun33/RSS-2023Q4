@@ -388,7 +388,7 @@ a {
 }
 .header__wrapper .navigation .nav-list {
   display: flex;
-  justify-content: space-between;
+  justify-content: normal;
   align-items: normal;
   list-style-type: none;
   gap: 40px;
@@ -403,7 +403,6 @@ a {
   font-weight: 600;
   line-height: 150%;
   font-style: normal;
-  line-height: 150%;
   color: #403F3D;
 }
 .header__wrapper .navigation .nav-list .nav-item .nav-line {
@@ -890,7 +889,7 @@ a {
   color: #E1D4C9;
 }
 .footer__contacts .contact-list {
-  margin-top: 38px;
+  margin-top: 40px;
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -908,13 +907,17 @@ a {
   color: #E1D4C9;
   margin-left: 8px;
 }
-.footer__contacts .contact-list .link-box, .footer__contacts .contact-list .schedule {
+.footer__contacts .contact-list .link-box,
+.footer__contacts .contact-list .schedule {
   display: flex;
   justify-content: normal;
   align-items: normal;
 }
 .footer__contacts .contact-list li {
   display: flex;
+}
+.footer__contacts .contact-list li .schedule {
+  height: 28px;
 }
 .footer__contacts .contact-list a {
   position: relative;
