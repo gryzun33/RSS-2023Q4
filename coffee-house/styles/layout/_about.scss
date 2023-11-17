@@ -1,5 +1,4 @@
 .about {
-
   &__wrapper {
     @include wrapper;
   }
@@ -28,7 +27,7 @@
       height: 590px;
       overflow: hidden;
       border-radius: 20px;
-      cursor: pointer;
+      // cursor: pointer;
 
       img {
         transition: 0.5s ease-in-out;
@@ -37,11 +36,11 @@
       img:hover {
         transform: scale(0.91);
       }
-     
     }
 
-    .image-wrapper:nth-child(2), .image-wrapper:nth-child(3) {
+    .image-wrapper:nth-child(2),
+    .image-wrapper:nth-child(3) {
       height: 430px;
-    } 
+    }
   }
 }

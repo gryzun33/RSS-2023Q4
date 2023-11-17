@@ -1,19 +1,21 @@
 @font-face {
   font-family: 'Inter';
-  src: url('../assets/fonts/Inter/Inter-Regular.eot') format('embedded-opentype'),
-       url('../assets/fonts/Inter/Inter-Regular.woff2') format('woff2'),
-       url('../assets/fonts/Inter/Inter-Regular.woff') format('woff'),
-       url('../assets/fonts/Inter/Inter-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/Inter/Inter-Regular.eot')
+      format('embedded-opentype'),
+    url('../assets/fonts/Inter/Inter-Regular.woff2') format('woff2'),
+    url('../assets/fonts/Inter/Inter-Regular.woff') format('woff'),
+    url('../assets/fonts/Inter/Inter-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url('../assets/fonts/Inter/Inter-SemiBold.eot') format('embedded-opentype'),
-       url('../assets/fonts/Inter/Inter-SemiBold.woff2') format('woff2'),
-       url('../assets/fonts/Inter/Inter-SemiBold.woff') format('woff'),
-       url('../assets/fonts/Inter/Inter-SemiBold.ttf') format('truetype');
+  src: url('../assets/fonts/Inter/Inter-SemiBold.eot')
+      format('embedded-opentype'),
+    url('../assets/fonts/Inter/Inter-SemiBold.woff2') format('woff2'),
+    url('../assets/fonts/Inter/Inter-SemiBold.woff') format('woff'),
+    url('../assets/fonts/Inter/Inter-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
@@ -21,19 +23,20 @@
 @font-face {
   font-family: 'Inter';
   src: url('../assets/fonts/Inter/Inter-Italic.eot') format('embedded-opentype'),
-       url('../assets/fonts/Inter/Inter-Italic.woff2') format('woff2'),
-       url('../assets/fonts/Inter/Inter-Italic.woff') format('woff'),
-       url('../assets/fonts/Inter/Inter-Italic.ttf') format('truetype');
+    url('../assets/fonts/Inter/Inter-Italic.woff2') format('woff2'),
+    url('../assets/fonts/Inter/Inter-Italic.woff') format('woff'),
+    url('../assets/fonts/Inter/Inter-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url('../assets/fonts/Inter/Inter-SemiBoldItalic.eot') format('embedded-opentype'),
-       url('../assets/fonts/Inter/Inter-SemiBoldItalic.woff2') format('woff2'),
-       url('../assets/fonts/Inter/Inter-SemiBoldItalic.woff') format('woff'),
-       url('../assets/fonts/Inter/Inter-SemiBoldItalic.ttf') format('truetype');
+  src: url('../assets/fonts/Inter/Inter-SemiBoldItalic.eot')
+      format('embedded-opentype'),
+    url('../assets/fonts/Inter/Inter-SemiBoldItalic.woff2') format('woff2'),
+    url('../assets/fonts/Inter/Inter-SemiBoldItalic.woff') format('woff'),
+    url('../assets/fonts/Inter/Inter-SemiBoldItalic.ttf') format('truetype');
   font-weight: 600;
   font-style: italic;
 }

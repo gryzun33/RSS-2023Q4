@@ -1,16 +1,16 @@
 .enjoy {
   background-color: $color-bg-body;
-  
 
   &__wrapper {
     @include wrapper;
   }
 
   &__box {
-    width:100%;
+    width: 100%;
     height: 644px;
     border-radius: 40px;
-    background: url('../assets/images/img-hero.jpg'), lightgray 50% / cover no-repeat;
+    background: url('../assets/images/img-hero.jpg'),
+      lightgray 50% / cover no-repeat;
     background-size: 100% auto;
     background-position: 0% 50%;
     padding: 100px;
@@ -41,7 +41,7 @@
 
   &__btn {
     @include btn-primary;
-    gap:8px;
+    gap: 8px;
 
     span {
       @include text-link-and-btn;
@@ -49,7 +49,6 @@
       color: $color-text-dark;
       transform: translateX(12px);
       transition: 0.5s ease-in-out;
-      
     }
 
     img {
@@ -67,6 +66,4 @@
       opacity: 1;
     }
   }
-
-
 }
