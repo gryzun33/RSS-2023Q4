@@ -1,0 +1,64 @@
+.mobile-app {
+  &__wrapper {
+    @include wrapper;
+    @include flex(space-between, center);
+  }
+
+  &__content {
+    width: 630px;
+  }
+
+  &__title {
+    @include text-heading-2(normal);
+    color: $color-text-dark;
+
+    span {
+      color: $color-text-accent;
+      font-style: italic;
+    }
+  }
+
+  &__text {
+    @include text-medium;
+    color: $color-text-dark;
+    margin-top: 40px;
+  }
+
+  &__buttons {
+    @include flex;
+    gap: 20px;
+    margin-top: 40px;
+
+    .mobile-btn {
+      @include btn-app;
+
+      span {
+        text-align: left;
+        @include flex-column;
+
+        span:first-child {
+          @include text-caption;
+          color: $color-text-dark;
+        }
+
+        span:last-child {
+          @include text-link-and-btn;
+          color: $color-text-dark;
+          margin-top: 2px;
+        }
+      }
+
+      &:hover svg g path {
+        fill: $color-text-light;
+      }
+
+      &:hover svg path {
+        fill: $color-text-light;
+      }
+
+      &:hover > span > span {
+        color: $color-text-light;
+      }
+    }
+  }
+}

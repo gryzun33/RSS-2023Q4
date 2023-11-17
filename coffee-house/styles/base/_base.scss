@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: $color-bg-body;
+  min-height: 100dvh;
+}
+
+a {
+  text-decoration: none;
+}

@@ -1,0 +1,69 @@
+.enjoy {
+  background-color: $color-bg-body;
+
+  &__wrapper {
+    @include wrapper;
+  }
+
+  &__box {
+    width: 100%;
+    height: 644px;
+    border-radius: 40px;
+    background: url('../assets/images/img-hero.jpg'),
+      lightgray 50% / cover no-repeat;
+    background-size: 100% auto;
+    background-position: 0% 50%;
+    padding: 100px;
+  }
+
+  &__content {
+    width: 535px;
+    @include flex-column;
+    gap: 40px;
+  }
+
+  &__title {
+    @include text-heading-1(normal);
+    color: $color-text-light;
+    margin: 0;
+
+    span {
+      font-style: italic;
+      color: $color-text-accent;
+      margin-right: 17px;
+    }
+  }
+
+  &__text {
+    @include text-medium;
+    color: $color-text-light;
+  }
+
+  &__btn {
+    @include btn-primary;
+    gap: 8px;
+
+    span {
+      @include text-link-and-btn;
+      line-height: 150%;
+      color: $color-text-dark;
+      transform: translateX(12px);
+      transition: 0.5s ease-in-out;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    &:hover span {
+      transform: translateX(0px);
+    }
+
+    &:hover img {
+      opacity: 1;
+    }
+  }
+}

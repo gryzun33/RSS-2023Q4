@@ -1,0 +1,120 @@
+.footer {
+  &__wrapper {
+    @include wrapper;
+    padding-bottom: 40px;
+  }
+
+  &__container {
+    border-radius: 40px;
+    background-color: $color-bg-container;
+    padding: 100px;
+    @include flex(space-between, center);
+  }
+
+  &__content {
+    width: 530px;
+  }
+
+  &__title {
+    @include text-heading-2;
+    color: $color-text-light;
+
+    span {
+      font-style: italic;
+      color: $color-text-accent;
+      margin-right: 15px;
+    }
+  }
+
+  &__social {
+    @include flex;
+    margin-top: 40px;
+    gap: 12px;
+    list-style-type: none;
+
+    .social-link {
+      @include flex(center, center);
+      width: 60px;
+      height: 60px;
+      border: 1px solid $color-text-light;
+      border-radius: 50%;
+      background-color: $color-bg-container;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color-bg-body;
+      }
+
+      &:hover svg g path {
+        stroke: $color-text-dark;
+      }
+
+      &:hover svg path {
+        stroke: $color-text-dark;
+      }
+    }
+  }
+
+  &__contacts {
+    width: 530px;
+
+    .contacts-title {
+      @include text-heading-3;
+      color: $color-text-light;
+    }
+
+    .contact-list {
+      margin-top: 40px;
+      list-style-type: none;
+      @include flex-column;
+      gap: 16px;
+
+      .contacts-text {
+        @include text-link-and-btn;
+        line-height: 150%;
+        color: $color-text-light;
+        margin-left: 8px;
+      }
+
+      .link-box,
+      .schedule {
+        @include flex;
+      }
+
+      li {
+        display: flex;
+
+        .schedule {
+          height: 28px;
+        }
+      }
+
+      a {
+        position: relative;
+        @include flex-column;
+        height: 28px;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      a:hover .link-line {
+        width: 100%;
+        opacity: 1;
+      }
+
+      .link-line {
+        @include line-under-link;
+        background-color: $color-text-light;
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

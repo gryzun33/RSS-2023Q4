@@ -1,0 +1,134 @@
+.menu {
+  &__wrapper {
+    @include wrapper;
+    @include flex-column(normal, center);
+  }
+
+  &__title {
+    @include text-heading-2;
+    color: $color-text-dark;
+    width: 800px;
+    text-align: center;
+
+    span {
+      color: $color-text-accent;
+      font-style: italic;
+    }
+  }
+
+  &__tabs {
+    @include flex;
+    gap: 16px;
+    margin-top: 40px;
+
+    label {
+      @include flex(normal, center);
+      padding: 7px 15px 7px 7px;
+      background-color: $color-bg-body;
+      border: 1px solid $color-border-light;
+      border-radius: 100px;
+      transition: 0.5s ease-in-out;
+      cursor: pointer;
+
+      .label-img {
+        width: 30px;
+        height: 30px;
+        border-radius: 100px;
+        background-color: $color-border-light;
+        @include flex(center, center);
+      }
+
+      .label-item {
+        @include text-link-and-btn;
+        margin-left: 8px;
+        color: $color-text-dark;
+      }
+    }
+
+    label:hover {
+      background-color: $color-bg-container;
+      border-color: $color-border-dark;
+    }
+
+    label:hover .label-img {
+      background-color: $color-bg-body;
+    }
+
+    label:hover .label-item {
+      color: $color-text-light;
+    }
+
+    input {
+      display: none;
+    }
+
+    input:checked + label {
+      background-color: $color-bg-container;
+      border-color: $color-border-dark;
+      pointer-events: none;
+    }
+
+    input:checked + label .label-img {
+      background-color: $color-bg-body;
+    }
+
+    input:checked + label .label-item {
+      color: $color-text-light;
+    }
+  }
+
+  &__items {
+    @include flex-wrap;
+    list-style-type: none;
+    margin-top: 40px;
+    gap: 40px;
+
+    .menu-item {
+      width: 310px;
+      height: 506px;
+      border: 1px solid $color-border-light;
+      border-radius: 40px;
+      overflow: hidden;
+      cursor: pointer;
+      // transition: 0.5s ease-in-out;
+
+      img {
+        transition: 0.5s ease-in-out;
+      }
+
+      &:hover img {
+        transform: scale(0.91);
+      }
+
+      &__image-wrapper {
+        width: 310px;
+        height: 310px;
+        border-radius: 0 0 40px 40px;
+        @include flex(center, center);
+        overflow: hidden;
+      }
+
+      &__description {
+        height: 196px;
+        padding: 20px;
+        @include flex-column(space-between);
+      }
+
+      &__title {
+        @include text-heading-3;
+        color: $color-text-dark;
+      }
+
+      &__text {
+        @include text-medium;
+        color: $color-text-dark;
+        margin-top: 12px;
+      }
+
+      &__price {
+        @include text-heading-3;
+        color: $color-text-dark;
+      }
+    }
+  }
+}
