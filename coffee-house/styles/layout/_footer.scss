@@ -8,11 +8,27 @@
     border-radius: 40px;
     background-color: $color-bg-container;
     padding: 100px;
-    @include flex(space-between, center);
+    @include flex(normal, center);
+    gap: 100px;
+
+    @include desktop-1250 {
+      padding-left: 60px;
+      padding-right: 60px;
+      gap: 30px;
+    }
+
+    @include laptops {
+      flex-direction: column;
+      gap: 100px;
+    }
   }
 
   &__content {
     width: 530px;
+
+    @include laptops {
+      width: 568px;
+    }
   }
 
   &__title {
@@ -57,7 +73,13 @@
   }
 
   &__contacts {
-    width: 530px;
+    @include laptops {
+      width: 568px;
+    }
+
+    // @include tablets {
+    //   width: 100%;
+    // }
 
     .contacts-title {
       @include text-heading-3;

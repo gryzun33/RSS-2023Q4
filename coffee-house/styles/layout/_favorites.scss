@@ -23,6 +23,10 @@
       padding-left: 4px;
       padding-right: 4px;
 
+      @include laptops {
+        padding: 0;
+      }
+
       .arrow-btn {
         width: 60px;
         height: 60px;
@@ -87,19 +91,11 @@
     }
 
     &__controls {
-      // margin: 0 auto;
-
       margin-top: 40px;
       width: 144px;
       margin-left: auto;
       margin-right: auto;
       @include flex(space-between);
-
-      // gap: 12px;
-
-      // input:checked + label {
-      //   background-color: $color-border-dark;
-      // }
 
       .control {
         width: 40px;

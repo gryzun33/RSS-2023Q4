@@ -21,6 +21,14 @@
     gap: 40px;
     margin-top: 40px;
 
+    @include desktop-1439 {
+      // flex-wrap: nowrap;
+      height: auto;
+      align-content: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .image-wrapper {
       @include flex(center, center);
       width: 660px;
@@ -28,6 +36,10 @@
       overflow: hidden;
       border-radius: 20px;
       // cursor: pointer;
+
+      @include desktop-1439 {
+        width: 688px;
+      }
 
       img {
         transition: 0.5s ease-in-out;
@@ -41,6 +53,10 @@
     .image-wrapper:nth-child(2),
     .image-wrapper:nth-child(3) {
       height: 430px;
+
+      @include desktop-1439 {
+        display: none;
+      }
     }
   }
 }

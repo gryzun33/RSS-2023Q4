@@ -75,7 +75,7 @@
 }
 
 @mixin wrapper {
-  width: 1440px;
+  max-width: 1440px;
   margin: 0 auto;
   padding-left: 40px;
   padding-right: 40px;
@@ -117,5 +117,29 @@
 
   &:hover {
     background-color: $color-bg-container;
+  }
+}
+
+@mixin desktop-1439 {
+  @media screen and (max-width: 1439px) {
+    @content;
+  }
+}
+
+@mixin desktop-1250 {
+  @media screen and (max-width: 1250px) {
+    @content;
+  }
+}
+
+@mixin laptops {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin tablets {
+  @media screen and (max-width: 767px) {
+    @content;
   }
 }
