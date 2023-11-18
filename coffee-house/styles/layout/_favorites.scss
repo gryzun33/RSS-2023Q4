@@ -32,23 +32,21 @@
       }
 
       .arrow-btn {
-        width: 60px;
-        height: 60px;
-        background-color: transparent;
-        border: 1px solid $color-border-dark;
-        border-radius: 50%;
-        @include flex(center, center);
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-
-        &:hover {
-          background-color: $color-bg-container;
-        }
-
-        &:hover svg g path {
-          stroke: $color-text-light;
-        }
-
+        @include btn-icon;
+        // width: 60px;
+        // height: 60px;
+        // background-color: transparent;
+        // border: 1px solid $color-border-dark;
+        // border-radius: 50%;
+        // @include flex(center, center);
+        // cursor: pointer;
+        // transition: 0.3s ease-in-out;
+        // &:hover {
+        //   background-color: $color-bg-container;
+        // }
+        // &:hover svg g path {
+        //   stroke: $color-text-light;
+        // }
         @include tablets {
           display: none;
         }
@@ -56,7 +54,7 @@
 
       .arrow-btn svg g path {
         stroke: $color-text-dark;
-        // transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
       }
     }
 

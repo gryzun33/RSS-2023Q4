@@ -10,6 +10,10 @@
     width: 800px;
     text-align: center;
 
+    @include laptops {
+      width: 100%;
+    }
+
     span {
       color: $color-text-accent;
       font-style: italic;
@@ -20,6 +24,10 @@
     @include flex;
     gap: 16px;
     margin-top: 40px;
+
+    @include mobile {
+      gap: 8px;
+    }
 
     label {
       @include flex(normal, center);
@@ -79,9 +87,20 @@
 
   &__items {
     @include flex-wrap;
+    justify-content: center;
     list-style-type: none;
     margin-top: 40px;
     gap: 40px;
+
+    @include desktop-1439 {
+      height: 1052px;
+      overflow: hidden;
+    }
+
+    @include tablets {
+      width: 310px;
+      height: 2144px;
+    }
 
     .menu-item {
       width: 310px;
@@ -129,6 +148,16 @@
         @include text-heading-3;
         color: $color-text-dark;
       }
+    }
+  }
+
+  .refresh-btn {
+    @include btn-icon;
+    margin-top: 40px;
+    display: none;
+
+    @include desktop-1439 {
+      display: flex;
     }
   }
 }

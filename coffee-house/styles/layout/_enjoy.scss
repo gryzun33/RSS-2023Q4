@@ -66,12 +66,13 @@
     @include btn-primary;
     gap: 8px;
 
-    span {
+    .enjoy-btn-text {
       @include text-link-and-btn;
       line-height: 150%;
       color: $color-text-dark;
-      transform: translateX(12px);
+      transform: translateX(14px);
       transition: 0.5s ease-in-out;
+      // padding-left: 2px;
 
       @include laptops {
         transform: translateX(0px);

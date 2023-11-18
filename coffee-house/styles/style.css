@@ -626,7 +626,7 @@ a {
   background-color: #e1d4c9;
   gap: 8px;
 }
-.enjoy__btn span {
+.enjoy__btn .enjoy-btn-text {
   font-family: "Inter";
   font-size: 16px;
   font-weight: 600;
@@ -634,11 +634,11 @@ a {
   font-style: normal;
   line-height: 150%;
   color: #403f3d;
-  transform: translateX(12px);
+  transform: translateX(14px);
   transition: 0.5s ease-in-out;
 }
 @media screen and (max-width: 1024px) {
-  .enjoy__btn span {
+  .enjoy__btn .enjoy-btn-text {
     transform: translateX(0px);
   }
 }
@@ -748,6 +748,7 @@ a {
 }
 .favorites-coffee .slider__box .arrow-btn svg g path {
   stroke: #403f3d;
+  transition: 0.3s ease-in-out;
 }
 .favorites-coffee .slider__outer {
   width: 480px;
@@ -1323,6 +1324,11 @@ a {
     font-size: 32px;
   }
 }
+@media screen and (max-width: 1024px) {
+  .menu__title {
+    width: 100%;
+  }
+}
 .menu__title span {
   color: #b0907a;
   font-style: italic;
@@ -1333,6 +1339,11 @@ a {
   align-items: normal;
   gap: 16px;
   margin-top: 40px;
+}
+@media screen and (max-width: 575px) {
+  .menu__tabs {
+    gap: 8px;
+  }
 }
 .menu__tabs label {
   display: flex;
@@ -1392,9 +1403,22 @@ a {
   flex-wrap: wrap;
   justify-content: normal;
   align-content: normal;
+  justify-content: center;
   list-style-type: none;
   margin-top: 40px;
   gap: 40px;
+}
+@media screen and (max-width: 1439px) {
+  .menu__items {
+    height: 1052px;
+    overflow: hidden;
+  }
+}
+@media screen and (max-width: 767px) {
+  .menu__items {
+    width: 310px;
+    height: 2144px;
+  }
 }
 .menu__items .menu-item {
   width: 310px;
@@ -1451,4 +1475,29 @@ a {
   line-height: 125%;
   font-style: normal;
   color: #403f3d;
+}
+.menu .refresh-btn {
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border: 1px solid #665f55;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  margin-top: 40px;
+  display: none;
+}
+.menu .refresh-btn:hover {
+  background-color: #665f55;
+}
+.menu .refresh-btn:hover svg g path {
+  stroke: #e1d4c9;
+}
+@media screen and (max-width: 1439px) {
+  .menu .refresh-btn {
+    display: flex;
+  }
 }/*# sourceMappingURL=style.css.map */
