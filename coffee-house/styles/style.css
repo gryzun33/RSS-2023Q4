@@ -484,9 +484,10 @@ a {
   width: 100%;
   height: 644px;
   border-radius: 40px;
-  background: url("../assets/images/img-hero.jpg"), lightgray 50%/cover no-repeat;
-  background-size: 100% auto;
-  background-position: 0% 50%;
+  background: url("../assets/images/img-hero.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
   padding: 100px;
 }
 .enjoy__content {
@@ -537,7 +538,7 @@ a {
   font-style: normal;
   line-height: 150%;
   color: #403f3d;
-  transform: translateX(12px);
+  transform: translateX(14px);
   transition: 0.5s ease-in-out;
 }
 .enjoy__btn img {
