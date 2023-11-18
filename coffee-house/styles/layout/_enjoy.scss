@@ -19,12 +19,21 @@
     @include laptops {
       padding: 100px 60px;
     }
+
+    @include mobile {
+      padding: 60px 16px;
+      height: 552px;
+    }
   }
 
   &__content {
     width: 535px;
     @include flex-column;
     gap: 40px;
+
+    @include tablets {
+      width: 100%;
+    }
   }
 
   &__title {
@@ -33,10 +42,18 @@
     margin: 0;
     height: 228px;
 
+    @include tablets {
+      height: auto;
+    }
+
     span {
       font-style: italic;
       color: $color-text-accent;
       margin-right: 17px;
+
+      @include mobile {
+        margin-right: 10px;
+      }
     }
   }
 

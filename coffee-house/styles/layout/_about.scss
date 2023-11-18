@@ -41,6 +41,10 @@
         width: 688px;
       }
 
+      @include tablets {
+        width: 100%;
+      }
+
       img {
         transition: 0.5s ease-in-out;
       }

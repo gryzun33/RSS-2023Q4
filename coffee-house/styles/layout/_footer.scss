@@ -21,6 +21,14 @@
       flex-direction: column;
       gap: 100px;
     }
+
+    @include tablets {
+      gap: 40px;
+    }
+
+    @include mobile {
+      padding: 60px 16px;
+    }
   }
 
   &__content {
@@ -28,6 +36,10 @@
 
     @include laptops {
       width: 568px;
+    }
+
+    @include tablets {
+      width: 100%;
     }
   }
 
@@ -77,9 +89,9 @@
       width: 568px;
     }
 
-    // @include tablets {
-    //   width: 100%;
-    // }
+    @include tablets {
+      width: 100%;
+    }
 
     .contacts-title {
       @include text-heading-3;
