@@ -69,16 +69,18 @@
         }
       }
 
-      &:hover svg g path {
-        fill: $color-text-light;
-      }
+      @media (hover: hover) {
+        &:hover svg g path {
+          fill: $color-text-light;
+        }
 
-      &:hover svg path {
-        fill: $color-text-light;
-      }
+        &:hover svg path {
+          fill: $color-text-light;
+        }
 
-      &:hover > span > span {
-        color: $color-text-light;
+        &:hover > span > span {
+          color: $color-text-light;
+        }
       }
     }
   }

@@ -8,7 +8,6 @@
     padding-bottom: 20px;
 
     .logo-wrapper {
-      // display: block;
       width: 100px;
       height: 60px;
       cursor: pointer;
@@ -43,9 +42,11 @@
             @include line-under-link;
           }
 
-          &:hover .nav-line {
-            width: 100%;
-            opacity: 1;
+          @media (hover: hover) {
+            &:hover .nav-line {
+              width: 100%;
+              opacity: 1;
+            }
           }
         }
       }
@@ -84,9 +85,11 @@
         }
       }
 
-      &:hover .menu-line {
-        width: 100%;
-        opacity: 1;
+      @media (hover: hover) {
+        &:hover .menu-line {
+          width: 100%;
+          opacity: 1;
+        }
       }
 
       @include tablets-768 {

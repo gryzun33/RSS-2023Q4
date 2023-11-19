@@ -70,16 +70,18 @@
       transition: 0.3s ease-in-out;
       cursor: pointer;
 
-      &:hover {
-        background-color: $color-bg-body;
-      }
+      @media (hover: hover) {
+        &:hover {
+          background-color: $color-bg-body;
+        }
 
-      &:hover svg g path {
-        stroke: $color-text-dark;
-      }
+        &:hover svg g path {
+          stroke: $color-text-dark;
+        }
 
-      &:hover svg path {
-        stroke: $color-text-dark;
+        &:hover svg path {
+          stroke: $color-text-dark;
+        }
       }
     }
   }
@@ -133,11 +135,13 @@
           width: 20px;
           height: 20px;
         }
-      }
 
-      a:hover .link-line {
-        width: 100%;
-        opacity: 1;
+        @media (hover: hover) {
+          &:hover .link-line {
+            width: 100%;
+            opacity: 1;
+          }
+        }
       }
 
       .link-line {

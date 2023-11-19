@@ -51,19 +51,21 @@
         margin-left: 8px;
         color: $color-text-dark;
       }
-    }
 
-    label:hover {
-      background-color: $color-bg-container;
-      border-color: $color-border-dark;
-    }
+      @media (hover: hover) {
+        &:hover {
+          background-color: $color-bg-container;
+          border-color: $color-border-dark;
+        }
 
-    label:hover .label-img {
-      background-color: $color-bg-body;
-    }
+        &:hover .label-img {
+          background-color: $color-bg-body;
+        }
 
-    label:hover .label-item {
-      color: $color-text-light;
+        &:hover .label-item {
+          color: $color-text-light;
+        }
+      }
     }
 
     input {
@@ -109,14 +111,15 @@
       border-radius: 40px;
       overflow: hidden;
       cursor: pointer;
-      // transition: 0.5s ease-in-out;
 
       img {
         transition: 0.5s ease-in-out;
       }
 
-      &:hover img {
-        transform: scale(0.91);
+      @media (hover: hover) {
+        &:hover img {
+          transform: scale(0.91);
+        }
       }
 
       &__image-wrapper {

@@ -431,9 +431,11 @@ a {
   height: 2px;
   background: #403f3d;
 }
-.header__wrapper .navigation .nav-list .nav-item:hover .nav-line {
-  width: 100%;
-  opacity: 1;
+@media (hover: hover) {
+  .header__wrapper .navigation .nav-list .nav-item:hover .nav-line {
+    width: 100%;
+    opacity: 1;
+  }
 }
 @media screen and (max-width: 768px) {
   .header__wrapper .navigation {
@@ -479,9 +481,11 @@ a {
   width: 100%;
   opacity: 1;
 }
-.header__wrapper .coffee-menu:hover .menu-line {
-  width: 100%;
-  opacity: 1;
+@media (hover: hover) {
+  .header__wrapper .coffee-menu:hover .menu-line {
+    width: 100%;
+    opacity: 1;
+  }
 }
 @media screen and (max-width: 768px) {
   .header__wrapper .coffee-menu {
@@ -653,11 +657,13 @@ a {
     opacity: 1;
   }
 }
-.enjoy__btn:hover span {
-  transform: translateX(0px);
-}
-.enjoy__btn:hover img {
-  opacity: 1;
+@media (hover: hover) {
+  .enjoy__btn:hover span {
+    transform: translateX(0px);
+  }
+  .enjoy__btn:hover img {
+    opacity: 1;
+  }
 }
 
 .favorites-coffee__wrapper {
@@ -732,14 +738,16 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   transition: 0.3s ease-in-out;
+  cursor: pointer;
 }
-.favorites-coffee .slider__box .arrow-btn:hover {
-  background-color: #665f55;
-}
-.favorites-coffee .slider__box .arrow-btn:hover svg g path {
-  stroke: #e1d4c9;
+@media (hover: hover) {
+  .favorites-coffee .slider__box .arrow-btn:hover {
+    background-color: #665f55;
+  }
+  .favorites-coffee .slider__box .arrow-btn:hover svg g path {
+    stroke: #e1d4c9;
+  }
 }
 @media screen and (max-width: 767px) {
   .favorites-coffee .slider__box .arrow-btn {
@@ -914,8 +922,10 @@ a {
 .about__images .image-wrapper img {
   transition: 0.5s ease-in-out;
 }
-.about__images .image-wrapper img:hover {
-  transform: scale(0.91);
+@media (hover: hover) {
+  .about__images .image-wrapper img:hover {
+    transform: scale(0.91);
+  }
 }
 .about__images .image-wrapper:nth-child(2),
 .about__images .image-wrapper:nth-child(3) {
@@ -1031,8 +1041,10 @@ a {
   cursor: pointer;
   transition: 0.5s ease-in-out;
 }
-.mobile-app__buttons .mobile-btn:hover {
-  background-color: #665f55;
+@media (hover: hover) {
+  .mobile-app__buttons .mobile-btn:hover {
+    background-color: #665f55;
+  }
 }
 .mobile-app__buttons .mobile-btn span {
   text-align: left;
@@ -1058,14 +1070,16 @@ a {
   color: #403f3d;
   margin-top: 2px;
 }
-.mobile-app__buttons .mobile-btn:hover svg g path {
-  fill: #e1d4c9;
-}
-.mobile-app__buttons .mobile-btn:hover svg path {
-  fill: #e1d4c9;
-}
-.mobile-app__buttons .mobile-btn:hover > span > span {
-  color: #e1d4c9;
+@media (hover: hover) {
+  .mobile-app__buttons .mobile-btn:hover svg g path {
+    fill: #e1d4c9;
+  }
+  .mobile-app__buttons .mobile-btn:hover svg path {
+    fill: #e1d4c9;
+  }
+  .mobile-app__buttons .mobile-btn:hover > span > span {
+    color: #e1d4c9;
+  }
 }
 .mobile-app__image {
   width: 46.32%;
@@ -1189,14 +1203,16 @@ a {
   transition: 0.3s ease-in-out;
   cursor: pointer;
 }
-.footer__social .social-link:hover {
-  background-color: #e1d4c9;
-}
-.footer__social .social-link:hover svg g path {
-  stroke: #403f3d;
-}
-.footer__social .social-link:hover svg path {
-  stroke: #403f3d;
+@media (hover: hover) {
+  .footer__social .social-link:hover {
+    background-color: #e1d4c9;
+  }
+  .footer__social .social-link:hover svg g path {
+    stroke: #403f3d;
+  }
+  .footer__social .social-link:hover svg path {
+    stroke: #403f3d;
+  }
 }
 @media screen and (max-width: 1024px) {
   .footer__contacts {
@@ -1259,9 +1275,11 @@ a {
   width: 20px;
   height: 20px;
 }
-.footer__contacts .contact-list a:hover .link-line {
-  width: 100%;
-  opacity: 1;
+@media (hover: hover) {
+  .footer__contacts .contact-list a:hover .link-line {
+    width: 100%;
+    opacity: 1;
+  }
 }
 .footer__contacts .contact-list .link-line {
   position: absolute;
@@ -1374,15 +1392,17 @@ a {
   margin-left: 8px;
   color: #403f3d;
 }
-.menu__tabs label:hover {
-  background-color: #665f55;
-  border-color: #665f55;
-}
-.menu__tabs label:hover .label-img {
-  background-color: #e1d4c9;
-}
-.menu__tabs label:hover .label-item {
-  color: #e1d4c9;
+@media (hover: hover) {
+  .menu__tabs label:hover {
+    background-color: #665f55;
+    border-color: #665f55;
+  }
+  .menu__tabs label:hover .label-img {
+    background-color: #e1d4c9;
+  }
+  .menu__tabs label:hover .label-item {
+    color: #e1d4c9;
+  }
 }
 .menu__tabs input {
   display: none;
@@ -1431,8 +1451,10 @@ a {
 .menu__items .menu-item img {
   transition: 0.5s ease-in-out;
 }
-.menu__items .menu-item:hover img {
-  transform: scale(0.91);
+@media (hover: hover) {
+  .menu__items .menu-item:hover img {
+    transform: scale(0.91);
+  }
 }
 .menu__items .menu-item__image-wrapper {
   width: 310px;
@@ -1485,16 +1507,18 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   transition: 0.3s ease-in-out;
+  cursor: pointer;
   margin-top: 40px;
   display: none;
 }
-.menu .refresh-btn:hover {
-  background-color: #665f55;
-}
-.menu .refresh-btn:hover svg g path {
-  stroke: #e1d4c9;
+@media (hover: hover) {
+  .menu .refresh-btn:hover {
+    background-color: #665f55;
+  }
+  .menu .refresh-btn:hover svg g path {
+    stroke: #e1d4c9;
+  }
 }
 @media screen and (max-width: 1439px) {
   .menu .refresh-btn {
