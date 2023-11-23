@@ -1,4 +1,8 @@
 .menu {
+  &__title {
+    display: none;
+  }
+
   &__wrapper {
     @include wrapper;
     @include flex-column(normal, center);
