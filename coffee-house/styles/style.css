@@ -1299,6 +1299,9 @@ a {
   height: 20px;
 }
 
+.menu__title-main {
+  display: none;
+}
 .menu__wrapper {
   max-width: 1440px;
   margin: 0 auto;
