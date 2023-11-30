@@ -1,4 +1,5 @@
 .mobile-app {
+  // margin-bottom: auto;
   &__wrapper {
     @include wrapper;
     @include flex(space-between, center);

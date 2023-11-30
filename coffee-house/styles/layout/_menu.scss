@@ -98,7 +98,7 @@
     margin-top: 40px;
     gap: 40px;
 
-    @include desktop-1439 {
+    @include tablets-768 {
       height: 1052px;
       overflow: hidden;
     }
@@ -163,7 +163,7 @@
     margin-top: 40px;
     display: none;
 
-    @include desktop-1439 {
+    @include tablets-768 {
       display: flex;
     }
   }

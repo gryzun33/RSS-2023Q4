@@ -1471,7 +1471,7 @@ a {
   margin-top: 40px;
   gap: 40px;
 }
-@media screen and (max-width: 1439px) {
+@media screen and (max-width: 768px) {
   .menu__items {
     height: 1052px;
     overflow: hidden;
@@ -1563,7 +1563,7 @@ a {
     stroke: #e1d4c9;
   }
 }
-@media screen and (max-width: 1439px) {
+@media screen and (max-width: 768px) {
   .menu .refresh-btn {
     display: flex;
   }
