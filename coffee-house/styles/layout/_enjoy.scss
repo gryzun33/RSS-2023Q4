@@ -11,27 +11,48 @@
     border-radius: 40px;
     background: url('../assets/images/img-hero.jpg');
     background-size: cover;
-    // background-size: 100% auto;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     padding: 100px;
+
+    @include laptops {
+      padding: 100px 60px;
+    }
+
+    @include mobile {
+      padding: 60px 16px;
+      height: 552px;
+    }
   }
 
   &__content {
     width: 535px;
     @include flex-column;
     gap: 40px;
+
+    @include tablets {
+      width: 100%;
+    }
   }
 
   &__title {
     @include text-heading-1(normal);
     color: $color-text-light;
     margin: 0;
+    height: 228px;
+
+    @include tablets {
+      height: auto;
+    }
 
     span {
       font-style: italic;
       color: $color-text-accent;
       margin-right: 17px;
+
+      @include mobile {
+        margin-right: 10px;
+      }
     }
   }
 
@@ -44,12 +65,16 @@
     @include btn-primary;
     gap: 8px;
 
-    span {
+    .enjoy-btn-text {
       @include text-link-and-btn;
       line-height: 150%;
       color: $color-text-dark;
       transform: translateX(14px);
       transition: 0.5s ease-in-out;
+
+      @include laptops {
+        transform: translateX(0px);
+      }
     }
 
     img {
@@ -57,14 +82,20 @@
       height: 20px;
       opacity: 0;
       transition: opacity 0.5s ease-in-out;
+
+      @include laptops {
+        opacity: 1;
+      }
     }
 
-    &:hover span {
-      transform: translateX(0px);
-    }
+    @media (hover: hover) {
+      &:hover span {
+        transform: translateX(0px);
+      }
 
-    &:hover img {
-      opacity: 1;
+      &:hover img {
+        opacity: 1;
+      }
     }
   }
 }

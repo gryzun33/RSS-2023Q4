@@ -14,6 +14,10 @@
     width: 800px;
     text-align: center;
 
+    @include laptops {
+      width: 100%;
+    }
+
     span {
       color: $color-text-accent;
       font-style: italic;
@@ -24,6 +28,10 @@
     @include flex;
     gap: 16px;
     margin-top: 40px;
+
+    @include mobile {
+      gap: 8px;
+    }
 
     label {
       @include flex(normal, center);
@@ -47,19 +55,21 @@
         margin-left: 8px;
         color: $color-text-dark;
       }
-    }
 
-    label:hover {
-      background-color: $color-bg-container;
-      border-color: $color-border-dark;
-    }
+      @media (hover: hover) {
+        &:hover {
+          background-color: $color-bg-container;
+          border-color: $color-border-dark;
+        }
 
-    label:hover .label-img {
-      background-color: $color-bg-body;
-    }
+        &:hover .label-img {
+          background-color: $color-bg-body;
+        }
 
-    label:hover .label-item {
-      color: $color-text-light;
+        &:hover .label-item {
+          color: $color-text-light;
+        }
+      }
     }
 
     input {
@@ -83,9 +93,20 @@
 
   &__items {
     @include flex-wrap;
+    justify-content: center;
     list-style-type: none;
     margin-top: 40px;
     gap: 40px;
+
+    @include tablets-768 {
+      height: 1052px;
+      overflow: hidden;
+    }
+
+    @include tablets {
+      width: 310px;
+      height: 2144px;
+    }
 
     .menu-item {
       width: 310px;
@@ -94,14 +115,15 @@
       border-radius: 40px;
       overflow: hidden;
       cursor: pointer;
-      // transition: 0.5s ease-in-out;
 
       img {
         transition: 0.5s ease-in-out;
       }
 
-      &:hover img {
-        transform: scale(0.91);
+      @media (hover: hover) {
+        &:hover img {
+          transform: scale(0.91);
+        }
       }
 
       &__image-wrapper {
@@ -133,6 +155,16 @@
         @include text-heading-3;
         color: $color-text-dark;
       }
+    }
+  }
+
+  .refresh-btn {
+    @include btn-icon;
+    margin-top: 40px;
+    display: none;
+
+    @include tablets-768 {
+      display: flex;
     }
   }
 }
