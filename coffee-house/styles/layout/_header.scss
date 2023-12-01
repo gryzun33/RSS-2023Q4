@@ -197,6 +197,16 @@
         background-color: $color-text-dark;
         transition: 0.5s ease-in-out;
       }
+
+      .burger-first {
+        transform: translate(2.5px, -1.5px) rotate(45deg);
+        transform-origin: 0 0;
+      }
+
+      .burger-second {
+        transform: translate(2.5px, 1.5px) rotate(-45deg);
+        transform-origin: 0 0;
+      }
     }
   }
 }

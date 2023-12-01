@@ -607,6 +607,14 @@ a {
   background-color: #403f3d;
   transition: 0.5s ease-in-out;
 }
+.header__wrapper .burger .burger-first {
+  transform: translate(2.5px, -1.5px) rotate(45deg);
+  transform-origin: 0 0;
+}
+.header__wrapper .burger .burger-second {
+  transform: translate(2.5px, 1.5px) rotate(-45deg);
+  transform-origin: 0 0;
+}
 
 .enjoy {
   background-color: #e1d4c9;
