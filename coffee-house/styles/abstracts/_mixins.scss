@@ -1,3 +1,39 @@
+@mixin desktop-1439 {
+  @media screen and (max-width: 1439px) {
+    @content;
+  }
+}
+
+@mixin desktop-1250 {
+  @media screen and (max-width: 1250px) {
+    @content;
+  }
+}
+
+@mixin laptops {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin tablets {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tablets-768 {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 575px) {
+    @content;
+  }
+}
+
 @mixin flex($justify: normal, $align: normal) {
   display: flex;
   justify-content: $justify;
@@ -24,6 +60,15 @@
   font-weight: 600;
   line-height: 105%;
   font-style: $font-style;
+
+  @include tablets {
+    font-size: 56px;
+    line-height: 115%;
+  }
+
+  @include mobile {
+    font-size: 42px;
+  }
 }
 
 @mixin text-heading-2($font-style: normal) {
@@ -32,6 +77,14 @@
   font-weight: 600;
   line-height: 125%;
   font-style: $font-style;
+
+  @include tablets {
+    font-size: 42px;
+  }
+
+  @include mobile {
+    font-size: 32px;
+  }
 }
 
 @mixin text-heading-3($font-style: normal) {
@@ -75,11 +128,21 @@
 }
 
 @mixin wrapper {
-  width: 1440px;
+  max-width: 1440px;
   margin: 0 auto;
   padding-left: 40px;
   padding-right: 40px;
   padding-bottom: 100px;
+
+  @include tablets {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  @include mobile {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 @mixin line-under-link {
@@ -115,7 +178,30 @@
   cursor: pointer;
   transition: 0.5s ease-in-out;
 
-  &:hover {
-    background-color: $color-bg-container;
+  @media (hover: hover) {
+    &:hover {
+      background-color: $color-bg-container;
+    }
+  }
+}
+
+@mixin btn-icon {
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border: 1px solid $color-border-dark;
+  border-radius: 50%;
+  @include flex(center, center);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: $color-bg-container;
+    }
+
+    &:hover svg g path {
+      stroke: $color-text-light;
+    }
   }
 }

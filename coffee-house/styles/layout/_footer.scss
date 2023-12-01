@@ -8,11 +8,39 @@
     border-radius: 40px;
     background-color: $color-bg-container;
     padding: 100px;
-    @include flex(space-between, center);
+    @include flex(normal, center);
+    gap: 100px;
+
+    @include desktop-1250 {
+      padding-left: 60px;
+      padding-right: 60px;
+      gap: 30px;
+    }
+
+    @include laptops {
+      flex-direction: column;
+      gap: 100px;
+    }
+
+    @include tablets {
+      gap: 40px;
+    }
+
+    @include mobile {
+      padding: 60px 16px;
+    }
   }
 
   &__content {
     width: 530px;
+
+    @include laptops {
+      width: 568px;
+    }
+
+    @include tablets {
+      width: 100%;
+    }
   }
 
   &__title {
@@ -42,22 +70,30 @@
       transition: 0.3s ease-in-out;
       cursor: pointer;
 
-      &:hover {
-        background-color: $color-bg-body;
-      }
+      @media (hover: hover) {
+        &:hover {
+          background-color: $color-bg-body;
+        }
 
-      &:hover svg g path {
-        stroke: $color-text-dark;
-      }
+        &:hover svg g path {
+          stroke: $color-text-dark;
+        }
 
-      &:hover svg path {
-        stroke: $color-text-dark;
+        &:hover svg path {
+          stroke: $color-text-dark;
+        }
       }
     }
   }
 
   &__contacts {
-    width: 530px;
+    @include laptops {
+      width: 568px;
+    }
+
+    @include tablets {
+      width: 100%;
+    }
 
     .contacts-title {
       @include text-heading-3;
@@ -99,11 +135,13 @@
           width: 20px;
           height: 20px;
         }
-      }
 
-      a:hover .link-line {
-        width: 100%;
-        opacity: 1;
+        @media (hover: hover) {
+          &:hover .link-line {
+            width: 100%;
+            opacity: 1;
+          }
+        }
       }
 
       .link-line {
