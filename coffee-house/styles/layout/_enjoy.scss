@@ -72,7 +72,7 @@
       transform: translateX(14px);
       transition: 0.5s ease-in-out;
 
-      @include laptops {
+      @include tablets-768 {
         transform: translateX(0px);
       }
     }
@@ -83,7 +83,7 @@
       opacity: 0;
       transition: opacity 0.5s ease-in-out;
 
-      @include laptops {
+      @include tablets-768 {
         opacity: 1;
       }
     }
