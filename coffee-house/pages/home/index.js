@@ -42,3 +42,67 @@ window.addEventListener('resize', () => {
   }
   lastWindowWidth = newWindowWidth;
 });
+
+// slider
+
+const slider = document.querySelector('.slider__inner');
+console.log('slider', slider);
+const leftArrow = document.querySelector('.arrow-left');
+const rightArrow = document.querySelector('.arrow-right');
+const countOfSlides = 3;
+
+let numbActiveSlide = 1;
+let sliderTimerId = null;
+let isPaused = false;
+let nextControl = document.getElementById('control-1');
+nextControl.classList.add('control-active');
+
+function moveSlider(direction) {
+  let numbNextSlide = null;
+  if (direction === 'to-left') {
+    numbNextSlide =
+      numbActiveSlide + 1 <= countOfSlides ? numbActiveSlide + 1 : 1;
+  } else if (direction === 'to-right') {
+    numbNextSlide =
+      numbActiveSlide - 1 > 0 ? numbActiveSlide - 1 : countOfSlides;
+  }
+  nextControl.classList.remove('control-active', 'control-paused');
+  slider.style.transform = `
+    translateX(${(-100 / countOfSlides) * (numbNextSlide - 1)}%)
+  `;
+  nextControl = document.getElementById(`control-${numbNextSlide}`);
+  nextControl.addEventListener('animationend', animationendControlHandler);
+  slider.addEventListener('transitionend', transitionendHandler);
+
+  function transitionendHandler() {
+    console.log('transitionend slider');
+    nextControl.classList.add('control-active');
+    numbActiveSlide = numbNextSlide;
+    slider.removeEventListener('transitionend', transitionendHandler);
+  }
+}
+
+rightArrow.addEventListener('click', () => {
+  moveSlider('to-left');
+});
+
+leftArrow.addEventListener('click', () => {
+  moveSlider('to-right');
+});
+
+slider.addEventListener('mouseenter', () => {
+  console.log('ponterenter');
+  nextControl.classList.add('control-paused');
+});
+
+slider.addEventListener('mouseleave', () => {
+  console.log('ponterleave');
+  nextControl.classList.remove('control-paused');
+});
+
+nextControl.addEventListener('animationend', animationendControlHandler);
+
+function animationendControlHandler() {
+  console.log('animationend control');
+  moveSlider('to-left');
+}
