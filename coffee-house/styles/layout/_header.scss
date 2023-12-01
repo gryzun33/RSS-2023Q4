@@ -3,14 +3,22 @@
 
   &__wrapper {
     @include wrapper;
-    @include flex(space-between, center);
+    @include flex(normal, center);
+    width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
+    position: relative;
+
+    @include tablets-768 {
+      justify-content: space-between;
+    }
 
     .logo-wrapper {
       width: 100px;
       height: 60px;
       cursor: pointer;
+      position: relative;
+      z-index: 3;
 
       .logo {
         width: 100px;
@@ -18,88 +26,151 @@
       }
     }
 
-    .navigation {
-      width: 1188px;
-      height: 60px;
-      @include flex(center, center);
+    .navigation-menu {
+      @include flex(normal, center);
+      width: calc(100% - 100px);
 
-      .nav-list {
-        @include flex;
+      @include tablets-768 {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        z-index: 2;
+        background-color: $color-bg-body;
+        top: 0;
+        left: 100%;
+        transition: 0.5s ease-in-out;
+        // display: block;
+        padding-top: 100px;
+        flex-direction: column;
+      }
 
-        list-style-type: none;
-        gap: 40px;
+      .navigation {
+        width: 1188px;
+        height: 60px;
+        @include flex(center, center);
 
-        .nav-item {
-          position: relative;
-          height: 28px;
+        @include tablets-768 {
+          width: 100%;
+          // height: calc(100vh - 100px);
+          height: auto;
+          padding-top: 60px;
+          @include flex-column(normal, center);
+        }
 
-          a {
-            @include text-link-and-btn;
-            color: $color-text-dark;
+        .nav-list {
+          @include flex;
+
+          list-style-type: none;
+          gap: 40px;
+
+          @include tablets-768 {
+            @include flex-column(normal, center);
+            gap: 60px;
           }
 
-          .nav-line {
-            @include line-under-link;
-          }
+          .nav-item {
+            position: relative;
+            height: 28px;
 
-          @media (hover: hover) {
-            &:hover .nav-line {
-              width: 100%;
-              opacity: 1;
+            @include tablets-768 {
+              height: 40px;
+            }
+
+            a {
+              @include text-link-and-btn;
+              color: $color-text-dark;
+
+              @include tablets-768 {
+                @include text-burger-link;
+              }
+            }
+
+            .nav-line {
+              @include line-under-link;
+            }
+
+            @media (hover: hover) {
+              &:hover .nav-line {
+                width: 100%;
+                opacity: 1;
+              }
             }
           }
         }
+
+        // @include tablets-768 {
+        //   display: none;
+        // }
       }
 
-      @include tablets-768 {
-        display: none;
+      .coffee-menu {
+        width: 72px;
+        height: 28px;
+        position: relative;
+
+        @include tablets-768 {
+          margin-top: 100px;
+          width: 143px;
+          height: 40px;
+        }
+
+        .menu-link {
+          @include flex;
+
+          @include tablets-768 {
+            align-items: center;
+          }
+
+          p {
+            @include text-link-and-btn;
+            color: $color-text-dark;
+
+            @include tablets-768 {
+              @include text-burger-link;
+            }
+          }
+
+          img {
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+
+            @include tablets-768 {
+              width: 40px;
+              height: 40px;
+              margin-left: 16px;
+            }
+          }
+        }
+
+        .menu-line {
+          @include line-under-link;
+
+          &__visible {
+            width: 100%;
+            opacity: 1;
+          }
+        }
+
+        @media (hover: hover) {
+          &:hover .menu-line {
+            width: 100%;
+            opacity: 1;
+          }
+        }
+
+        // @include tablets-768 {
+        //   display: none;
+        // }
+      }
+
+      .menu-disabled {
+        pointer-events: none;
       }
     }
 
-    .coffee-menu {
-      width: 72px;
-      height: 28px;
-      position: relative;
-
-      .menu-link {
-        @include flex;
-
-        p {
-          @include text-link-and-btn;
-          line-height: 150%;
-          color: $color-text-dark;
-        }
-
-        img {
-          width: 20px;
-          height: 20px;
-          margin-left: 8px;
-        }
-      }
-
-      .menu-line {
-        @include line-under-link;
-
-        &__visible {
-          width: 100%;
-          opacity: 1;
-        }
-      }
-
-      @media (hover: hover) {
-        &:hover .menu-line {
-          width: 100%;
-          opacity: 1;
-        }
-      }
-
-      @include tablets-768 {
-        display: none;
-      }
-    }
-
-    .menu-disabled {
-      pointer-events: none;
+    .navigation-menu-show {
+      transform: translateX(-100%);
     }
 
     .burger {
@@ -111,6 +182,9 @@
       @include flex-column(space-between, center);
       display: none;
       cursor: pointer;
+      flex: none;
+      position: relative;
+      z-index: 3;
 
       @include tablets-768 {
         display: flex;
@@ -119,6 +193,7 @@
       span {
         width: 16px;
         height: 1.5px;
+        border-radius: 2px;
         background-color: $color-text-dark;
         transition: 0.5s ease-in-out;
       }
