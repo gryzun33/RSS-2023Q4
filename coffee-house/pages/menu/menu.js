@@ -42,3 +42,35 @@ window.addEventListener('resize', () => {
   }
   lastWindowWidth = newWindowWidth;
 });
+
+// swiper
+let startX;
+let startY;
+slider.addEventListener(
+  'touchstart',
+  (e) => {
+    console.log('touchstart');
+    nextControl.classList.add('control-paused');
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  },
+  false
+);
+
+slider.addEventListener(
+  'touchend',
+  (e) => {
+    let diffX;
+
+    diffX = e.changedTouches[0].clientX - startX;
+
+    if (diffX > 100) {
+      moveSlider('to-right');
+    }
+
+    if (diffX < 100) {
+      moveSlider('to-left');
+    }
+  },
+  false
+);
