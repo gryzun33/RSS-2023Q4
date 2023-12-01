@@ -567,6 +567,12 @@ a {
   width: 100%;
   opacity: 1;
 }
+@media screen and (max-width: 768px) {
+  .header__wrapper .navigation-menu .coffee-menu .menu-line__visible {
+    width: 0;
+    opacity: 0;
+  }
+}
 @media (hover: hover) {
   .header__wrapper .navigation-menu .coffee-menu:hover .menu-line {
     width: 100%;
@@ -575,6 +581,11 @@ a {
 }
 .header__wrapper .navigation-menu .menu-disabled {
   pointer-events: none;
+}
+@media screen and (max-width: 768px) {
+  .header__wrapper .navigation-menu .menu-disabled {
+    pointer-events: all;
+  }
 }
 .header__wrapper .navigation-menu-show {
   transform: translateX(-100%);

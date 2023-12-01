@@ -149,6 +149,11 @@
           &__visible {
             width: 100%;
             opacity: 1;
+
+            @include tablets-768 {
+              width: 0;
+              opacity: 0;
+            }
           }
         }
 
@@ -166,6 +171,10 @@
 
       .menu-disabled {
         pointer-events: none;
+
+        @include tablets-768 {
+          pointer-events: all;
+        }
       }
     }
 
