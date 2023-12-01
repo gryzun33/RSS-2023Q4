@@ -642,7 +642,7 @@ a {
   transform: translateX(14px);
   transition: 0.5s ease-in-out;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .enjoy__btn .enjoy-btn-text {
     transform: translateX(0px);
   }
@@ -653,7 +653,7 @@ a {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .enjoy__btn img {
     opacity: 1;
   }
