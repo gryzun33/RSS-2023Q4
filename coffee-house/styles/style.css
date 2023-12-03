@@ -762,26 +762,28 @@ a {
   font-style: normal;
   line-height: 150%;
   color: #403f3d;
-  transform: translateX(14px);
   transition: 0.5s ease-in-out;
-}
-@media screen and (max-width: 768px) {
-  .enjoy__btn .enjoy-btn-text {
-    transform: translateX(0px);
-  }
 }
 .enjoy__btn img {
   width: 20px;
   height: 20px;
-  opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
-@media screen and (max-width: 768px) {
+@media (hover: none) and (pointer: coarse) {
+  .enjoy__btn span {
+    transform: translateX(0px);
+  }
   .enjoy__btn img {
     opacity: 1;
   }
 }
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
+  .enjoy__btn span {
+    transform: translateX(14px);
+  }
+  .enjoy__btn img {
+    opacity: 0;
+  }
   .enjoy__btn:hover span {
     transform: translateX(0px);
   }

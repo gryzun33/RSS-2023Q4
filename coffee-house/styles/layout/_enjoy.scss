@@ -87,26 +87,44 @@
       @include text-link-and-btn;
       line-height: 150%;
       color: $color-text-dark;
-      transform: translateX(14px);
+      // transform: translateX(0px);
       transition: 0.5s ease-in-out;
 
-      @include tablets-768 {
-        transform: translateX(0px);
-      }
+      // @include tablets-768 {
+      //   transform: translateX(0px);
+      // }
     }
 
     img {
       width: 20px;
       height: 20px;
-      opacity: 0;
+      // opacity: 1;
       transition: opacity 0.5s ease-in-out;
 
-      @include tablets-768 {
+      // @include tablets-768 {
+      //   opacity: 1;
+      // }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      span {
+        transform: translateX(0px);
+      }
+
+      img {
         opacity: 1;
       }
     }
 
-    @media (hover: hover) {
+    @media (hover: hover) and (pointer: fine) {
+      span {
+        transform: translateX(14px);
+      }
+
+      img {
+        opacity: 0;
+      }
+
       &:hover span {
         transform: translateX(0px);
       }
