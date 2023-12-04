@@ -1619,18 +1619,6 @@ a {
   margin-top: 40px;
   gap: 40px;
 }
-@media screen and (max-width: 768px) {
-  .menu__items {
-    height: 1052px;
-    overflow: hidden;
-  }
-}
-@media screen and (max-width: 767px) {
-  .menu__items {
-    width: 310px;
-    height: 2144px;
-  }
-}
 .menu__items .menu-item {
   width: 310px;
   height: 506px;
@@ -1689,6 +1677,9 @@ a {
   font-style: normal;
   color: #403f3d;
 }
+.menu__items .hidden {
+  display: none;
+}
 .menu .refresh-btn {
   width: 60px;
   height: 60px;
@@ -1711,8 +1702,6 @@ a {
     stroke: #e1d4c9;
   }
 }
-@media screen and (max-width: 768px) {
-  .menu .refresh-btn {
-    display: flex;
-  }
+.menu .visible {
+  display: flex;
 }/*# sourceMappingURL=style.css.map */

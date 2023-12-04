@@ -98,15 +98,15 @@
     margin-top: 40px;
     gap: 40px;
 
-    @include tablets-768 {
-      height: 1052px;
-      overflow: hidden;
-    }
+    // @include tablets-768 {
+    //   height: 1052px;
+    //   overflow: hidden;
+    // }
 
-    @include tablets {
-      width: 310px;
-      height: 2144px;
-    }
+    // @include tablets {
+    //   width: 310px;
+    //   height: 2144px;
+    // }
 
     .menu-item {
       width: 310px;
@@ -156,6 +156,10 @@
         color: $color-text-dark;
       }
     }
+
+    .hidden {
+      display: none;
+    }
   }
 
   .refresh-btn {
@@ -163,8 +167,12 @@
     margin-top: 40px;
     display: none;
 
-    @include tablets-768 {
-      display: flex;
-    }
+    // @include tablets-768 {
+    //   display: flex;
+    // }
+  }
+
+  .visible {
+    display: flex;
   }
 }
