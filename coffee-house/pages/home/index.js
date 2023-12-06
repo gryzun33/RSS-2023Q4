@@ -160,7 +160,7 @@ slider.addEventListener(
   false
 );
 
-slider.addEventListener('mousedown', (e) => {
-  console.log('mousedown');
-  if (isTouch()) return;
-});
+// slider.addEventListener('mousedown', (e) => {
+//   console.log('mousedown');
+//   if (isTouch()) return;
+// });

@@ -351,6 +351,10 @@ html {
 body {
   background-color: #e1d4c9;
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: normal;
+  align-items: normal;
 }
 
 a {
@@ -1126,6 +1130,9 @@ a {
   flex-direction: column-reverse;
 }
 
+.mobile-app {
+  margin-bottom: auto;
+}
 .mobile-app__wrapper {
   max-width: 1440px;
   margin: 0 auto;
@@ -1283,6 +1290,9 @@ a {
   }
 }
 
+.footer {
+  margin-bottom: 0;
+}
 .footer__wrapper {
   max-width: 1440px;
   margin: 0 auto;
@@ -1487,6 +1497,9 @@ a {
   height: 20px;
 }
 
+.menu {
+  margin-bottom: auto;
+}
 .menu__title-main {
   display: none;
 }

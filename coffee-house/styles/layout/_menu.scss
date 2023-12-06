@@ -1,4 +1,6 @@
 .menu {
+  margin-bottom: auto;
+
   &__title-main {
     display: none;
   }
@@ -97,16 +99,6 @@
     list-style-type: none;
     margin-top: 40px;
     gap: 40px;
-
-    // @include tablets-768 {
-    //   height: 1052px;
-    //   overflow: hidden;
-    // }
-
-    // @include tablets {
-    //   width: 310px;
-    //   height: 2144px;
-    // }
 
     .menu-item {
       width: 310px;
