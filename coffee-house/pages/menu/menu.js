@@ -1,3 +1,4 @@
+// burger
 const burger = document.querySelector('.burger');
 const burgerFirst = document.querySelector('.burger span:nth-child(1)');
 const burgerSecond = document.querySelector('.burger span:nth-child(2)');
@@ -32,7 +33,7 @@ function toggleBurger() {
 const menuTabs = document.querySelectorAll(`[name='menu']`);
 const menuWrapper = document.querySelector('.menu__wrapper');
 const loadMoreBtn = document.querySelector('.refresh-btn');
-// const modalWrapper = document.querySelector('.modal-wrapper');
+const modalWrapper = document.querySelector('.modal-wrapper');
 let lengthOfMenu = 0;
 
 async function getData(category) {
@@ -45,12 +46,12 @@ async function getData(category) {
   renderLoadMoreBtn(products.length);
 }
 
-// async function getProductData(productName) {
-//   const res = await fetch('./products.json');
-//   const allProducts = await res.json();
-//   const product = allProducts.find((prod) => prod.name === `${productName}`);
-//   createModal(modalWrapper, product);
-// }
+async function getProductData(productName) {
+  const res = await fetch('./products.json');
+  const allProducts = await res.json();
+  const product = allProducts.find((prod) => prod.name === `${productName}`);
+  createModal(modalWrapper, product);
+}
 
 function renderMenu(products) {
   lengthOfMenu = 0;
@@ -74,12 +75,12 @@ function renderMenu(products) {
         <p class="menu-item__price">$${item.price}</p>
       </div>
     `;
-    // menuItem.addEventListener('click', () => {
-    //   modalWrapper.classList.remove('modal-hidden');
-    //   modalWrapper.classList.add('modal-show');
-    //   document.body.style.overflowY = 'hidden';
-    //   getProductData(item.name);
-    // });
+    menuItem.addEventListener('click', () => {
+      modalWrapper.classList.remove('modal-hidden');
+      modalWrapper.classList.add('modal-show');
+      document.body.style.overflowY = 'hidden';
+      getProductData(item.name);
+    });
     menuList.append(menuItem);
     lengthOfMenu += 1;
   });
@@ -156,3 +157,132 @@ window.addEventListener('resize', () => {
 
   lastWindowWidth = newWindowWidth;
 });
+
+// modal
+const totalPrice = {
+  sizePrice: 0,
+  addPrice: 0,
+};
+
+modalWrapper.addEventListener('click', (e) => {
+  if (e.target === modalWrapper) {
+    modalWrapper.classList.add('modal-close');
+  }
+});
+
+modalWrapper.addEventListener('animationend', (e) => {
+  if (e.animationName === 'mod-wrapper-close') {
+    modalWrapper.classList.add('modal-hidden');
+    modalWrapper.classList.remove('modal-show', 'modal-close');
+    document.body.style.overflowY = '';
+  }
+});
+
+const tabs = document.querySelectorAll('.tab-additive');
+tabs.forEach((tab) => {
+  tab.addEventListener('change', () => {
+    console.log('tabchange');
+  });
+});
+
+function createModal(wrapper, product) {
+  createModalHTML(wrapper, product);
+
+  const sizesTabsBox = document.querySelector('.sizes-tabs-box');
+  const additivesTabsBox = document.querySelector('.additives-tabs-box');
+  const totalPriceElem = document.querySelector('.modal-total-price');
+  const sizesObj = product.sizes;
+  for (let size in sizesObj) {
+    const inputSize = document.createElement('input');
+    inputSize.type = 'radio';
+    inputSize.id = `size-${size}`;
+    inputSize.value = sizesObj[size].addprice;
+    inputSize.name = 'size';
+    const labelHTML = `
+      <label class="modal-tab" for="size-${size}">
+        <span class="tab-icon">${size.toUpperCase()}</span>
+        <span class="tab-text">${sizesObj[size].size}</span>
+      </label>
+    `;
+    sizesTabsBox.append(inputSize);
+    sizesTabsBox.insertAdjacentHTML('beforeend', labelHTML);
+    if (size === 's') {
+      inputSize.checked = true;
+      totalPrice.sizePrice = +product.price;
+      updateTotalPrice();
+    }
+    inputSize.addEventListener('change', () => {
+      totalPrice.sizePrice = +product.price + +inputSize.value;
+      updateTotalPrice();
+    });
+  }
+
+  const additivesArr = product.additives;
+  additivesArr.forEach((additive, i) => {
+    const inputAd = document.createElement('input');
+    inputAd.type = 'checkbox';
+    inputAd.id = `add-${i}`;
+    inputAd.value = additive.addprice;
+    const labelHTML = `
+    <label class="modal-tab" for="add-${i}">
+      <span class="tab-icon">${i + 1}</span>
+      <span class="tab-text">${additive.name}</span>
+    </label>
+    `;
+    additivesTabsBox.append(inputAd);
+    additivesTabsBox.insertAdjacentHTML('beforeend', labelHTML);
+    inputAd.addEventListener('change', () => {
+      if (inputAd.checked) {
+        totalPrice.addPrice += +inputAd.value;
+      } else {
+        totalPrice.addPrice -= +inputAd.value;
+      }
+      updateTotalPrice();
+    });
+  });
+
+  function updateTotalPrice() {
+    console.log('totalprice=', totalPrice);
+    let total = (totalPrice.sizePrice + totalPrice.addPrice).toFixed(2);
+    totalPriceElem.innerHTML = `$${total}`;
+  }
+
+  const closeBtn = document.querySelector('.modal-close-btn');
+  closeBtn.addEventListener('click', () => {
+    modalWrapper.classList.add('modal-close');
+  });
+}
+
+function createModalHTML(wrapper, product) {
+  wrapper.innerHTML = `
+    <div class="modal-container">
+    <div class="modal-image">
+      <img src=${product.image} alt=${product.name}>
+    </div>
+    <div class="modal-content">
+      <h3 class="modal-title">${product.name}</h3>
+      <p class="modal-description">${product.description}</p>
+      <div class="modal-tabs">
+        <p class="modal-tabs-title">Size</p>
+        <div class="modal-tabs-box sizes-tabs-box">
+        </div>
+      </div>
+      <div class="modal-tabs">
+        <p class="modal-tabs-title">Additives</p>
+        <div class="modal-tabs-box additives-tabs-box">
+        </div>
+      </div>
+      <div class="modal-total">
+        <p class="modal-total-text">Total</p>
+        <p class="modal-total-price"></p>
+      </div>
+      <div class="modal-alert">
+        <img class="modal-alert-icon" src="../../assets/icons/info-empty.svg" alt="info-icon">
+        <p class="modal-alert-text">The cost is not final. Download our mobile app to see the final price and place
+          your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.</p>
+      </div>
+      <button class="modal-close-btn">Close</button>
+    </div>
+  </div>
+  `;
+}

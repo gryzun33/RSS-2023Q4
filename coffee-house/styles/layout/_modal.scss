@@ -1,0 +1,231 @@
+.modal-wrapper {
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 2;
+  background-color: rgba(64, 63, 61, 0.8);
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  @include flex(center, center);
+  padding: 19px;
+}
+
+.modal-hidden {
+  display: none;
+}
+
+.modal-container {
+  max-width: 800px;
+  transform: scale(0);
+  background-color: $color-bg-body;
+  border-radius: 40px;
+  padding: 16px;
+  @include flex;
+  gap: 20px;
+}
+
+.modal-image {
+  @include flex(center, center);
+  width: 310px;
+  height: 310px;
+  overflow: hidden;
+  border-radius: 40px;
+  flex: none;
+
+  @include tablets {
+    width: 280px;
+    height: 280px;
+  }
+
+  @include tablets-650 {
+    display: none;
+  }
+}
+
+.modal-content {
+  max-width: 438px;
+
+  @include laptops {
+    max-width: 326px;
+  }
+
+  .modal-title {
+    @include text-heading-3;
+    color: $color-text-dark;
+  }
+
+  .modal-description {
+    @include text-medium;
+    color: $color-text-dark;
+    margin-top: 12px;
+  }
+
+  .modal-tabs {
+    margin-top: 20px;
+
+    .modal-tabs-title {
+      @include text-medium;
+      color: $color-text-dark;
+    }
+
+    .modal-tabs-box {
+      @include flex-wrap;
+      gap: 8px;
+      margin-top: 8px;
+
+      input {
+        display: none;
+      }
+
+      .modal-tab {
+        @include flex(normal, center);
+        padding: 7px 15px 7px 7px;
+        background-color: $color-bg-body;
+        border: 1px solid $color-border-light;
+        border-radius: 100px;
+        transition: 0.4s ease-in-out;
+        cursor: pointer;
+
+        .tab-icon {
+          width: 30px;
+          height: 30px;
+          border-radius: 100px;
+          background-color: $color-border-light;
+          @include flex(center, center);
+          @include text-link-and-btn;
+          color: $color-text-dark;
+          transition: 0.4s ease-in-out;
+        }
+
+        .tab-text {
+          @include text-link-and-btn;
+          margin-left: 8px;
+          color: $color-text-dark;
+          transition: 0.4s ease-in-out;
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: $color-bg-container;
+            border-color: $color-border-dark;
+          }
+
+          &:hover .tab-icon {
+            background-color: $color-bg-body;
+          }
+
+          &:hover .tab-text {
+            color: $color-text-light;
+          }
+        }
+      }
+
+      input:checked + .modal-tab {
+        background-color: $color-bg-container;
+        border-color: $color-border-dark;
+        pointer-events: none;
+
+        .tab-icon {
+          background-color: $color-bg-body;
+        }
+
+        .tab-text {
+          color: $color-text-light;
+        }
+      }
+
+      input[type='checkbox']:checked + .modal-tab {
+        pointer-events: auto;
+      }
+    }
+  }
+
+  .modal-total {
+    @include flex(space-between);
+    @include text-heading-3;
+    color: $color-text-dark;
+    margin-top: 20px;
+  }
+
+  .modal-alert {
+    @include flex;
+    margin-top: 20px;
+    border-top: 1px solid $color-border-light;
+    padding-top: 11px;
+    padding-bottom: 12px;
+
+    .modal-alert-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .modal-alert-text {
+      margin-left: 8px;
+      flex-grow: 1;
+      @include text-caption;
+      color: $color-text-dark;
+    }
+  }
+
+  .modal-close-btn {
+    @include btn-secondary;
+    margin-top: 20px;
+  }
+}
+
+.modal-show {
+  animation: mod-wrapper-show 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+
+  .modal-container {
+    animation: mod-inner-show 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+}
+
+.modal-close {
+  animation: mod-wrapper-close 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+
+  .modal-container {
+    animation: mod-inner-close 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes mod-wrapper-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mod-inner-show {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes mod-wrapper-close {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes mod-inner-close {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}

@@ -1704,4 +1704,279 @@ a {
 }
 .menu .visible {
   display: flex;
+}
+
+.modal-wrapper {
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 2;
+  background-color: rgba(64, 63, 61, 0.8);
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 19px;
+}
+
+.modal-hidden {
+  display: none;
+}
+
+.modal-container {
+  max-width: 800px;
+  transform: scale(0);
+  background-color: #e1d4c9;
+  border-radius: 40px;
+  padding: 16px;
+  display: flex;
+  justify-content: normal;
+  align-items: normal;
+  gap: 20px;
+}
+
+.modal-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 310px;
+  height: 310px;
+  overflow: hidden;
+  border-radius: 40px;
+  flex: none;
+}
+@media screen and (max-width: 767px) {
+  .modal-image {
+    width: 280px;
+    height: 280px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .modal-image {
+    display: none;
+  }
+}
+
+.modal-content {
+  max-width: 438px;
+}
+@media screen and (max-width: 1024px) {
+  .modal-content {
+    max-width: 326px;
+  }
+}
+.modal-content .modal-title {
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+  color: #403f3d;
+}
+.modal-content .modal-description {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  font-style: normal;
+  color: #403f3d;
+  margin-top: 12px;
+}
+.modal-content .modal-tabs {
+  margin-top: 20px;
+}
+.modal-content .modal-tabs .modal-tabs-title {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  font-style: normal;
+  color: #403f3d;
+}
+.modal-content .modal-tabs .modal-tabs-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: normal;
+  align-content: normal;
+  gap: 8px;
+  margin-top: 8px;
+}
+.modal-content .modal-tabs .modal-tabs-box input {
+  display: none;
+}
+.modal-content .modal-tabs .modal-tabs-box .modal-tab {
+  display: flex;
+  justify-content: normal;
+  align-items: center;
+  padding: 7px 15px 7px 7px;
+  background-color: #e1d4c9;
+  border: 1px solid #c1b6ad;
+  border-radius: 100px;
+  transition: 0.4s ease-in-out;
+  cursor: pointer;
+}
+.modal-content .modal-tabs .modal-tabs-box .modal-tab .tab-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  background-color: #c1b6ad;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  font-style: normal;
+  color: #403f3d;
+  transition: 0.4s ease-in-out;
+}
+.modal-content .modal-tabs .modal-tabs-box .modal-tab .tab-text {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  font-style: normal;
+  margin-left: 8px;
+  color: #403f3d;
+  transition: 0.4s ease-in-out;
+}
+@media (hover: hover) {
+  .modal-content .modal-tabs .modal-tabs-box .modal-tab:hover {
+    background-color: #665f55;
+    border-color: #665f55;
+  }
+  .modal-content .modal-tabs .modal-tabs-box .modal-tab:hover .tab-icon {
+    background-color: #e1d4c9;
+  }
+  .modal-content .modal-tabs .modal-tabs-box .modal-tab:hover .tab-text {
+    color: #e1d4c9;
+  }
+}
+.modal-content .modal-tabs .modal-tabs-box input:checked + .modal-tab {
+  background-color: #665f55;
+  border-color: #665f55;
+  pointer-events: none;
+}
+.modal-content .modal-tabs .modal-tabs-box input:checked + .modal-tab .tab-icon {
+  background-color: #e1d4c9;
+}
+.modal-content .modal-tabs .modal-tabs-box input:checked + .modal-tab .tab-text {
+  color: #e1d4c9;
+}
+.modal-content .modal-tabs .modal-tabs-box input[type=checkbox]:checked + .modal-tab {
+  pointer-events: auto;
+}
+.modal-content .modal-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: normal;
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%;
+  font-style: normal;
+  color: #403f3d;
+  margin-top: 20px;
+}
+.modal-content .modal-alert {
+  display: flex;
+  justify-content: normal;
+  align-items: normal;
+  margin-top: 20px;
+  border-top: 1px solid #c1b6ad;
+  padding-top: 11px;
+  padding-bottom: 12px;
+}
+.modal-content .modal-alert .modal-alert-icon {
+  width: 16px;
+  height: 16px;
+}
+.modal-content .modal-alert .modal-alert-text {
+  margin-left: 8px;
+  flex-grow: 1;
+  font-family: "Inter";
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 140%;
+  font-style: normal;
+  color: #403f3d;
+}
+.modal-content .modal-close-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  font-style: normal;
+  width: 100%;
+  height: 44px;
+  border: 1px solid #665f55;
+  border-radius: 100px;
+  background-color: #e1d4c9;
+  color: #403f3d;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  margin-top: 20px;
+}
+@media (hover: hover) {
+  .modal-content .modal-close-btn:hover {
+    background-color: #665f55;
+    color: #e1d4c9;
+  }
+}
+
+.modal-show {
+  animation: mod-wrapper-show 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.modal-show .modal-container {
+  animation: mod-inner-show 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.modal-close {
+  animation: mod-wrapper-close 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.modal-close .modal-container {
+  animation: mod-inner-close 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes mod-wrapper-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes mod-inner-show {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes mod-wrapper-close {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes mod-inner-close {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
 }/*# sourceMappingURL=style.css.map */
