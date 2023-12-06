@@ -5,7 +5,7 @@ const burgerMenu = document.querySelector('.navigation-menu');
 const burgerLinks = document.querySelectorAll('.burger-link');
 
 burger.addEventListener('click', () => {
-  console.log('burgerclick');
+  // console.log('burgerclick');
   toggleBurger();
 });
 
@@ -46,7 +46,6 @@ window.addEventListener('resize', () => {
 // slider
 
 const slider = document.querySelector('.slider__inner');
-console.log('slider', slider);
 const leftArrow = document.querySelector('.arrow-left');
 const rightArrow = document.querySelector('.arrow-right');
 const countOfSlides = 3;
@@ -56,6 +55,15 @@ let sliderTimerId = null;
 let isPaused = false;
 let nextControl = document.getElementById('control-1');
 nextControl.classList.add('control-active');
+
+function isTouch() {
+  return (
+    'ontouchstart' in window ||
+    (window.DocumentTouch && document instanceof window.DocumentTouch) ||
+    navigator.maxTouchPoints > 0 ||
+    window.navigator.msMaxTouchPoints > 0
+  );
+}
 
 function moveSlider(direction) {
   let numbNextSlide = null;
@@ -75,7 +83,6 @@ function moveSlider(direction) {
   slider.addEventListener('transitionend', transitionendHandler);
 
   function transitionendHandler() {
-    console.log('transitionend slider');
     nextControl.classList.add('control-active');
     numbActiveSlide = numbNextSlide;
     slider.removeEventListener('transitionend', transitionendHandler);
@@ -91,32 +98,33 @@ leftArrow.addEventListener('click', () => {
 });
 
 slider.addEventListener('mouseenter', () => {
-  console.log('ponterenter');
+  console.log('mouseenter');
+  if (isTouch()) return;
   nextControl.classList.add('control-paused');
 });
 
 slider.addEventListener('mouseleave', () => {
-  console.log('ponterleave');
+  console.log('mouseleave');
+
   nextControl.classList.remove('control-paused');
 });
 
 nextControl.addEventListener('animationend', animationendControlHandler);
 
 function animationendControlHandler() {
-  console.log('animationend control');
   moveSlider('to-left');
 }
 
 // swiper
 let startX;
 let startY;
+
 slider.addEventListener(
   'touchstart',
   (e) => {
     console.log('touchstart');
     nextControl.classList.add('control-paused');
     startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
   },
   false
 );
@@ -124,17 +132,35 @@ slider.addEventListener(
 slider.addEventListener(
   'touchend',
   (e) => {
+    console.log('touchend');
     let diffX;
+    let endX = e.changedTouches[0].clientX;
 
-    diffX = e.changedTouches[0].clientX - startX;
+    diffX = endX - startX;
 
     if (diffX > 100) {
       moveSlider('to-right');
-    }
-
-    if (diffX < 100) {
+    } else if (diffX < -100) {
       moveSlider('to-left');
+    } else {
+      nextControl.classList.remove('control-paused');
     }
   },
   false
 );
+
+slider.addEventListener(
+  'contextmenu',
+  function (e) {
+    console.log('contextmenu');
+    if (isTouch()) {
+      e.preventDefault();
+    }
+  },
+  false
+);
+
+slider.addEventListener('mousedown', (e) => {
+  console.log('mousedown');
+  if (isTouch()) return;
+});
