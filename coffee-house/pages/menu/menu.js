@@ -34,7 +34,9 @@ const menuTabs = document.querySelectorAll(`[name='menu']`);
 const menuWrapper = document.querySelector('.menu__wrapper');
 const loadMoreBtn = document.querySelector('.refresh-btn');
 const modalWrapper = document.querySelector('.modal-wrapper');
+const menuList = document.querySelector('.menu__items');
 let lengthOfMenu = 0;
+let firstTime = true;
 
 async function getData(category) {
   const res = await fetch('./products.json');
@@ -42,7 +44,24 @@ async function getData(category) {
   const products = allProducts.filter(
     (prod) => prod.category === `${category}`
   );
-  renderMenu(products);
+
+  if (firstTime) {
+    firstTime = false;
+    renderMenu(products);
+  } else {
+    console.log(category);
+    console.log('firsttime false');
+    menuList.classList.add('menu-hide');
+    menuList.addEventListener('animationend', renderAfterAniamtion);
+
+    function renderAfterAniamtion(e) {
+      if (e.animationName === 'menuHide') {
+        renderMenu(products);
+      }
+      menuList.removeEventListener('animationend', renderAfterAniamtion);
+    }
+  }
+
   renderLoadMoreBtn(products.length);
 }
 
@@ -55,12 +74,12 @@ async function getProductData(productName) {
 
 function renderMenu(products) {
   lengthOfMenu = 0;
-  const menuList = document.querySelector('.menu__items');
+
   menuList.innerHTML = '';
   products.forEach((item, i) => {
     const menuItem = document.createElement('li');
     menuItem.classList.add('menu-item');
-    if (window.innerWidth < 1090 && i > 3) {
+    if (window.innerWidth < 769 && i > 3) {
       menuItem.classList.add('hidden');
     }
     menuItem.innerHTML = `
@@ -84,17 +103,18 @@ function renderMenu(products) {
     menuList.append(menuItem);
     lengthOfMenu += 1;
   });
+  menuList.classList.add('menu-show');
 }
 
 function updateMenuView(length) {
   const menuItems = document.querySelectorAll('.menu-item');
   const items = [...menuItems].filter((el, i) => i > 3);
-  if (window.innerWidth >= 1090 && length > 4) {
+  if (window.innerWidth >= 769 && length > 4) {
     items.forEach((el) => {
       el.classList.remove('hidden');
     });
   }
-  if (window.innerWidth < 1090 && length > 4) {
+  if (window.innerWidth < 769 && length > 4) {
     items.forEach((el) => {
       el.classList.add('hidden');
     });
@@ -102,7 +122,7 @@ function updateMenuView(length) {
 }
 
 function renderLoadMoreBtn(length) {
-  if (window.innerWidth >= 1090) {
+  if (window.innerWidth >= 769) {
     loadMoreBtn.classList.remove('visible');
     return;
   }
@@ -116,6 +136,7 @@ function renderLoadMoreBtn(length) {
 
 menuTabs.forEach((input) => {
   input.addEventListener('input', () => {
+    menuList.classList.remove('menu-hide', 'menu-show');
     getData(input.id);
   });
 });
@@ -146,11 +167,11 @@ window.addEventListener('resize', () => {
     toggleBurger();
   }
 
-  if (newWindowWidth < 1090 && lastWindowWidth >= 1090) {
+  if (newWindowWidth < 769 && lastWindowWidth >= 769) {
     renderLoadMoreBtn(lengthOfMenu);
     updateMenuView(lengthOfMenu);
   }
-  if (newWindowWidth >= 1090 && lastWindowWidth < 1090) {
+  if (newWindowWidth >= 769 && lastWindowWidth < 769) {
     renderLoadMoreBtn(lengthOfMenu);
     updateMenuView(lengthOfMenu);
   }

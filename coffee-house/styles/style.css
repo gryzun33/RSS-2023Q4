@@ -1631,6 +1631,7 @@ a {
   list-style-type: none;
   margin-top: 40px;
   gap: 40px;
+  opacity: 1;
 }
 .menu__items .menu-item {
   width: 310px;
@@ -1693,6 +1694,14 @@ a {
 .menu__items .hidden {
   display: none;
 }
+.menu .menu-hide {
+  animation: menuHide 0.2s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.menu .menu-show {
+  animation: menuShow 0.2s ease-in-out;
+  animation-fill-mode: forwards;
+}
 .menu .refresh-btn {
   width: 60px;
   height: 60px;
@@ -1719,6 +1728,22 @@ a {
   display: flex;
 }
 
+@keyframes menuHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes menuShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .modal-wrapper {
   left: 0;
   top: 0;
