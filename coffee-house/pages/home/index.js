@@ -56,14 +56,14 @@ let isPaused = false;
 let nextControl = document.getElementById('control-1');
 nextControl.classList.add('control-active');
 
-function isTouch() {
-  return (
-    'ontouchstart' in window ||
-    (window.DocumentTouch && document instanceof window.DocumentTouch) ||
-    navigator.maxTouchPoints > 0 ||
-    window.navigator.msMaxTouchPoints > 0
-  );
-}
+// function isTouch() {
+//   return (
+//     'ontouchstart' in window ||
+//     (window.DocumentTouch && document instanceof window.DocumentTouch) ||
+//     navigator.maxTouchPoints > 0 ||
+//     window.navigator.msMaxTouchPoints > 0
+//   );
+// }
 
 function moveSlider(direction) {
   let numbNextSlide = null;
@@ -97,15 +97,15 @@ leftArrow.addEventListener('click', () => {
   moveSlider('to-right');
 });
 
-slider.addEventListener('mouseenter', () => {
-  console.log('mouseenter');
-  if (isTouch()) return;
+slider.addEventListener('pointerenter', (e) => {
+  // console.log('pointerenter');
+  if (e.pointerType === 'touch') return;
   nextControl.classList.add('control-paused');
 });
 
-slider.addEventListener('mouseleave', () => {
-  console.log('mouseleave');
-
+slider.addEventListener('pointerleave', (e) => {
+  // console.log('pointerleave');
+  if (e.pointerType === 'touch') return;
   nextControl.classList.remove('control-paused');
 });
 
@@ -122,9 +122,10 @@ let startY;
 slider.addEventListener(
   'touchstart',
   (e) => {
-    console.log('touchstart');
+    // console.log('touchstart');
     nextControl.classList.add('control-paused');
     startX = e.touches[0].clientX;
+    // startX = e.clientX;
   },
   false
 );
@@ -132,9 +133,10 @@ slider.addEventListener(
 slider.addEventListener(
   'touchend',
   (e) => {
-    console.log('touchend');
+    // console.log('touchend');
     let diffX;
     let endX = e.changedTouches[0].clientX;
+    // let endX = e.clientX;
 
     diffX = endX - startX;
 
@@ -153,14 +155,10 @@ slider.addEventListener(
   'contextmenu',
   function (e) {
     console.log('contextmenu');
-    if (isTouch()) {
+    if (e.pointerType === 'touch') {
+      // console.log('pointertype touch');
       e.preventDefault();
     }
   },
   false
 );
-
-// slider.addEventListener('mousedown', (e) => {
-//   console.log('mousedown');
-//   if (isTouch()) return;
-// });
