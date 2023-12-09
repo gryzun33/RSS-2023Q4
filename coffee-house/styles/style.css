@@ -905,7 +905,7 @@ video {
 }
 @media screen and (max-width: 575px) {
   .favorites-coffee .slider__outer {
-    width: 100%;
+    width: 348px;
   }
 }
 .favorites-coffee .slider__inner {
