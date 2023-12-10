@@ -688,6 +688,7 @@ a {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  pointer-events: none;
 }
 .enjoy__content {
   position: relative;
@@ -794,10 +795,6 @@ a {
   .enjoy__btn:hover img {
     opacity: 1;
   }
-}
-
-video {
-  pointer-events: none;
 }
 
 .favorites-coffee__wrapper {
