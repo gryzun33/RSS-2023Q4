@@ -12,35 +12,37 @@
 <body>
   <header id="header" class="header">
     <div class="header__wrapper">
-      <a class="logo-wrapper" href="index.html">
+      <a class="logo-wrapper" href="#">
         <img src="../../assets/icons/logo.png" alt="logo" class="logo">
       </a>
-      <nav class="navigation">
-        <ul class="nav-list">
-          <li class="nav-item">
-            <a href="#fav-coffee">Favorite coffee</a>
-            <div class="nav-line"></div>
-          </li>
-          <li class="nav-item">
-            <a href="#about">About</a>
-            <div class="nav-line"></div>
-          </li>
-          <li class="nav-item">
-            <a href="#mobile-app">Mobile app</a>
-            <div class="nav-line"></div>
-          </li>
-          <li class="nav-item">
-            <a href="#contacts">Contact us</a>
-            <div class="nav-line"></div>
-          </li>
-        </ul>
-      </nav>
-      <div class="coffee-menu">
-        <a class="menu-link" href="../menu/menu.html">
-          <p>Menu</p>
-          <img src="../../assets/icons/coffee-cup.svg" alt="cup">
-        </a>
-        <div class="menu-line"></div>
+      <div class="navigation-menu">
+        <nav class="navigation">
+          <ul class="nav-list">
+            <li class="nav-item burger-link">
+              <a href="#fav-coffee">Favorite coffee</a>
+              <div class="nav-line"></div>
+            </li>
+            <li class="nav-item burger-link">
+              <a href="#about">About</a>
+              <div class="nav-line"></div>
+            </li>
+            <li class="nav-item burger-link">
+              <a href="#mobile-app">Mobile app</a>
+              <div class="nav-line"></div>
+            </li>
+            <li class="nav-item burger-link">
+              <a href="#contacts">Contact us</a>
+              <div class="nav-line"></div>
+            </li>
+          </ul>
+        </nav>
+        <div class="coffee-menu burger-link">
+          <a class="menu-link" href="../menu/menu.html">
+            <p>Menu</p>
+            <img src="../../assets/icons/coffee-cup.svg" alt="cup">
+          </a>
+          <div class="menu-line"></div>
+        </div>
       </div>
       <div class="burger">
         <span></span>
@@ -51,6 +53,11 @@
   <section class="enjoy">
     <div class="enjoy__wrapper">
       <div class="enjoy__box">
+        <div class="enjoy__video-box">
+          <video autoplay muted loop poster="../../assets/images/img-hero.jpg">
+            <source src="../../assets/video/video-coffee.webm" type="video/webm">
+          </video>
+        </div>
         <div class="enjoy__content">
           <h1 class="enjoy__title"><span>Enjoy</span>premium coffee at our charming cafe</h1>
           <p class="enjoy__text">With its inviting atmosphere and delicious coffee options, the Coffee House Resource is
@@ -78,12 +85,26 @@
           </button>
           <div class="slider__outer">
             <div class="slider__inner">
-              <div class="slide">
+              <div class="slide" id="slide-1">
                 <img class="slide__image" src="../../assets/images/coffee-slider-1.png" alt="frappuccino">
                 <h3 class="slide__title">S’mores Frappuccino</h3>
                 <p class="slide__description">This new drink takes an espresso and mixes it with brown sugar and
                   cinnamon before being topped with oat milk.</p>
                 <p class="slide__price">$5.50</p>
+              </div>
+              <div class="slide" id="slide-2">
+                <img class="slide__image" src="../../assets/images/coffee-slider-2.png" alt="macchiato">
+                <h3 class="slide__title">Caramel Macchiato</h3>
+                <p class="slide__description">Fragrant and unique classic espresso with rich caramel-peanut syrup,
+                  with cream under whipped thick foam.</p>
+                <p class="slide__price">$5.00</p>
+              </div>
+              <div class="slide" id="slide-3">
+                <img class="slide__image" src="../../assets/images/coffee-slider-3.png" alt="frappuccino">
+                <h3 class="slide__title">Ice coffee</h3>
+                <p class="slide__description">A popular summer drink that tones and invigorates. Prepared from coffee,
+                  milk and ice.</p>
+                <p class="slide__price">$4.50</p>
               </div>
             </div>
           </div>
@@ -97,7 +118,7 @@
         </div>
         <div class="slider__controls">
           <div class="control">
-            <div id="control-1" class="control-inner control-active"></div>
+            <div id="control-1" class="control-inner"></div>
           </div>
           <div class="control">
             <div id="control-2" class="control-inner"></div>
@@ -258,6 +279,7 @@
       </div>
     </div>
   </footer>
+  <script defer type="module" src="index.js"></script>
 </body>
 
 </html>
