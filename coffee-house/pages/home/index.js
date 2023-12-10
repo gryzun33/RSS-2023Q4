@@ -5,6 +5,7 @@ const burgerMenu = document.querySelector('.navigation-menu');
 const burgerLinks = document.querySelectorAll('.burger-link');
 
 burger.addEventListener('click', () => {
+  window.scrollTo(0, 0);
   // console.log('burgerclick');
   toggleBurger();
 });

@@ -6,7 +6,8 @@ const burgerMenu = document.querySelector('.navigation-menu');
 const burgerLinks = document.querySelectorAll('.burger-link');
 
 burger.addEventListener('click', () => {
-  console.log('burgerclick');
+  // console.log('burgerclick');
+  window.scrollTo(0, 0);
   toggleBurger();
 });
 
@@ -162,7 +163,7 @@ window.addEventListener('resize', () => {
   if (
     lastWindowWidth <= 768 &&
     newWindowWidth >= 769 &&
-    burgerMenu.classList.contains('burger-menu-show')
+    burgerMenu.classList.contains('navigation-menu-show')
   ) {
     toggleBurger();
   }
