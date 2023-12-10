@@ -1173,12 +1173,7 @@ video {
 .mobile-app__content {
   width: 630px;
 }
-@media screen and (max-width: 1024px) {
-  .mobile-app__content {
-    width: 688px;
-  }
-}
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1250px) {
   .mobile-app__content {
     width: 100%;
   }
