@@ -1,4 +1,6 @@
 .menu {
+  margin-bottom: auto;
+
   &__title-main {
     display: none;
   }
@@ -97,16 +99,7 @@
     list-style-type: none;
     margin-top: 40px;
     gap: 40px;
-
-    @include tablets-768 {
-      height: 1052px;
-      overflow: hidden;
-    }
-
-    @include tablets {
-      width: 310px;
-      height: 2144px;
-    }
+    opacity: 1;
 
     .menu-item {
       width: 310px;
@@ -156,6 +149,20 @@
         color: $color-text-dark;
       }
     }
+
+    .hidden {
+      display: none;
+    }
+  }
+
+  .menu-hide {
+    animation: menuHide 0.2s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  .menu-show {
+    animation: menuShow 0.2s ease-in-out;
+    animation-fill-mode: forwards;
   }
 
   .refresh-btn {
@@ -163,8 +170,30 @@
     margin-top: 40px;
     display: none;
 
-    @include tablets-768 {
-      display: flex;
-    }
+    // @include tablets-768 {
+    //   display: flex;
+    // }
+  }
+
+  .visible {
+    display: flex;
+  }
+}
+
+@keyframes menuHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes menuShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

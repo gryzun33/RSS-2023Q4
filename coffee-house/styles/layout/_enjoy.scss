@@ -14,6 +14,8 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     padding: 100px;
+    position: relative;
+    overflow: hidden;
 
     @include laptops {
       padding: 100px 60px;
@@ -25,7 +27,24 @@
     }
   }
 
+  &__video-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+  }
+
   &__content {
+    position: relative;
+    z-index: 1;
     width: 535px;
     @include flex-column;
     gap: 40px;

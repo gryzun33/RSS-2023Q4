@@ -28,6 +28,12 @@
   }
 }
 
+@mixin tablets-650 {
+  @media screen and (max-width: 650px) {
+    @content;
+  }
+}
+
 @mixin mobile {
   @media screen and (max-width: 575px) {
     @content;
@@ -164,6 +170,26 @@
   height: 64px;
   border-radius: 100px;
   background-color: $color-bg-body;
+}
+
+@mixin btn-secondary {
+  @include flex(center, center);
+  @include text-link-and-btn;
+  width: 100%;
+  height: 44px;
+  border: 1px solid $color-border-dark;
+  border-radius: 100px;
+  background-color: $color-bg-body;
+  color: $color-text-dark;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: $color-bg-container;
+      color: $color-text-light;
+    }
+  }
 }
 
 @mixin btn-app {

@@ -48,6 +48,7 @@
     &__outer {
       width: 480px;
       height: 640px;
+      overflow: hidden;
 
       @include tablets {
         width: 66.95%;
@@ -55,15 +56,19 @@
       }
 
       @include mobile {
-        width: 100%;
+        // width: 100%;
+        width: 348px;
       }
     }
 
     &__inner {
+      width: 300%;
+      height: 100%;
       @include flex;
+      transition: 0.5s ease-in-out;
 
       .slide {
-        width: 100%;
+        width: 33.33%;
         @include flex-column(normal, center);
 
         &__image {
@@ -89,6 +94,10 @@
           margin-top: 16px;
         }
       }
+
+      // .hidden {
+      //   display: none;
+      // }
     }
 
     &__controls {
@@ -103,17 +112,38 @@
         height: 4px;
         background-color: $color-border-light;
         border-radius: 100px;
+        position: relative;
         overflow: hidden;
 
         .control-inner {
-          width: 100%;
+          width: 200%;
           height: 100%;
+          position: absolute;
+          top: 0;
+          left: -100%;
+          background-color: $color-border-dark;
+          transform: scaleX(0);
+          display: none;
         }
 
         .control-active {
-          background-color: $color-border-dark;
+          display: block;
+          animation: showActive 5s linear;
+        }
+
+        .control-paused {
+          animation-play-state: paused;
         }
       }
     }
+  }
+}
+
+@keyframes showActive {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
