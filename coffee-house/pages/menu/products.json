@@ -469,6 +469,7 @@
 
   {
     "image": "../../assets/images/dessert-2.jpg",
+    "name": "Red velvet",
     "description": "Layer cake with cream cheese frosting",
     "price": "4.00",
     "category": "dessert",
