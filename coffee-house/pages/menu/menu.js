@@ -209,7 +209,8 @@ tabs.forEach((tab) => {
 
 function createModal(wrapper, product) {
   createModalHTML(wrapper, product);
-
+  totalPrice.sizePrice = 0;
+  totalPrice.addPrice = 0;
   const sizesTabsBox = document.querySelector('.sizes-tabs-box');
   const additivesTabsBox = document.querySelector('.additives-tabs-box');
   const totalPriceElem = document.querySelector('.modal-total-price');
