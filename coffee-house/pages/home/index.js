@@ -3,6 +3,7 @@ const burgerFirst = document.querySelector('.burger span:nth-child(1)');
 const burgerSecond = document.querySelector('.burger span:nth-child(2)');
 const burgerMenu = document.querySelector('.navigation-menu');
 const burgerLinks = document.querySelectorAll('.burger-link');
+const logo = document.querySelector('.logo-wrapper');
 
 burger.addEventListener('click', () => {
   window.scrollTo(0, 0);
@@ -16,6 +17,15 @@ burgerLinks.forEach((burgerLink) => {
       toggleBurger();
     }
   });
+});
+
+logo.addEventListener('click', () => {
+  if (
+    window.innerWidth <= 768 &&
+    burgerMenu.classList.contains('navigation-menu-show')
+  ) {
+    toggleBurger();
+  }
 });
 
 function toggleBurger() {
