@@ -1905,6 +1905,9 @@ a {
 .modal-content .modal-tabs .modal-tabs-box input[type=checkbox]:checked + .modal-tab {
   pointer-events: auto;
 }
+.modal-content .modal-tabs .additives-tabs-box {
+  gap: 8.5px;
+}
 .modal-content .modal-total {
   display: flex;
   justify-content: space-between;
