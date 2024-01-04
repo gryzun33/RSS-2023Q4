@@ -44,13 +44,60 @@ body {
   @include flex(space-between, normal)
 }
 
-
-
 .man-head, .man-body, .man-left-arm, .man-right-arm, .man-left-leg, .man-right-leg {
   width: 100px;
   height: 100px;
   background-color: $color-secondary;
 } 
+
+.gallows-box {
+  width: 35%;
+}
+
+.game-box {
+  width: 75%;
+}
+
+.question-box {
+  width: 100%;
+  height: 400px;
+  @include flex-column(center, center);
+
+  .answer-box {
+    @include flex;
+    gap: 15px;
+    
+    .letter-box {
+      width: 50px;
+      height: 50px;
+      border-bottom: 3px solid $color-secondary;
+    }
+  }
+
+  .hint {
+    color: $color-light;
+    font-size: 25px;
+    font-family: 'Lilita One';
+    margin-top: 30px;
+  }
+
+  .guesses {
+    color: $color-light;
+    font-size: 25px;
+    font-family: 'Lilita One';
+    margin-top: 30px;
+
+    .guess-count, .guess-max {
+      color: red;
+    }
+  }
+}
+
+.keyboard-box {
+  width: 100%;
+  height: 400px;
+  @include flex-column(normal, center);
+}
 
 .hidden {
   display: block;

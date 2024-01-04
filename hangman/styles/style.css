@@ -376,6 +376,58 @@ body {
   background-color: #5884a3;
 }
 
+.gallows-box {
+  width: 35%;
+}
+
+.game-box {
+  width: 75%;
+}
+
+.question-box {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.question-box .answer-box {
+  display: flex;
+  justify-content: normal;
+  align-items: normal;
+  gap: 15px;
+}
+.question-box .answer-box .letter-box {
+  width: 50px;
+  height: 50px;
+  border-bottom: 3px solid #5884a3;
+}
+.question-box .hint {
+  color: #fcc480;
+  font-size: 25px;
+  font-family: "Lilita One";
+  margin-top: 30px;
+}
+.question-box .guesses {
+  color: #fcc480;
+  font-size: 25px;
+  font-family: "Lilita One";
+  margin-top: 30px;
+}
+.question-box .guesses .guess-count, .question-box .guesses .guess-max {
+  color: red;
+}
+
+.keyboard-box {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: normal;
+  align-items: center;
+}
+
 .hidden {
   display: block;
 }/*# sourceMappingURL=style.css.map */

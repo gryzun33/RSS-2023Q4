@@ -1,0 +1,42 @@
+import { questions } from "../data/questions.js";
+import { createHTMLElement } from "../utils/createHTMLElement.js";
+
+export class Question {
+  constructor(currInd, parent) {
+    // this.index = currInd;
+    this.hint = questions[currInd].question;
+    this.answer = questions[currInd].answer;
+    this.letters = [];
+    // this.guesses = 0;
+    this.maxGuesses = 6;
+    this.createView(parent);
+  }
+
+  createView(parent) {
+    
+    const answerElem = createHTMLElement('div', 'answer-box',parent);
+
+    for (let i = 0; i < this.answer.length; i+=1 ) {
+      let letterBox = createHTMLElement('div', 'letter-box',answerElem);
+      let letterObj = {
+        letter: '',
+        elem: letterBox,
+      }
+      this.letters.push(letterObj);
+    }
+
+    const hintElem = createHTMLElement('div', 'hint', parent);
+    hintElem.innerText = `Hint: ${this.hint}?`; 
+    const incorrGuesses = createHTMLElement('p', 'guesses', parent);
+    const guessText = createHTMLElement('span', 'guess-text', incorrGuesses);
+    guessText.innerText = `Incorrect guesses:    `;
+    this.guessCountElem = createHTMLElement('span', 'guess-count', incorrGuesses);
+    this.guessCountElem.innerText = '0';
+    const guessMaxElem = createHTMLElement('span', 'guess-max', incorrGuesses);
+    guessMaxElem.innerText = ` / ${this.maxGuesses}`;
+  }
+
+  setGuesses(count) {
+    this.guessCountElem.innerText = count;
+  }
+}
