@@ -402,6 +402,10 @@ body {
   width: 50px;
   height: 50px;
   border-bottom: 3px solid #5884a3;
+  color: #fcc480;
+  font-size: 40px;
+  font-family: "Lilita One";
+  text-align: center;
 }
 .question-box .hint {
   color: #fcc480;

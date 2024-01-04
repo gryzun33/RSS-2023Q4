@@ -37,4 +37,9 @@ export class Question {
   setGuesses(count) {
     this.guessCountElem.innerText = count;
   }
+
+  openLetter(ind) {
+    this.letters[ind].letter = this.answer[ind];
+    this.letters[ind].elem.innerText = this.answer[ind];
+  }
 }

@@ -1,42 +1,42 @@
 export const questions = [
   {
     question: 'what day is the first in week',
-    answer: 'sunday'
+    answer: 'SUNDAY'
   },
   {
     question: 'what month is first in year',
-    answer: 'january'
+    answer: 'JANUARY'
   },
   {
     question: 'what do people drink in the morning',
-    answer: 'coffee'
+    answer: 'COFFEE'
   },
   {
     question: 'what bird is the most popular',
-    answer: 'pigeon'
+    answer: 'PIGEON'
   },
   {
     question: 'where do peaople keep food',
-    answer: 'refrigerator'
+    answer: 'REFRIGERATOR'
   },
   {
     question: 'who teaches children in the school',
-    answer: 'teacher'
+    answer: 'TEACHER'
   },
   {
     question: 'where do children go every morning',
-    answer: 'school'
+    answer: 'SCHOOL'
   },
   {
     question: 'what vegetable is green',
-    answer: 'cucumber'
+    answer: 'CUCUMBER'
   },
   {
     question: 'what fruit is yellow',
-    answer: 'pineapple'
+    answer: 'PINEAPPLE'
   },
   {
     question: 'where do books lay',
-    answer: 'bookcase'
+    answer: 'BOOKCASE'
   }, 
 ]

@@ -12,8 +12,10 @@ export class Main {
   constructor() {
       this.currInd = null;
       this.answersCount = 0;
+      this.question = null;
       this.createView();
       this.updateView();
+      
   }
 
   createView() {
@@ -24,19 +26,26 @@ export class Main {
       const gallowsBox = createHTMLElement('div', 'gallows-box', mainContent);
       const gameBox = createHTMLElement('div', 'game-box', mainContent);
       this.questionBox = createHTMLElement('div', 'question-box', gameBox );
-      const keyBoardBox = createHTMLElement('div', 'keyboard-box', gameBox);
+      this.keyBoardBox = createHTMLElement('div', 'keyboard-box', gameBox);
       // wrapper.append(title);
       // wrapper.append(mainContent);
       document.body.append(wrapper);
 
       this.hangman = new Hangman(gallowsBox);
-      this.keyboard = new Keyboard(keyBoardBox);
+      this.keyboard = new Keyboard(this.keyBoardBox);
+
+      
   }
 
   updateView() {
+    console.log('update');
+    this.wrongAnswers = 0;
     this.currInd = this.getNewQuestion();
     this.questionBox.innerHTML = '';
     this.question = new Question (this.currInd, this.questionBox);
+    console.log('question1 = ',this.question);
+    this.events();
+    
   }
 
   getNewQuestion() {
@@ -51,5 +60,37 @@ export class Main {
     }
    
     return randomInd; 
-  } 
+  }
+  
+  events() {
+    this.keyBoardBox.addEventListener('click', this.clickOnKeyboard.bind(this));
+  }
+
+  clickOnKeyboard(e) {
+    console.log('click');
+    let target = e.target;
+      if(!target.classList.contains('key')) {
+        return;
+      }
+      let letter = target.innerText;
+      console.log('letter=', letter);
+      console.log('question2 =', this.question);
+  
+      let isLetter = this.question.answer.includes(letter);
+      if(!isLetter) {
+        console.log('wrong');
+        this.wrongAnswers += 1;
+        this.question.setGuesses(this.wrongAnswers);
+
+      } else {
+        let answerArr = this.question.answer.split('');
+        answerArr.forEach((currLetter, ind) => {
+          if(currLetter === letter) {
+            this.question.openLetter(ind);
+          }
+        });
+      }
+      // this.question.openLetter(index);
+      
+  }
 }
