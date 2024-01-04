@@ -386,7 +386,7 @@ body {
 
 .question-box {
   width: 100%;
-  height: 400px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -421,11 +421,24 @@ body {
 
 .keyboard-box {
   width: 100%;
-  height: 400px;
+  height: 300px;
   display: flex;
-  flex-direction: column;
-  justify-content: normal;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 10px;
+  padding: 0 100px;
+}
+.keyboard-box .key {
+  width: 40px;
+  height: 40px;
+  background-color: #fc5434;
+  border-radius: 5px;
+  color: #2c3e50;
+  font-size: 30px;
+  font-family: "Lilita One";
+  text-align: center;
+  cursor: pointer;
 }
 
 .hidden {

@@ -1,7 +1,9 @@
 import { createHTMLElement } from "../utils/createHTMLElement.js";
 import { Hangman } from "./Hangman.js";
 import { Question } from "./Question.js";
+import { Keyboard } from "./Keyboard.js";
 import { questions } from "../data/questions.js";
+
 
 console.log('hangman');
 
@@ -28,6 +30,7 @@ export class Main {
       document.body.append(wrapper);
 
       this.hangman = new Hangman(gallowsBox);
+      this.keyboard = new Keyboard(keyBoardBox);
   }
 
   updateView() {

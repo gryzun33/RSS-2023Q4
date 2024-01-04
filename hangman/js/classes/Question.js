@@ -3,11 +3,9 @@ import { createHTMLElement } from "../utils/createHTMLElement.js";
 
 export class Question {
   constructor(currInd, parent) {
-    // this.index = currInd;
     this.hint = questions[currInd].question;
     this.answer = questions[currInd].answer;
     this.letters = [];
-    // this.guesses = 0;
     this.maxGuesses = 6;
     this.createView(parent);
   }
