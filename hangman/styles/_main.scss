@@ -28,6 +28,7 @@ body {
   width: 1000px;
   height: 100%;
   padding-top: 50px;
+  padding-bottom: 100px;
   @include flex-column(normal, center);
 }
 
@@ -36,6 +37,21 @@ body {
   font-size: 40px;
   color: $color-key;
   margin: 0;
-
 }
 
+.main {
+  width: 100%;
+  @include flex(space-between, normal)
+}
+
+
+
+.man-head, .man-body, .man-left-arm, .man-right-arm, .man-left-leg, .man-right-leg {
+  width: 100px;
+  height: 100px;
+  background-color: $color-secondary;
+} 
+
+.hidden {
+  display: block;
+}

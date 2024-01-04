@@ -349,6 +349,7 @@ body {
   width: 1000px;
   height: 100%;
   padding-top: 50px;
+  padding-bottom: 100px;
   display: flex;
   flex-direction: column;
   justify-content: normal;
@@ -360,4 +361,21 @@ body {
   font-size: 40px;
   color: #fc5434;
   margin: 0;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: normal;
+}
+
+.man-head, .man-body, .man-left-arm, .man-right-arm, .man-left-leg, .man-right-leg {
+  width: 100px;
+  height: 100px;
+  background-color: #5884a3;
+}
+
+.hidden {
+  display: block;
 }/*# sourceMappingURL=style.css.map */
