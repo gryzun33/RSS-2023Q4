@@ -4,7 +4,7 @@ export class Keyboard {
 
   constructor(parent) {
     this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    this.keyButtons = {};
+    this.keyButtons = [];
     this.createView(parent);
   }
 
@@ -12,11 +12,18 @@ export class Keyboard {
     
     for(let i = 0; i < this.alphabet.length; i+=1) {
       let keyLetter = this.alphabet[i];
-      let keyElem = createHTMLElement('button', 'key', par);
-      keyElem.innerText = keyLetter;
+      let keyBtn = createHTMLElement('button', 'key', par);
+      keyBtn.innerText = keyLetter;
+      this.keyButtons.push(keyBtn);
       // keyElem.dataset.letter = keyLetter;
-      this.keyButtons[keyLetter] = keyElem;
+      // this.keyButtons[keyLetter] = keyElem;
     }
+  }
+
+  updateView() {
+    this.keyButtons.forEach((btn) => {
+      btn.disabled = false;
+    }) 
   }
 
 

@@ -440,6 +440,10 @@ body {
   text-align: center;
   cursor: pointer;
 }
+.keyboard-box .key:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
 
 .hidden {
   display: block;

@@ -118,6 +118,12 @@ body {
     font-family: 'Lilita One';
     text-align: center;
     cursor: pointer;
+    // opacity: 0.5;
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
   }
 
 }
