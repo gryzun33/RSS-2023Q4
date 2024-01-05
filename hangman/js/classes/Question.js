@@ -25,12 +25,12 @@ export class Question {
 
     const hintElem = createHTMLElement('div', 'hint', parent);
     hintElem.innerText = `Hint: ${this.hint}?`; 
-    const incorrGuesses = createHTMLElement('p', 'guesses', parent);
-    const guessText = createHTMLElement('span', 'guess-text', incorrGuesses);
+    const incorrGuesses = createHTMLElement('div', 'guesses', parent);
+    const guessText = createHTMLElement('p', 'guess-text', incorrGuesses);
     guessText.innerText = `Incorrect guesses:    `;
-    this.guessCountElem = createHTMLElement('span', 'guess-count', incorrGuesses);
+    this.guessCountElem = createHTMLElement('p', 'guess-count', incorrGuesses);
     this.guessCountElem.innerText = '0';
-    const guessMaxElem = createHTMLElement('span', 'guess-max', incorrGuesses);
+    const guessMaxElem = createHTMLElement('p', 'guess-max', incorrGuesses);
     guessMaxElem.innerText = ` / ${this.maxGuesses}`;
   }
 
@@ -41,5 +41,13 @@ export class Question {
   openLetter(ind) {
     this.letters[ind].letter = this.answer[ind];
     this.letters[ind].elem.innerText = this.answer[ind];
+  }
+
+  checkWord() {
+    let guessWord = this.letters.map((el) => el.letter).join('');
+    if(guessWord === this.answer) {
+      return true;
+    }
+    return false;
   }
 }

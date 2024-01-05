@@ -11,8 +11,7 @@ console.log('hangman');
 export class Main {
   constructor() {
       this.currInd = null;
-      this.answersCount = 0;
-      this.question = null;
+      this.isEnd = false;
       this.createView();
       this.updateView();
       
@@ -34,7 +33,7 @@ export class Main {
       this.hangman = new Hangman(gallowsBox);
       this.keyboard = new Keyboard(this.keyBoardBox);
 
-      
+      this.events();
   }
 
   updateView() {
@@ -44,7 +43,7 @@ export class Main {
     this.questionBox.innerHTML = '';
     this.question = new Question (this.currInd, this.questionBox);
     console.log('question1 = ',this.question);
-    this.events();
+    
     
   }
 
@@ -81,6 +80,7 @@ export class Main {
         console.log('wrong');
         this.wrongAnswers += 1;
         this.question.setGuesses(this.wrongAnswers);
+        this.hangman.addNextPart(this.wrongAnswers-1);
 
       } else {
         let answerArr = this.question.answer.split('');
@@ -89,8 +89,28 @@ export class Main {
             this.question.openLetter(ind);
           }
         });
+
       }
-      // this.question.openLetter(index);
+      e.target.disabled = true;
+      this.checkGame();
       
+  }
+
+  checkGame() {
+    if(this.wrongAnswers === 6) {
+      console.log('kenny hanged');
+      this.hangman.addHalo();
+      // setTimeout(() => {
+        
+      // },2000)
+      this.isEnd = true;
+    } 
+
+    let isCorrect = this.question.checkWord();
+    if(isCorrect) {
+      console.log('kenny saved');
+      this.isEnd = true;
+    }
+    
   }
 }

@@ -5,19 +5,69 @@ export class Hangman {
 
   constructor(parent) {
     this.hangmanBody = [];
-    this.bodyParts = ['man-head','man-body', 'man-left-arm', 'man-right-arm','man-left-leg', 'man-right-leg'];
+    this.bodyParts = [
+      {
+        cssClass: 'man-head',
+        src: './assets/images/head.png'
+      },
+      {
+        cssClass: 'man-body',
+        src: './assets/images/body.png'
+      },
+      {
+        cssClass: 'man-left-arm',
+        src: './assets/images/left-arm.png'
+      },
+      {
+        cssClass: 'man-right-arm',
+        src: './assets/images/right-arm.png'
+      },
+      {
+        cssClass: 'man-left-leg',
+        src: './assets/images/left-leg.png'
+      },
+      {
+        cssClass: 'man-right-leg',
+        src: './assets/images/right-leg.png'
+      },
+      {
+        cssClass: 'halo',
+        src: './assets/images/halo.png'
+      }
+    ];
     this.createView(parent);
     
 }
 
-  createView(parent) {
-    const hangmanWrapper = createHTMLElement('div', 'hangman');
-    parent.append(hangmanWrapper);
-    this.bodyParts.forEach((elClass) => {
-      const bodyPart = createHTMLElement('div', elClass, hangmanWrapper);
-      bodyPart.classList.add('hidden');
+  createView(par) {
+   
+    const hangmanWrapper = createHTMLElement('div', 'hangman', par);
+    const gallows = createHTMLElement('img', 'gallows', hangmanWrapper);
+    gallows.src='./assets/images/gallows.png';
+    // parent.append(hangmanWrapper);
+    this.bodyParts.forEach((part) => {
+      const bodyPart = createHTMLElement('img', part.cssClass, hangmanWrapper);
+      bodyPart.src = part.src;
+      bodyPart.classList.add('hidden', 'body-part');
       this.hangmanBody.push(bodyPart);
     })
-    parent.append(hangmanWrapper);   
+    // parent.append(hangmanWrapper);   
   }
+
+  addNextPart(ind) {
+    this.hangmanBody[ind].classList.remove('hidden');
+  }
+
+  addHalo() {
+    // this.hangmanBody[6].classList.remove('hidden');
+    this.hangmanBody[6].classList.add('halo-show');
+  }
+
+  hideMan() {
+    this.bodyParts.forEach((part) => {      
+      part.classList.add('hidden');
+    })
+  }
+
+  
 }
