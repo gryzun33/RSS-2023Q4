@@ -40,9 +40,8 @@ export class Hangman {
 }
 
   createView(par) {
-   
+    const gallows = createHTMLElement('img', 'gallows', par);
     const hangmanWrapper = createHTMLElement('div', 'hangman', par);
-    const gallows = createHTMLElement('img', 'gallows', hangmanWrapper);
     gallows.src='./assets/images/gallows.png';
     // parent.append(hangmanWrapper);
     this.bodyParts.forEach((part) => {

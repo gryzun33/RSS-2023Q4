@@ -2,6 +2,7 @@ import { createHTMLElement } from "../utils/createHTMLElement.js";
 import { Hangman } from "./Hangman.js";
 import { Question } from "./Question.js";
 import { Keyboard } from "./Keyboard.js";
+import { Modal } from "./Modal.js";
 import { questions } from "../data/questions.js";
 
 
@@ -32,6 +33,7 @@ export class Main {
 
       this.hangman = new Hangman(gallowsBox);
       this.keyboard = new Keyboard(this.keyBoardBox);
+      this.modal = new Modal(mainContent);
 
       this.events();
   }
@@ -80,10 +82,10 @@ export class Main {
   clickOnVirtKeyboard(e) {
     console.log('click');
     let targetBtn = e.target;
-      if(!target.classList.contains('key')) {
+      if(!targetBtn.classList.contains('key')) {
         return;
       }
-      let letter = target.innerText;
+      let letter = targetBtn.innerText;
       console.log('letter=', letter);
       console.log('question2 =', this.question);
       this.checkLetter(letter, targetBtn);
@@ -120,13 +122,20 @@ export class Main {
       // setTimeout(() => {
         
       // },2000)
-      this.isEnd = true;
+      this.isEnd = 'fail';
+      this.modal.showModal(this.isEnd, this.question.answer); 
     } 
 
     let isCorrect = this.question.checkWord();
     if(isCorrect) {
       console.log('kenny saved');
-      this.isEnd = true;
+      this.isEnd = 'win';
+      this.modal.showModal(this.isEnd, this.question.answer); 
+      this.hangman.hangmanBody.forEach((part, i) => {
+        if(i < 6) {
+          part.classList.remove('hidden');
+        }
+      })
     }
     
   }
