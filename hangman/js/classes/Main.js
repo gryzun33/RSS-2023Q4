@@ -43,8 +43,7 @@ export class Main {
     this.questionBox.innerHTML = '';
     this.question = new Question (this.currInd, this.questionBox);
     console.log('question1 = ',this.question);
-    
-    
+        
   }
 
   getNewQuestion() {
@@ -62,20 +61,38 @@ export class Main {
   }
   
   events() {
-    this.keyBoardBox.addEventListener('click', this.clickOnKeyboard.bind(this));
+    this.keyBoardBox.addEventListener('click', this.clickOnVirtKeyboard.bind(this));
+
+    document.body.addEventListener('keydown', this.clickOnPhysKeyboard.bind(this));
   }
 
-  clickOnKeyboard(e) {
+  clickOnPhysKeyboard(e) {
+    let physLetter = e.code[e.code.length - 1];
+    console.log(physLetter);
+    if(this.keyboard.alphabet.includes(physLetter)) {
+
+      let keyButton = this.keyboard.keyButtons.find((btn) => btn.innerText === physLetter);
+      
+      this.checkLetter(physLetter, keyButton);
+    }
+  }
+
+  clickOnVirtKeyboard(e) {
     console.log('click');
-    let target = e.target;
+    let targetBtn = e.target;
       if(!target.classList.contains('key')) {
         return;
       }
       let letter = target.innerText;
       console.log('letter=', letter);
       console.log('question2 =', this.question);
-  
-      let isLetter = this.question.answer.includes(letter);
+      this.checkLetter(letter, targetBtn);
+      
+  }
+
+  checkLetter(letter, currButton) {
+
+    let isLetter = this.question.answer.includes(letter);
       if(!isLetter) {
         console.log('wrong');
         this.wrongAnswers += 1;
@@ -91,9 +108,9 @@ export class Main {
         });
 
       }
-      e.target.disabled = true;
+      currButton.disabled = true;
       this.checkGame();
-      
+    
   }
 
   checkGame() {
