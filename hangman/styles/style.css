@@ -332,6 +332,24 @@ template {
   font-weight: 400;
   font-style: normal;
 }
+@font-face {
+  font-family: "Signika";
+  src: url("../assets/fonts/signika/Signika-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Patrick Hand";
+  src: url("../assets/fonts/patrick-hand/PatrickHand-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../assets/fonts/abeezee/ABeeZee-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -349,18 +367,23 @@ body {
 .wrapper {
   margin-left: auto;
   margin-right: auto;
-  width: 1000px;
+  width: 1200px;
+  height: 750px;
+  padding: 70px 100px 100px 100px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: normal;
   align-items: center;
+  box-shadow: 0px 0px 12px 1px #fcc480;
 }
 
 .title {
   font-family: "Lilita One";
-  font-size: 40px;
+  font-size: 50px;
   color: #fc5434;
   margin: 0;
+  text-shadow: 0px 0px 3px black;
 }
 
 .main {
@@ -423,21 +446,25 @@ body {
 }
 .question-box .hint {
   color: #fcc480;
-  font-size: 25px;
-  font-family: "Lilita One";
+  font-size: 30px;
+  font-family: "ABeeZee";
+  font-family: "Patrick Hand";
+  font-family: "Signika";
   margin-top: 40px;
 }
 .question-box .guesses {
   color: #fcc480;
-  font-size: 25px;
-  font-family: "Lilita One";
+  font-size: 30px;
+  font-family: "ABeeZee";
+  font-family: "Patrick Hand";
+  font-family: "Signika";
   margin-top: 30px;
   display: flex;
   justify-content: normal;
   align-items: normal;
 }
 .question-box .guesses .guess-text {
-  width: 205px;
+  width: 250px;
 }
 .question-box .guesses .guess-count {
   width: 20px;
@@ -457,15 +484,15 @@ body {
   justify-content: center;
   align-content: center;
   gap: 10px;
-  padding: 0 100px;
+  padding: 0 80px;
 }
 .keyboard-box .key {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   background-color: #fc5434;
   border-radius: 5px;
   color: #2c3e50;
-  font-size: 30px;
+  font-size: 35px;
   font-family: "Lilita One";
   text-align: center;
   cursor: pointer;
