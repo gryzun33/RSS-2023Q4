@@ -416,16 +416,26 @@ body {
 .gallows-box .body-part {
   z-index: 2;
 }
-.gallows-box .hidden {
+.gallows-box .halo {
   opacity: 0;
 }
-.gallows-box .halo {
-  transition: opacity 1s ease-in-out;
-}
 .gallows-box .halo-show {
-  opacity: 1;
+  animation: halo-show 1s ease-in-out;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}
+.gallows-box .hidden {
+  display: none;
 }
 
+@keyframes halo-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .game-box {
   width: 65%;
   display: flex;
@@ -527,8 +537,13 @@ body {
   align-items: normal;
 }
 
-.modal-wrapper-show {
+.modal-show {
   animation: modal-show 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.modal-hide {
+  animation: modal-hide 0.3s ease-in-out;
   animation-fill-mode: forwards;
 }
 
@@ -597,5 +612,13 @@ body {
   }
   to {
     transform: scale(1);
+  }
+}
+@keyframes modal-hide {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
   }
 }/*# sourceMappingURL=style.css.map */

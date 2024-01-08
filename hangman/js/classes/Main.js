@@ -42,13 +42,23 @@ export class Main {
     console.log('update');
     this.wrongAnswers = 0;
     this.currInd = this.getNewQuestion();
+    console.log('newID', this.currInd);
     this.questionBox.innerHTML = '';
     this.question = new Question (this.currInd, this.questionBox);
     console.log('question1 = ',this.question);
         
   }
 
+  events() {
+    this.keyBoardBox.addEventListener('click', this.clickOnVirtKeyboard.bind(this));
+
+    document.body.addEventListener('keydown', this.clickOnPhysKeyboard.bind(this));
+
+    this.modal.playBtn.addEventListener('click', this.runNewGame.bind(this));
+  }
+
   getNewQuestion() {
+    console.log('current=', this.currInd);
     const l = questions.length;
     let randomInd;
     if(this.currInd) {
@@ -62,12 +72,6 @@ export class Main {
     return randomInd; 
   }
   
-  events() {
-    this.keyBoardBox.addEventListener('click', this.clickOnVirtKeyboard.bind(this));
-
-    document.body.addEventListener('keydown', this.clickOnPhysKeyboard.bind(this));
-  }
-
   clickOnPhysKeyboard(e) {
     let physLetter = e.code[e.code.length - 1];
     console.log(physLetter);
@@ -138,5 +142,12 @@ export class Main {
       })
     }
     
+  }
+
+  runNewGame() {
+    this.updateView();
+    this.hangman.hideMan();
+    this.keyboard.updateView();
+    this.modal.closeModal();
   }
 }

@@ -31,12 +31,26 @@ export class Modal {
     this.modalCorrectAnswer.innerText = answer;
 
     this.modalWrapper.classList.remove('modal-hidden');
-    this.modalWrapper.classList.add('modal-wrapper-show');
+    this.modalWrapper.classList.add('modal-show');
     // this.modalContainer.classList.add('modal-container-show');
     
     
   }
 
   }
+
+  closeModal() {
+    this.modalWrapper.classList.add('modal-hide');
+    this.modalWrapper.addEventListener('animationend', animationEndHandler);
+    
+    function animationEndHandler() {
+      this.classList.add('modal-hidden');
+      this.classList.remove('modal-show', 'modal-hide');
+      this.removeEventListener('animationend', animationEndHandler);
+    }
+  
+  }
+
+ 
 
 }

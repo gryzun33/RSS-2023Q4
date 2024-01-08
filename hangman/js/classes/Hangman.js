@@ -58,14 +58,16 @@ export class Hangman {
   }
 
   addHalo() {
-    // this.hangmanBody[6].classList.remove('hidden');
+    this.hangmanBody[6].classList.remove('hidden');
     this.hangmanBody[6].classList.add('halo-show');
   }
 
   hideMan() {
-    this.bodyParts.forEach((part) => {      
+    console.log(this.hangmanBody);
+    this.hangmanBody.forEach((part) => {      
       part.classList.add('hidden');
     })
+    this.hangmanBody[6].classList.remove('halo-show');
   }
 
   
