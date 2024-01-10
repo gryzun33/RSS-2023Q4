@@ -24,9 +24,9 @@ export class Main {
       title.innerText = `Hangman Game`;
       const mainContent = createHTMLElement('main', 'main', wrapper);
       const gallowsBox = createHTMLElement('div', 'gallows-box', mainContent);
-      const gameBox = createHTMLElement('div', 'game-box', mainContent);
-      this.questionBox = createHTMLElement('div', 'question-box', gameBox );
-      this.keyBoardBox = createHTMLElement('div', 'keyboard-box', gameBox);
+      // const gameBox = createHTMLElement('div', 'game-box', mainContent);
+      this.questionBox = createHTMLElement('div', 'question-box', mainContent);
+      this.keyBoardBox = createHTMLElement('div', 'keyboard-box', mainContent);
       // wrapper.append(title);
       // wrapper.append(mainContent);
       document.body.append(wrapper);

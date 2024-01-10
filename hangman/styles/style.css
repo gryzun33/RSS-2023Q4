@@ -358,25 +358,47 @@ template {
 
 body {
   background-color: #2c3e50;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-y: scroll;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
 }
 
 .wrapper {
-  margin-left: auto;
-  margin-right: auto;
-  width: 1200px;
+  margin: 30px;
+  max-width: 1100px;
+  width: 100%;
   height: auto;
-  padding: 70px;
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: normal;
   align-items: center;
+  padding: 50px;
+  border-radius: 20px;
   box-shadow: 0px 0px 10px 1px #fcc480;
+}
+@media screen and (max-width: 1100px) {
+  .wrapper {
+    padding: 50px 30px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .wrapper {
+    padding: 40px 20px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .wrapper {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .wrapper {
+    padding: 16px;
+  }
 }
 
 .title {
@@ -386,34 +408,89 @@ body {
   margin: 0;
   text-shadow: 0px 0px 3px black;
 }
+@media screen and (max-width: 800px) {
+  .title {
+    font-size: 35px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .title {
+    font-size: 30px;
+  }
+}
 
 .main {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: normal;
+  max-height: 700px;
   margin-top: 50px;
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: normal;
+  align-content: normal;
+  flex-direction: column;
+}
+@media screen and (max-width: 950px) {
+  .main {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+@media screen and (max-width: 800px) {
+  .main {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: normal;
+    align-items: center;
+    max-height: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .main {
+    margin-top: 30px;
+    justify-content: space-between;
+  }
 }
 
 .gallows-box {
-  width: 35%;
+  order: 1;
+  width: 320px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: normal;
+}
+@media screen and (max-width: 950px) {
+  .gallows-box {
+    width: 35%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .gallows-box {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .gallows-box {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .gallows-box {
+    width: 200px;
+  }
 }
 .gallows-box .gallows {
   width: 100%;
 }
 .gallows-box .hangman {
   width: 100%;
-  height: 100%;
   position: absolute;
   top: 0;
 }
 .gallows-box .body-part {
   width: 100%;
   position: absolute;
-}
-.gallows-box .body-part {
   z-index: 2;
 }
 .gallows-box .halo {
@@ -428,52 +505,98 @@ body {
   display: none;
 }
 
-@keyframes halo-show {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.game-box {
-  width: 65%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .question-box {
-  width: 100%;
+  order: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  width: 500px;
   height: 250px;
+}
+@media screen and (max-width: 950px) {
+  .question-box {
+    width: 450px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .question-box {
+    width: 100%;
+    height: 200px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .question-box {
+    height: 170px;
+  }
+}
+.question-box .question {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
-.question-box .answer-box {
+.question-box .question .answer-box {
+  width: 100%;
   display: flex;
-  justify-content: normal;
+  justify-content: center;
   align-items: normal;
   gap: 15px;
 }
-.question-box .answer-box .letter-box {
-  width: 50px;
-  height: 50px;
+@media screen and (max-width: 600px) {
+  .question-box .question .answer-box {
+    gap: 10px;
+  }
+}
+.question-box .question .answer-box .letter-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   border-bottom: 3px solid #5884a3;
   color: #fcc480;
-  font-size: 40px;
+  font-size: 35px;
   font-family: "Lilita One";
-  text-align: center;
 }
-.question-box .hint {
+@media screen and (max-width: 600px) {
+  .question-box .question .answer-box .letter-box {
+    width: 7%;
+    font-size: 30px;
+    border-bottom: 2px solid #5884a3;
+  }
+}
+@media screen and (max-width: 500px) {
+  .question-box .question .answer-box .letter-box {
+    font-size: 25px;
+  }
+}
+.question-box .question .hint {
   color: #fcc480;
   font-size: 30px;
   font-family: "Signika";
   margin-top: 40px;
+  text-align: center;
 }
-.question-box .guesses {
+@media screen and (max-width: 1100px) {
+  .question-box .question .hint {
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .question-box .question .hint {
+    margin-top: 30px;
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .question-box .question .hint {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+}
+.question-box .question .guesses {
   color: #fcc480;
   font-size: 30px;
   font-family: "Signika";
@@ -482,28 +605,79 @@ body {
   justify-content: normal;
   align-items: normal;
 }
-.question-box .guesses .guess-text {
-  width: 250px;
+@media screen and (max-width: 1100px) {
+  .question-box .question .guesses {
+    font-size: 25px;
+  }
 }
-.question-box .guesses .guess-count {
+@media screen and (max-width: 600px) {
+  .question-box .question .guesses {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .question-box .question .guesses {
+    font-size: 18px;
+  }
+}
+.question-box .question .guesses .guess-count {
   width: 20px;
 }
-.question-box .guesses .guess-max {
+@media screen and (max-width: 600px) {
+  .question-box .question .guesses .guess-count {
+    width: 15px;
+  }
+}
+.question-box .question .guesses .guess-max {
   width: 40px;
 }
-.question-box .guesses .guess-count, .question-box .guesses .guess-max {
+@media screen and (max-width: 600px) {
+  .question-box .question .guesses .guess-max {
+    width: 25px;
+  }
+}
+.question-box .question .guesses .guess-count, .question-box .question .guesses .guess-max {
   color: red;
 }
 
 .keyboard-box {
-  width: 100%;
-  height: 250px;
+  order: 3;
+  padding-top: 40px;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 950px) {
+  .keyboard-box {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .keyboard-box {
+    padding-top: 0;
+  }
+}
+.keyboard-box .keyboard {
+  max-width: 500px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
   gap: 10px;
-  padding: 0 80px;
+}
+@media screen and (max-width: 600px) {
+  .keyboard-box .keyboard {
+    width: 90%;
+    gap: 8px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .keyboard-box .keyboard {
+    width: 100%;
+    gap: 7px;
+  }
 }
 .keyboard-box .key {
   width: 45px;
@@ -520,7 +694,29 @@ body {
   pointer-events: none;
   opacity: 0.5;
 }
+@media screen and (max-width: 600px) {
+  .keyboard-box .key {
+    width: 8%;
+    height: 40px;
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .keyboard-box .key {
+    height: 35px;
+    font-size: 20px;
+    width: 9%;
+  }
+}
 
+@keyframes halo-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .modal-wrapper {
   position: absolute;
   top: 0;

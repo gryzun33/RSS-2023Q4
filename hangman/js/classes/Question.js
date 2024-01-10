@@ -11,8 +11,9 @@ export class Question {
   }
 
   createView(parent) {
-    
-    const answerElem = createHTMLElement('div', 'answer-box',parent);
+    const questionInner = createHTMLElement('div', 'question',parent);
+
+    const answerElem = createHTMLElement('div', 'answer-box',questionInner);
 
     for (let i = 0; i < this.answer.length; i+=1 ) {
       let letterBox = createHTMLElement('div', 'letter-box',answerElem);
@@ -23,11 +24,11 @@ export class Question {
       this.letters.push(letterObj);
     }
 
-    const hintElem = createHTMLElement('div', 'hint', parent);
+    const hintElem = createHTMLElement('div', 'hint', questionInner);
     hintElem.innerText = `Hint: ${this.hint}?`; 
-    const incorrGuesses = createHTMLElement('div', 'guesses', parent);
+    const incorrGuesses = createHTMLElement('div', 'guesses', questionInner);
     const guessText = createHTMLElement('p', 'guess-text', incorrGuesses);
-    guessText.innerText = `Incorrect guesses:    `;
+    guessText.innerHTML = `Incorrect guesses:&nbsp;&nbsp;`;
     this.guessCountElem = createHTMLElement('p', 'guess-count', incorrGuesses);
     this.guessCountElem.innerText = '0';
     const guessMaxElem = createHTMLElement('p', 'guess-max', incorrGuesses);

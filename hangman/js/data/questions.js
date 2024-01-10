@@ -13,11 +13,11 @@ export const questions = [
   },
   {
     question: 'what bird is the most popular',
-    answer: 'PIGEON'
+    answer: 'PIGEONTTTT'
   },
   {
     question: 'where do peaople keep food',
-    answer: 'REFRIGERATOR'
+    answer: 'REFRIGERAT'
   },
   {
     question: 'who teaches children in the school',
@@ -33,10 +33,10 @@ export const questions = [
   },
   {
     question: 'what fruit is yellow',
-    answer: 'PINEAPPLE'
+    answer: 'PINEAPPLEP'
   },
   {
     question: 'where do books lay',
-    answer: 'BOOKCASE'
+    answer: 'BOOKCASEAA'
   }, 
 ]
