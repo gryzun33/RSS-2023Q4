@@ -8,7 +8,7 @@ export const questions = [
     answer: 'JANUARY'
   },
   {
-    question: 'what do people drink in the morning',
+    question: 'what do people drink in the morning lobg long long question',
     answer: 'COFFEE'
   },
   {
@@ -16,11 +16,11 @@ export const questions = [
     answer: 'PIGEONTTTT'
   },
   {
-    question: 'where do peaople keep food',
+    question: 'where do peaople keep food lobg long long question',
     answer: 'REFRIGERAT'
   },
   {
-    question: 'who teaches children in the school',
+    question: 'who teaches children in the school lobg long long question',
     answer: 'TEACHER'
   },
   {
@@ -28,7 +28,7 @@ export const questions = [
     answer: 'SCHOOL'
   },
   {
-    question: 'what vegetable is green',
+    question: 'what vegetable is green lobg long long question',
     answer: 'CUCUMBER'
   },
   {

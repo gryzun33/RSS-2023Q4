@@ -491,7 +491,6 @@ body {
 .gallows-box .body-part {
   width: 100%;
   position: absolute;
-  z-index: 2;
 }
 .gallows-box .halo {
   opacity: 0;
@@ -527,7 +526,7 @@ body {
 }
 @media screen and (max-width: 500px) {
   .question-box {
-    height: 170px;
+    height: 160px;
   }
 }
 .question-box .question {

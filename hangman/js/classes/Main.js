@@ -135,11 +135,11 @@ export class Main {
       console.log('kenny saved');
       this.isEnd = 'win';
       this.modal.showModal(this.isEnd, this.question.answer); 
-      this.hangman.hangmanBody.forEach((part, i) => {
-        if(i < 6) {
-          part.classList.remove('hidden');
-        }
-      })
+      // this.hangman.hangmanBody.forEach((part, i) => {
+      //   if(i < 6) {
+      //     part.classList.remove('hidden');
+      //   }
+      // })
     }
     
   }
