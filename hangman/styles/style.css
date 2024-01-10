@@ -719,7 +719,8 @@ body {
 .modal-wrapper {
   position: absolute;
   top: 0;
-  width: 100%;
+  width: 80%;
+  left: 10%;
   height: 100%;
   background-color: #5884a3;
   z-index: 1;
