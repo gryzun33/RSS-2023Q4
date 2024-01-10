@@ -19,7 +19,8 @@ export class Main {
   }
 
   createView() {
-      const wrapper = createHTMLElement('div', 'wrapper');
+      const wrapper = createHTMLElement('div', 'wrapper', document.body);
+      this.overlay = createHTMLElement('div', 'overlay', document.body);
       const title = createHTMLElement('h1', 'title', wrapper);
       title.innerText = `Hangman Game`;
       const mainContent = createHTMLElement('main', 'main', wrapper);
@@ -29,7 +30,7 @@ export class Main {
       this.keyBoardBox = createHTMLElement('div', 'keyboard-box', mainContent);
       // wrapper.append(title);
       // wrapper.append(mainContent);
-      document.body.append(wrapper);
+      // document.body.append(wrapper);
 
       this.hangman = new Hangman(gallowsBox);
       this.keyboard = new Keyboard(this.keyBoardBox);
@@ -127,7 +128,9 @@ export class Main {
         
       // },2000)
       this.isEnd = 'fail';
+      
       this.modal.showModal(this.isEnd, this.question.answer); 
+      this.overlay.classList.add('overlay-show');
     } 
 
     let isCorrect = this.question.checkWord();
@@ -135,6 +138,7 @@ export class Main {
       console.log('kenny saved');
       this.isEnd = 'win';
       this.modal.showModal(this.isEnd, this.question.answer); 
+      this.overlay.classList.add('overlay-show');
       // this.hangman.hangmanBody.forEach((part, i) => {
       //   if(i < 6) {
       //     part.classList.remove('hidden');
@@ -149,5 +153,6 @@ export class Main {
     this.hangman.hideMan();
     this.keyboard.updateView();
     this.modal.closeModal();
+    this.overlay.classList.remove('overlay-show');
   }
 }
