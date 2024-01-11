@@ -34,7 +34,7 @@ export class Main {
 
       this.hangman = new Hangman(gallowsBox);
       this.keyboard = new Keyboard(this.keyBoardBox);
-      this.modal = new Modal(mainContent);
+      this.modal = new Modal(this.overlay);
 
       this.events();
   }

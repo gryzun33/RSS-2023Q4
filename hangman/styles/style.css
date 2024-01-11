@@ -367,7 +367,7 @@ body {
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   opacity: 0;
@@ -376,6 +376,9 @@ body {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   transition: opacity 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .overlay-show {
@@ -735,11 +738,7 @@ body {
   }
 }
 .modal-wrapper {
-  position: absolute;
-  top: 0;
-  width: 80%;
-  left: 10%;
-  height: 100%;
+  width: 800px;
   background-color: #5884a3;
   z-index: 2;
   border-radius: 20px;
@@ -752,23 +751,17 @@ body {
 }
 @media screen and (max-width: 950px) {
   .modal-wrapper {
-    width: 90%;
-    left: 5%;
-    height: 80%;
+    width: 700px;
   }
 }
 @media screen and (max-width: 800px) {
   .modal-wrapper {
     width: 90%;
-    left: 5%;
-    top: 20%;
-    height: 60%;
   }
 }
 @media screen and (max-width: 600px) {
   .modal-wrapper {
-    height: 80%;
-    top: 10%;
+    padding: 20px 15px;
   }
 }
 
@@ -807,6 +800,7 @@ body {
 .modal-content {
   display: flex;
   width: 100%;
+  margin-top: 30px;
 }
 @media screen and (max-width: 600px) {
   .modal-content {
@@ -820,6 +814,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media screen and (max-width: 600px) {
+  .modal-image-box {
+    width: 100%;
+  }
 }
 .modal-image-box .modal-image {
   position: relative;
@@ -852,9 +851,7 @@ body {
 
 .modal-answer {
   width: 50%;
-  height: 100%;
   text-align: center;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -862,7 +859,8 @@ body {
 }
 @media screen and (max-width: 600px) {
   .modal-answer {
-    margin-top: 30px;
+    margin-top: 40px;
+    width: 100%;
   }
 }
 .modal-answer .answer-title {
@@ -901,6 +899,11 @@ body {
   font-family: "Lilita One";
   font-size: 20px;
   margin-top: 20px;
+}
+@media screen and (max-width: 600px) {
+  .play-btn {
+    margin-top: 40px;
+  }
 }
 .play-btn:hover {
   background-color: #2c3e50;

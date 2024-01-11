@@ -14,7 +14,7 @@ body {
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   opacity: 0;
@@ -23,7 +23,9 @@ body {
   height: 100%;
   // display: none;
   background-color: rgba(0, 0, 0, 0.4);
-  transition: opacity 0.5s ease-in-out
+  transition: opacity 0.5s ease-in-out;
+
+  @include flex(center, center);
 }
 
 .overlay-show {
