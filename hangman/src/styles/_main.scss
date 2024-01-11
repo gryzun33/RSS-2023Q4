@@ -20,7 +20,6 @@ body {
   max-width: 1100px;
   width: 100%;
 
-  
   height: auto;
   // max-height: 900px;
   @include flex-column(normal, center);
@@ -46,11 +45,10 @@ body {
   @include mobile-500 {
     padding: 16px;
   }
-
 }
 
 .title {
-  font-family: 'Lilita One';
+  font-family: "Lilita One";
   font-size: 50px;
   color: $color-key;
   margin: 0;
@@ -66,12 +64,11 @@ body {
 }
 
 .main {
-  
   width: 100%;
   // height: auto;
   max-height: 700px;
   margin-top: 50px;
-  position: relative; 
+  position: relative;
 
   @include flex-wrap(normal, normal);
   // justify-content: space-between;
@@ -96,22 +93,19 @@ body {
     // height: 100%;
     justify-content: space-between;
   }
-
-
 }
 
 .gallows-box {
-  order:1;
+  order: 1;
   // grid-area: gallows;
   width: 320px;
   position: relative;
-  
+
   @include flex(center, normal);
 
   @include laptop-950 {
     width: 35%;
   }
-
 
   @include tablet-800 {
     width: 40%;
@@ -125,12 +119,8 @@ body {
     width: 200px;
   }
 
-
-
   .gallows {
     width: 100%;
-
-
   }
 
   .hangman {
@@ -138,38 +128,35 @@ body {
     width: 100%;
     position: absolute;
     top: 0;
-    
+
     // @include laptop-1024 {
     //   width: 270px;
     // }
-
   }
 
   .body-part {
     width: 100%;
     position: absolute;
     // z-index: 2;
-  
-  } 
+  }
 
   .halo {
     opacity: 0;
-  }  
+  }
 
   .halo-show {
     animation: halo-show 1s ease-in-out;
     animation-delay: 0.3s;
     animation-fill-mode: forwards;
   }
-  
+
   .hidden {
     display: none;
-  }  
- 
+  }
 }
 
 .question-box {
-  order:2;
+  order: 2;
   // grid-area: question;
   @include flex(center, center);
   align-self: center;
@@ -195,15 +182,6 @@ body {
     @include flex-column(center, center);
     width: 100%;
 
- 
-
-
-
-  
-
-
-
-  
     .answer-box {
       width: 100%;
       @include flex(center);
@@ -212,39 +190,38 @@ body {
       @include mobile-600 {
         gap: 10px;
       }
-      
+
       .letter-box {
-        @include flex(center,center);
+        @include flex(center, center);
         width: 40px;
         height: 40px;
         border-bottom: 3px solid $color-secondary;
         color: $color-light;
         font-size: 35px;
-        font-family: 'Lilita One';
+        font-family: "Lilita One";
         text-shadow: 0px 0px 3px black;
 
         @include mobile-600 {
-           width: 7%;
-           font-size: 30px;
-           border-bottom: 2px solid $color-secondary;
+          width: 7%;
+          font-size: 30px;
+          border-bottom: 2px solid $color-secondary;
         }
 
         @include mobile-500 {
           font-size: 25px;
         }
-       
       }
     }
-  
+
     .hint {
       color: $color-light;
       font-size: 30px;
-  
-      font-family: 'Signika';
+
+      font-family: "Signika";
       margin-top: 40px;
       text-align: center;
       text-shadow: 0px 0px 3px black;
-  
+
       @include desktop-1100 {
         font-size: 25px;
       }
@@ -258,17 +235,13 @@ body {
         font-size: 18px;
         margin-top: 20px;
       }
-
-      
-  
-  
     }
-  
+
     .guesses {
       color: $color-light;
       font-size: 30px;
-  
-      font-family: 'Signika';
+
+      font-family: "Signika";
       margin-top: 30px;
       text-shadow: 0px 0px 3px black;
       @include flex;
@@ -284,11 +257,11 @@ body {
       @include mobile-500 {
         font-size: 18px;
       }
-  
+
       // .guess-text {
       //   width: 250px;
       // }
-  
+
       .guess-count {
         width: 20px;
 
@@ -296,30 +269,29 @@ body {
           width: 15px;
         }
       }
-  
+
       .guess-max {
         width: 40px;
         @include mobile-600 {
           width: 25px;
         }
       }
-  
-      .guess-count, .guess-max {
+
+      .guess-count,
+      .guess-max {
         color: red;
       }
     }
-
   }
-
 }
 
 .keyboard-box {
-  order:3;
+  order: 3;
   // grid-area: keyboard;
   padding-top: 40px;
   align-self: center;
-  
-  @include flex(center,center);
+
+  @include flex(center, center);
 
   @include laptop-950 {
     width: 100%;
@@ -329,11 +301,9 @@ body {
     padding-top: 0;
   }
 
-
-
   .keyboard {
     max-width: 500px;
-    @include flex-wrap(center,center);
+    @include flex-wrap(center, center);
     gap: 10px;
 
     @include mobile-600 {
@@ -346,8 +316,6 @@ body {
       gap: 7px;
     }
   }
-  
- 
 
   // @include desktop-1100 {
   //   padding: 40px 15px 0 15px;
@@ -364,7 +332,7 @@ body {
     border-radius: 5px;
     color: $color-main-bg;
     font-size: 35px;
-    font-family: 'Lilita One';
+    font-family: "Lilita One";
     text-align: center;
     cursor: pointer;
     // opacity: 0.5;
@@ -378,7 +346,6 @@ body {
       width: 8%;
       height: 40px;
       font-size: 25px;
-
     }
 
     @include mobile-500 {
@@ -395,11 +362,6 @@ body {
   }
 
   to {
-    opacity: 1
+    opacity: 1;
   }
 }
-
-
-
-
-

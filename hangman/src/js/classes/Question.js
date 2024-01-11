@@ -1,5 +1,5 @@
-import { questions } from "../data/questions.js";
-import { createHTMLElement } from "../utils/createHTMLElement.js";
+import { questions } from '../data/questions.js';
+import { createHTMLElement } from '../utils/createHTMLElement.js';
 
 export class Question {
   constructor(currInd, parent) {
@@ -11,21 +11,21 @@ export class Question {
   }
 
   createView(parent) {
-    const questionInner = createHTMLElement('div', 'question',parent);
+    const questionInner = createHTMLElement('div', 'question', parent);
 
-    const answerElem = createHTMLElement('div', 'answer-box',questionInner);
+    const answerElem = createHTMLElement('div', 'answer-box', questionInner);
 
-    for (let i = 0; i < this.answer.length; i+=1 ) {
-      let letterBox = createHTMLElement('div', 'letter-box',answerElem);
+    for (let i = 0; i < this.answer.length; i += 1) {
+      let letterBox = createHTMLElement('div', 'letter-box', answerElem);
       let letterObj = {
         letter: '',
         elem: letterBox,
-      }
+      };
       this.letters.push(letterObj);
     }
 
     const hintElem = createHTMLElement('div', 'hint', questionInner);
-    hintElem.innerText = `Hint: ${this.hint}?`; 
+    hintElem.innerText = `Hint: ${this.hint}?`;
     const incorrGuesses = createHTMLElement('div', 'guesses', questionInner);
     const guessText = createHTMLElement('p', 'guess-text', incorrGuesses);
     guessText.innerHTML = `Incorrect guesses:&nbsp;&nbsp;`;
@@ -46,7 +46,7 @@ export class Question {
 
   checkWord() {
     let guessWord = this.letters.map((el) => el.letter).join('');
-    if(guessWord === this.answer) {
+    if (guessWord === this.answer) {
       return true;
     }
     return false;
