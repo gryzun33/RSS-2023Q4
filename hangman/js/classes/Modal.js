@@ -7,8 +7,9 @@ export class Modal {
   }
 
   createView(parent) {
-    this.modalWrapper = createHTMLElement('div','modal-wrapper', parent);
-    this.modalWrapper.classList.add('modal-hidden');
+    this.overlay = createHTMLElement('div', 'overlay', parent);
+    this.modalWrapper = createHTMLElement('div','modal-wrapper', this.overlay);
+    this.overlay.classList.add('modal-hidden');
     // this.modalContainer = createHTMLElement('div','modal-container', modalWrapper);
     
     this.modalTitle = createHTMLElement('h2','modal-title', this.modalWrapper);
@@ -38,7 +39,8 @@ export class Modal {
     }
     this.modalCorrectAnswer.innerText = answer;
 
-    this.modalWrapper.classList.remove('modal-hidden');
+    this.overlay.classList.remove('modal-hidden');
+    this.overlay.classList.add('overlay-show');
     this.modalWrapper.classList.add('modal-show');
     // this.modalContainer.classList.add('modal-container-show');
     
@@ -49,13 +51,15 @@ export class Modal {
 
   closeModal() {
     this.modalWrapper.classList.add('modal-hide');
+    this.overlay.classList.add('overlay-hide');
     this.haloModal.classList.remove('halo-modal-show');
-    this.modalWrapper.addEventListener('animationend', animationEndHandler);
+    this.overlay.addEventListener('animationend', animationEndHandler);
     
     
-    function animationEndHandler() {
+   function animationEndHandler() {
       this.classList.add('modal-hidden');
-      this.classList.remove('modal-show', 'modal-hide');
+      this.classList.remove('overlay-show', 'overlay-hide');
+      this.firstElementChild.classList.remove('modal-show', 'modal-hide');
       this.removeEventListener('animationend', animationEndHandler);
     }
   

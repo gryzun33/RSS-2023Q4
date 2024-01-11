@@ -1,22 +1,4 @@
 @font-face {
-  font-family: 'Borsok';
-  src: url('../assets/fonts/borsok/borsok.woff2') format('woff2'), 
-   url('../assets/fonts/borsok/borsok.woff') format('woff'),
-   url('../assets/fonts/borsok/borsok.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Junegull';
-  src: url('../assets/fonts/junegull/junegull-regular.woff2') format('woff2'), 
-  url('../assets/fonts/junegull/junegull-regular.woff') format('woff'), 
-  url('../assets/fonts/junegull/junegull-regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
   font-family: 'Lilita One';
   src: url('../assets/fonts/lilita-one/lilita-one-regular.ttf') format('truetype');
   font-weight: 400;
@@ -27,19 +9,5 @@
   font-family: 'Signika';
   src: url('../assets/fonts/signika/Signika-Medium.ttf') format('truetype');
   font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Patrick Hand';
-  src: url('../assets/fonts/patrick-hand/PatrickHand-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'ABeeZee';
-  src: url('../assets/fonts/abeezee/ABeeZee-Regular.ttf') format('truetype');
-  font-weight: 400;
   font-style: normal;
 }
