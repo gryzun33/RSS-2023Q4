@@ -9,7 +9,7 @@ export const questions = [
   },
   {
     question: 'What do you call someone who annoys everyone?',
-    answer: 'NUGGER',
+    answer: 'NAGGER',
   },
   {
     question: `Headgear and also a teaching assistant by Mr. Garrison - 'Mr. ...'`,
