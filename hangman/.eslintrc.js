@@ -25,11 +25,3 @@ module.exports = {
     'import/extensions': 'off',
   },
 };
-
-// rules: {
-//   'no-param-reassign': 0,
-//   'import/prefer-default-export': 0,
-//   'no-inner-declarations': 0,
-//   'operator-linebreak': 0,
-//   'import/no-unresolved': 0,
-// },
