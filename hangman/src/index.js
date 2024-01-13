@@ -8,4 +8,4 @@ console.log(`Notes:
 
 `);
 
-const main = new Main();
+new Main();

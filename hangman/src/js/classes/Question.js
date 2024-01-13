@@ -17,7 +17,7 @@ export class Question {
     const answerElem = createHTMLElement('div', 'answer-box', questionInner);
 
     for (let i = 0; i < this.answer.length; i += 1) {
-      let letterBox = createHTMLElement('div', 'letter-box', answerElem);
+      let letterBox = createHTMLElement('div', 'letter-box letter-border', answerElem);
       let letterObj = {
         letter: '',
         elem: letterBox,
@@ -43,6 +43,7 @@ export class Question {
   openLetter(ind) {
     this.letters[ind].letter = this.answer[ind];
     this.letters[ind].elem.innerText = this.answer[ind];
+    this.letters[ind].elem.classList.remove('letter-border');
   }
 
   checkWord() {

@@ -8,11 +8,11 @@ export const questions = [
     answer: 'CHEF',
   },
   {
-    question: 'What do you call someone who annoys everyone?',
-    answer: 'NAGGER',
+    question: 'People who annoy you',
+    answer: 'NAGGERS',
   },
   {
-    question: `Headgear and also a teaching assistant by Mr. Garrison - 'Mr. ...'`,
+    question: `Headgear and also a teaching assistant by Mr./Ms. Garrison - 'Mr. ...'`,
     answer: 'HAT',
   },
   {
@@ -24,7 +24,7 @@ export const questions = [
     answer: 'GALLOWS',
   },
   {
-    question: `'Mr. ...' - a character who's been a teacher, a writer, and the president of the United States`,
+    question: `'Mr./Mrs. ...' - a character who's been a teacher, a writer, and the president of the United States`,
     answer: 'GARRISON',
   },
   {
@@ -38,5 +38,9 @@ export const questions = [
   {
     question: 'The gene for the drosophila fly is named after which character?',
     answer: 'KENNY',
+  },
+  {
+    question: 'In which state of the United States is South Park located?',
+    answer: 'COLORADO',
   },
 ];
