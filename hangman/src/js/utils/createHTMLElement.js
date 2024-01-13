@@ -1,5 +1,5 @@
-export function createHTMLElement(tag, classNames, parent) {
-  let elem = document.createElement(tag);
+export default function createHTMLElement(tag, classNames, parent) {
+  const elem = document.createElement(tag);
   elem.className = classNames;
   if (parent) {
     parent.append(elem);

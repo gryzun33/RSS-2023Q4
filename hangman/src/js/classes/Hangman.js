@@ -1,6 +1,6 @@
-import { createHTMLElement } from '../utils/createHTMLElement.js';
+import createHTMLElement from '../utils/createHTMLElement.js';
 
-export class Hangman {
+export default class Hangman {
   constructor(parent) {
     this.hangmanBody = [];
     this.bodyParts = [

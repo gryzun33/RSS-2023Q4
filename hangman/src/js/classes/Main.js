@@ -1,11 +1,11 @@
-import { createHTMLElement } from '../utils/createHTMLElement.js';
-import { Hangman } from './Hangman.js';
-import { Question } from './Question.js';
-import { Keyboard } from './Keyboard.js';
-import { Modal } from './Modal.js';
+import createHTMLElement from '../utils/createHTMLElement.js';
+import Hangman from './Hangman.js';
+import Question from './Question.js';
+import Keyboard from './Keyboard.js';
+import Modal from './Modal.js';
 import { questions } from '../data/questions.js';
 
-export class Main {
+export default class Main {
   constructor() {
     this.currInd = null;
     this.isEnd = false;
@@ -73,9 +73,9 @@ export class Main {
       }
       return;
     }
-    let physLetter = e.code[e.code.length - 1];
+    const physLetter = e.code[e.code.length - 1];
     if (this.keyboard.alphabet.includes(physLetter)) {
-      let keyButton = this.keyboard.keyButtons.find((btn) => btn.innerText === physLetter);
+      const keyButton = this.keyboard.keyButtons.find((btn) => btn.innerText === physLetter);
       if (!keyButton.disabled) {
         this.checkLetter(physLetter, keyButton);
       }
@@ -83,30 +83,31 @@ export class Main {
   }
 
   clickOnVirtKeyboard(e) {
-    let targetBtn = e.target;
+    const targetBtn = e.target;
     if (!targetBtn.classList.contains('key')) {
       return;
     }
-    let letter = targetBtn.innerText;
+    const letter = targetBtn.innerText;
 
     this.checkLetter(letter, targetBtn);
   }
 
   checkLetter(letter, currButton) {
-    let isLetter = this.question.answer.includes(letter);
+    const isLetter = this.question.answer.includes(letter);
     if (!isLetter) {
       this.wrongAnswers += 1;
       this.question.setGuesses(this.wrongAnswers);
       this.hangman.addNextPart(this.wrongAnswers - 1);
     } else {
-      let answerArr = this.question.answer.split('');
+      const answerArr = this.question.answer.split('');
       answerArr.forEach((currLetter, ind) => {
         if (currLetter === letter) {
           this.question.openLetter(ind);
         }
       });
     }
-    currButton.disabled = true;
+    const btn = currButton;
+    btn.disabled = true;
     this.checkGame();
   }
 
@@ -119,7 +120,7 @@ export class Main {
       this.modal.showModal(this.isEnd, this.question.answer);
     }
 
-    let isCorrect = this.question.checkWord();
+    const isCorrect = this.question.checkWord();
     if (isCorrect) {
       this.isEnd = 'win';
       this.modal.showModal(this.isEnd, this.question.answer);

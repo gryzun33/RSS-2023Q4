@@ -1,4 +1,4 @@
-import { Main } from './js/classes/Main.js';
+import Main from './js/classes/Main.js';
 
 console.log(`Notes: 
 1.You don't have to change your keyboard layout to test the game;
@@ -7,5 +7,5 @@ console.log(`Notes:
 
 
 `);
-
-new Main();
+/* eslint no-unused-vars: "off" */
+const main = new Main();

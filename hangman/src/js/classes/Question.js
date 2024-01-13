@@ -1,7 +1,7 @@
 import { questions } from '../data/questions.js';
-import { createHTMLElement } from '../utils/createHTMLElement.js';
+import createHTMLElement from '../utils/createHTMLElement.js';
 
-export class Question {
+export default class Question {
   constructor(currInd, parent) {
     this.hint = questions[currInd].question;
     this.answer = questions[currInd].answer;
@@ -17,8 +17,8 @@ export class Question {
     const answerElem = createHTMLElement('div', 'answer-box', questionInner);
 
     for (let i = 0; i < this.answer.length; i += 1) {
-      let letterBox = createHTMLElement('div', 'letter-box letter-border', answerElem);
-      let letterObj = {
+      const letterBox = createHTMLElement('div', 'letter-box letter-border', answerElem);
+      const letterObj = {
         letter: '',
         elem: letterBox,
       };
@@ -47,7 +47,7 @@ export class Question {
   }
 
   checkWord() {
-    let guessWord = this.letters.map((el) => el.letter).join('');
+    const guessWord = this.letters.map((el) => el.letter).join('');
     if (guessWord === this.answer) {
       return true;
     }
