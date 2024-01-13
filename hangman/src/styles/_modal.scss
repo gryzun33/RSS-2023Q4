@@ -1,0 +1,246 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  // opacity: 0;
+  // z-index: -1;
+  width: 100%;
+  height: 100%;
+  // display: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  // transition: opacity 0.5s ease-in-out;
+
+  @include flex(center, center);
+}
+
+.overlay-show {
+  z-index: 1;
+  opacity: 1;
+}
+
+.modal-wrapper {
+  // position: absolute;
+  // top: 0;
+  width: 800px;
+  // left: 10%;
+  // height: 100%;
+  background-color: $color-secondary;
+  z-index: 2;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0px 0px 10px 1px black;
+
+  @include flex-column(space-between);
+
+  @include laptop-950 {
+    width: 700px;
+    // left: 5%;
+    // height: 80%;
+  }
+
+  @include tablet-800 {
+    width: 90%;
+    // left: 5%;
+    // top: 20%;
+    // height: 60%;
+  }
+
+  @include mobile-600 {
+    padding: 20px 0;
+  }
+}
+
+.overlay-show {
+  animation: overlay-show 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.modal-show {
+  animation: modal-show 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.overlay-hide {
+  animation: overlay-hide 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.modal-hide {
+  animation: modal-hide 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.modal-hidden {
+  display: none;
+}
+
+.modal-title {
+  font-family: "Lilita One";
+  text-align: center;
+  color: $color-light;
+  font-size: 35px;
+  text-shadow: 0px 0px 3px black;
+
+  @include tablet-800 {
+    font-size: 30px;
+  }
+
+  @include mobile-600 {
+    font-size: 25px;
+  }
+}
+
+.modal-content {
+  display: flex;
+  width: 100%;
+  margin-top: 30px;
+
+  @include mobile-600 {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.modal-image-box {
+  width: 50%;
+  @include flex(center, center);
+
+  @include mobile-600 {
+    width: 100%;
+  }
+
+  .modal-image {
+    position: relative;
+
+    .man-modal {
+      width: 220px;
+
+      @include laptop-950 {
+        width: 180px;
+      }
+    }
+
+    .halo-modal {
+      width: 220px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+
+      @include laptop-950 {
+        width: 180px;
+      }
+    }
+
+    .halo-modal-show {
+      animation: halo-modal-show 1s ease-in-out;
+      animation-fill-mode: forwards;
+      animation-delay: 0.5s;
+    }
+  }
+}
+
+.modal-answer {
+  // align-self: flex-end;
+  width: 50%;
+  // height: 100%;
+  text-align: center;
+  // flex-grow: 1;
+  @include flex-column(center, center);
+
+  @include mobile-600 {
+    margin-top: 40px;
+    width: 100%;
+  }
+  // margin-bottom: 50px;
+
+  .answer-title {
+    font-family: "Signika";
+    font-size: 25px;
+    color: $color-light;
+    text-shadow: 0px 0px 3px black;
+  }
+
+  .correct-answer {
+    font-family: "Lilita One";
+    font-size: 35px;
+    color: $color-light;
+    margin-top: 20px;
+    text-shadow: 0px 0px 3px black;
+    letter-spacing: 5px;
+
+    @include tablet-800 {
+      font-size: 30px;
+    }
+  }
+}
+
+.play-btn {
+  width: 200px;
+  height: 50px;
+  @include flex(center, center);
+  border-radius: 10px;
+  border: 2px solid $color-main-bg;
+  background-color: $color-hangman;
+  align-self: center;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  color: $color-main-bg;
+  font-family: "Lilita One";
+  font-size: 20px;
+  margin-top: 20px;
+
+  @include mobile-600 {
+    margin-top: 40px;
+  }
+
+  &:hover {
+    background-color: $color-main-bg;
+    color: $color-light;
+  }
+}
+
+@keyframes modal-show {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes modal-hide {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+@keyframes overlay-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlay-hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes halo-modal-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
