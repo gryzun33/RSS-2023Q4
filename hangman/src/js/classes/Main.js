@@ -49,6 +49,7 @@ export class Main {
 
   getNewQuestion() {
     const l = questions.length;
+    console.log('current=', this.currInd);
     let randomInd;
     if (this.currInd !== null) {
       do {
@@ -57,7 +58,6 @@ export class Main {
     } else {
       randomInd = Math.floor(Math.random() * l);
     }
-
     return randomInd;
   }
 
