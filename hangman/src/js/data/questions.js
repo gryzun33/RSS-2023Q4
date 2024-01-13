@@ -1,4 +1,4 @@
-export const questions = [
+const questions = [
   {
     question: 'The blue towel with little arms and legs',
     answer: 'TOWELIE',
@@ -44,3 +44,5 @@ export const questions = [
     answer: 'COLORADO',
   },
 ];
+
+export { questions };

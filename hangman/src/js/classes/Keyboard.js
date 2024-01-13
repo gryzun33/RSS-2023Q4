@@ -1,6 +1,6 @@
-import { createHTMLElement } from '../utils/createHTMLElement.js';
+import createHTMLElement from '../utils/createHTMLElement.js';
 
-export class Keyboard {
+export default class Keyboard {
   constructor(parent) {
     this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     this.keyButtons = [];
@@ -11,8 +11,8 @@ export class Keyboard {
     const keyboard = createHTMLElement('div', 'keyboard', par);
 
     for (let i = 0; i < this.alphabet.length; i += 1) {
-      let keyLetter = this.alphabet[i];
-      let keyBtn = createHTMLElement('button', 'key', keyboard);
+      const keyLetter = this.alphabet[i];
+      const keyBtn = createHTMLElement('button', 'key', keyboard);
       keyBtn.innerText = keyLetter;
       this.keyButtons.push(keyBtn);
     }
@@ -20,7 +20,8 @@ export class Keyboard {
 
   updateView() {
     this.keyButtons.forEach((btn) => {
-      btn.disabled = false;
+      const btnCurr = btn;
+      btnCurr.disabled = false;
     });
   }
 }

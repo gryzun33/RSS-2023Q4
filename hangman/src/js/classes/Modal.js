@@ -1,6 +1,6 @@
-import { createHTMLElement } from '../utils/createHTMLElement.js';
+import createHTMLElement from '../utils/createHTMLElement.js';
 
-export class Modal {
+export default class Modal {
   constructor(parent) {
     this.playBtn = null;
     this.createView(parent);
@@ -41,16 +41,16 @@ export class Modal {
   }
 
   closeModal() {
-    this.modalWrapper.classList.add('modal-hide');
-    this.overlay.classList.add('overlay-hide');
-    this.haloModal.classList.remove('halo-modal-show');
-    this.overlay.addEventListener('animationend', animationEndHandler);
-
     function animationEndHandler() {
       this.classList.add('modal-hidden');
       this.classList.remove('overlay-show', 'overlay-hide');
       this.firstElementChild.classList.remove('modal-show', 'modal-hide');
       this.removeEventListener('animationend', animationEndHandler);
     }
+
+    this.modalWrapper.classList.add('modal-hide');
+    this.overlay.classList.add('overlay-hide');
+    this.haloModal.classList.remove('halo-modal-show');
+    this.overlay.addEventListener('animationend', animationEndHandler);
   }
 }
