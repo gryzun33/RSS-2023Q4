@@ -40,14 +40,13 @@ export class Hangman {
     const gallows = createHTMLElement('img', 'gallows', par);
     const hangmanWrapper = createHTMLElement('div', 'hangman', par);
     gallows.src = './assets/images/gallows.png';
-    // parent.append(hangmanWrapper);
+
     this.bodyParts.forEach((part) => {
       const bodyPart = createHTMLElement('img', part.cssClass, hangmanWrapper);
       bodyPart.src = part.src;
       bodyPart.classList.add('hidden', 'body-part');
       this.hangmanBody.push(bodyPart);
     });
-    // parent.append(hangmanWrapper);
   }
 
   addNextPart(ind) {
@@ -60,7 +59,6 @@ export class Hangman {
   }
 
   hideMan() {
-    console.log(this.hangmanBody);
     this.hangmanBody.forEach((part) => {
       part.classList.add('hidden');
     });

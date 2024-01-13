@@ -28,7 +28,7 @@ export const questions = [
     answer: 'GARRISON',
   },
   {
-    question: 'Which animal was voiced by George Clooney?',
+    question: 'What animal was voiced by George Clooney?',
     answer: 'DOG',
   },
   {

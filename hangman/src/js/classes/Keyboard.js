@@ -15,8 +15,6 @@ export class Keyboard {
       let keyBtn = createHTMLElement('button', 'key', keyboard);
       keyBtn.innerText = keyLetter;
       this.keyButtons.push(keyBtn);
-      // keyElem.dataset.letter = keyLetter;
-      // this.keyButtons[keyLetter] = keyElem;
     }
   }
 
