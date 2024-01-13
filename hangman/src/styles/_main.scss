@@ -49,7 +49,7 @@ body {
 
 .title {
   font-family: "Lilita One";
-  font-size: 50px;
+  font-size: 45px;
   color: $color-key;
   margin: 0;
   text-shadow: 0px 0px 3px black;
@@ -116,7 +116,7 @@ body {
   }
 
   @include mobile-500 {
-    width: 200px;
+    width: 180px;
   }
 
   .gallows {
@@ -185,10 +185,10 @@ body {
     .answer-box {
       width: 100%;
       @include flex(center);
-      gap: 15px;
+      gap: 10px;
 
       @include mobile-600 {
-        gap: 10px;
+        gap: 7px;
       }
 
       .letter-box {
@@ -200,6 +200,7 @@ body {
         font-size: 35px;
         font-family: "Lilita One";
         text-shadow: 0px 0px 3px black;
+        flex: none;
 
         @include mobile-600 {
           width: 7%;
@@ -239,23 +240,23 @@ body {
 
     .guesses {
       color: $color-light;
-      font-size: 30px;
+      font-size: 25px;
 
       font-family: "Signika";
       margin-top: 30px;
       text-shadow: 0px 0px 3px black;
       @include flex;
       @include desktop-1100 {
-        font-size: 25px;
+        font-size: 20px;
       }
 
       @include mobile-600 {
-        font-size: 20px;
+        font-size: 18px;
         margin-top: 20px;
       }
 
       @include mobile-500 {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       // .guess-text {
@@ -271,7 +272,7 @@ body {
       }
 
       .guess-max {
-        width: 40px;
+        width: 30px;
         @include mobile-600 {
           width: 25px;
         }
@@ -309,6 +310,7 @@ body {
     @include mobile-600 {
       width: 90%;
       gap: 8px;
+      margin-top: 20px;
     }
 
     @include mobile-500 {

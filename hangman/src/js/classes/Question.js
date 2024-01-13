@@ -5,6 +5,7 @@ export class Question {
   constructor(currInd, parent) {
     this.hint = questions[currInd].question;
     this.answer = questions[currInd].answer;
+    console.log('Answer=', this.answer);
     this.letters = [];
     this.maxGuesses = 6;
     this.createView(parent);
@@ -25,7 +26,7 @@ export class Question {
     }
 
     const hintElem = createHTMLElement('div', 'hint', questionInner);
-    hintElem.innerText = `Hint: ${this.hint}?`;
+    hintElem.innerText = `${this.hint}`;
     const incorrGuesses = createHTMLElement('div', 'guesses', questionInner);
     const guessText = createHTMLElement('p', 'guess-text', incorrGuesses);
     guessText.innerHTML = `Incorrect guesses:&nbsp;&nbsp;`;

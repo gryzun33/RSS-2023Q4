@@ -5,8 +5,6 @@ import { Keyboard } from './Keyboard.js';
 import { Modal } from './Modal.js';
 import { questions } from '../data/questions.js';
 
-console.log('hangman');
-
 export class Main {
   constructor() {
     this.currInd = null;
@@ -17,17 +15,14 @@ export class Main {
 
   createView() {
     const wrapper = createHTMLElement('div', 'wrapper', document.body);
-    // this.overlay = createHTMLElement('div', 'overlay', document.body);
+
     const title = createHTMLElement('h1', 'title', wrapper);
-    title.innerText = `Hangman Game`;
+    title.innerText = `South Park Hangman`;
     const mainContent = createHTMLElement('main', 'main', wrapper);
     const gallowsBox = createHTMLElement('div', 'gallows-box', mainContent);
-    // const gameBox = createHTMLElement('div', 'game-box', mainContent);
+
     this.questionBox = createHTMLElement('div', 'question-box', mainContent);
     this.keyBoardBox = createHTMLElement('div', 'keyboard-box', mainContent);
-    // wrapper.append(title);
-    // wrapper.append(mainContent);
-    // document.body.append(wrapper);
 
     this.hangman = new Hangman(gallowsBox);
     this.keyboard = new Keyboard(this.keyBoardBox);
@@ -37,13 +32,11 @@ export class Main {
   }
 
   updateView() {
-    console.log('update');
     this.wrongAnswers = 0;
     this.currInd = this.getNewQuestion();
-    console.log('newID', this.currInd);
+
     this.questionBox.innerHTML = '';
     this.question = new Question(this.currInd, this.questionBox);
-    console.log('question1 = ', this.question);
   }
 
   events() {
@@ -55,10 +48,9 @@ export class Main {
   }
 
   getNewQuestion() {
-    console.log('current=', this.currInd);
     const l = questions.length;
     let randomInd;
-    if (this.currInd) {
+    if (this.currInd !== null) {
       do {
         randomInd = Math.floor(Math.random() * l);
       } while (randomInd === this.currInd);
@@ -74,30 +66,27 @@ export class Main {
       return;
     }
     let physLetter = e.code[e.code.length - 1];
-    console.log(physLetter);
     if (this.keyboard.alphabet.includes(physLetter)) {
       let keyButton = this.keyboard.keyButtons.find((btn) => btn.innerText === physLetter);
-
-      this.checkLetter(physLetter, keyButton);
+      if (!keyButton.disabled) {
+        this.checkLetter(physLetter, keyButton);
+      }
     }
   }
 
   clickOnVirtKeyboard(e) {
-    console.log('click');
     let targetBtn = e.target;
     if (!targetBtn.classList.contains('key')) {
       return;
     }
     let letter = targetBtn.innerText;
-    console.log('letter=', letter);
-    console.log('question2 =', this.question);
+
     this.checkLetter(letter, targetBtn);
   }
 
   checkLetter(letter, currButton) {
     let isLetter = this.question.answer.includes(letter);
     if (!isLetter) {
-      console.log('wrong');
       this.wrongAnswers += 1;
       this.question.setGuesses(this.wrongAnswers);
       this.hangman.addNextPart(this.wrongAnswers - 1);
@@ -115,28 +104,17 @@ export class Main {
 
   checkGame() {
     if (this.wrongAnswers === 6) {
-      console.log('kenny hanged');
       this.hangman.addHalo();
-      // setTimeout(() => {
 
-      // },2000)
       this.isEnd = 'fail';
 
       this.modal.showModal(this.isEnd, this.question.answer);
-      // this.overlay.classList.add('overlay-show');
     }
 
     let isCorrect = this.question.checkWord();
     if (isCorrect) {
-      console.log('kenny saved');
       this.isEnd = 'win';
       this.modal.showModal(this.isEnd, this.question.answer);
-      // this.overlay.classList.add('overlay-show');
-      // this.hangman.hangmanBody.forEach((part, i) => {
-      //   if(i < 6) {
-      //     part.classList.remove('hidden');
-      //   }
-      // })
     }
   }
 
@@ -146,6 +124,5 @@ export class Main {
     this.hangman.hideMan();
     this.keyboard.updateView();
     this.modal.closeModal();
-    // this.overlay.classList.remove('overlay-show');
   }
 }

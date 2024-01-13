@@ -1,42 +1,42 @@
 export const questions = [
   {
-    question: 'what day is the first in week',
-    answer: 'SUNDAY',
+    question: 'The blue towel with little arms and legs',
+    answer: 'TOWELIE',
   },
   {
-    question: 'what month is first in year',
-    answer: 'JANUARY',
+    question: `Whats written on the Chef's apron?`,
+    answer: 'CHEF',
   },
   {
-    question: 'what do people drink in the morning lobg long long question',
-    answer: 'COFFEE',
+    question: 'What do you call someone who annoys everyone?',
+    answer: 'NUGGER',
   },
   {
-    question: 'what bird is the most popular',
-    answer: 'PIGEONTTTT',
+    question: `Headgear and also a teaching assistant by Mr. Garrison - 'Mr. ...'`,
+    answer: 'HAT',
   },
   {
-    question: 'where do peaople keep food lobg long long question',
-    answer: 'REFRIGERAT',
+    question: `What color is the boombone on Cartman's hat?`,
+    answer: 'YELLOW',
   },
   {
-    question: 'who teaches children in the school lobg long long question',
-    answer: 'TEACHER',
+    question: 'What this game and the South Park flag have in common?',
+    answer: 'GALLOWS',
   },
   {
-    question: 'where do children go every morning',
-    answer: 'SCHOOL',
+    question: `'Mr. ...' - a character who's been a teacher, a writer, and the president of the United States`,
+    answer: 'GARRISON',
   },
   {
-    question: 'what vegetable is green lobg long long question',
-    answer: 'CUCUMBER',
+    question: 'Which animal was voiced by George Clooney?',
+    answer: 'DOG',
   },
   {
-    question: 'what fruit is yellow',
-    answer: 'PINEAPPLEP',
+    question: 'Who is Professor Chaos?',
+    answer: 'BUTTERS',
   },
   {
-    question: 'where do books lay',
-    answer: 'BOOKCASEAA',
+    question: 'The gene for the drosophila fly is named after which character?',
+    answer: 'KENNY',
   },
 ];
