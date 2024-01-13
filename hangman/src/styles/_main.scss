@@ -175,7 +175,6 @@ body {
         @include flex(center, center);
         width: 40px;
         height: 40px;
-        border-bottom: 3px solid $color-secondary;
         color: $color-light;
         font-size: 35px;
         font-family: "Lilita One";
@@ -185,11 +184,18 @@ body {
         @include mobile-600 {
           width: 7%;
           font-size: 30px;
-          border-bottom: 2px solid $color-secondary;
         }
 
         @include mobile-500 {
           font-size: 25px;
+        }
+      }
+
+      .letter-border {
+        border-bottom: 3px solid $color-secondary;
+
+        @include mobile-600 {
+          border-bottom: 2px solid $color-secondary;
         }
       }
     }

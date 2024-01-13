@@ -530,7 +530,6 @@ body {
   align-items: center;
   width: 40px;
   height: 40px;
-  border-bottom: 3px solid #5884a3;
   color: #fcc480;
   font-size: 35px;
   font-family: "Lilita One";
@@ -541,12 +540,19 @@ body {
   .question-box .question .answer-box .letter-box {
     width: 7%;
     font-size: 30px;
-    border-bottom: 2px solid #5884a3;
   }
 }
 @media screen and (max-width: 500px) {
   .question-box .question .answer-box .letter-box {
     font-size: 25px;
+  }
+}
+.question-box .question .answer-box .letter-border {
+  border-bottom: 3px solid #5884a3;
+}
+@media screen and (max-width: 600px) {
+  .question-box .question .answer-box .letter-border {
+    border-bottom: 2px solid #5884a3;
   }
 }
 .question-box .question .hint {

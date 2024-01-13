@@ -39,4 +39,8 @@ export const questions = [
     question: 'The gene for the drosophila fly is named after which character?',
     answer: 'KENNY',
   },
+  {
+    question: 'In which state of the United States is South Park located?',
+    answer: 'COLORADO',
+  },
 ];

@@ -9,6 +9,7 @@ export class Main {
   constructor() {
     this.currInd = null;
     this.isEnd = false;
+    this.prevQuestions = [];
     this.createView();
     this.updateView();
   }
@@ -42,27 +43,34 @@ export class Main {
   events() {
     this.keyBoardBox.addEventListener('click', this.clickOnVirtKeyboard.bind(this));
 
-    document.body.addEventListener('keydown', this.clickOnPhysKeyboard.bind(this));
+    document.addEventListener('keydown', this.clickOnPhysKeyboard.bind(this));
 
     this.modal.playBtn.addEventListener('click', this.runNewGame.bind(this));
   }
 
   getNewQuestion() {
     const l = questions.length;
-    console.log('current=', this.currInd);
+    if (this.prevQuestions.length === l) {
+      this.prevQuestions = [];
+    }
     let randomInd;
     if (this.currInd !== null) {
       do {
         randomInd = Math.floor(Math.random() * l);
-      } while (randomInd === this.currInd);
+      } while (randomInd === this.currInd || this.prevQuestions.includes(randomInd));
     } else {
       randomInd = Math.floor(Math.random() * l);
     }
+    this.prevQuestions.push(randomInd);
     return randomInd;
   }
 
   clickOnPhysKeyboard(e) {
     if (this.isEnd) {
+      if (e.code === 'Enter') {
+        this.runNewGame();
+        return;
+      }
       return;
     }
     let physLetter = e.code[e.code.length - 1];
