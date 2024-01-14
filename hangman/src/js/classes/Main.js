@@ -3,7 +3,7 @@ import Hangman from './Hangman.js';
 import Question from './Question.js';
 import Keyboard from './Keyboard.js';
 import Modal from './Modal.js';
-import { questions } from '../data/questions.js';
+import questions from '../data/questions.js';
 
 export default class Main {
   constructor() {

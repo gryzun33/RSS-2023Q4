@@ -1,4 +1,4 @@
-import { questions } from '../data/questions.js';
+import questions from '../data/questions.js';
 import createHTMLElement from '../utils/createHTMLElement.js';
 
 export default class Question {
