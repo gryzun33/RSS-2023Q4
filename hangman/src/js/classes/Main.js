@@ -73,7 +73,7 @@ export default class Main {
       }
       return;
     }
-    const physLetter = e.code[e.code.length - 1];
+    const physLetter = e.key.toUpperCase();
     if (this.keyboard.alphabet.includes(physLetter)) {
       const keyButton = this.keyboard.keyButtons.find((btn) => btn.innerText === physLetter);
       if (!keyButton.disabled) {

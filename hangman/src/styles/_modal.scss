@@ -19,11 +19,7 @@
 }
 
 .modal-wrapper {
-  // position: absolute;
-  // top: 0;
   width: 800px;
-  // left: 10%;
-  // height: 100%;
   background-color: $color-secondary;
   z-index: 2;
   border-radius: 20px;
@@ -34,15 +30,10 @@
 
   @include laptop-950 {
     width: 700px;
-    // left: 5%;
-    // height: 80%;
   }
 
   @include tablet-800 {
     width: 90%;
-    // left: 5%;
-    // top: 20%;
-    // height: 60%;
   }
 
   @include mobile-600 {
@@ -141,18 +132,14 @@
 }
 
 .modal-answer {
-  // align-self: flex-end;
   width: 50%;
-  // height: 100%;
   text-align: center;
-  // flex-grow: 1;
   @include flex-column(center, center);
 
   @include mobile-600 {
     margin-top: 40px;
     width: 100%;
   }
-  // margin-bottom: 50px;
 
   .answer-title {
     font-family: "Signika";
@@ -194,9 +181,11 @@
     margin-top: 40px;
   }
 
-  &:hover {
-    background-color: $color-main-bg;
-    color: $color-light;
+  @media (hover: hover) {
+    &:hover {
+      background-color: $color-main-bg;
+      color: $color-light;
+    }
   }
 }
 
