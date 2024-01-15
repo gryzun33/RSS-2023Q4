@@ -21,6 +21,13 @@ module.exports = {
   },
   rules: {
     'no-console': 'off',
-    'import/extensions': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        mjs: 'never',
+      },
+    ],
   },
 };

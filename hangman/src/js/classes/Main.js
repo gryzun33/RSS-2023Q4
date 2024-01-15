@@ -67,15 +67,16 @@ export default class Main {
 
   clickOnPhysKeyboard(e) {
     if (this.isEnd) {
-      if (e.code === 'Enter') {
-        this.runNewGame();
-        return;
-      }
+      // if (e.code === 'Enter') {
+      //   this.runNewGame();
+      //   return;
+      // }
       return;
     }
     const physLetter = e.key.toUpperCase();
     if (this.keyboard.alphabet.includes(physLetter)) {
-      const keyButton = this.keyboard.keyButtons.find((btn) => btn.innerText === physLetter);
+      const keyButton = document.getElementById(physLetter);
+      console.log(keyButton);
       if (!keyButton.disabled) {
         this.checkLetter(physLetter, keyButton);
       }
