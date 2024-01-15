@@ -16,8 +16,8 @@ export default class Modal {
     this.modalImage = createHTMLElement('div', 'modal-image', this.modalImageBox);
     this.manModal = createHTMLElement('img', 'man-modal', this.modalImage);
     this.haloModal = createHTMLElement('img', 'halo-modal', this.modalImage);
-    this.manModal.src = './assets/images/kenny-modal.png';
-    this.haloModal.src = './assets/images/halo-modal.png';
+    this.manModal.src = './src/assets/images/kenny-modal.png';
+    this.haloModal.src = './src/assets/images/halo-modal.png';
     const modalAnswer = createHTMLElement('div', 'modal-answer', this.modalContent);
     const modalAnswerTitle = createHTMLElement('p', 'answer-title', modalAnswer);
     modalAnswerTitle.innerText = 'Secret word:';

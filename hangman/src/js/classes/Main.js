@@ -3,13 +3,13 @@ import Hangman from './Hangman.js';
 import Question from './Question.js';
 import Keyboard from './Keyboard.js';
 import Modal from './Modal.js';
-import { questions } from '../data/questions.js';
+import questions from '../data/questions.js';
 
 export default class Main {
   constructor() {
     this.currInd = null;
     this.isEnd = false;
-    this.prevQuestions = [];
+    // this.prevQuestions = [];
     this.createView();
     this.updateView();
   }
@@ -50,32 +50,33 @@ export default class Main {
 
   getNewQuestion() {
     const l = questions.length;
-    if (this.prevQuestions.length === l) {
-      this.prevQuestions = [];
-    }
+    // if (this.prevQuestions.length === l) {
+    //   this.prevQuestions = [];
+    // }
     let randomInd;
     if (this.currInd !== null) {
       do {
         randomInd = Math.floor(Math.random() * l);
-      } while (randomInd === this.currInd || this.prevQuestions.includes(randomInd));
+      } while (randomInd === this.currInd);
     } else {
       randomInd = Math.floor(Math.random() * l);
     }
-    this.prevQuestions.push(randomInd);
+    // this.prevQuestions.push(randomInd);
     return randomInd;
   }
 
   clickOnPhysKeyboard(e) {
     if (this.isEnd) {
-      if (e.code === 'Enter') {
-        this.runNewGame();
-        return;
-      }
+      // if (e.code === 'Enter') {
+      //   this.runNewGame();
+      //   return;
+      // }
       return;
     }
     const physLetter = e.key.toUpperCase();
     if (this.keyboard.alphabet.includes(physLetter)) {
-      const keyButton = this.keyboard.keyButtons.find((btn) => btn.innerText === physLetter);
+      const keyButton = document.getElementById(physLetter);
+
       if (!keyButton.disabled) {
         this.checkLetter(physLetter, keyButton);
       }

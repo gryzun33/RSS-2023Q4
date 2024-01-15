@@ -20,8 +20,14 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    'import/prefer-default-export': 'off',
     'no-console': 'off',
-    'import/extensions': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        mjs: 'never',
+      },
+    ],
   },
 };

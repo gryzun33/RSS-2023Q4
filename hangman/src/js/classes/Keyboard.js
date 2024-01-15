@@ -8,12 +8,13 @@ export default class Keyboard {
   }
 
   createView(par) {
-    const keyboard = createHTMLElement('div', 'keyboard', par);
+    const keyboardElem = createHTMLElement('div', 'keyboard', par);
 
     for (let i = 0; i < this.alphabet.length; i += 1) {
       const keyLetter = this.alphabet[i];
-      const keyBtn = createHTMLElement('button', 'key', keyboard);
+      const keyBtn = createHTMLElement('button', 'key', keyboardElem);
       keyBtn.innerText = keyLetter;
+      keyBtn.id = keyLetter;
       this.keyButtons.push(keyBtn);
     }
   }

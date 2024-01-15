@@ -45,4 +45,5 @@ const questions = [
   },
 ];
 
-export { questions };
+// export { questions };
+export default questions;
