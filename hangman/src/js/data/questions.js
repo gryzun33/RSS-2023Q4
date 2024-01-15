@@ -36,12 +36,16 @@ const questions = [
     answer: 'BUTTERS',
   },
   {
-    question: 'The gene for the drosophila fly is named after which character?',
+    question: 'Which character was the Drosophila fly gene named after?',
     answer: 'KENNY',
   },
   {
     question: 'In which state of the United States is South Park located?',
     answer: 'COLORADO',
+  },
+  {
+    question: 'What country are Terrance and Phillip from?',
+    answer: 'CANADA',
   },
 ];
 

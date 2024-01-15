@@ -16,15 +16,12 @@ export default class Main {
 
   createView() {
     const wrapper = createHTMLElement('div', 'wrapper', document.body);
-
     const title = createHTMLElement('h1', 'title', wrapper);
     title.innerText = `South Park Hangman`;
     const mainContent = createHTMLElement('main', 'main', wrapper);
     const gallowsBox = createHTMLElement('div', 'gallows-box', mainContent);
-
     this.questionBox = createHTMLElement('div', 'question-box', mainContent);
     this.keyBoardBox = createHTMLElement('div', 'keyboard-box', mainContent);
-
     this.hangman = new Hangman(gallowsBox);
     this.keyboard = new Keyboard(this.keyBoardBox);
     this.modal = new Modal(document.body);
@@ -35,7 +32,6 @@ export default class Main {
   updateView() {
     this.wrongAnswers = 0;
     this.currInd = this.getNewQuestion();
-
     this.questionBox.innerHTML = '';
     this.question = new Question(this.currInd, this.questionBox);
   }
