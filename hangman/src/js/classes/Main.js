@@ -9,7 +9,7 @@ export default class Main {
   constructor() {
     this.currInd = null;
     this.isEnd = false;
-    this.prevQuestions = [];
+    // this.prevQuestions = [];
     this.createView();
     this.updateView();
   }
@@ -50,18 +50,18 @@ export default class Main {
 
   getNewQuestion() {
     const l = questions.length;
-    if (this.prevQuestions.length === l) {
-      this.prevQuestions = [];
-    }
+    // if (this.prevQuestions.length === l) {
+    //   this.prevQuestions = [];
+    // }
     let randomInd;
     if (this.currInd !== null) {
       do {
         randomInd = Math.floor(Math.random() * l);
-      } while (randomInd === this.currInd || this.prevQuestions.includes(randomInd));
+      } while (randomInd === this.currInd);
     } else {
       randomInd = Math.floor(Math.random() * l);
     }
-    this.prevQuestions.push(randomInd);
+    // this.prevQuestions.push(randomInd);
     return randomInd;
   }
 
@@ -76,7 +76,7 @@ export default class Main {
     const physLetter = e.key.toUpperCase();
     if (this.keyboard.alphabet.includes(physLetter)) {
       const keyButton = document.getElementById(physLetter);
-      console.log(keyButton);
+
       if (!keyButton.disabled) {
         this.checkLetter(physLetter, keyButton);
       }
