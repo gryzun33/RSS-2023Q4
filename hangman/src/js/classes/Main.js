@@ -53,8 +53,6 @@ export default class Main {
     if (this.currInd !== null) {
       do {
         randomInd = Math.floor(Math.random() * l);
-        console.log('current=', this.currInd);
-        console.log('random=', randomInd);
       } while (randomInd === this.currInd);
     } else {
       randomInd = Math.floor(Math.random() * l);
