@@ -316,7 +316,7 @@ template {
 
 @font-face {
   font-family: "Astakhov Skin";
-  src: url("../assets/fonts/Astakhov_Skin/astakhovskin.otf");
+  src: url("./assets/fonts/Astakhov_Skin/astakhovskin.otf");
   font-weight: 400;
   font-style: normal;
 }
@@ -324,7 +324,7 @@ template {
   font-style: normal;
   font-family: "Itim";
   font-weight: 400;
-  src: url("../assets/fonts/Itim/Itim-Regular.ttf");
+  src: url("./assets/fonts/Itim/Itim-Regular.ttf");
 }
 * {
   box-sizing: border-box;
@@ -341,13 +341,13 @@ body {
   align-items: normal;
 }
 
-.h1-two {
+h1 {
   font-family: "Astakhov Skin";
   color: #f35d4f;
   font-size: 50px;
 }
 
-.h2-one {
+h2 {
   font-family: "Itim";
   color: #f35d4f;
   font-size: 30px;
