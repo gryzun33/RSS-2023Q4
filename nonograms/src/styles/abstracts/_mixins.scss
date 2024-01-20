@@ -1,0 +1,233 @@
+@mixin desktop-1439 {
+  @media screen and (max-width: 1439px) {
+    @content;
+  }
+}
+
+@mixin desktop-1250 {
+  @media screen and (max-width: 1250px) {
+    @content;
+  }
+}
+
+@mixin laptops {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin tablets {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tablets-768 {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablets-650 {
+  @media screen and (max-width: 650px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 575px) {
+    @content;
+  }
+}
+
+@mixin flex($justify: normal, $align: normal) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-column($justify: normal, $align: normal) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-wrap($justify: normal, $align: normal) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: $justify;
+  align-content: $align;
+}
+
+// @mixin text-heading-1($font-style: normal) {
+//   font-family: 'Inter';
+//   font-size: 72px;
+//   font-weight: 600;
+//   line-height: 105%;
+//   font-style: $font-style;
+
+//   @include tablets {
+//     font-size: 56px;
+//     line-height: 115%;
+//   }
+
+//   @include mobile {
+//     font-size: 42px;
+//   }
+// }
+
+// @mixin text-heading-2($font-style: normal) {
+//   font-family: 'Inter';
+//   font-size: 60px;
+//   font-weight: 600;
+//   line-height: 125%;
+//   font-style: $font-style;
+
+//   @include tablets {
+//     font-size: 42px;
+//   }
+
+//   @include mobile {
+//     font-size: 32px;
+//   }
+// }
+
+// @mixin text-heading-3($font-style: normal) {
+//   font-family: 'Inter';
+//   font-size: 24px;
+//   font-weight: 600;
+//   line-height: 125%;
+//   font-style: $font-style;
+// }
+
+// @mixin text-medium {
+//   font-family: 'Inter';
+//   font-size: 16px;
+//   font-weight: 400;
+//   line-height: 150%;
+//   font-style: normal;
+// }
+
+// @mixin text-caption {
+//   font-family: 'Inter';
+//   font-size: 10px;
+//   font-weight: 600;
+//   line-height: 140%;
+//   font-style: normal;
+// }
+
+// @mixin text-link-and-btn {
+//   font-family: 'Inter';
+//   font-size: 16px;
+//   font-weight: 600;
+//   line-height: 150%;
+//   font-style: normal;
+// }
+
+// @mixin text-burger-link {
+//   font-family: 'Inter';
+//   font-size: 32px;
+//   font-weight: 600;
+//   line-height: 125%;
+//   font-style: normal;
+// }
+
+// @mixin wrapper {
+//   max-width: 1440px;
+//   margin: 0 auto;
+//   padding-left: 40px;
+//   padding-right: 40px;
+//   padding-bottom: 100px;
+
+//   @include tablets {
+//     padding-left: 25px;
+//     padding-right: 25px;
+//   }
+
+//   @include mobile {
+//     padding-left: 16px;
+//     padding-right: 16px;
+//   }
+// }
+
+// @mixin line-under-link {
+//   position: absolute;
+//   left: 50%;
+//   transform: translateX(-50%);
+//   bottom: 0;
+//   display: block;
+//   width: 0;
+//   opacity: 0;
+//   transition: 0.5s ease-out;
+//   height: 2px;
+//   background: $color-text-dark;
+// }
+
+// @mixin btn-primary {
+//   @include flex(center, center);
+//   width: 200px;
+//   height: 64px;
+//   border-radius: 100px;
+//   background-color: $color-bg-body;
+// }
+
+// @mixin btn-secondary {
+//   @include flex(center, center);
+//   @include text-link-and-btn;
+//   width: 100%;
+//   height: 44px;
+//   border: 1px solid $color-border-dark;
+//   border-radius: 100px;
+//   background-color: $color-bg-body;
+//   color: $color-text-dark;
+//   transition: 0.3s ease-in-out;
+//   cursor: pointer;
+
+//   @media (hover: hover) {
+//     &:hover {
+//       background-color: $color-bg-container;
+//       color: $color-text-light;
+//     }
+//   }
+// }
+
+// @mixin btn-app {
+//   @include flex;
+//   gap: 6px;
+//   width: 200px;
+//   height: 64px;
+//   border-radius: 100px;
+//   background-color: $color-bg-body;
+//   border: 1px solid $color-border-dark;
+//   padding: 12px 20px;
+//   cursor: pointer;
+//   transition: 0.5s ease-in-out;
+
+//   @media (hover: hover) {
+//     &:hover {
+//       background-color: $color-bg-container;
+//     }
+//   }
+// }
+
+// @mixin btn-icon {
+//   width: 60px;
+//   height: 60px;
+//   background-color: transparent;
+//   border: 1px solid $color-border-dark;
+//   border-radius: 50%;
+//   @include flex(center, center);
+//   transition: 0.3s ease-in-out;
+//   cursor: pointer;
+
+//   @media (hover: hover) {
+//     &:hover {
+//       background-color: $color-bg-container;
+//     }
+
+//     &:hover svg g path {
+//       stroke: $color-text-light;
+//     }
+//   }
+// }

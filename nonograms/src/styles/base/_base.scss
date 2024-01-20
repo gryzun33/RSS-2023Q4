@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $color-main-bg-light;
+  min-height: 100dvh;
+  @include flex-column;
+}
+
+// a {
+//   text-decoration: none;
+// }
