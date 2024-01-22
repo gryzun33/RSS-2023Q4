@@ -23,5 +23,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-console': 'off',
     'no-unused-vars': 'off',
+    'prefer-destructuring': 'off',
   },
 };

@@ -54,7 +54,8 @@ export default class Field {
       const rowField = createHTMLElement('tr', 'field-row', this.mainFieldTable);
       for (let j = 0; j < this.game.gameMatrix.length; j += 1) {
         const cellField = createHTMLElement('td', 'field-cell cell', rowField);
-        const cell = [0];
+        cellField.id = `${i}-${j}`;
+        const cell = 0;
         userGameRow.push(cell);
       }
       this.userGame.push(userGameRow);
