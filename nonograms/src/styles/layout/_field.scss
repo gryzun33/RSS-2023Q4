@@ -1,0 +1,64 @@
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid $color-cell-light;
+  text-align: center;
+  vertical-align: middle;
+  color: $color-cell;
+
+  font-size: 22px;
+  font-family: "Itim";
+}
+
+.full-field {
+  border-collapse: collapse;
+  border-top: 2px solid $color-cell-light;
+  border-left: 2px solid $color-cell-light;
+
+  .top-hints {
+    border-bottom: 1px solid $color-cell-light;
+  }
+
+  .top-hints-table,
+  .left-hints-table,
+  .main-field-table {
+    border-collapse: collapse;
+    border: none;
+  }
+
+  .top-hints-table {
+    tr td:nth-child(1) {
+      border-left-width: 3px;
+    }
+  }
+
+  .top-hints-table {
+    tr td:nth-child(5n) {
+      border-right-width: 3px;
+    }
+  }
+
+  .main-field-table {
+    tr td:nth-child(5n) {
+      border-right-width: 3px;
+    }
+
+    tr td:nth-child(1) {
+      border-left-width: 3px;
+    }
+
+    tr:nth-child(5n) td {
+      border-bottom-width: 3px;
+    }
+  }
+
+  .left-hints-table {
+    tr:nth-child(5n) td {
+      border-bottom-width: 3px;
+    }
+  }
+}
+
+.main-field-table {
+  cursor: pointer;
+}
