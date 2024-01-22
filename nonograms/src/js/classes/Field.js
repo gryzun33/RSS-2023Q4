@@ -5,7 +5,7 @@ export default class Field {
     this.gameField = null;
 
     this.game = game;
-    // this.userGame = [];
+    this.userGame = [];
     this.addHints();
     this.createView(parent);
     console.log('left=', this.createLeftHintsArray(game.gameMatrix));
@@ -37,6 +37,7 @@ export default class Field {
     // render left hints
     for (let i = 0; i < this.leftHints.length; i += 1) {
       const rowLeftHints = createHTMLElement('tr', 'row-left-hints', leftHintsTable);
+
       for (let j = 0; j < this.leftHints[0].length; j += 1) {
         const text = this.leftHints[i][j] ? this.leftHints[i][j] : 0;
         const rowLeftHint = createHTMLElement('td', 'row-left-hint', rowLeftHints, text);
@@ -45,11 +46,20 @@ export default class Field {
 
     // render mainField
     for (let i = 0; i < this.game.gameMatrix.length; i += 1) {
+      const userGameRow = [];
       const rowField = createHTMLElement('tr', 'field-row', this.mainField);
       for (let j = 0; j < this.game.gameMatrix.length; j += 1) {
         const cellField = createHTMLElement('td', 'field-cell', rowField);
+        const cell = [0];
+        userGameRow.push(cell);
       }
+      this.userGame.push(userGameRow);
     }
+    console.log('usergame=', this.userGame);
+  }
+
+  getUserGame() {
+    return this.userGame;
   }
 
   addHints() {
