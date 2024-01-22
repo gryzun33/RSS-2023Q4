@@ -19,5 +19,9 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  rules: {},
-}
+  rules: {
+    'class-methods-use-this': 'off',
+    'no-console': 'off',
+    'no-unused-vars': 'off',
+  },
+};
