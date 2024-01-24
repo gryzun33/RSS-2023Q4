@@ -11,11 +11,42 @@
 // }
 
 .wrapper {
-  width: 70%;
-  height: 90%;
+  width: 1000px;
+  height: 700px;
   margin-left: auto;
   margin-right: auto;
   background-color: white;
-  @include flex(center, center);
+  @include flex-column(normal, normal);
   // display: none;
+}
+
+.header {
+  height: 100px;
+  width: 100%;
+  @include flex(center, center);
+
+  .title {
+    font-size: 35px;
+    font-family: "Astakhov Skin";
+  }
+  // text-align: center;
+}
+
+.game-wrapper {
+  width: 100%;
+  flex-grow: 1;
+  @include flex(normal, normal);
+}
+
+.field-wrapper {
+  width: 60%;
+  height: 100%;
+  background-color: white;
+  @include flex(center, center);
+}
+
+.right-wrapper {
+  width: 40%;
+  height: 100%;
+  background-color: green;
 }

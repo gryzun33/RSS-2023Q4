@@ -10,11 +10,21 @@ export default class Main {
     this.userGame = null;
     this.createView(parent);
     this.getRandomGame();
+    this.games = this.createMapOfGames(this.nonograms);
+    console.log('games=', this.games);
   }
 
   createView(parent) {
     this.elem = createHTMLElement('div', 'wrapper', parent);
-    this.field = new Field(this.elem, this.nonograms[2].games[4]);
+
+    this.header = createHTMLElement('header', 'header', this.elem);
+    this.title = createHTMLElement('h1', 'title', this.header, 'NONOGRAMS');
+
+    this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.elem);
+    this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
+    this.rightWrapper = createHTMLElement('div', 'right-wrapper', this.gameWrapper);
+
+    this.field = new Field(this.fieldWrapper, this.nonograms[2].games[4]);
 
     // !!!!!test game
     this.currentGame = this.nonograms[2].games[4];
@@ -29,7 +39,7 @@ export default class Main {
 
   configureFiew() {
     this.userGame = this.field.getUserGame();
-    console.log('usergame=', this.userGame);
+    // console.log('usergame=', this.userGame);
   }
 
   events() {
@@ -75,7 +85,21 @@ export default class Main {
     } else {
       randNumber = Math.floor(Math.random() * games.length);
     }
-    console.log('game=', games[randNumber]);
+    // console.log('game=', games[randNumber]);
     return games[randNumber];
+  }
+
+  createMapOfGames(nonogramsArr) {
+    const map = new Map();
+    const arrGames = nonogramsArr.map((level) => level.games).flat();
+    arrGames.forEach((game) => {
+      const key = game.gameId;
+      const dataGame = {
+        gameName: game.gameMatrix,
+        gameMatrix: game.gameMatrix,
+      };
+      map.set(key, dataGame);
+    });
+    return map;
   }
 }

@@ -8,8 +8,8 @@ export default class Field {
     this.userGame = [];
     this.addHints();
     this.createView(parent);
-    console.log('left=', this.createLeftHintsArray(game.gameMatrix));
-    console.log('top=', this.createTopHintsArray(game.gameMatrix));
+    // console.log('left=', this.createLeftHintsArray(game.gameMatrix));
+    // console.log('top=', this.createTopHintsArray(game.gameMatrix));
   }
 
   createView(parent) {

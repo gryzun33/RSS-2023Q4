@@ -1,12 +1,12 @@
 .cell {
-  width: 30px;
-  height: 30px;
-  border: 1px solid $color-cell-light;
+  width: 25px;
+  height: 25px;
+  border: 1px solid black;
   text-align: center;
   vertical-align: middle;
-  color: $color-cell;
+  color: black;
 
-  font-size: 20px;
+  font-size: 16px;
   font-family: "Itim";
 }
 
@@ -17,7 +17,7 @@
 .full-field {
   border-collapse: collapse;
   border: none;
-  border: 3px solid $color-cell-light;
+  border: 3px solid black;
   border-right: none;
   border-bottom: none;
 
@@ -50,38 +50,38 @@
 
   .top-hints-table {
     tr td:first-child {
-      border-left: 3px solid $color-cell-light;
+      border-left: 3px solid black;
     }
 
     tr td:nth-child(5n) {
-      border-right: 3px solid $color-cell-light;
+      border-right: 3px solid black;
     }
   }
 
   .left-hints-table {
     tr:nth-child(5n) td {
-      border-bottom: 3px solid $color-cell-light;
+      border-bottom: 3px solid black;
     }
 
     tr:first-child td {
-      border-top: 3px solid $color-cell-light;
+      border-top: 3px solid black;
     }
   }
 
   .main-field-table {
     tr td:first-child {
-      border-left: 3px solid $color-cell-light;
+      border-left: 3px solid black;
     }
     tr td:nth-child(5n) {
-      border-right: 3px solid $color-cell-light;
+      border-right: 3px solid black;
     }
 
     tr:nth-child(5n) td {
-      border-bottom: 3px solid $color-cell-light;
+      border-bottom: 3px solid black;
     }
 
     tr:first-child td {
-      border-top: 3px solid $color-cell-light;
+      border-top: 3px solid black;
     }
   }
 }
