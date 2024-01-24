@@ -11,10 +11,11 @@
 // }
 
 .wrapper {
-  width: 80%;
-  height: 100%;
+  width: 70%;
+  height: 90%;
   margin-left: auto;
   margin-right: auto;
-  background-color: $color-main-bg-light;
+  background-color: white;
   @include flex(center, center);
+  // display: none;
 }
