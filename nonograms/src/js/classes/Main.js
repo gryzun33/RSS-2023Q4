@@ -1,5 +1,6 @@
 import createHTMLElement from '../utils/createHTMLElement';
 import Field from './Field';
+import Controls from './Controls';
 import nonograms from '../data/nonograms';
 
 export default class Main {
@@ -22,9 +23,10 @@ export default class Main {
 
     this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.elem);
     this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
-    this.rightWrapper = createHTMLElement('div', 'right-wrapper', this.gameWrapper);
 
     this.field = new Field(this.fieldWrapper, this.nonograms[2].games[4]);
+    this.timerWrapper = createHTMLElement('div', 'timer-wrapper', this.gameWrapper, '00:00');
+    this.controls = new Controls(this.gameWrapper);
 
     // !!!!!test game
     this.currentGame = this.nonograms[2].games[4];

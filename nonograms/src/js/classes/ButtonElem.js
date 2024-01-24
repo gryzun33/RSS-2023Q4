@@ -8,10 +8,10 @@ export default class ButtonElem {
 
   createElement(params) {
     this.elem = document.createElement('button');
-    this.setCssClasses([params.parent]);
+    this.setCssClasses([params.cssClasses]);
     this.setTextContent(params.textContent);
     this.setCallback(params.callback);
-    this.elem.append(params.parent);
+    params.parent.append(this.elem);
   }
 
   getHTMLElement() {
