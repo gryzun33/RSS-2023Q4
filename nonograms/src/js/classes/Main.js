@@ -10,9 +10,9 @@ export default class Main {
     this.nonograms = nonograms;
     this.userGame = null;
     this.createView(parent);
-    this.getRandomGame();
-    this.games = this.createMapOfGames(this.nonograms);
-    console.log('games=', this.games);
+
+    this.gamesMap = this.createMapOfGames(this.nonograms);
+    console.log('games=', this.gamesMap);
   }
 
   createView(parent) {
@@ -24,47 +24,16 @@ export default class Main {
     this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.elem);
     this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
 
-    this.field = new Field(this.fieldWrapper, this.nonograms[2].games[4]);
     this.timerWrapper = createHTMLElement('div', 'timer-wrapper', this.gameWrapper, '00:00');
-    this.controls = new Controls(this.gameWrapper);
-
-    // !!!!!test game
-    this.currentGame = this.nonograms[2].games[4];
-
-    this.configureFiew();
-    this.events();
+    this.controls = new Controls(this.gameWrapper, this.startRandomGame);
   }
 
   getHTMLElement() {
     return this.elem;
   }
 
-  configureFiew() {
+  checkGame = () => {
     this.userGame = this.field.getUserGame();
-    // console.log('usergame=', this.userGame);
-  }
-
-  events() {
-    this.field.mainFieldTable.addEventListener('click', this.clickOnFieldLeft.bind(this));
-  }
-
-  clickOnFieldLeft(e) {
-    // console.log('click on table');
-    // console.log(e.target);
-
-    if (e.target.closest('.cell')) {
-      const cell = e.target.closest('.cell');
-      cell.classList.toggle('cell-painted');
-      const cellId = cell.id.split('-');
-      console.log('cellid=', cellId);
-      console.log('currentcell1=', this.userGame[cellId[0]][cellId[1]]);
-      this.userGame[cellId[0]][cellId[1]] = this.userGame[cellId[0]][cellId[1]] ? 0 : 1;
-      console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
-      this.checkGame();
-    }
-  }
-
-  checkGame() {
     const gameStr = this.currentGame.gameMatrix.flat().join('');
     console.log('gameStr', gameStr);
     const userGameStr = this.userGame.flat().join('');
@@ -74,20 +43,30 @@ export default class Main {
     } else {
       console.log('FAAAAIL!!!!!');
     }
+  };
+
+  startRandomGame = () => {
+    this.currentGame = this.getRandomGame();
+    this.startNewGame(this.currentGame);
+  };
+
+  startNewGame(game) {
+    this.fieldWrapper.innerHTML = '';
+    this.field = new Field(this.fieldWrapper, game, this.checkGame);
+    // this.field.setCallbackToField(this.clickOnFieldLeft);
+    // this.userGame = this.field.getUserGame();
   }
 
   getRandomGame() {
     const games = this.nonograms.map((level) => level.games).flat();
-    // console.log('games=', games);
     let randNumber;
     if (this.currentGame !== null) {
       do {
         randNumber = Math.floor(Math.random() * games.length);
       } while (games[randNumber].gameId === this.currentGame.gameId);
-    } else {
-      randNumber = Math.floor(Math.random() * games.length);
+      return games[randNumber];
     }
-    // console.log('game=', games[randNumber]);
+    randNumber = Math.floor(Math.random() * games.length);
     return games[randNumber];
   }
 

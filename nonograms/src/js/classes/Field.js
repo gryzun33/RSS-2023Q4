@@ -1,11 +1,12 @@
 import createHTMLElement from '../utils/createHTMLElement';
 
 export default class Field {
-  constructor(parent, game) {
+  constructor(parent, game, checkGame) {
     this.gameField = null;
 
     this.game = game;
-    this.userGame = [];
+    this.userGame = null;
+    this.checkGame = checkGame;
     this.addHints();
     this.createView(parent);
     // console.log('left=', this.createLeftHintsArray(game.gameMatrix));
@@ -49,6 +50,7 @@ export default class Field {
     }
 
     // render mainField
+    this.userGame = [];
     for (let i = 0; i < this.game.gameMatrix.length; i += 1) {
       const userGameRow = [];
       const rowField = createHTMLElement('tr', 'field-row', this.mainFieldTable);
@@ -61,10 +63,36 @@ export default class Field {
       this.userGame.push(userGameRow);
     }
     console.log('usergame=', this.userGame);
+
+    this.mainFieldTable.addEventListener('click', this.clickOnFieldLeft.bind(this));
   }
 
   getUserGame() {
     return this.userGame;
+  }
+
+  setCallbackToField(callback) {
+    console.log('callbackfield =', callback);
+    this.mainFieldTable.addEventListener('click', callback);
+  }
+
+  clickOnFieldLeft(e) {
+    console.log('click on table');
+    // console.log(e.target);
+
+    if (e.target.closest('.cell')) {
+      const cell = e.target.closest('.cell');
+      cell.classList.toggle('cell-painted');
+      const cellId = cell.id.split('-');
+      console.log('cellid=', cellId);
+      console.log(cellId[0]);
+      console.log(cellId[1]);
+      // console.log('elementusergame=', this.userGame);
+      console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
+      this.userGame[cellId[0]][cellId[1]] = this.userGame[cellId[0]][cellId[1]] ? 0 : 1;
+      console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
+      this.checkGame();
+    }
   }
 
   addHints() {
