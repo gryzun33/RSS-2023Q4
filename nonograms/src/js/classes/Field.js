@@ -67,6 +67,7 @@ export default class Field {
 
     this.mainFieldTable.addEventListener('click', this.clickOnFieldLeft.bind(this));
     this.mainFieldTable.addEventListener('click', this.startGame, { once: true });
+    this.mainFieldTable.addEventListener('contextmenu', this.clickOnFieldRight.bind(this));
   }
 
   getUserGame() {
@@ -84,7 +85,9 @@ export default class Field {
 
     if (e.target.closest('.cell')) {
       const cell = e.target.closest('.cell');
-      cell.classList.toggle('cell-painted');
+      cell.classList.toggle('cell-true');
+      cell.classList.remove('cell-false');
+
       const cellId = cell.id.split('-');
       // console.log('cellid=', cellId);
       // console.log(cellId[0]);
@@ -92,6 +95,25 @@ export default class Field {
       // console.log('elementusergame=', this.userGame);
       // console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
       this.userGame[cellId[0]][cellId[1]] = this.userGame[cellId[0]][cellId[1]] ? 0 : 1;
+      // console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
+      this.checkGame();
+    }
+  }
+
+  clickOnFieldRight(e) {
+    e.preventDefault();
+    console.log('click on table');
+    if (e.target.closest('.cell')) {
+      const cell = e.target.closest('.cell');
+      cell.classList.remove('cell-true');
+      cell.classList.add('cell-false');
+      const cellId = cell.id.split('-');
+      // console.log('cellid=', cellId);
+      // console.log(cellId[0]);
+      // console.log(cellId[1]);
+      // console.log('elementusergame=', this.userGame);
+      // console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
+      this.userGame[cellId[0]][cellId[1]] = 0;
       // console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
       this.checkGame();
     }

@@ -10,8 +10,14 @@
   font-family: "Itim";
 }
 
-.cell-painted {
+.cell-true {
   background-color: $color-cell;
+}
+
+.cell-false {
+  background-image: url("./assets/icons/icon-cross.svg");
+  background-size: 80% 80%;
+  background-position: center center;
 }
 
 .full-field {
