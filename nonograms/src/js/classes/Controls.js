@@ -19,7 +19,7 @@ export default class Controls {
 
     this.selectBox = createHTMLElement('div', 'select-box', this.elem);
 
-    this.selectLevel = new SelectLevel(this.selectBox);
+    this.selectLevel = new SelectLevel(this.selectBox, this.updateSelectGame);
     // console.log('ffff=', this.selectLevel.elem.value);
     this.selectGame = new SelectGame(this.selectBox, this.selectLevel.elem.value);
 
@@ -34,4 +34,9 @@ export default class Controls {
 
     console.log('randombtn=', this.randomBtn);
   }
+
+  updateSelectGame = () => {
+    this.selectGame.updateView(this.selectLevel.elem.value);
+    // this.selectGame.setSelectValue(8);
+  };
 }

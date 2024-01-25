@@ -2,9 +2,10 @@ import createHTMLElement from '../utils/createHTMLElement';
 import nonograms from '../data/nonograms';
 
 export default class SelectLevel {
-  constructor(parent) {
+  constructor(parent, updateSelectGame) {
     this.elem = null;
     // this.data = data;
+    this.updateSelectGame = updateSelectGame;
     this.levels = nonograms.map((el) => el.numbCells);
     this.createView(parent);
   }
@@ -16,21 +17,21 @@ export default class SelectLevel {
 
     this.levels.forEach((level, i) => {
       const optionElem = createHTMLElement('option', 'option', this.elem, level);
-      // const levelArr = level.split('x');
-      // optionElem.value = level;
-      // if (i === 0) {
-      //   optionElem.selected = true;
-      // }
+      optionElem.value = level;
     });
     console.log('selectvalue=', this.elem.value);
-    this.elem.addEventListener('change', () => {
-      console.log('selectvalue=', this.elem.value);
-    });
+    // this.elem.addEventListener('change', () => {
+    //   console.log('selectvalue=', this.elem.value);
+    // });
+
+    this.elem.addEventListener('change', this.updateSelectGame);
+
+    // this.setSelectValue('10 x 10');
   }
 
-  // setSelectValue(value) {
-  //   this.elem.value = this.
-  // }
+  setSelectValue(value) {
+    this.elem.value = value;
+  }
 
   // onChangeSelectLevel() {
 

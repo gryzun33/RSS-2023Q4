@@ -5,7 +5,6 @@ export default class SelectGame {
   constructor(parent, startLevel) {
     this.elem = null;
     this.nonograms = nonograms;
-    // this.currentGame = currentGame;
     this.levelMap = this.createLevelMap();
     this.createView(parent, startLevel);
   }
@@ -18,30 +17,26 @@ export default class SelectGame {
   }
 
   updateView(level) {
+    console.log('level=', level);
     this.elem.innerHTML = '';
-    // this.level = `${currentGame.matrix.length} x ${currentGame.matrix.length}`;
     this.gamesOfLevel = this.levelMap.get(level);
     this.gamesOfLevel.forEach((game, i) => {
       const optionElem = createHTMLElement('option', 'option', this.elem, game.gameName);
       optionElem.value = game.gameId;
-      // if (i === 0) {
-      //   optionElem.selected = true;
-      // }
     });
 
     console.log('selectGame=', this.elem.value);
     this.elem.addEventListener('change', () => {
       console.log('selectGame=', this.elem.value);
     });
-
-    // this.setSelectGameValue(currentGame.id);
+    // this.setSelectValue(8);
   }
 
-  // setSelectGameValue(value = this.gamesOfLevel[0].gameId) {
-  //   this.elem.value = value;
-  // }
+  setSelectValue(id) {
+    this.elem.value = id;
+  }
 
-  setSelectGameId() {
+  getSelectGameId() {
     return this.elem.value;
   }
 
