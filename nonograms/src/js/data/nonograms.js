@@ -1,6 +1,6 @@
 const nonograms = [
   {
-    numbCells: '5 х 5',
+    numbCells: '5 x 5',
     games: [
       {
         gameId: 1,
@@ -60,7 +60,7 @@ const nonograms = [
     ],
   },
   {
-    numbCells: '10 х 10',
+    numbCells: '10 x 10',
     games: [
       {
         gameId: 6,
@@ -145,7 +145,7 @@ const nonograms = [
     ],
   },
   {
-    numbCells: '15 х 15',
+    numbCells: '15 x 15',
     games: [
       {
         gameId: 11,

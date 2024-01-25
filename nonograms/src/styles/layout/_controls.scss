@@ -1,0 +1,33 @@
+.controls-wrapper {
+  width: 30%;
+  flex-grow: 1;
+  background-color: green;
+  order: 3;
+
+  @include flex-column;
+}
+
+.select-box {
+  @include flex(space-between);
+}
+
+.select-wrapper {
+  @include flex-column;
+
+  margin-top: 20px;
+
+  .select-label {
+    font-size: 20px;
+  }
+
+  .select-level {
+    margin-top: 5px;
+    border: none;
+    outline: none;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+}

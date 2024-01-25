@@ -1,5 +1,6 @@
 import createHTMLElement from '../utils/createHTMLElement';
 import ButtonElem from './ButtonElem';
+import SelectLevel from './SelectLevel';
 
 export default class Controls {
   constructor(parent, startRandomGame) {
@@ -13,6 +14,12 @@ export default class Controls {
 
   createView(parent) {
     this.elem = createHTMLElement('div', 'controls-wrapper', parent);
+
+    this.selectBox = createHTMLElement('div', 'select-box', this.elem);
+
+    this.selectLevel = new SelectLevel(this.selectBox);
+    // console.log('ffff=', this.selectLevel.elem.value);
+    this.selectGame = new SelectGame(this.selectBox, this.selectLevel.elem.value);
 
     const randomBtnParams = {
       cssClasses: ['btn'],
