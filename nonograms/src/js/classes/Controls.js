@@ -1,11 +1,13 @@
 import createHTMLElement from '../utils/createHTMLElement';
 import ButtonElem from './ButtonElem';
 import SelectLevel from './SelectLevel';
+import SelectGame from './SelectGame';
 
 export default class Controls {
   constructor(parent, startRandomGame) {
     this.elem = null;
     this.randomBtn = null;
+    // this.currentGame = currentGame;
 
     this.startRandomGame = startRandomGame;
 
@@ -27,6 +29,7 @@ export default class Controls {
       parent: this.elem,
       callback: this.startRandomGame,
     };
+    console.log('function1= ', this.startRandomGame);
     this.randomBtn = new ButtonElem(randomBtnParams);
 
     console.log('randombtn=', this.randomBtn);
