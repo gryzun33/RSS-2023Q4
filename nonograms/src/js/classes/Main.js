@@ -1,11 +1,13 @@
 import createHTMLElement from '../utils/createHTMLElement';
 import Field from './Field';
 import Controls from './Controls';
+import Timer from './Timer';
 import nonograms from '../data/nonograms';
 
 export default class Main {
   constructor(parent) {
-    this.elem = null;
+    this.isGame = false;
+    this.mainElem = null;
     this.currentGame = null;
     this.nonograms = nonograms;
     this.userGame = null;
@@ -16,21 +18,27 @@ export default class Main {
   }
 
   createView(parent) {
-    this.elem = createHTMLElement('div', 'wrapper', parent);
+    this.mainElem = createHTMLElement('div', 'wrapper', parent);
 
-    this.header = createHTMLElement('header', 'header', this.elem);
+    this.header = createHTMLElement('header', 'header', this.mainElem);
     this.title = createHTMLElement('h1', 'title', this.header, 'NONOGRAMS');
 
-    this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.elem);
+    this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.mainElem);
     this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
 
-    this.timerWrapper = createHTMLElement('div', 'timer-wrapper', this.gameWrapper, '00:00');
-    this.controls = new Controls(this.gameWrapper, this.startRandomGame);
+    this.timer = new Timer(this.gameWrapper);
+    this.controls = new Controls(this.gameWrapper, this.initRandomGame);
   }
 
   getHTMLElement() {
-    return this.elem;
+    return this.mainElem;
   }
+
+  startGame = () => {
+    this.isGame = true;
+    this.timer.runTimer();
+    console.log('start game');
+  };
 
   checkGame = () => {
     this.userGame = this.field.getUserGame();
@@ -45,14 +53,14 @@ export default class Main {
     }
   };
 
-  startRandomGame = () => {
+  initRandomGame = () => {
     this.currentGame = this.getRandomGame();
-    this.startNewGame(this.currentGame);
+    this.initNewGame(this.currentGame);
   };
 
-  startNewGame(game) {
+  initNewGame(game) {
     this.fieldWrapper.innerHTML = '';
-    this.field = new Field(this.fieldWrapper, game, this.checkGame);
+    this.field = new Field(this.fieldWrapper, game, this.checkGame, this.startGame, this.isGame);
     // this.field.setCallbackToField(this.clickOnFieldLeft);
     // this.userGame = this.field.getUserGame();
   }

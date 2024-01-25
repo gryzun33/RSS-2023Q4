@@ -1,12 +1,13 @@
 import createHTMLElement from '../utils/createHTMLElement';
 
 export default class Field {
-  constructor(parent, game, checkGame) {
+  constructor(parent, game, checkGame, startGame, isGame) {
     this.gameField = null;
-
     this.game = game;
     this.userGame = null;
     this.checkGame = checkGame;
+    this.startGame = startGame;
+    this.isGame = isGame;
     this.addHints();
     this.createView(parent);
     // console.log('left=', this.createLeftHintsArray(game.gameMatrix));
@@ -65,6 +66,7 @@ export default class Field {
     console.log('usergame=', this.userGame);
 
     this.mainFieldTable.addEventListener('click', this.clickOnFieldLeft.bind(this));
+    this.mainFieldTable.addEventListener('click', this.startGame, { once: true });
   }
 
   getUserGame() {
@@ -84,13 +86,13 @@ export default class Field {
       const cell = e.target.closest('.cell');
       cell.classList.toggle('cell-painted');
       const cellId = cell.id.split('-');
-      console.log('cellid=', cellId);
-      console.log(cellId[0]);
-      console.log(cellId[1]);
+      // console.log('cellid=', cellId);
+      // console.log(cellId[0]);
+      // console.log(cellId[1]);
       // console.log('elementusergame=', this.userGame);
-      console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
+      // console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
       this.userGame[cellId[0]][cellId[1]] = this.userGame[cellId[0]][cellId[1]] ? 0 : 1;
-      console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
+      // console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
       this.checkGame();
     }
   }

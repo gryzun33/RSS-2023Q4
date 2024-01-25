@@ -38,13 +38,30 @@
   order: 1;
 }
 
-.timer-wrapper {
+.timer {
   order: 2;
   width: 30%;
   height: 60px;
   padding-top: 27px;
   text-align: center;
   font-size: 30px;
+  @include flex(center);
+
+  span {
+    display: block;
+    width: 30px;
+    text-align: center;
+  }
+
+  span:first-child {
+    width: 70px;
+    text-align: right;
+  }
+
+  span:last-child {
+    width: 70px;
+    text-align: left;
+  }
 }
 
 .controls-wrapper {
