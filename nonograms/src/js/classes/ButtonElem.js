@@ -7,7 +7,7 @@ export default class ButtonElem {
   }
 
   createElement(params) {
-    console.log('params=', params);
+    // console.log('params=', params);
     this.elem = document.createElement('button');
     this.setCssClasses([params.cssClasses]);
     this.setTextContent(params.textContent);
@@ -28,7 +28,7 @@ export default class ButtonElem {
   }
 
   setCallback(callback) {
-    console.log('callback =', typeof callback);
+    // console.log('callback =', typeof callback);
     this.elem.addEventListener('click', callback);
   }
 

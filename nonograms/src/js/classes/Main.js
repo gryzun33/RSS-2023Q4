@@ -16,7 +16,7 @@ export default class Main {
     this.createView(parent);
 
     this.gamesMap = this.createMapOfGames(this.nonograms);
-    console.log('gamesMap=', this.gamesMap);
+    // console.log('gamesMap=', this.gamesMap);
 
     this.dataBank = new DataBank();
   }
@@ -35,7 +35,8 @@ export default class Main {
       this.gameWrapper,
       this.initRandomGame,
       this.initChosenGame,
-      this.initNewGame
+      this.initNewGame,
+      this.saveCurrentGame
     );
     this.initNewGame();
   }
@@ -78,16 +79,12 @@ export default class Main {
   initChosenGame = () => {
     this.currentGame = this.gamesMap.get(+this.controls.selectGame.elem.value);
     this.currentGame.gameId = this.controls.selectGame.elem.value;
-    console.log('currentgame=', this.currentGame);
+    // console.log('currentgame=', this.currentGame);
     this.initNewGame();
   };
 
-  // resetCurrentGame =() => {
-  //   initNewGame (game)
-  // }
-
   initNewGame = () => {
-    console.log('gamefromInitgame=', this.currentGame);
+    // console.log('gamefromInitgame=', this.currentGame);
     this.timer.resetTimer();
     this.fieldWrapper.innerHTML = '';
     this.field = new Field(
@@ -120,6 +117,11 @@ export default class Main {
     this.timer.stopTimer();
     this.dataBank.saveFinishedGame(this.currentGame, this.timer.timeData);
   }
+
+  saveCurrentGame = () => {
+    this.userGame = this.field.getUserGame();
+    this.dataBank.saveCurrentGame(this.currentGame, this.userGame, this.timer.timeData);
+  };
 
   createMapOfGames(nonogramsArr) {
     const map = new Map();

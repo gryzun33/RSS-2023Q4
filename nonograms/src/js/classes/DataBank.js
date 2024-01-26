@@ -1,5 +1,5 @@
 export default class DataBank {
-  contructor() {
+  constructor() {
     this.currentGame = null;
     this.userGame = null;
     this.savedGames = null;
@@ -10,6 +10,7 @@ export default class DataBank {
 
   saveCurrentGame(gameData, usergameData, timeData) {
     const data = { gameData, usergameData, timeData };
+    console.log('usergamedata = ', usergameData);
     localStorage.setItem('gameGryzun33', JSON.stringify(data));
   }
 
