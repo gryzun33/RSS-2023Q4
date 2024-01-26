@@ -6,8 +6,8 @@ export default class Timer {
     this.timeData = {
       min: 0,
       sec: 0,
-      currMin: 0,
-      currSec: 0,
+      // currMin: 0,
+      // currSec: 0,
     };
     this.timeElem = null;
     this.createView(parent);
@@ -51,9 +51,9 @@ export default class Timer {
     this.timeData.sec = sec;
   }
 
-  // stopTimer() {
-  //   clearInterval(this.timerId);
-  // }
+  stopTimer() {
+    clearInterval(this.timerId);
+  }
 
   resetTimer() {
     clearInterval(this.timerId);

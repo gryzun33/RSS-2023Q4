@@ -28,8 +28,13 @@ export default class Main {
     this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
 
     this.timer = new Timer(this.gameWrapper);
-    this.controls = new Controls(this.gameWrapper, this.initRandomGame, this.initChosenGame);
-    this.initNewGame(this.currentGame);
+    this.controls = new Controls(
+      this.gameWrapper,
+      this.initRandomGame,
+      this.initChosenGame,
+      this.initNewGame
+    );
+    this.initNewGame();
   }
 
   getHTMLElement() {
@@ -50,6 +55,8 @@ export default class Main {
     console.log('userGameStr', userGameStr);
     if (gameStr === userGameStr) {
       console.log('WIIINNN!!!!!!');
+      finishGame();
+      this.timer.stopTimer();
     } else {
       console.log('FAAAAIL!!!!!');
     }
@@ -62,25 +69,35 @@ export default class Main {
     const level = this.currentGame.level;
     // const level = `${this.currentGame.gameMatrix.length} x ${this.currentGame.gameMatrix.length}`;
     this.controls.updateSelects(level, gameId);
-    this.initNewGame(this.currentGame);
+    this.initNewGame();
   };
 
   initChosenGame = () => {
     this.currentGame = this.gamesMap.get(+this.controls.selectGame.elem.value);
     this.currentGame.gameId = this.controls.selectGame.elem.value;
     console.log('currentgame=', this.currentGame);
-    this.initNewGame(this.currentGame);
+    this.initNewGame();
   };
 
-  initNewGame(game) {
-    console.log('gamefromInitgame=', game);
+  // resetCurrentGame =() => {
+  //   initNewGame (game)
+  // }
+
+  initNewGame = () => {
+    console.log('gamefromInitgame=', this.currentGame);
     this.timer.resetTimer();
     this.fieldWrapper.innerHTML = '';
-    this.field = new Field(this.fieldWrapper, game, this.checkGame, this.startGame, this.isGame);
+    this.field = new Field(
+      this.fieldWrapper,
+      this.currentGame,
+      this.checkGame,
+      this.startGame,
+      this.isGame
+    );
 
     // this.field.setCallbackToField(this.clickOnFieldLeft);
     // this.userGame = this.field.getUserGame();
-  }
+  };
 
   getRandomGame() {
     const games = this.nonograms.map((level) => level.games).flat();
@@ -93,6 +110,12 @@ export default class Main {
     }
     randNumber = Math.floor(Math.random() * games.length);
     return games[randNumber];
+  }
+
+  finishGame() {
+    this.isGame = false;
+    this.timer.stopTimer();
+    // this.dataBank.saveGame(this.currentGame, this.timer.timeData);
   }
 
   createMapOfGames(nonogramsArr) {

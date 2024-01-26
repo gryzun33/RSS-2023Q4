@@ -4,13 +4,14 @@ import SelectLevel from './SelectLevel';
 import SelectGame from './SelectGame';
 
 export default class Controls {
-  constructor(parent, startRandomGame, initChosenGame) {
+  constructor(parent, startRandomGame, initChosenGame, initNewGame) {
     this.elem = null;
     this.randomBtn = null;
     // this.currentGame = currentGame;
 
     this.startRandomGame = startRandomGame;
     this.initChosenGame = initChosenGame;
+    this.initNewGame = initNewGame;
 
     this.createView(parent);
   }
@@ -34,10 +35,19 @@ export default class Controls {
       parent: this.elem,
       callback: this.startRandomGame,
     };
-    console.log('function1= ', this.startRandomGame);
+    // console.log('function1= ', this.startRandomGame);
     this.randomBtn = new ButtonElem(randomBtnParams);
 
-    console.log('randombtn=', this.randomBtn);
+    const resetBtnParams = {
+      cssClasses: ['btn'],
+      textContent: 'Reset game',
+      parent: this.elem,
+      callback: this.initNewGame,
+    };
+
+    this.resetBtn = new ButtonElem(resetBtnParams);
+
+    console.log('randombtn=', this.resetBtn);
   }
 
   updateSelectGame = () => {
