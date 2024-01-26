@@ -2,6 +2,7 @@ import createHTMLElement from '../utils/createHTMLElement';
 import Field from './Field';
 import Controls from './Controls';
 import Timer from './Timer';
+import DataBank from './DataBank';
 import nonograms from '../data/nonograms';
 
 export default class Main {
@@ -16,6 +17,8 @@ export default class Main {
 
     this.gamesMap = this.createMapOfGames(this.nonograms);
     console.log('gamesMap=', this.gamesMap);
+
+    this.dataBank = new DataBank();
   }
 
   createView(parent) {
@@ -55,7 +58,7 @@ export default class Main {
     console.log('userGameStr', userGameStr);
     if (gameStr === userGameStr) {
       console.log('WIIINNN!!!!!!');
-      finishGame();
+      this.finishGame();
       this.timer.stopTimer();
     } else {
       console.log('FAAAAIL!!!!!');
@@ -115,7 +118,7 @@ export default class Main {
   finishGame() {
     this.isGame = false;
     this.timer.stopTimer();
-    // this.dataBank.saveGame(this.currentGame, this.timer.timeData);
+    this.dataBank.saveFinishedGame(this.currentGame, this.timer.timeData);
   }
 
   createMapOfGames(nonogramsArr) {
