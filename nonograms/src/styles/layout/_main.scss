@@ -30,14 +30,6 @@
   font-family: "Itim";
 }
 
-.field-wrapper {
-  width: 60%;
-  height: 100%;
-  background-color: white;
-  @include flex(center, center);
-  order: 1;
-}
-
 .timer {
   order: 2;
   width: 30%;

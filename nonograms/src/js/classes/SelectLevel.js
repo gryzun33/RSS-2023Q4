@@ -12,10 +12,13 @@ export default class SelectLevel {
 
   createView(parent) {
     const selectWrapper = createHTMLElement('div', 'select-wrapper', parent);
-    const selectLabel = createHTMLElement('label', 'select-label', selectWrapper, 'Choose level');
+    // const selectLabel = createHTMLElement('label', 'select-label', selectWrapper, 'Choose level');
     this.elem = createHTMLElement('select', 'select-level', selectWrapper);
-
-    this.levels.forEach((level, i) => {
+    this.emptyOption = createHTMLElement('option', 'option', this.elem, 'Choose level...');
+    this.emptyOption.value = '';
+    this.emptyOption.disabled = true;
+    // this.emptyOption.selected = true;
+    this.levels.forEach((level) => {
       const optionElem = createHTMLElement('option', 'option', this.elem, level);
       optionElem.value = level;
     });
@@ -26,7 +29,7 @@ export default class SelectLevel {
 
     this.elem.addEventListener('change', this.updateSelectGame);
 
-    // this.setSelectValue('10 x 10');
+    // this.setSelectValue('');
   }
 
   setSelectValue(value) {

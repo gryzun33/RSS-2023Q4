@@ -4,6 +4,7 @@ const nonograms = [
     games: [
       {
         gameId: 1,
+        level: '5 x 5',
         gameName: 'Umbrella',
         gameMatrix: [
           [0, 0, 1, 0, 0],
@@ -15,6 +16,7 @@ const nonograms = [
       },
       {
         gameId: 2,
+        level: '5 x 5',
         gameName: 'Turtle',
         gameMatrix: [
           [1, 0, 0, 0, 1],
@@ -26,6 +28,7 @@ const nonograms = [
       },
       {
         gameId: 3,
+        level: '5 x 5',
         gameName: 'Plane',
         gameMatrix: [
           [0, 0, 1, 0, 0],
@@ -37,6 +40,7 @@ const nonograms = [
       },
       {
         gameId: 4,
+        level: '5 x 5',
         gameName: 'Scull',
         gameMatrix: [
           [0, 1, 1, 1, 0],
@@ -48,6 +52,7 @@ const nonograms = [
       },
       {
         gameId: 5,
+        level: '5 x 5',
         gameName: 'Chess',
         gameMatrix: [
           [1, 0, 1, 0, 1],
@@ -64,6 +69,7 @@ const nonograms = [
     games: [
       {
         gameId: 6,
+        level: '10 x 10',
         gameName: 'Smile',
         gameMatrix: [
           [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
@@ -81,6 +87,7 @@ const nonograms = [
       {
         gameId: 7,
         gameName: 'Faucet',
+        level: '10 x 10',
         gameMatrix: [
           [0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
           [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
@@ -97,6 +104,7 @@ const nonograms = [
       {
         gameId: 8,
         gameName: 'Helicopter',
+        level: '10 x 10',
         gameMatrix: [
           [1, 1, 1, 0, 1, 1, 1, 0, 0, 0],
           [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
@@ -113,6 +121,7 @@ const nonograms = [
       {
         gameId: 9,
         gameName: 'Butterfly',
+        level: '10 x 10',
         gameMatrix: [
           [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
           [1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
@@ -128,6 +137,7 @@ const nonograms = [
       },
       {
         gameId: 10,
+        level: '10 x 10',
         gameName: 'Candy',
         gameMatrix: [
           [0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
@@ -149,6 +159,7 @@ const nonograms = [
     games: [
       {
         gameId: 11,
+        level: '15 x 15',
         gameName: 'name',
         gameMatrix: [
           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -170,6 +181,7 @@ const nonograms = [
       },
       {
         gameId: 12,
+        level: '15 x 15',
         gameName: 'name',
         gameMatrix: [
           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -191,6 +203,7 @@ const nonograms = [
       },
       {
         gameId: 13,
+        level: '15 x 15',
         gameName: 'name',
         gameMatrix: [
           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -212,6 +225,7 @@ const nonograms = [
       },
       {
         gameId: 14,
+        level: '15 x 15',
         gameName: 'name',
         gameMatrix: [
           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -233,6 +247,7 @@ const nonograms = [
       },
       {
         gameId: 15,
+        level: '15 x 15',
         gameName: 'Ship',
         gameMatrix: [
           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],

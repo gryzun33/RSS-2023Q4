@@ -10,11 +10,12 @@ export default class Main {
     this.mainElem = null;
     this.currentGame = null;
     this.nonograms = nonograms;
+    this.currentGame = this.nonograms[0].games[0];
     this.userGame = null;
     this.createView(parent);
 
     this.gamesMap = this.createMapOfGames(this.nonograms);
-    console.log('games=', this.gamesMap);
+    console.log('gamesMap=', this.gamesMap);
   }
 
   createView(parent) {
@@ -27,7 +28,8 @@ export default class Main {
     this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
 
     this.timer = new Timer(this.gameWrapper);
-    this.controls = new Controls(this.gameWrapper, this.initRandomGame);
+    this.controls = new Controls(this.gameWrapper, this.initRandomGame, this.initChosenGame);
+    this.initNewGame(this.currentGame);
   }
 
   getHTMLElement() {
@@ -55,12 +57,27 @@ export default class Main {
 
   initRandomGame = () => {
     this.currentGame = this.getRandomGame();
+    // console.log('currentgame=', this.currentGame);
+    const gameId = this.currentGame.gameId;
+    const level = this.currentGame.level;
+    // const level = `${this.currentGame.gameMatrix.length} x ${this.currentGame.gameMatrix.length}`;
+    this.controls.updateSelects(level, gameId);
+    this.initNewGame(this.currentGame);
+  };
+
+  initChosenGame = () => {
+    this.currentGame = this.gamesMap.get(+this.controls.selectGame.elem.value);
+    this.currentGame.gameId = this.controls.selectGame.elem.value;
+    console.log('currentgame=', this.currentGame);
     this.initNewGame(this.currentGame);
   };
 
   initNewGame(game) {
+    console.log('gamefromInitgame=', game);
+    this.timer.resetTimer();
     this.fieldWrapper.innerHTML = '';
     this.field = new Field(this.fieldWrapper, game, this.checkGame, this.startGame, this.isGame);
+
     // this.field.setCallbackToField(this.clickOnFieldLeft);
     // this.userGame = this.field.getUserGame();
   }
@@ -84,7 +101,8 @@ export default class Main {
     arrGames.forEach((game) => {
       const key = game.gameId;
       const dataGame = {
-        gameName: game.gameMatrix,
+        level: game.level,
+        gameName: game.gameName,
         gameMatrix: game.gameMatrix,
       };
       map.set(key, dataGame);

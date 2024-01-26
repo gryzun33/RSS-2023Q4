@@ -20,7 +20,24 @@
   background-position: center center;
 }
 
+.field-wrapper {
+  width: 60%;
+  height: 100%;
+  background-color: white;
+  @include flex-column(center, center);
+  order: 1;
+  // padding: 20px;
+}
+
+.game-info {
+  // @include flex;
+  // gap: 20px;
+  font-size: 18px;
+}
+
 .full-field {
+  // align-self: center;
+
   border-collapse: collapse;
   border: none;
   border: 3px solid black;

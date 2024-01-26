@@ -34,9 +34,9 @@ export default class Timer {
     }, 1000);
   }
 
-  updateTimer() {
-    this.updateTimerData();
-    this.updateTimerView();
+  updateTimer(min, sec) {
+    this.updateTimerData(min, sec);
+    this.updateTimerView(min, sec);
   }
 
   updateTimerView(min, sec) {
@@ -51,7 +51,12 @@ export default class Timer {
     this.timeData.sec = sec;
   }
 
+  // stopTimer() {
+  //   clearInterval(this.timerId);
+  // }
+
   resetTimer() {
     clearInterval(this.timerId);
+    this.updateTimer(0, 0);
   }
 }

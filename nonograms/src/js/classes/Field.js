@@ -2,6 +2,7 @@ import createHTMLElement from '../utils/createHTMLElement';
 
 export default class Field {
   constructor(parent, game, checkGame, startGame, isGame) {
+    console.log('game in field=', game);
     this.gameField = null;
     this.game = game;
     this.userGame = null;
@@ -15,7 +16,13 @@ export default class Field {
   }
 
   createView(parent) {
-    const fullField = createHTMLElement('table', 'full-field', parent);
+    const fieldBox = createHTMLElement('div', 'field-box', parent);
+    const info = createHTMLElement('div', 'game-info', fieldBox);
+    const levelInfo = createHTMLElement('p', 'level-info', info);
+    levelInfo.innerText = `Field: ${this.game.level}`;
+    const gameInfo = createHTMLElement('p', 'game-info', info);
+    gameInfo.innerText = `Hint: ${this.game.gameName}`;
+    const fullField = createHTMLElement('table', 'full-field', fieldBox);
     const rowFirst = createHTMLElement('tr', 'row-first', fullField);
     const rowSecond = createHTMLElement('tr', 'row-second', fullField);
     const emptyField = createHTMLElement('td', 'empty-field', rowFirst);
