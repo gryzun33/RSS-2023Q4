@@ -91,11 +91,13 @@ export default class Controls {
   }
 
   updateSelectGame = () => {
+    this.selectGame.elem.disabled = false;
     this.selectGame.updateView(this.selectLevel.elem.value);
     // this.selectGame.setSelectValue(8);
   };
 
   updateSelects(level, gameId) {
+    this.selectGame.elem.disabled = false;
     this.selectLevel.setSelectValue(level);
     this.selectGame.updateView(level);
     this.selectGame.setSelectValue(gameId);

@@ -15,6 +15,7 @@ export default class SelectGame {
     const selectLabel = createHTMLElement('label', 'select-label', selectWrapper, 'Choose game');
     this.elem = createHTMLElement('select', 'select-game', selectWrapper);
     this.elem.addEventListener('change', this.initChosenGame);
+    this.elem.disabled = true;
     this.updateView(startLevel);
   }
 
