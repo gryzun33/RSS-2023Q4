@@ -4,7 +4,7 @@ import SelectLevel from './SelectLevel';
 import SelectGame from './SelectGame';
 
 export default class Controls {
-  constructor(parent, startRandomGame, initChosenGame, initNewGame, saveCurrentGame) {
+  constructor(parent, startRandomGame, initChosenGame, initNewGame, saveCurrentGame, showLastGame) {
     this.elem = null;
     this.randomBtn = null;
     // this.currentGame = currentGame;
@@ -13,6 +13,7 @@ export default class Controls {
     this.initChosenGame = initChosenGame;
     this.initNewGame = initNewGame;
     this.saveCurrentGame = saveCurrentGame;
+    this.showLastGame = showLastGame;
 
     this.createView(parent);
   }
@@ -53,6 +54,14 @@ export default class Controls {
       callback: this.saveCurrentGame,
     };
     this.saveGameBtn = new ButtonElem(saveGameBtnParams);
+
+    const lastGameBtnParams = {
+      cssClasses: ['btn'],
+      textContent: 'Continue last game',
+      parent: this.elem,
+      callback: this.showLastGame,
+    };
+    this.lastGameBtn = new ButtonElem(lastGameBtnParams);
   }
 
   updateSelectGame = () => {

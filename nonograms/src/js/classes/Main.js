@@ -36,7 +36,8 @@ export default class Main {
       this.initRandomGame,
       this.initChosenGame,
       this.initNewGame,
-      this.saveCurrentGame
+      this.saveCurrentGame,
+      this.showLastGame
     );
     this.initNewGame();
   }
@@ -55,7 +56,10 @@ export default class Main {
     this.userGame = this.field.getUserGame();
     const gameStr = this.currentGame.gameMatrix.flat().join('');
     console.log('gameStr', gameStr);
-    const userGameStr = this.userGame.flat().join('');
+    const userGameStr = this.userGame
+      .flat()
+      .map((el) => el.data)
+      .join('');
     console.log('userGameStr', userGameStr);
     if (gameStr === userGameStr) {
       console.log('WIIINNN!!!!!!');
@@ -97,6 +101,16 @@ export default class Main {
 
     // this.field.setCallbackToField(this.clickOnFieldLeft);
     // this.userGame = this.field.getUserGame();
+  };
+
+  showLastGame = () => {
+    const savedData = this.dataBank.getSavedGame();
+    // console.log('saveddata=', savedData);
+    this.isGame = false;
+    this.currentGame = savedData.gameData;
+    this.initNewGame();
+    this.timer.updateTimer(savedData.timeData.min, savedData.timeData.sec);
+    this.field.updateUserGameView(savedData.usergameData);
   };
 
   getRandomGame() {

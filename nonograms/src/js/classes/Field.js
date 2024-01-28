@@ -65,7 +65,10 @@ export default class Field {
       for (let j = 0; j < this.game.gameMatrix.length; j += 1) {
         const cellField = createHTMLElement('td', 'field-cell cell', rowField);
         cellField.id = `${i}-${j}`;
-        const cell = 0;
+        const cell = {
+          data: 0,
+          view: 0,
+        };
         userGameRow.push(cell);
       }
       this.userGame.push(userGameRow);
@@ -79,6 +82,21 @@ export default class Field {
 
   getUserGame() {
     return this.userGame;
+  }
+
+  updateUserGameView(newUserGame) {
+    this.userGame = newUserGame.map((arr) => [...arr]);
+    for (let i = 0; i < this.userGame.length; i += 1) {
+      for (let j = 0; j < this.userGame.length; j += 1) {
+        const id = `${i}-${j}`;
+        const cell = document.getElementById(id);
+        if (this.userGame[i][j].view === 1) {
+          cell.classList.add('cell-true');
+        } else if (this.userGame[i][j].view === 2) {
+          cell.classList.add('cell-false');
+        }
+      }
+    }
   }
 
   setCallbackToField(callback) {
@@ -96,12 +114,16 @@ export default class Field {
       cell.classList.remove('cell-false');
 
       const cellId = cell.id.split('-');
+
       // console.log('cellid=', cellId);
       // console.log(cellId[0]);
       // console.log(cellId[1]);
       // console.log('elementusergame=', this.userGame);
       // console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
-      this.userGame[cellId[0]][cellId[1]] = this.userGame[cellId[0]][cellId[1]] ? 0 : 1;
+      this.userGame[cellId[0]][cellId[1]].data = this.userGame[cellId[0]][cellId[1]].data ? 0 : 1;
+      this.userGame[cellId[0]][cellId[1]].view = this.userGame[cellId[0]][cellId[1]].view ? 0 : 1;
+
+      // this.userGame[cellId[0]][cellId[1]] = this.userGame[cellId[0]][cellId[1]] ? 0 : 1;
       // console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
       this.checkGame();
     }
@@ -120,7 +142,8 @@ export default class Field {
       // console.log(cellId[1]);
       // console.log('elementusergame=', this.userGame);
       // console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
-      this.userGame[cellId[0]][cellId[1]] = 0;
+      this.userGame[cellId[0]][cellId[1]].data = 0;
+      this.userGame[cellId[0]][cellId[1]].view = this.userGame[cellId[0]][cellId[1]].view ? 0 : 2;
       // console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
       this.checkGame();
     }
