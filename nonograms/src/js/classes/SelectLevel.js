@@ -12,9 +12,9 @@ export default class SelectLevel {
 
   createView(parent) {
     const selectWrapper = createHTMLElement('div', 'select-wrapper', parent);
-    // const selectLabel = createHTMLElement('label', 'select-label', selectWrapper, 'Choose level');
+    const selectLabel = createHTMLElement('label', 'select-label', selectWrapper, 'Choose level');
     this.elem = createHTMLElement('select', 'select-level', selectWrapper);
-    this.emptyOption = createHTMLElement('option', 'option', this.elem, 'Choose level...');
+    this.emptyOption = createHTMLElement('option', 'option', this.elem);
     this.emptyOption.value = '';
     this.emptyOption.disabled = true;
     // this.emptyOption.selected = true;

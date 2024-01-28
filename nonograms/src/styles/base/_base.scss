@@ -16,6 +16,8 @@ body {
   height: 100vh;
   @include flex(center, center);
   // @include flex-column;
+  font-family: "Varela Round";
+  font-weight: 400;
 }
 
 // a {

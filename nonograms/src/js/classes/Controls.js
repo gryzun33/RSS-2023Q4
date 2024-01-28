@@ -40,10 +40,11 @@ export default class Controls {
       this.initChosenGame
     );
 
+    this.btnBox = createHTMLElement('div', 'btn-box', this.elem);
     const randomBtnParams = {
       cssClasses: ['btn'],
       textContent: 'Random game',
-      parent: this.elem,
+      parent: this.btnBox,
       callback: this.startRandomGame,
     };
     this.randomBtn = new ButtonElem(randomBtnParams);
@@ -51,7 +52,7 @@ export default class Controls {
     const resetBtnParams = {
       cssClasses: ['btn'],
       textContent: 'Reset game',
-      parent: this.elem,
+      parent: this.btnBox,
       callback: this.initNewGame,
     };
     this.resetBtn = new ButtonElem(resetBtnParams);
@@ -59,7 +60,7 @@ export default class Controls {
     const saveGameBtnParams = {
       cssClasses: ['btn'],
       textContent: 'Save game',
-      parent: this.elem,
+      parent: this.btnBox,
       callback: this.saveCurrentGame,
     };
     this.saveGameBtn = new ButtonElem(saveGameBtnParams);
@@ -67,7 +68,7 @@ export default class Controls {
     const lastGameBtnParams = {
       cssClasses: ['btn'],
       textContent: 'Continue last game',
-      parent: this.elem,
+      parent: this.btnBox,
       callback: this.showLastGame,
     };
     this.lastGameBtn = new ButtonElem(lastGameBtnParams);
@@ -75,10 +76,18 @@ export default class Controls {
     const solutionBtnParams = {
       cssClasses: ['btn'],
       textContent: 'Solution',
-      parent: this.elem,
+      parent: this.btnBox,
       callback: this.showSolution,
     };
     this.solutionBtn = new ButtonElem(solutionBtnParams);
+
+    const scoreBtnParams = {
+      cssClasses: ['btn'],
+      textContent: 'Score table',
+      parent: this.btnBox,
+      // callback: this.showSolution,
+    };
+    this.scoreBtn = new ButtonElem(scoreBtnParams);
   }
 
   updateSelectGame = () => {

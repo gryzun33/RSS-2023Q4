@@ -12,7 +12,7 @@ export default class SelectGame {
 
   createView(parent, startLevel) {
     const selectWrapper = createHTMLElement('div', 'select-wrapper', parent);
-    // const selectLabel = createHTMLElement('label', 'select-label', selectWrapper, 'Choose game');
+    const selectLabel = createHTMLElement('label', 'select-label', selectWrapper, 'Choose game');
     this.elem = createHTMLElement('select', 'select-game', selectWrapper);
     this.elem.addEventListener('change', this.initChosenGame);
     this.updateView(startLevel);
@@ -23,7 +23,7 @@ export default class SelectGame {
     this.elem.innerHTML = '';
     // this.elem.value = '';
     this.gamesOfLevel = this.levelMap.get(level);
-    this.emptyOption = createHTMLElement('option', 'option', this.elem, 'Choose game...');
+    this.emptyOption = createHTMLElement('option', 'option', this.elem);
     this.emptyOption.value = '';
     this.emptyOption.disabled = true;
     // this.emptyOption.selected = true;

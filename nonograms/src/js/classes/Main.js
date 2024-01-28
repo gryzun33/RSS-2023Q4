@@ -27,10 +27,11 @@ export default class Main {
     this.header = createHTMLElement('header', 'header', this.mainElem);
     this.title = createHTMLElement('h1', 'title', this.header, 'NONOGRAMS');
 
+    this.timer = new Timer(this.mainElem);
+
     this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.mainElem);
     this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
 
-    this.timer = new Timer(this.gameWrapper);
     this.controls = new Controls(
       this.gameWrapper,
       this.initRandomGame,
