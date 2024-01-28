@@ -1,5 +1,6 @@
 import createHTMLElement from '../utils/createHTMLElement';
 import Timer from './Timer';
+// import iconVolume from './../../assets/icons/volume-low-solid.svg';
 
 export default class Header {
   constructor(parent) {
@@ -15,6 +16,11 @@ export default class Header {
     this.inputTheme = createHTMLElement('input', 'input-theme', this.switcher);
     this.inputTheme.type = 'checkbox';
     this.slider = createHTMLElement('span', 'slider', this.switcher);
+
+    // volume
+    this.volumeBox = createHTMLElement('div', 'volume-box', this.btnBox);
+    this.volumeBtn = createHTMLElement('img', 'volume-icon', this.volumeBox);
+    this.volumeBtn.src = './src/assets/icons/volume-low-solid.svg';
 
     this.title = createHTMLElement('h1', 'title', this.header, 'NONOGRAMS');
     this.timer = new Timer(this.header);

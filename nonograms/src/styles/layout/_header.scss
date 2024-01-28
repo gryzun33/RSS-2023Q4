@@ -4,9 +4,21 @@
   @include flex(space-between, center);
 }
 .header-btn-box {
-  width: 200px;
+  // width: 200px;
   height: 100%;
   @include flex(space-between, center);
+  gap: 15px;
+}
+
+.volume-box {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+
+  .volume-icon {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .title {
@@ -37,6 +49,10 @@
     width: 40px;
     text-align: left;
   }
+}
+
+.switch {
+  cursor: pointer;
 }
 
 .input-theme {
