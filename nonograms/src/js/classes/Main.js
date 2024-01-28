@@ -1,7 +1,7 @@
 import createHTMLElement from '../utils/createHTMLElement';
 import Field from './Field';
 import Controls from './Controls';
-import Timer from './Timer';
+import Header from './Header';
 import DataBank from './DataBank';
 import nonograms from '../data/nonograms';
 
@@ -22,14 +22,10 @@ export default class Main {
   }
 
   createView(parent) {
-    this.mainElem = createHTMLElement('div', 'wrapper', parent);
-
-    this.header = createHTMLElement('header', 'header', this.mainElem);
-    this.title = createHTMLElement('h1', 'title', this.header, 'NONOGRAMS');
-
-    this.timer = new Timer(this.mainElem);
-
-    this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.mainElem);
+    this.mainWrapper = createHTMLElement('div', 'wrapper', parent);
+    this.header = new Header(this.mainWrapper);
+    this.timer = this.header.timer;
+    this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.mainWrapper);
     this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
 
     this.controls = new Controls(

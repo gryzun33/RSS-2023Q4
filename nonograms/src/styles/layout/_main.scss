@@ -12,19 +12,6 @@
   // display: none;
 }
 
-.header {
-  height: 80px;
-  width: 100%;
-  @include flex(center, center);
-
-  .title {
-    font-size: 35px;
-    font-family: "Astakhov Skin";
-    margin: 0;
-  }
-  // text-align: center;
-}
-
 .game-wrapper {
   width: 100%;
   // height: calc(100% - 100px);
@@ -35,31 +22,4 @@
 
   // flex-wrap: wrap;
   // font-family: "Itim";
-}
-
-.timer {
-  // order: 2;
-  width: 30%;
-  // height: 60px;
-  // padding-top: 27px;
-  text-align: center;
-  font-size: 30px;
-  align-self: center;
-  @include flex(center);
-  color: $color-time;
-  span {
-    display: block;
-    width: 30px;
-    text-align: center;
-  }
-
-  span:first-child {
-    width: 70px;
-    text-align: right;
-  }
-
-  span:last-child {
-    width: 70px;
-    text-align: left;
-  }
 }
