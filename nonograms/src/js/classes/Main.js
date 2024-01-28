@@ -37,7 +37,8 @@ export default class Main {
       this.initChosenGame,
       this.initNewGame,
       this.saveCurrentGame,
-      this.showLastGame
+      this.showLastGame,
+      this.showSolution
     );
     this.initNewGame();
   }
@@ -111,6 +112,11 @@ export default class Main {
     this.initNewGame();
     this.timer.updateTimer(savedData.timeData.min, savedData.timeData.sec);
     this.field.updateUserGameView(savedData.usergameData);
+  };
+
+  showSolution = () => {
+    this.timer.resetTimer();
+    this.field.showCorrectField();
   };
 
   getRandomGame() {

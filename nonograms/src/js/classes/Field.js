@@ -99,9 +99,20 @@ export default class Field {
     }
   }
 
-  setCallbackToField(callback) {
-    console.log('callbackfield =', callback);
-    this.mainFieldTable.addEventListener('click', callback);
+  showCorrectField() {
+    const correctField = this.game.gameMatrix;
+    for (let i = 0; i < correctField.length; i += 1) {
+      for (let j = 0; j < correctField.length; j += 1) {
+        const id = `${i}-${j}`;
+        const cell = document.getElementById(id);
+        cell.classList.remove('cell-false');
+        if (correctField[i][j] === 1) {
+          cell.classList.add('cell-true');
+        } else if (correctField[i][j] === 0) {
+          cell.classList.remove('cell-true');
+        }
+      }
+    }
   }
 
   clickOnFieldLeft(e) {
