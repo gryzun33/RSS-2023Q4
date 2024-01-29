@@ -1,4 +1,4 @@
-import createHTMLElement from '../utils/createHTMLElement';
+// import createHTMLElement from '../utils/createHTMLElement';
 
 export default class ButtonElem {
   constructor(params) {
@@ -32,7 +32,11 @@ export default class ButtonElem {
     this.elem.addEventListener('click', callback);
   }
 
-  toggleState() {
-    this.elem.disabled = !this.elem.disabled;
+  disableBtn() {
+    this.elem.disabled = true;
+  }
+
+  enableBtn() {
+    this.elem.disabled = false;
   }
 }

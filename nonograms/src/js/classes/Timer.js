@@ -59,4 +59,8 @@ export default class Timer {
     clearInterval(this.timerId);
     this.updateTimer(0, 0);
   }
+
+  getTimeInSec() {
+    return this.timeData.min * 60 + this.timeData.sec;
+  }
 }

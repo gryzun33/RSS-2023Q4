@@ -1,0 +1,143 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  @include flex(center, center);
+}
+
+.modal-wrapper {
+  // width: 800px;
+  background-color: $color-modal-bg;
+  z-index: 2;
+  border-radius: 15px;
+  padding: 50px 50px 30px 50px;
+  box-shadow: 0px 0px 10px 1px $color-border;
+  position: relative;
+
+  @include flex-column;
+}
+
+.overlay-show {
+  animation: overlay-show 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.modal-show {
+  animation: modal-show 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.overlay-hide {
+  animation: overlay-hide 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.modal-hide {
+  animation: modal-hide 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.modal-hidden {
+  display: none;
+}
+
+@keyframes modal-show {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes modal-hide {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+@keyframes overlay-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlay-hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.close-btn {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-image: url("./assets/icons/icon-cross.svg");
+  background-size: 100% 100%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  // border: 1px solid black;
+}
+
+.end-btn {
+  align-self: center;
+  margin-top: 30px;
+  width: 45px;
+  height: 35px;
+  font-size: 18px;
+  background-color: $color-btn-bg;
+
+  border: none;
+  outline: none;
+  // box-shadow: 0px 0px 5px 3px $color-border-shadow;
+  border: 1px solid $color-btn-border;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  @media (hover: hover) {
+    &:hover {
+      color: $color-btn-hover;
+      // border: 1px solid $color-btn-bg;
+      // box-shadow: 0px 0px 5px 3px $color-border-shadow;
+    }
+  }
+}
+
+.modal-content {
+  width: 400px;
+  @include flex-column(normal, center);
+
+  .modal-image {
+    width: 300px;
+  }
+
+  .finish-text {
+    font-size: 25px;
+    color: $color-text;
+    text-align: center;
+    margin-top: 20px;
+
+    span {
+      color: $color-text-accent;
+    }
+  }
+}

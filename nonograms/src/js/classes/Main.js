@@ -3,6 +3,9 @@ import Field from './Field';
 import Controls from './Controls';
 import Header from './Header';
 import DataBank from './DataBank';
+import FinishModal from './FinishModal';
+// import ScoreModal from './ScoreModal';
+
 import nonograms from '../data/nonograms';
 
 export default class Main {
@@ -13,12 +16,11 @@ export default class Main {
     this.nonograms = nonograms;
     this.currentGame = this.nonograms[0].games[0];
     this.userGame = null;
-    this.createView(parent);
-
     this.gamesMap = this.createMapOfGames(this.nonograms);
-    // console.log('gamesMap=', this.gamesMap);
-
     this.dataBank = new DataBank();
+    this.finishModal = new FinishModal(document.body);
+    // this.scoreModal = new ScoreModal(document.body);
+    this.createView(parent);
   }
 
   createView(parent) {
@@ -47,7 +49,7 @@ export default class Main {
   startGame = () => {
     this.isGame = true;
     this.timer.runTimer();
-    console.log('start game');
+    // console.log('start game');
   };
 
   checkGame = () => {
@@ -58,7 +60,7 @@ export default class Main {
       .flat()
       .map((el) => el.data)
       .join('');
-    console.log('userGameStr', userGameStr);
+    // console.log('userGameStr', userGameStr);
     if (gameStr === userGameStr) {
       console.log('WIIINNN!!!!!!');
       this.finishGame();
@@ -133,6 +135,8 @@ export default class Main {
     this.isGame = false;
     this.timer.stopTimer();
     this.dataBank.saveFinishedGame(this.currentGame, this.timer.timeData);
+    const timeInSec = this.timer.getTimeInSec();
+    this.finishModal.showModal(timeInSec);
   }
 
   saveCurrentGame = () => {
