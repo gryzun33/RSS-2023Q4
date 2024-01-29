@@ -141,3 +141,38 @@
     }
   }
 }
+
+.score-modal-content {
+  width: 400px;
+  @include flex-column(normal, center);
+
+  .score-modal-title {
+    color: $color-text-accent;
+    font-size: 25px;
+  }
+
+  .score-modal-text {
+    color: $color-text;
+    font-size: 25px;
+    margin-top: 30px;
+  }
+
+  .score-table {
+    width: 100%;
+    margin-top: 20px;
+    background-color: $color-bg-field;
+    padding: 10px;
+
+    th,
+    td {
+      text-align: center;
+      font-size: 20px;
+      color: $color-text;
+      height: 30px;
+    }
+
+    th {
+      font-size: 23px;
+    }
+  }
+}

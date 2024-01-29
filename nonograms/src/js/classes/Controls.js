@@ -11,7 +11,8 @@ export default class Controls {
     initNewGame,
     saveCurrentGame,
     showLastGame,
-    showSolution
+    showSolution,
+    showScoreTable
   ) {
     this.elem = null;
     this.randomBtn = null;
@@ -23,6 +24,7 @@ export default class Controls {
     this.saveCurrentGame = saveCurrentGame;
     this.showLastGame = showLastGame;
     this.showSolution = showSolution;
+    this.showScoreTable = showScoreTable;
 
     this.createView(parent);
   }
@@ -85,7 +87,7 @@ export default class Controls {
       cssClasses: ['btn'],
       textContent: 'Score table',
       parent: this.btnBox,
-      // callback: this.showSolution,
+      callback: this.showScoreTable,
     };
     this.scoreBtn = new ButtonElem(scoreBtnParams);
   }

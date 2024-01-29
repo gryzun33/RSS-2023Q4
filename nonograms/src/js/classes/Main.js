@@ -4,7 +4,7 @@ import Controls from './Controls';
 import Header from './Header';
 import DataBank from './DataBank';
 import FinishModal from './FinishModal';
-// import ScoreModal from './ScoreModal';
+import ScoreModal from './ScoreModal';
 
 import nonograms from '../data/nonograms';
 
@@ -19,7 +19,7 @@ export default class Main {
     this.gamesMap = this.createMapOfGames(this.nonograms);
     this.dataBank = new DataBank();
     this.finishModal = new FinishModal(document.body);
-    // this.scoreModal = new ScoreModal(document.body);
+    this.scoreModal = new ScoreModal(document.body);
     this.createView(parent);
   }
 
@@ -37,7 +37,8 @@ export default class Main {
       this.initNewGame,
       this.saveCurrentGame,
       this.showLastGame,
-      this.showSolution
+      this.showSolution,
+      this.showScoreTable
     );
     this.initNewGame();
   }
@@ -62,11 +63,9 @@ export default class Main {
       .join('');
     // console.log('userGameStr', userGameStr);
     if (gameStr === userGameStr) {
-      console.log('WIIINNN!!!!!!');
+      // console.log('WIIINNN!!!!!!');
       this.finishGame();
       this.timer.stopTimer();
-    } else {
-      console.log('FAAAAIL!!!!!');
     }
   };
 
@@ -136,12 +135,22 @@ export default class Main {
     this.timer.stopTimer();
     this.dataBank.saveFinishedGame(this.currentGame, this.timer.timeData);
     const timeInSec = this.timer.getTimeInSec();
-    this.finishModal.showModal(timeInSec);
+    setTimeout(() => {
+      this.finishModal.showModal(timeInSec);
+    }, 500);
   }
 
   saveCurrentGame = () => {
     this.userGame = this.field.getUserGame();
     this.dataBank.saveCurrentGame(this.currentGame, this.userGame, this.timer.timeData);
+  };
+
+  showScoreTable = () => {
+    const data = this.dataBank.getFinishedGames();
+    data.sort((a, b) => a.fullTime - b.fullTime);
+    // this.savedGames.sort((a, b) => a.fullTime - b.fullTime);
+    console.log('datals=', data);
+    this.scoreModal.showModal(data);
   };
 
   createMapOfGames(nonogramsArr) {
