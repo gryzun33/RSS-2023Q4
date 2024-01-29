@@ -122,11 +122,11 @@
   }
 }
 
-.modal-content {
+.finish-modal-content {
   width: 400px;
   @include flex-column(normal, center);
 
-  .modal-image {
+  .finish-modal-image {
     width: 300px;
   }
 
