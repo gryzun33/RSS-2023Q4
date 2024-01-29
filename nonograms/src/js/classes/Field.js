@@ -11,8 +11,6 @@ export default class Field {
     this.isGame = isGame;
     this.addHints();
     this.createView(parent);
-    // console.log('left=', this.createLeftHintsArray(game.gameMatrix));
-    // console.log('top=', this.createTopHintsArray(game.gameMatrix));
   }
 
   createView(parent) {
@@ -26,10 +24,7 @@ export default class Field {
     const rowFirst = createHTMLElement('tr', 'row-first', fullField);
     const rowSecond = createHTMLElement('tr', 'row-second', fullField);
     const emptyField = createHTMLElement('td', 'empty-field', rowFirst);
-    // const emptyBox = createHTMLElement('div', 'empty-box', emptyField);
 
-    // const emptyTable = createHTMLElement('table', 'empty-table', emptyField);
-    // const emptyCell = createHTMLElement('table', 'empty-table', emptyField);
     const topHintsBigCell = createHTMLElement('td', 'top-hints', rowFirst);
     const topHintsTable = createHTMLElement('table', 'top-hints-table', topHintsBigCell);
     const leftHintsBigCell = createHTMLElement('td', 'left-hints', rowSecond);
@@ -73,19 +68,32 @@ export default class Field {
       }
       this.userGame.push(userGameRow);
     }
-    console.log('usergame=', this.userGame);
+    // console.log('usergame=', this.userGame);
 
-    this.mainFieldTable.addEventListener('click', this.clickOnFieldLeft.bind(this));
+    this.mainFieldTable.addEventListener('click', this.clickOnFieldLeft);
     this.mainFieldTable.addEventListener('click', this.startGame, { once: true });
-    this.mainFieldTable.addEventListener('contextmenu', this.clickOnFieldRight.bind(this));
+    this.mainFieldTable.addEventListener('contextmenu', this.clickOnFieldRight);
+    this.mainFieldTable.addEventListener('contextmenu', this.disableContextMenu);
   }
 
   getUserGame() {
     return this.userGame;
   }
 
+  disableField() {
+    console.log('disablefield');
+    this.mainFieldTable.removeEventListener('click', this.clickOnFieldLeft);
+    this.mainFieldTable.removeEventListener('click', this.startGame);
+    this.mainFieldTable.removeEventListener('contextmenu', this.clickOnFieldRight);
+  }
+
+  disableContextMenu = (e) => {
+    e.preventDefault();
+  };
+
   updateUserGameView(newUserGame) {
     this.userGame = newUserGame.map((arr) => [...arr]);
+    console.log('usergame=', this.userGame);
     for (let i = 0; i < this.userGame.length; i += 1) {
       for (let j = 0; j < this.userGame.length; j += 1) {
         const id = `${i}-${j}`;
@@ -115,9 +123,8 @@ export default class Field {
     }
   }
 
-  clickOnFieldLeft(e) {
+  clickOnFieldLeft = (e) => {
     console.log('click on table');
-    // console.log(e.target);
 
     if (e.target.closest('.cell')) {
       const cell = e.target.closest('.cell');
@@ -126,39 +133,35 @@ export default class Field {
 
       const cellId = cell.id.split('-');
 
-      // console.log('cellid=', cellId);
-      // console.log(cellId[0]);
-      // console.log(cellId[1]);
-      // console.log('elementusergame=', this.userGame);
-      // console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
       this.userGame[cellId[0]][cellId[1]].data = this.userGame[cellId[0]][cellId[1]].data ? 0 : 1;
       this.userGame[cellId[0]][cellId[1]].view = this.userGame[cellId[0]][cellId[1]].view ? 0 : 1;
 
-      // this.userGame[cellId[0]][cellId[1]] = this.userGame[cellId[0]][cellId[1]] ? 0 : 1;
-      // console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
       this.checkGame();
     }
-  }
+  };
 
-  clickOnFieldRight(e) {
-    e.preventDefault();
+  clickOnFieldRight = (e) => {
+    // e.preventDefault();
     console.log('click on table');
     if (e.target.closest('.cell')) {
       const cell = e.target.closest('.cell');
       cell.classList.remove('cell-true');
-      cell.classList.add('cell-false');
+
+      // cell.classList.add('cell-false');
       const cellId = cell.id.split('-');
-      // console.log('cellid=', cellId);
-      // console.log(cellId[0]);
-      // console.log(cellId[1]);
-      // console.log('elementusergame=', this.userGame);
-      // console.log('currentcell1=', this.userGame[+cellId[0]][+cellId[1]]);
+
       this.userGame[cellId[0]][cellId[1]].data = 0;
       this.userGame[cellId[0]][cellId[1]].view = this.userGame[cellId[0]][cellId[1]].view ? 0 : 2;
-      // console.log('currentcell2=', this.userGame[cellId[0]][cellId[1]]);
+
+      if (this.userGame[cellId[0]][cellId[1]].view === 2) {
+        cell.classList.add('cell-false');
+      } else {
+        cell.classList.remove('cell-false');
+      }
+
       this.checkGame();
     }
-  }
+  };
 
   addHints() {
     this.leftHints = this.createLeftHintsArray(this.game.gameMatrix);

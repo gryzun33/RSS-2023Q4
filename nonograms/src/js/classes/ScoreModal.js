@@ -2,10 +2,11 @@ import createHTMLElement from '../utils/createHTMLElement';
 import Modal from './Modal';
 
 export default class ScoreModal extends Modal {
-  constructor(parent) {
+  constructor(parent, timer, isGame) {
     super(parent);
     // ???????
-    this.parent = parent;
+    this.timer = timer;
+    this.isGame = isGame;
   }
 
   createContent() {
@@ -51,4 +52,25 @@ export default class ScoreModal extends Modal {
       );
     });
   }
+
+  addClickHandler(isGame) {
+    this.overlay.addEventListener(
+      'click',
+      (e) => {
+        if (e.target === this.overlay || e.target === this.closeBtn || e.target === this.endBtn) {
+          // console.log('closemodal');
+          // this.closeModal();
+          if (isGame) {
+            this.timer.runTimer();
+            console.log('runtimer');
+          }
+        }
+      },
+      { once: true }
+    );
+  }
+
+  // closeModal() {
+
+  // }
 }

@@ -18,8 +18,7 @@ export default class Main {
     this.userGame = null;
     this.gamesMap = this.createMapOfGames(this.nonograms);
     this.dataBank = new DataBank();
-    this.finishModal = new FinishModal(document.body);
-    this.scoreModal = new ScoreModal(document.body);
+
     this.createView(parent);
   }
 
@@ -41,6 +40,11 @@ export default class Main {
       this.showScoreTable
     );
     this.initNewGame();
+    this.finishModal = new FinishModal(document.body);
+    this.scoreModal = new ScoreModal(document.body, this.timer, this.isGame);
+    if (!this.dataBank.getSavedGame()) {
+      this.controls.lastGameBtn.disableBtn();
+    }
   }
 
   getHTMLElement() {
@@ -50,6 +54,7 @@ export default class Main {
   startGame = () => {
     this.isGame = true;
     this.timer.runTimer();
+    this.controls.saveGameBtn.enableBtn();
     // console.log('start game');
   };
 
@@ -57,11 +62,13 @@ export default class Main {
     this.userGame = this.field.getUserGame();
     const gameStr = this.currentGame.gameMatrix.flat().join('');
     console.log('gameStr', gameStr);
+
     const userGameStr = this.userGame
       .flat()
       .map((el) => el.data)
       .join('');
     // console.log('userGameStr', userGameStr);
+    console.log('usergameStr', gameStr);
     if (gameStr === userGameStr) {
       // console.log('WIIINNN!!!!!!');
       this.finishGame();
@@ -97,6 +104,7 @@ export default class Main {
       this.startGame,
       this.isGame
     );
+    this.controls.saveGameBtn.disableBtn();
 
     // this.field.setCallbackToField(this.clickOnFieldLeft);
     // this.userGame = this.field.getUserGame();
@@ -113,8 +121,11 @@ export default class Main {
   };
 
   showSolution = () => {
+    this.isGame = false;
     this.timer.resetTimer();
     this.field.showCorrectField();
+    this.field.disableField();
+    this.controls.saveGameBtn.disableBtn();
   };
 
   getRandomGame() {
@@ -134,6 +145,8 @@ export default class Main {
     this.isGame = false;
     this.timer.stopTimer();
     this.dataBank.saveFinishedGame(this.currentGame, this.timer.timeData);
+    this.field.disableField();
+    this.controls.saveGameBtn.disableBtn();
     const timeInSec = this.timer.getTimeInSec();
     setTimeout(() => {
       this.finishModal.showModal(timeInSec);
@@ -141,6 +154,9 @@ export default class Main {
   }
 
   saveCurrentGame = () => {
+    if (!this.dataBank.getSavedGame()) {
+      this.controls.lastGameBtn.enableBtn();
+    }
     this.userGame = this.field.getUserGame();
     this.dataBank.saveCurrentGame(this.currentGame, this.userGame, this.timer.timeData);
   };
@@ -151,6 +167,8 @@ export default class Main {
     // this.savedGames.sort((a, b) => a.fullTime - b.fullTime);
     console.log('datals=', data);
     this.scoreModal.showModal(data);
+    this.scoreModal.addClickHandler(this.isGame);
+    this.timer.stopTimer();
   };
 
   createMapOfGames(nonogramsArr) {

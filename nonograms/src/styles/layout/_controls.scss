@@ -61,6 +61,7 @@
   transition: 0.3s ease-in-out;
 
   &:disabled {
+    pointer-events: none;
     border-color: $color-btn-disabled;
     color: $color-btn-disabled;
   }
