@@ -17,6 +17,11 @@ export default class Header {
     this.inputTheme.type = 'checkbox';
     this.slider = createHTMLElement('span', 'slider', this.switcher);
 
+    this.inputTheme.addEventListener('change', () => {
+      console.log('change');
+      document.body.classList.toggle('dark-theme');
+    });
+
     // volume
     this.volumeBox = createHTMLElement('div', 'volume-box', this.btnBox);
     this.volumeBtn = createHTMLElement('img', 'volume-icon', this.volumeBox);

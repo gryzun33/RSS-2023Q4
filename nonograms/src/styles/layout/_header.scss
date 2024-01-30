@@ -24,7 +24,13 @@
 .title {
   font-size: 35px;
   font-family: "Astakhov Skin";
+  color: $color-text;
   margin: 0;
+
+  .dark-theme & {
+    // color: #404040;
+    text-shadow: 0px 0px 3px $dark-title-shadow;
+  }
 }
 
 .timer {
@@ -34,6 +40,11 @@
   align-self: center;
   @include flex(center);
   color: $color-time;
+
+  .dark-theme & {
+    color: $dark-color-time;
+    text-shadow: 0px 0px 3px $dark-time-shadow;
+  }
   span {
     display: block;
     width: 30px;
@@ -81,6 +92,10 @@
   background-color: $color-switcher;
   border-radius: 50%;
   transition: transform 0.3s;
+
+  .dark-theme & {
+    background-color: $dark-color-switcher;
+  }
 }
 
 .input-theme:checked + .slider {

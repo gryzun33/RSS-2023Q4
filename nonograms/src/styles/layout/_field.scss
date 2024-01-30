@@ -1,17 +1,26 @@
 .cell {
   width: 27px;
   height: 27px;
-  border: 1px solid black;
+  border: 1px solid $color-border-cell;
   text-align: center;
   vertical-align: middle;
-  color: black;
+  color: $color-field-text;
 
   font-size: 16px;
   font-family: "Itim";
+
+  .dark-theme & {
+    color: $dark-color-field-text;
+    border: 1px solid $dark-color-border-cell;
+  }
 }
 
 .cell-true {
   background-color: $color-cell;
+
+  .dark-theme & {
+    background-color: $dark-color-cell;
+  }
 }
 
 .cell-false {
@@ -28,12 +37,21 @@
   width: 630px;
   height: 630px;
   border-radius: 10px;
+
+  .dark-theme & {
+    background-color: $dark-color-bg-field;
+  }
 }
 
 .game-info {
   // @include flex;
   // gap: 20px;
   font-size: 18px;
+  color: $color-text;
+
+  .dark-theme & {
+    color: $dark-color-text;
+  }
 }
 
 .full-field {
@@ -42,9 +60,14 @@
 
   border-collapse: collapse;
   border: none;
-  border: 3px solid black;
+  border: 3px solid $color-border-cell;
   border-right: none;
   border-bottom: none;
+
+  .dark-theme & {
+    border-left: 3px solid $dark-color-border-cell;
+    border-top: 3px solid $dark-color-border-cell;
+  }
 
   .top-hints-table,
   .left-hints-table,
@@ -60,7 +83,6 @@
 
     tr:first-child td {
       border-top: none;
-      // border-left: 3px solid $color-cell-light;
     }
   }
 
@@ -75,38 +97,47 @@
 
   .top-hints-table {
     tr td:first-child {
-      border-left: 3px solid black;
+      // border-left: 3px solid $color-border-cell;
+      border-left-width: 3px;
     }
 
+    // ????
     tr td:nth-child(5n) {
-      border-right: 3px solid black;
+      // border-right: 3px solid $color-border-cell;
+      border-right-width: 3px;
     }
   }
 
   .left-hints-table {
     tr:nth-child(5n) td {
-      border-bottom: 3px solid black;
+      // border-bottom: 3px solid $color-border-cell;
+      border-bottom-width: 3px;
     }
 
     tr:first-child td {
-      border-top: 3px solid black;
+      // border-top: 3px solid $color-border-cell;
+      border-top-width: 3px;
     }
   }
 
   .main-field-table {
     tr td:first-child {
-      border-left: 3px solid black;
+      // border-left: 3px solid $color-border-cell;
+      border-left-width: 3px;
     }
     tr td:nth-child(5n) {
-      border-right: 3px solid black;
+      // border-right: 3px solid $color-border-cell;
+      border-right-width: 3px;
     }
 
     tr:nth-child(5n) td {
-      border-bottom: 3px solid black;
+      // border-bottom: 3px solid $color-border-cell;
+      border-bottom-width: 3px;
     }
 
     tr:first-child td {
-      border-top: 3px solid black;
+      // border-top: 3px solid $color-border-cell;
+      border-top-width: 3px;
     }
   }
 }

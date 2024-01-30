@@ -1,13 +1,9 @@
 .controls-wrapper {
   width: 250px;
   height: 630px;
-  // flex-grow: 1;
-  // background-color: green;
-  // order: 3;
   font-size: 20px;
 
   @include flex-column(space-between);
-  // gap: 15px;
 }
 
 .select-box {
@@ -27,23 +23,44 @@
   width: 100%;
   @include flex-column;
 
+  .select-label {
+    color: $color-text;
+
+    // .dark-theme & {
+    //   color: $dark-color-label;
+    // }
+  }
+
   .select-level,
   .select-game {
     margin-top: 5px;
-    border: none;
+    // border: none;
     outline: none;
     // width: 150px;
     height: 35px;
     text-align: center;
     border: 1px solid $color-btn-border;
-    box-shadow: 0px 0px 5px 3px $color-border-shadow;
+    box-shadow: 0px 0px 5px 3px $btn-shadow;
     border-radius: 5px;
     font-size: 18px;
+    background-color: $color-btn-bg;
+    color: $color-text;
     cursor: pointer;
+
+    .dark-theme & {
+      color: $dark-color-btn;
+      background-color: $dark-color-btn-bg;
+      border-color: $dark-color-btn-border;
+      box-shadow: 0px 0px 5px 1px $dark-btn-shadow;
+    }
 
     &:disabled {
       pointer-events: none;
       border-color: $color-btn-disabled;
+
+      // .dark-theme & {
+      //   background-color: $dark-bg-btn-disabled;
+      // }
     }
   }
 }
@@ -60,10 +77,21 @@
   cursor: pointer;
   transition: 0.3s ease-in-out;
 
+  .dark-theme & {
+    color: $dark-color-btn;
+    background-color: $dark-color-btn-bg;
+    border-color: $dark-color-btn-border;
+    box-shadow: 0px 0px 5px 1px $dark-btn-shadow;
+  }
+
   &:disabled {
     pointer-events: none;
     border-color: $color-btn-disabled;
     color: $color-btn-disabled;
+
+    .dark-theme & {
+      color: $dark-color-btn-disabled;
+    }
   }
 
   @media (hover: hover) {
@@ -71,6 +99,10 @@
       color: $color-btn-hover;
       // border: 1px solid $color-btn-bg;
       box-shadow: 0px 0px 5px 3px $color-border-shadow;
+
+      .dark-theme & {
+        color: $dark-color-btn-hover;
+      }
     }
   }
 }

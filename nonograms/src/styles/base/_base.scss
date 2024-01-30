@@ -1,3 +1,11 @@
+:root {
+  --src-main-bg: url("./assets/images/red.png");
+}
+
+.dark-theme {
+  --src-main-bg: url("./assets/images/black.png");
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,8 +13,7 @@
 }
 
 body {
-  // background-color: $color-main-bg-light;
-  background-image: url("./assets/images/red.png");
+  background-image: var(--src-main-bg);
   background-size: 100%;
   min-height: 100dvh;
   background-size: cover;
@@ -18,4 +25,5 @@ body {
   // @include flex-column;
   font-family: "Varela Round";
   font-weight: 400;
+  transition: all 0.3 ease;
 }
