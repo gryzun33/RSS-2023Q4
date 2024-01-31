@@ -3,10 +3,12 @@ import imageModal from '../../assets/images/dale-cooper-img.png';
 import Modal from './Modal';
 
 export default class FinishModal extends Modal {
-  constructor(parent) {
+  constructor(parent, sound) {
     super(parent);
     // ???????
     this.parent = parent;
+    this.sound = sound;
+    this.onCloseHandler();
   }
 
   createContent() {
@@ -24,5 +26,15 @@ export default class FinishModal extends Modal {
 
     this.finishText = createHTMLElement('p', 'finish-text', this.content);
     this.finishText.innerHTML = `Great! You have solved the nonogram in <span>${time}</span> seconds!`;
+  }
+
+  onCloseHandler() {
+    console.log('closehandler');
+    this.overlay.addEventListener('click', (e) => {
+      console.log('addiitonal click');
+      if (e.target === this.overlay || e.target === this.closeBtn || e.target === this.endBtn) {
+        this.sound.pause();
+      }
+    });
   }
 }

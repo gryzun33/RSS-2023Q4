@@ -1,11 +1,12 @@
 import createHTMLElement from '../utils/createHTMLElement';
 import Timer from './Timer';
-import iconVolume from '../../assets/icons/volume-low-solid.svg';
+import VolumeSwitch from './VolumeSwitch';
 import ThemeSwitch from './ThemeSwitch';
 
 export default class Header {
   constructor(parent) {
     this.createView(parent);
+    // this.changeMute = changeMute;
   }
 
   createView(parent) {
@@ -14,11 +15,12 @@ export default class Header {
 
     // чекбокс
     this.switch = new ThemeSwitch(this.btnBox);
-
+    this.volumeSwitch = new VolumeSwitch(this.btnBox);
+    this.volumeBtn = this.volumeSwitch.getHTMLElement();
     // volume
-    this.volumeBox = createHTMLElement('div', 'volume-box', this.btnBox);
-    this.volumeBtn = createHTMLElement('img', 'volume-icon', this.volumeBox);
-    this.volumeBtn.src = iconVolume;
+    // this.volumeBox = createHTMLElement('div', 'volume-box', this.btnBox);
+    // this.volumeBtn = createHTMLElement('img', 'volume-icon', this.volumeBox);
+    // this.volumeBtn.src = iconVolume;
 
     this.title = createHTMLElement('h1', 'title', this.header, 'NONOGRAMS');
     this.timer = new Timer(this.header);

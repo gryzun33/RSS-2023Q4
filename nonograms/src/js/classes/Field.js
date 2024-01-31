@@ -1,7 +1,7 @@
 import createHTMLElement from '../utils/createHTMLElement';
 
 export default class Field {
-  constructor(parent, game, checkGame, startGame, isGame) {
+  constructor(parent, game, checkGame, startGame, isGame, sounds) {
     console.log('game in field=', game);
     this.gameField = null;
     this.game = game;
@@ -9,6 +9,7 @@ export default class Field {
     this.checkGame = checkGame;
     this.startGame = startGame;
     this.isGame = isGame;
+    this.sounds = sounds;
     this.addHints();
     this.createView(parent);
   }
@@ -136,6 +137,12 @@ export default class Field {
       this.userGame[cellId[0]][cellId[1]].data = this.userGame[cellId[0]][cellId[1]].data ? 0 : 1;
       this.userGame[cellId[0]][cellId[1]].view = this.userGame[cellId[0]][cellId[1]].view ? 0 : 1;
 
+      if (this.userGame[cellId[0]][cellId[1]].data === 1) {
+        this.sounds.playSound(this.sounds.clickLeftFill);
+      } else {
+        this.sounds.playSound(this.sounds.clickLeftClear);
+      }
+
       this.checkGame();
     }
   };
@@ -151,12 +158,19 @@ export default class Field {
       const cellId = cell.id.split('-');
 
       this.userGame[cellId[0]][cellId[1]].data = 0;
-      this.userGame[cellId[0]][cellId[1]].view = this.userGame[cellId[0]][cellId[1]].view ? 0 : 2;
+      this.userGame[cellId[0]][cellId[1]].view =
+        this.userGame[cellId[0]][cellId[1]].view === 2 ? 0 : 2;
 
       if (this.userGame[cellId[0]][cellId[1]].view === 2) {
         cell.classList.add('cell-false');
       } else {
         cell.classList.remove('cell-false');
+      }
+
+      if (this.userGame[cellId[0]][cellId[1]].view === 2) {
+        this.sounds.playSound(this.sounds.clickRightFill);
+      } else {
+        this.sounds.playSound(this.sounds.clickRightClear);
       }
 
       this.checkGame();

@@ -5,6 +5,7 @@ import Header from './Header';
 import DataBank from './DataBank';
 import FinishModal from './FinishModal';
 import ScoreModal from './ScoreModal';
+import Sounds from './Sounds';
 
 import nonograms from '../data/nonograms';
 
@@ -18,7 +19,9 @@ export default class Main {
     this.userGame = null;
     this.gamesMap = this.createMapOfGames(this.nonograms);
     this.dataBank = new DataBank();
-
+    this.sounds = new Sounds();
+    this.isVolume = false;
+    // this.sounds.changeMute = this.sounds.changeMute.bind(this);
     this.createView(parent);
   }
 
@@ -26,6 +29,8 @@ export default class Main {
     this.mainWrapper = createHTMLElement('div', 'wrapper', parent);
     this.header = new Header(this.mainWrapper);
     this.timer = this.header.timer;
+    this.volumeBtn = this.header.volumeBtn;
+    this.volumeBtn.addEventListener('click', this.onClickVolumeBtn.bind(this));
     this.gameWrapper = createHTMLElement('main', 'game-wrapper', this.mainWrapper);
     this.fieldWrapper = createHTMLElement('div', 'field-wrapper', this.gameWrapper);
 
@@ -37,10 +42,11 @@ export default class Main {
       this.saveCurrentGame,
       this.showLastGame,
       this.showSolution,
-      this.showScoreTable
+      this.showScoreTable,
+      this.sounds
     );
     this.initNewGame();
-    this.finishModal = new FinishModal(document.body);
+    this.finishModal = new FinishModal(document.body, this.sounds.finishSound);
     this.scoreModal = new ScoreModal(document.body, this.timer, this.isGame);
     if (!this.dataBank.getSavedGame()) {
       this.controls.lastGameBtn.disableBtn();
@@ -102,7 +108,8 @@ export default class Main {
       this.currentGame,
       this.checkGame,
       this.startGame,
-      this.isGame
+      this.isGame,
+      this.sounds
     );
     this.controls.saveGameBtn.disableBtn();
 
@@ -151,6 +158,7 @@ export default class Main {
     setTimeout(() => {
       this.finishModal.showModal(timeInSec);
     }, 500);
+    this.sounds.playSound(this.sounds.finishSound);
   }
 
   saveCurrentGame = () => {
@@ -184,5 +192,12 @@ export default class Main {
       map.set(key, dataGame);
     });
     return map;
+  }
+
+  onClickVolumeBtn() {
+    console.log('clickvolume');
+    this.isVolume = !this.isVolume;
+    this.header.volumeSwitch.changeView(this.isVolume);
+    this.sounds.changeMute();
   }
 }

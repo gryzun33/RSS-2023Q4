@@ -12,7 +12,8 @@ export default class Controls {
     saveCurrentGame,
     showLastGame,
     showSolution,
-    showScoreTable
+    showScoreTable,
+    sounds
   ) {
     this.elem = null;
     this.randomBtn = null;
@@ -25,6 +26,7 @@ export default class Controls {
     this.showLastGame = showLastGame;
     this.showSolution = showSolution;
     this.showScoreTable = showScoreTable;
+    this.sounds = sounds;
 
     this.createView(parent);
   }
@@ -43,6 +45,13 @@ export default class Controls {
     );
 
     this.btnBox = createHTMLElement('div', 'btn-box', this.elem);
+
+    // this.btnBox.addEventListener('click', (e) => {
+    //   if (e.target.closest('.btn')) {
+    //     this.sounds.playSound(this.sounds.btnClick);
+    //   }
+    // });
+
     const randomBtnParams = {
       cssClasses: ['btn'],
       textContent: 'Random game',
