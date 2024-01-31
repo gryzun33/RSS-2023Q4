@@ -3,12 +3,37 @@
   height: 630px;
   font-size: 20px;
   @include flex-column(space-between);
+
+  @include laptops {
+    width: 100%;
+    align-items: center;
+    height: auto;
+  }
+
+  @include tablets {
+    font-size: 18px;
+  }
+
+  @include tablets-700 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @include mobile {
+    font-size: 16px;
+  }
 }
 
 .select-box {
   @include flex-column;
   width: 100%;
   gap: 10px;
+
+  @include laptops {
+    flex-direction: row;
+    width: auto;
+    gap: 20px;
+  }
 }
 
 .btn-box {
@@ -16,11 +41,27 @@
   @include flex-column;
   width: 100%;
   gap: 10px;
+
+  @include laptops {
+    flex-wrap: wrap;
+    margin-top: 20px;
+    max-height: 110px;
+    column-gap: 10px;
+    align-content: space-between;
+  }
 }
 
 .select-wrapper {
   width: 100%;
   @include flex-column;
+
+  @include laptops {
+    width: 250px;
+  }
+
+  @include tablets {
+    width: 200px;
+  }
 
   .select-label {
     color: $color-text;
@@ -39,6 +80,14 @@
     background-color: $color-btn-bg;
     color: $color-text;
     cursor: pointer;
+
+    @include tablets {
+      height: 30px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+    }
 
     .dark-theme & {
       color: $dark-color-btn;
@@ -65,6 +114,18 @@
   height: 45px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+
+  @include laptops {
+    max-width: 32%;
+  }
+
+  @include tablets {
+    height: 35px;
+  }
+
+  @include mobile {
+    line-height: 0.9;
+  }
 
   .dark-theme & {
     color: $dark-color-btn;

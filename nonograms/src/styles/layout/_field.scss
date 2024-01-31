@@ -8,6 +8,11 @@
   font-size: 16px;
   font-family: "Itim";
 
+  @include mobile {
+    width: 23px;
+    height: 23px;
+  }
+
   .dark-theme & {
     color: $dark-color-field-text;
     border: 1px solid $dark-color-border-cell;
@@ -34,15 +39,33 @@
   width: 630px;
   height: 630px;
   border-radius: 10px;
+  flex: none;
+
+  @include tablets-700 {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  @include mobile {
+    height: 550px;
+  }
 
   .dark-theme & {
     background-color: $dark-color-bg-field;
   }
+
+  // @include laptops {
+  //   height: 580px;
+  // }
 }
 
 .game-info {
   font-size: 18px;
   color: $color-text;
+
+  @include mobile {
+    font-size: 16px;
+  }
 
   .dark-theme & {
     color: $dark-color-text;

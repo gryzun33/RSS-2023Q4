@@ -2,10 +2,17 @@
   height: 80px;
   width: 100%;
   @include flex(space-between, center);
+
+  @include tablets-700 {
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 70px;
+  }
 }
 .header-btn-box {
   height: 100%;
-  @include flex(space-between, center);
+  width: 140px;
+  @include flex(normal, center);
   gap: 15px;
 }
 
@@ -26,6 +33,14 @@
   color: $color-text;
   margin: 0;
 
+  @include tablets-700 {
+    font-size: 30px;
+  }
+
+  @include mobile {
+    font-size: 25px;
+  }
+
   .dark-theme & {
     text-shadow: 0px 0px 3px $dark-title-shadow;
   }
@@ -37,6 +52,14 @@
   align-self: center;
   @include flex(center);
   color: $color-time;
+
+  @include tablets-700 {
+    font-size: 25px;
+  }
+
+  @include mobile {
+    font-size: 20px;
+  }
 
   .dark-theme & {
     color: $dark-color-time;

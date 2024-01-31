@@ -7,17 +7,28 @@
 body {
   @include flex(center, center);
   background-image: url("./assets/images/red.png");
-  background-size: 100%;
   min-height: 100dvh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  width: 100vw;
+  // width: 100%;
+  padding: 30px;
   font-family: "Varela Round";
   font-weight: 400;
   transition: all 0.3 ease;
+
+  @include tablets {
+    background-image: none;
+    background-color: $color-bg-wrapper;
+    padding: 0;
+  }
 }
 
 .dark-theme {
   background-image: url("./assets/images/blackred.png");
+
+  @include tablets {
+    background-image: none;
+    background-color: $dark-color-bg-wrapper;
+  }
 }
