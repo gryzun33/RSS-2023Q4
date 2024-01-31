@@ -90,11 +90,17 @@
   left: 2px;
   bottom: 2px;
   background-color: $color-switcher;
+  background-image: url("./assets/icons/sun.svg");
+  background-size: 80% 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
   border-radius: 50%;
   transition: transform 0.3s;
 
   .dark-theme & {
     background-color: $dark-color-switcher;
+    background-image: url("./assets/icons/night.svg");
+    background-size: 70% 70%;
   }
 }
 

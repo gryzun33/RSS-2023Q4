@@ -1,6 +1,7 @@
 import createHTMLElement from '../utils/createHTMLElement';
 import Timer from './Timer';
 import iconVolume from '../../assets/icons/volume-low-solid.svg';
+import ThemeSwitch from './ThemeSwitch';
 
 export default class Header {
   constructor(parent) {
@@ -12,15 +13,7 @@ export default class Header {
     this.btnBox = createHTMLElement('div', 'header-btn-box', this.header);
 
     // чекбокс
-    this.switcher = createHTMLElement('label', 'switch', this.btnBox);
-    this.inputTheme = createHTMLElement('input', 'input-theme', this.switcher);
-    this.inputTheme.type = 'checkbox';
-    this.slider = createHTMLElement('span', 'slider', this.switcher);
-
-    this.inputTheme.addEventListener('change', () => {
-      console.log('change');
-      document.body.classList.toggle('dark-theme');
-    });
+    this.switch = new ThemeSwitch(this.btnBox);
 
     // volume
     this.volumeBox = createHTMLElement('div', 'volume-box', this.btnBox);
@@ -31,8 +24,3 @@ export default class Header {
     this.timer = new Timer(this.header);
   }
 }
-
-// <label class="switch">
-//   <input type="checkbox" class='input-theme'>
-//   <span class="slider"></span>
-// </label>

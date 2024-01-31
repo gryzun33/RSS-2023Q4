@@ -1,10 +1,10 @@
-:root {
-  --src-main-bg: url("./assets/images/red.png");
-}
+// :root {
+//   --src-main-bg: url("./assets/images/red.png");
+// }
 
-.dark-theme {
-  --src-main-bg: url("./assets/images/black.png");
-}
+// .dark-theme {
+//   --src-main-bg: url("./assets/images/black.png");
+// }
 
 * {
   box-sizing: border-box;
@@ -13,7 +13,7 @@
 }
 
 body {
-  background-image: var(--src-main-bg);
+  background-image: url("./assets/images/red.png");
   background-size: 100%;
   min-height: 100dvh;
   background-size: cover;
@@ -26,4 +26,8 @@ body {
   font-family: "Varela Round";
   font-weight: 400;
   transition: all 0.3 ease;
+}
+
+.dark-theme {
+  background-image: url("./assets/images/black.png");
 }
