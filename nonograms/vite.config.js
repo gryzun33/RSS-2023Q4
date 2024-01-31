@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
 
 export default defineConfig({
+  base: './',
   build: {
-    base: './',
     sourcemap: true,
   },
   plugins: [eslintPlugin()],
