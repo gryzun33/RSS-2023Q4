@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && npx gh-pages -d dist -e hangman"
+    "deploy": "npm run build && npx gh-pages -d dist -e nonograms"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
