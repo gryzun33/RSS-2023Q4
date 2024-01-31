@@ -12,18 +12,11 @@
 
   .dark-theme & {
     background-color: $dark-color-bg-wrapper;
-    // box-shadow: 0px 0px 10px 1px $dark-color-border;
   }
 }
 
 .game-wrapper {
   width: 100%;
-  // height: calc(100% - 100px);
   @include flex(space-between);
   margin-top: 10px;
-  // flex-grow: 1;
-  // @include flex-column(normal, normal);
-
-  // flex-wrap: wrap;
-  // font-family: "Itim";
 }

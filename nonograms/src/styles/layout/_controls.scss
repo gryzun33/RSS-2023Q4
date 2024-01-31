@@ -2,7 +2,6 @@
   width: 250px;
   height: 630px;
   font-size: 20px;
-
   @include flex-column(space-between);
 }
 
@@ -25,18 +24,12 @@
 
   .select-label {
     color: $color-text;
-
-    // .dark-theme & {
-    //   color: $dark-color-label;
-    // }
   }
 
   .select-level,
   .select-game {
     margin-top: 5px;
-    // border: none;
     outline: none;
-    // width: 150px;
     height: 35px;
     text-align: center;
     border: 1px solid $color-btn-border;
@@ -57,10 +50,6 @@
     &:disabled {
       pointer-events: none;
       border-color: $color-btn-disabled;
-
-      // .dark-theme & {
-      //   background-color: $dark-bg-btn-disabled;
-      // }
     }
   }
 }
@@ -97,7 +86,6 @@
   @media (hover: hover) {
     &:hover {
       color: $color-btn-hover;
-      // border: 1px solid $color-btn-bg;
       box-shadow: 0px 0px 5px 3px $color-border-shadow;
 
       .dark-theme & {

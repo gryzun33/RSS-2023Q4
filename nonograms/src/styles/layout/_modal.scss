@@ -11,7 +11,6 @@
 }
 
 .modal-wrapper {
-  // width: 800px;
   background-color: $color-modal-bg;
   z-index: 2;
   border-radius: 15px;
@@ -98,7 +97,6 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  // border: 1px solid black;
 }
 
 .end-btn {
@@ -108,10 +106,8 @@
   height: 35px;
   font-size: 18px;
   background-color: $color-btn-bg;
-
   border: none;
   outline: none;
-  // box-shadow: 0px 0px 5px 3px $color-border-shadow;
   border: 1px solid $color-btn-border;
   border-radius: 5px;
   cursor: pointer;
@@ -119,14 +115,11 @@
 
   .dark-theme & {
     background-color: $dark-btn-end-game-bg;
-    // border-color: $dark-btn-end-game-bg;
   }
 
   @media (hover: hover) {
     &:hover {
       color: $color-btn-hover;
-      // border: 1px solid $color-btn-bg;
-      // box-shadow: 0px 0px 5px 3px $color-border-shadow;
     }
   }
 }

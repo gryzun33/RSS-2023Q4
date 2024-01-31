@@ -4,7 +4,6 @@
   @include flex(space-between, center);
 }
 .header-btn-box {
-  // width: 200px;
   height: 100%;
   @include flex(space-between, center);
   gap: 15px;
@@ -28,13 +27,11 @@
   margin: 0;
 
   .dark-theme & {
-    // color: #404040;
     text-shadow: 0px 0px 3px $dark-title-shadow;
   }
 }
 
 .timer {
-  // width: 200px;
   text-align: center;
   font-size: 30px;
   align-self: center;
