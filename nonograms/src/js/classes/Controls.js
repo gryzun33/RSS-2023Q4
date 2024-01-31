@@ -17,8 +17,6 @@ export default class Controls {
   ) {
     this.elem = null;
     this.randomBtn = null;
-    // this.currentGame = currentGame;
-
     this.startRandomGame = startRandomGame;
     this.initChosenGame = initChosenGame;
     this.initNewGame = initNewGame;
@@ -27,17 +25,13 @@ export default class Controls {
     this.showSolution = showSolution;
     this.showScoreTable = showScoreTable;
     this.sounds = sounds;
-
     this.createView(parent);
   }
 
   createView(parent) {
     this.elem = createHTMLElement('div', 'controls-wrapper', parent);
-
     this.selectBox = createHTMLElement('div', 'select-box', this.elem);
-
     this.selectLevel = new SelectLevel(this.selectBox, this.updateSelectGame);
-    // console.log('ffff=', this.selectLevel.elem.value);
     this.selectGame = new SelectGame(
       this.selectBox,
       this.selectLevel.elem.value,
@@ -45,12 +39,6 @@ export default class Controls {
     );
 
     this.btnBox = createHTMLElement('div', 'btn-box', this.elem);
-
-    // this.btnBox.addEventListener('click', (e) => {
-    //   if (e.target.closest('.btn')) {
-    //     this.sounds.playSound(this.sounds.btnClick);
-    //   }
-    // });
 
     const randomBtnParams = {
       cssClasses: ['btn'],
@@ -104,7 +92,6 @@ export default class Controls {
   updateSelectGame = () => {
     this.selectGame.elem.disabled = false;
     this.selectGame.updateView(this.selectLevel.elem.value);
-    // this.selectGame.setSelectValue(8);
   };
 
   updateSelects(level, gameId) {

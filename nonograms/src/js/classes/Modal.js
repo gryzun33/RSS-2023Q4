@@ -2,7 +2,6 @@ import createHTMLElement from '../utils/createHTMLElement';
 
 export default class Modal {
   constructor(parent) {
-    // this.content = null;
     this.createView(parent);
   }
 
@@ -46,7 +45,6 @@ export default class Modal {
   events() {
     this.overlay.addEventListener('click', (e) => {
       if (e.target === this.overlay || e.target === this.closeBtn || e.target === this.endBtn) {
-        console.log('closemodal');
         this.closeModal();
       }
     });

@@ -6,7 +6,6 @@ import DataBank from './DataBank';
 import FinishModal from './FinishModal';
 import ScoreModal from './ScoreModal';
 import Sounds from './Sounds';
-
 import nonograms from '../data/nonograms';
 
 export default class Main {
@@ -21,7 +20,6 @@ export default class Main {
     this.dataBank = new DataBank();
     this.sounds = new Sounds();
     this.isVolume = false;
-    // this.sounds.changeMute = this.sounds.changeMute.bind(this);
     this.createView(parent);
   }
 
@@ -61,22 +59,16 @@ export default class Main {
     this.isGame = true;
     this.timer.runTimer();
     this.controls.saveGameBtn.enableBtn();
-    // console.log('start game');
   };
 
   checkGame = () => {
     this.userGame = this.field.getUserGame();
     const gameStr = this.currentGame.gameMatrix.flat().join('');
-    console.log('gameStr', gameStr);
-
     const userGameStr = this.userGame
       .flat()
       .map((el) => el.data)
       .join('');
-    // console.log('userGameStr', userGameStr);
-    console.log('usergameStr', gameStr);
     if (gameStr === userGameStr) {
-      // console.log('WIIINNN!!!!!!');
       this.finishGame();
       this.timer.stopTimer();
     }
@@ -84,10 +76,8 @@ export default class Main {
 
   initRandomGame = () => {
     this.currentGame = this.getRandomGame();
-    // console.log('currentgame=', this.currentGame);
     const gameId = this.currentGame.gameId;
     const level = this.currentGame.level;
-    // const level = `${this.currentGame.gameMatrix.length} x ${this.currentGame.gameMatrix.length}`;
     this.controls.updateSelects(level, gameId);
     this.initNewGame();
   };
@@ -95,12 +85,10 @@ export default class Main {
   initChosenGame = () => {
     this.currentGame = this.gamesMap.get(+this.controls.selectGame.elem.value);
     this.currentGame.gameId = this.controls.selectGame.elem.value;
-    // console.log('currentgame=', this.currentGame);
     this.initNewGame();
   };
 
   initNewGame = () => {
-    // console.log('gamefromInitgame=', this.currentGame);
     this.timer.resetTimer();
     this.fieldWrapper.innerHTML = '';
     this.field = new Field(
@@ -112,14 +100,10 @@ export default class Main {
       this.sounds
     );
     this.controls.saveGameBtn.disableBtn();
-
-    // this.field.setCallbackToField(this.clickOnFieldLeft);
-    // this.userGame = this.field.getUserGame();
   };
 
   showLastGame = () => {
     const savedData = this.dataBank.getSavedGame();
-    // console.log('saveddata=', savedData);
     this.isGame = false;
     this.currentGame = savedData.gameData;
     this.initNewGame();
@@ -172,8 +156,6 @@ export default class Main {
   showScoreTable = () => {
     const data = this.dataBank.getFinishedGames();
     data.sort((a, b) => a.fullTime - b.fullTime);
-    // this.savedGames.sort((a, b) => a.fullTime - b.fullTime);
-    console.log('datals=', data);
     this.scoreModal.showModal(data);
     this.scoreModal.addClickHandler(this.isGame);
     this.timer.stopTimer();
@@ -195,7 +177,6 @@ export default class Main {
   }
 
   onClickVolumeBtn() {
-    console.log('clickvolume');
     this.isVolume = !this.isVolume;
     this.header.volumeSwitch.changeView(this.isVolume);
     this.sounds.changeMute();

@@ -1,4 +1,3 @@
-// import btnClick from '../../assets/audio/btn-click.mp3';
 import clickLeftFill from '../../assets/audio/click-left-fill.mp3';
 import clickLeftClear from '../../assets/audio/click-left-clear.mp3';
 import clickRightFill from '../../assets/audio/click-right-fill.mp3';
@@ -12,10 +11,6 @@ export default class Sounds {
   }
 
   createSounds() {
-    // this.btnClick = document.createElement('audio');
-    // this.btnClick.src = btnClick;
-    // this.soundsArr.push(this.btnClick);
-
     this.clickLeftFill = document.createElement('audio');
     this.clickLeftFill.src = clickLeftFill;
     this.soundsArr.push(this.clickLeftFill);

@@ -5,27 +5,20 @@ export default class DataBank {
     this.savedGames = null;
     this.savedGamesKey = 'gamesGryzun33';
     this.savedGameKey = 'gameGryzun33';
-    // console.log('key1=', this.savedGameKey);
   }
 
   saveCurrentGame(gameData, usergameData, timeData) {
     const data = { gameData, usergameData, timeData };
-    // console.log('usergamedata = ', usergameData);
-    localStorage.setItem('gameGryzun33', JSON.stringify(data));
+    localStorage.setItem(this.savedGameKey, JSON.stringify(data));
   }
 
   getSavedGame() {
-    const data = JSON.parse(localStorage.getItem('gameGryzun33'));
-    console.log('gamefromls =', data);
+    const data = JSON.parse(localStorage.getItem(this.savedGameKey));
     return data;
   }
 
   saveFinishedGame(gameData, timeData) {
     this.savedGames = this.getFinishedGames();
-
-    const key = this.savedGamesKey;
-    // console.log('key=', key);
-    // console.log('savedgames=', this.savedGames);
     const fullTime = timeData.min * 60 + timeData.sec;
     const game = {
       fullTime,
@@ -36,20 +29,14 @@ export default class DataBank {
     if (this.savedGames.length > 5) {
       this.savedGames.shift();
     }
-
-    // console.log('localstorage=', this.savedGames);
-    // console.log('localstoragekey=', this.savedGamesKey);
-    localStorage.setItem('gamesGryzun33', JSON.stringify(this.savedGames));
+    localStorage.setItem(this.savedGamesKey, JSON.stringify(this.savedGames));
   }
 
   getFinishedGames() {
     let savedGames = JSON.parse(localStorage.getItem('gamesGryzun33'));
-    // console.log('gamesfromls=', savedGames);
     if (!savedGames) {
       savedGames = [];
     }
     return savedGames;
   }
-
-  // sortGames() {}
 }

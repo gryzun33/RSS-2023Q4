@@ -4,7 +4,6 @@ import Modal from './Modal';
 export default class ScoreModal extends Modal {
   constructor(parent, timer, isGame) {
     super(parent);
-    // ???????
     this.timer = timer;
     this.isGame = isGame;
   }
@@ -12,8 +11,6 @@ export default class ScoreModal extends Modal {
   createContent() {
     this.content = createHTMLElement('div', 'score-modal-content', this.modalWrapper);
     this.title = createHTMLElement('h2', 'score-modal-title', this.content, 'Score table');
-
-    // const headRow = createHTMLElement('tr', 'head-row', this.scoreTable);
   }
 
   updateContent(data) {
@@ -31,7 +28,6 @@ export default class ScoreModal extends Modal {
       this.scoreTable.remove();
     }
 
-    // this.scoreTable.innerHTML = '';
     this.scoreTable = createHTMLElement('table', 'score-table', this.content);
     const headRow = createHTMLElement('tr', 'head-row', this.scoreTable);
     const numbColumn = createHTMLElement('th', 'numb-cell', headRow, 'N');
@@ -58,19 +54,12 @@ export default class ScoreModal extends Modal {
       'click',
       (e) => {
         if (e.target === this.overlay || e.target === this.closeBtn || e.target === this.endBtn) {
-          // console.log('closemodal');
-          // this.closeModal();
           if (isGame) {
             this.timer.runTimer();
-            console.log('runtimer');
           }
         }
       },
       { once: true }
     );
   }
-
-  // closeModal() {
-
-  // }
 }

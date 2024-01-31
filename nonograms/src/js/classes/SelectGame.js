@@ -20,14 +20,11 @@ export default class SelectGame {
   }
 
   updateView(level) {
-    console.log('level=', level);
     this.elem.innerHTML = '';
-    // this.elem.value = '';
     this.gamesOfLevel = this.levelMap.get(level);
     this.emptyOption = createHTMLElement('option', 'option', this.elem);
     this.emptyOption.value = '';
     this.emptyOption.disabled = true;
-    // this.emptyOption.selected = true;
 
     if (level) {
       this.gamesOfLevel.forEach((game) => {
@@ -37,9 +34,6 @@ export default class SelectGame {
     }
 
     this.elem.value = '';
-    console.log('selectGame=', this.elem.value);
-
-    // this.setSelectValue(8);
   }
 
   setSelectValue(id) {

@@ -2,7 +2,6 @@ import createHTMLElement from '../utils/createHTMLElement';
 
 export default class Field {
   constructor(parent, game, checkGame, startGame, isGame, sounds) {
-    console.log('game in field=', game);
     this.gameField = null;
     this.game = game;
     this.userGame = null;
@@ -25,7 +24,6 @@ export default class Field {
     const rowFirst = createHTMLElement('tr', 'row-first', fullField);
     const rowSecond = createHTMLElement('tr', 'row-second', fullField);
     const emptyField = createHTMLElement('td', 'empty-field', rowFirst);
-
     const topHintsBigCell = createHTMLElement('td', 'top-hints', rowFirst);
     const topHintsTable = createHTMLElement('table', 'top-hints-table', topHintsBigCell);
     const leftHintsBigCell = createHTMLElement('td', 'left-hints', rowSecond);
@@ -46,7 +44,6 @@ export default class Field {
     // render left hints
     for (let i = 0; i < this.leftHints.length; i += 1) {
       const rowLeftHints = createHTMLElement('tr', 'row-left-hints', leftHintsTable);
-
       for (let j = 0; j < this.leftHints[0].length; j += 1) {
         const text = this.leftHints[i][j] ? this.leftHints[i][j] : '';
         const rowLeftHint = createHTMLElement('td', 'row-left-hint cell', rowLeftHints, text);
@@ -69,7 +66,6 @@ export default class Field {
       }
       this.userGame.push(userGameRow);
     }
-    // console.log('usergame=', this.userGame);
 
     this.mainFieldTable.addEventListener('click', this.clickOnFieldLeft);
     this.mainFieldTable.addEventListener('click', this.startGame, { once: true });
@@ -82,7 +78,6 @@ export default class Field {
   }
 
   disableField() {
-    console.log('disablefield');
     this.mainFieldTable.removeEventListener('click', this.clickOnFieldLeft);
     this.mainFieldTable.removeEventListener('click', this.startGame);
     this.mainFieldTable.removeEventListener('contextmenu', this.clickOnFieldRight);
@@ -125,15 +120,11 @@ export default class Field {
   }
 
   clickOnFieldLeft = (e) => {
-    console.log('click on table');
-
     if (e.target.closest('.cell')) {
       const cell = e.target.closest('.cell');
       cell.classList.toggle('cell-true');
       cell.classList.remove('cell-false');
-
       const cellId = cell.id.split('-');
-
       this.userGame[cellId[0]][cellId[1]].data = this.userGame[cellId[0]][cellId[1]].data ? 0 : 1;
       this.userGame[cellId[0]][cellId[1]].view = this.userGame[cellId[0]][cellId[1]].view ? 0 : 1;
 
@@ -148,8 +139,6 @@ export default class Field {
   };
 
   clickOnFieldRight = (e) => {
-    // e.preventDefault();
-    console.log('click on table');
     if (e.target.closest('.cell')) {
       const cell = e.target.closest('.cell');
       cell.classList.remove('cell-true');
