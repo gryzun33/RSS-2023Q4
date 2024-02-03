@@ -89,7 +89,6 @@ export default class Field {
 
   updateUserGameView(newUserGame) {
     this.userGame = newUserGame.map((arr) => [...arr]);
-    console.log('usergame=', this.userGame);
     for (let i = 0; i < this.userGame.length; i += 1) {
       for (let j = 0; j < this.userGame.length; j += 1) {
         const id = `${i}-${j}`;

@@ -90,14 +90,16 @@ export default class Controls {
   }
 
   updateSelectGame = () => {
-    this.selectGame.elem.disabled = false;
-    this.selectGame.updateView(this.selectLevel.elem.value);
+    // this.selectGame.elem.disabled = false;
+    this.selectGame.elem.classList.remove('select-disabled');
+    this.selectGame.updateView(this.selectLevel.elem.innerText);
   };
 
-  updateSelects(level, gameId) {
-    this.selectGame.elem.disabled = false;
+  updateSelects(level, gameName) {
+    // this.selectGame.elem.disabled = false;
+    this.selectGame.elem.classList.remove('select-disabled');
     this.selectLevel.setSelectValue(level);
     this.selectGame.updateView(level);
-    this.selectGame.setSelectValue(gameId);
+    this.selectGame.setSelectValue(gameName);
   }
 }

@@ -76,19 +76,25 @@ export default class Main {
 
   initRandomGame = () => {
     this.currentGame = this.getRandomGame();
-    const gameId = this.currentGame.gameId;
-    const level = this.currentGame.level;
-    this.controls.updateSelects(level, gameId);
+
+    // const gameName = this.currentGame.gameName;
+    // const level = this.currentGame.level;
+    // this.controls.updateSelects(level, gameName);
+
     this.initNewGame();
   };
 
-  initChosenGame = () => {
-    this.currentGame = this.gamesMap.get(+this.controls.selectGame.elem.value);
-    this.currentGame.gameId = this.controls.selectGame.elem.value;
+  initChosenGame = (gameId) => {
+    this.currentGame = this.gamesMap.get(+gameId);
+    this.currentGame.gameId = gameId;
     this.initNewGame();
   };
 
   initNewGame = () => {
+    const gameName = this.currentGame.gameName;
+    const level = this.currentGame.level;
+    this.controls.updateSelects(level, gameName);
+
     this.timer.resetTimer();
     this.fieldWrapper.innerHTML = '';
     this.field = new Field(

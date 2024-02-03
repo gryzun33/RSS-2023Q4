@@ -13,31 +13,44 @@ export default class SelectGame {
   createView(parent, startLevel) {
     const selectWrapper = createHTMLElement('div', 'select-wrapper', parent);
     const selectLabel = createHTMLElement('label', 'select-label', selectWrapper, 'Choose game');
-    this.elem = createHTMLElement('select', 'select-game', selectWrapper);
-    this.elem.addEventListener('change', this.initChosenGame);
-    this.elem.disabled = true;
+    this.elem = createHTMLElement('div', 'select-game', selectWrapper);
+    this.selectContent = createHTMLElement('div', 'select-content', selectWrapper);
+    this.elem.classList.add('select-disabled');
     this.updateView(startLevel);
+    this.elem.addEventListener('click', this.showList);
+
+    document.body.addEventListener('click', (e) => {
+      if (this.selectContent.classList.contains('list-visible') && e.target !== this.elem) {
+        this.hideList();
+      }
+    });
   }
 
   updateView(level) {
-    this.elem.innerHTML = '';
+    this.elem.innerText = '';
+    this.selectContent.innerHTML = '';
     this.gamesOfLevel = this.levelMap.get(level);
-    this.emptyOption = createHTMLElement('option', 'option', this.elem);
-    this.emptyOption.value = '';
-    this.emptyOption.disabled = true;
 
     if (level) {
       this.gamesOfLevel.forEach((game) => {
-        const optionElem = createHTMLElement('option', 'option', this.elem, game.gameName);
-        optionElem.value = game.gameId;
+        const label = createHTMLElement('label', 'option-label', this.selectContent, game.gameName);
+        label.setAttribute('for', `game-${game.gameId}`);
+        const inputItem = createHTMLElement('input', 'input', this.selectContent);
+        inputItem.type = 'radio';
+        inputItem.name = 'level';
+        inputItem.id = `game-${game.gameId}`;
+        inputItem.value = game.gameId;
+        label.addEventListener('click', () => {
+          this.elem.innerText = label.innerText;
+          this.initChosenGame(inputItem.value);
+          this.hideList();
+        });
       });
     }
-
-    this.elem.value = '';
   }
 
-  setSelectValue(id) {
-    this.elem.value = id;
+  setSelectValue(name) {
+    this.elem.innerText = name;
   }
 
   getSelectGameId() {
@@ -52,4 +65,12 @@ export default class SelectGame {
 
     return levelMap;
   }
+
+  showList = () => {
+    this.selectContent.classList.toggle('list-visible');
+  };
+
+  hideList = () => {
+    this.selectContent.classList.remove('list-visible');
+  };
 }
