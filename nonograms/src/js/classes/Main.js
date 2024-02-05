@@ -86,7 +86,7 @@ export default class Main {
 
   initChosenGame = (gameId) => {
     this.currentGame = this.gamesMap.get(+gameId);
-    this.currentGame.gameId = gameId;
+    this.currentGame.gameId = +gameId;
     this.initNewGame();
   };
 

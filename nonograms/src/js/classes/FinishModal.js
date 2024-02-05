@@ -26,7 +26,7 @@ export default class FinishModal extends Modal {
 
   onCloseHandler() {
     this.overlay.addEventListener('click', (e) => {
-      console.log('addiitonal click');
+      // console.log('addiitonal click');
       if (e.target === this.overlay || e.target === this.closeBtn || e.target === this.endBtn) {
         this.sound.pause();
       }
