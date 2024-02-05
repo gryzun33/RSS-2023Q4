@@ -11,6 +11,7 @@ export default class Field {
     this.sounds = sounds;
     this.addHints();
     this.createView(parent);
+    this.isFirstClick = true;
   }
 
   createView(parent) {
@@ -68,7 +69,7 @@ export default class Field {
     }
 
     this.mainFieldTable.addEventListener('click', this.clickOnFieldLeft);
-    this.mainFieldTable.addEventListener('click', this.startGame, { once: true });
+    // this.mainFieldTable.addEventListener('click', this.startGame, { once: true });
     this.mainFieldTable.addEventListener('contextmenu', this.clickOnFieldRight);
     this.mainFieldTable.addEventListener('contextmenu', this.disableContextMenu);
   }
@@ -79,7 +80,7 @@ export default class Field {
 
   disableField() {
     this.mainFieldTable.removeEventListener('click', this.clickOnFieldLeft);
-    this.mainFieldTable.removeEventListener('click', this.startGame);
+    // this.mainFieldTable.removeEventListener('click', this.startGame);
     this.mainFieldTable.removeEventListener('contextmenu', this.clickOnFieldRight);
   }
 
@@ -119,6 +120,10 @@ export default class Field {
   }
 
   clickOnFieldLeft = (e) => {
+    if (this.isFirstClick) {
+      this.isFirstClick = false;
+      this.startGame();
+    }
     if (e.target.closest('.cell')) {
       const cell = e.target.closest('.cell');
       cell.classList.toggle('cell-true');
@@ -138,6 +143,10 @@ export default class Field {
   };
 
   clickOnFieldRight = (e) => {
+    if (this.isFirstClick) {
+      this.isFirstClick = false;
+      this.startGame();
+    }
     if (e.target.closest('.cell')) {
       const cell = e.target.closest('.cell');
       cell.classList.remove('cell-true');
