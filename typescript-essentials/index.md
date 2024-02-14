@@ -7,6 +7,7 @@
 3. **Implement Interfaces in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/VolhaYakushava-9993/N7CKUDMF?sharingId=E3945895E7F5A848)
 4. **Develop Typed Functions in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/VolhaYakushava-9993/AQ8SAFD7?sharingId=E3945895E7F5A848)
 5. **Declare and Instantiate Classes in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/VolhaYakushava-9993/9NTP7JGU?sharingId=E3945895E7F5A848)
+6. **Generics in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/VolhaYakushava-9993/VKX2DS9M?sharingId=E3945895E7F5A848)
 
 ## Reflections
 
@@ -15,3 +16,4 @@
 3. I learned what an interface is, its difference from an alias, how to use an interface and extend it, and how to declare an interface with custom array types.
 4. I learned how functions can be typed, what arguments a function can have, and how to type the return value.
 5. I learned hoe to work with classes in TS, how to create an instance of a class, how to define properties and methods, what access modifiers are, how you can inherit from a class, how you can combine an interface and a class, and the advantages of using classes and interfaces.
+6. I learned what generics are, in what cases it is better to use them, advantages over any type, and also learned how to implement generic constraints.
