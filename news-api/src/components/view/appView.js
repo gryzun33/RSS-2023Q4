@@ -8,11 +8,13 @@ export class AppView {
     }
 
     drawNews(data) {
+        console.log('data1=', data);
         const values = data?.articles ? data?.articles : [];
         this.news.draw(values);
     }
 
     drawSources(data) {
+        console.log('data2=', data);
         const values = data?.sources ? data?.sources : [];
         this.sources.draw(values);
     }
