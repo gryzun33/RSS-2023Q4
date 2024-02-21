@@ -1,5 +1,6 @@
 import { ILoader, Options, NewsList, DrawFunction } from '../../types/types';
 
+// type Options = Record<string, string>;
 class Loader implements ILoader {
   baseLink: string;
   options: Options;
