@@ -18,11 +18,11 @@ class App {
       throw new Error();
     } else {
       sourcesElem.addEventListener('click', (e) =>
-        this.controller.getNews(e, (data: NewsList) => this.view.drawNews(data))
+        this.controller.getNews(e, (data: NewsList | SourceData) => this.view.drawNews(data))
       );
     }
 
-    this.controller.getSources((data: SourceData) => this.view.drawSources(data));
+    this.controller.getSources((data: NewsList | SourceData) => this.view.drawSources(data));
   }
 }
 

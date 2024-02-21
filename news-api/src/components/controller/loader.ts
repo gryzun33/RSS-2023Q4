@@ -1,4 +1,4 @@
-import { ILoader, Options, NewsList, DrawFunction } from '../../types/types';
+import { ILoader, Options, NewsList, SourceData, DrawFunction } from '../../types/types';
 
 // type Options = Record<string, string>;
 class Loader implements ILoader {
@@ -12,12 +12,17 @@ class Loader implements ILoader {
 
   public getResp(
     { endpoint, options = {} }: { endpoint: string; options?: Options },
-    callback = () => {
-      console.error('No callback for GET response');
-    }
+    callback: DrawFunction | undefined
+    // callback = () => {
+    //   console.error('No callback for GET response');
+    // }
   ): void {
-    console.log('endpoint= ', endpoint);
-    this.load('GET', endpoint, callback, options);
+    if (callback === undefined) {
+      console.error('No callback for GET response');
+    } else {
+      console.log('endpoint= ', endpoint);
+      this.load('GET', endpoint, callback, options);
+    }
   }
 
   private errorHandler(res: Response): Response {
@@ -49,7 +54,7 @@ class Loader implements ILoader {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
       .then((res: Response) => res.json())
-      .then((data: NewsList) => callback(data))
+      .then((data: NewsList | SourceData) => callback(data))
       .catch((err: Error) => console.error(err));
   }
 }

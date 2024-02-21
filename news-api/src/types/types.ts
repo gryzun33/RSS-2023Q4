@@ -6,6 +6,10 @@ export function isUndefined<T>(value: T | undefined): value is undefined {
   return typeof value === 'undefined';
 }
 
+export function isNull<T>(value: T | null): value is null {
+  return value === 'null';
+}
+
 export type Source = {
   category: string;
   country: string;
