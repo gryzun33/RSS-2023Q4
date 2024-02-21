@@ -1,37 +1,4 @@
-type Options = {
-  [key: string]: string;
-};
-
-type Article = {
-  [key: string]: string | Options;
-};
-
-type NewsList = {
-  status: string;
-  totalResults: number;
-  articles: Article[];
-};
-
-type Source = {
-  category: string;
-  country: string;
-  description: string;
-  id: string;
-  language: string;
-  name: string;
-  url: string;
-};
-
-type SourceData = {
-  sources: Source[];
-  status: string;
-};
-type DrawFunction = (value: SourceData | NewsList) => void;
-
-interface ILoader {
-  baseLink: string;
-  options: Options;
-}
+import { ILoader, Options, NewsList, DrawFunction } from '../../types/types';
 
 class Loader implements ILoader {
   baseLink: string;
