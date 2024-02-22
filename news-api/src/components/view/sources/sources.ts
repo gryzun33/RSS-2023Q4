@@ -1,8 +1,8 @@
 import './sources.css';
-import { Source, Nullable, isType, isNull, getElementInFragment } from '../../../types/types';
+import { Source, Nullable, isType, isNull, getElementInFragment, ISources } from '../../../types/types';
 
-class Sources {
-  draw(data: Source[]) {
+class Sources implements ISources {
+  public draw(data: Source[]): void {
     const fragment: DocumentFragment = document.createDocumentFragment();
     const sourceItemTemp: Nullable<HTMLTemplateElement> = document.querySelector('#sourceItemTemp');
     if (!isType<HTMLTemplateElement>(sourceItemTemp, HTMLTemplateElement) || isNull(sourceItemTemp)) {

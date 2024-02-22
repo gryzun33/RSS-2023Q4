@@ -1,20 +1,20 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
-import { SourceData, NewsList, isNull } from '../../types/types';
+import { SourceData, NewsList, isNull, AppInterface, IController, IAppView } from '../../types/types';
 
-class App {
-  controller: AppController;
-  view: AppView;
+class App implements AppInterface {
+  public controller: IController;
+  public view: IAppView;
 
   constructor() {
     this.controller = new AppController();
     this.view = new AppView();
   }
 
-  start() {
+  public start() {
     const sourcesElem: HTMLElement | null = document.querySelector('.sources');
-    if (isNull<HTMLElement>(sourcesElem)) {
+    if (isNull(sourcesElem)) {
       throw new Error();
     }
     sourcesElem.addEventListener('click', (e) =>

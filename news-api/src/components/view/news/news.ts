@@ -1,8 +1,8 @@
 import './news.css';
-import { Article, isType, Nullable, getElementInFragment, isNull } from '../../../types/types';
+import { Article, isType, Nullable, getElementInFragment, isNull, INews } from '../../../types/types';
 
-class News {
-  draw(data: Article[]) {
+class News implements INews {
+  public draw(data: Article[]): void {
     const news: Article[] = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
     const fragment: DocumentFragment = document.createDocumentFragment();

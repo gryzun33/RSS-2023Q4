@@ -67,3 +67,27 @@ export function getElementInFragment<T extends HTMLElement>(selector: string, pa
   }
   return element;
 }
+
+export interface INews {
+  draw(data: Article[]): void;
+}
+
+export interface ISources {
+  draw(data: Source[]): void;
+}
+export interface IAppView {
+  news: INews;
+  sources: ISources;
+  drawNews(data: NewsList): void;
+  drawSources(data: SourceData): void;
+}
+
+export interface IController {
+  getSources(callback: DrawFunction<SourceData>): void;
+  getNews(e: Event, callback: DrawFunction<NewsList>): void;
+}
+export interface AppInterface {
+  controller: IController;
+  view: IAppView;
+  start(): void;
+}
