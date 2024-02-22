@@ -27,9 +27,6 @@ export type SourceData = {
 
 export type Options = Record<string, string>;
 
-// export type Article = {
-//   [key: string]: string | Options;
-// };
 export type Article = {
   source: {
     id: string | null;
@@ -50,7 +47,7 @@ export type NewsList = {
   articles: Article[];
 };
 
-export type DrawFunction = (value: SourceData | NewsList) => void;
+export type DrawFunction<T> = (value: T) => void;
 
 export interface ILoader {
   baseLink: string;

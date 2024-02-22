@@ -10,9 +10,9 @@ class Loader implements ILoader {
     this.options = options;
   }
 
-  public getResp(
+  public getResp<T>(
     { endpoint, options = {} }: { endpoint: string; options?: Options },
-    callback: DrawFunction | undefined
+    callback: DrawFunction<T> | undefined
     // callback = () => {
     //   console.error('No callback for GET response');
     // }
@@ -50,11 +50,11 @@ class Loader implements ILoader {
     return url.slice(0, -1);
   }
 
-  private load(method: string, endpoint: string, callback: DrawFunction, options: Options = {}): void {
+  private load<T>(method: string, endpoint: string, callback: DrawFunction<T>, options: Options = {}): void {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
       .then((res: Response) => res.json())
-      .then((data: NewsList | SourceData) => callback(data))
+      .then((data: T) => callback(data))
       .catch((err: Error) => console.error(err));
   }
 }

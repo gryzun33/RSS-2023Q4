@@ -1,8 +1,8 @@
 import AppLoader from './appLoader';
-import { DrawFunction } from '../../types/types';
+import { DrawFunction, SourceData, NewsList } from '../../types/types';
 
 class AppController extends AppLoader {
-  getSources(callback: DrawFunction): void {
+  getSources(callback: DrawFunction<SourceData>): void {
     super.getResp(
       {
         endpoint: 'sources',
@@ -11,7 +11,7 @@ class AppController extends AppLoader {
     );
   }
 
-  getNews(e: Event, callback: DrawFunction): void {
+  getNews(e: Event, callback: DrawFunction<NewsList>): void {
     let target: EventTarget | null = e.target;
     const newsContainer: EventTarget | null = e.currentTarget;
 

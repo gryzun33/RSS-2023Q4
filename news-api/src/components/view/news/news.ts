@@ -45,7 +45,7 @@ class News {
       }
     });
 
-    const newsBox = document.querySelector('.news');
+    const newsBox: Nullable<HTMLElement> = document.querySelector('.news');
     if (isNull(newsBox)) {
       throw new Error();
     }
