@@ -15,7 +15,7 @@ class App implements AppInterface {
   public start() {
     const sourcesElem: HTMLElement | null = document.querySelector('.sources');
     if (isNull(sourcesElem)) {
-      throw new Error();
+      throw new Error('sources are null');
     }
     sourcesElem.addEventListener('click', (e) =>
       this.controller.getNews(e, (data: NewsList) => this.view.drawNews(data))

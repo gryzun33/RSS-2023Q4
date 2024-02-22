@@ -19,9 +19,8 @@ class News implements INews {
     const fragment: DocumentFragment = document.createDocumentFragment();
 
     const newsItemTemp: Nullable<HTMLTemplateElement> = document.querySelector(ArticleSelectors.NewsItemTempSel);
-    console.log('newsItemTemp=', newsItemTemp);
     if (!isType<HTMLTemplateElement>(newsItemTemp, HTMLTemplateElement) || isNull(newsItemTemp)) {
-      throw new Error();
+      throw new Error('newsItemTemp is not instance of HTMLTemplateElement or equal null ');
     }
 
     news.forEach((item: Article, idx: number) => {
@@ -52,20 +51,16 @@ class News implements INews {
         newsLink.setAttribute('href', item.url);
 
         fragment.append(newsClone);
-        console.log('fragment=', fragment);
       }
     });
 
     const newsBox: Nullable<HTMLElement> = document.querySelector('.news');
     if (isNull(newsBox)) {
-      throw new Error();
+      throw new Error('newsBox element is null');
     }
-
-    console.log('news=', newsBox);
 
     newsBox.innerHTML = '';
     newsBox.appendChild(fragment);
-    console.log('news=', newsBox);
   }
 }
 

@@ -12,20 +12,15 @@ class Loader implements ILoader {
   public getResp<T>(
     { endpoint, options = {} }: { endpoint: string; options?: Options },
     callback: DrawFunction<T> | undefined
-    // callback = () => {
-    //   console.error('No callback for GET response');
-    // }
   ): void {
     if (callback === undefined) {
       console.error('No callback for GET response');
     } else {
-      console.log('endpoint= ', endpoint);
       this.load('GET', endpoint, callback, options);
     }
   }
 
   private errorHandler(res: Response): Response {
-    console.log('res=', res);
     if (!res.ok) {
       if (res.status === 401 || res.status === 404)
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -37,9 +32,6 @@ class Loader implements ILoader {
 
   private makeUrl(options: Options, endpoint: string): string {
     const urlOptions: Options = { ...this.options, ...options };
-    // console.log('thisoptions=', this.options);
-    // console.log('options=', options);
-    // console.log('urlOptions=', urlOptions);
     let url = `${this.baseLink}${endpoint}?`;
 
     Object.keys(urlOptions).forEach((key) => {

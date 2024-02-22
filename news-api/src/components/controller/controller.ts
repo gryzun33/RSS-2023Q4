@@ -16,7 +16,7 @@ class AppController extends AppLoader implements IController {
     const newsContainer: EventTarget | null = e.currentTarget;
 
     if (target === null || newsContainer === null) {
-      throw new Error();
+      throw new Error('target is null');
     }
     while (target !== newsContainer) {
       if (target instanceof HTMLElement && newsContainer instanceof HTMLElement) {
@@ -24,7 +24,7 @@ class AppController extends AppLoader implements IController {
           const sourceId: string | null = target.getAttribute('data-source-id');
           if (newsContainer.getAttribute('data-source') !== sourceId) {
             if (sourceId === null) {
-              throw new Error();
+              throw new Error('id of source is null');
             } else {
               newsContainer.setAttribute('data-source', sourceId);
             }

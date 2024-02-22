@@ -12,7 +12,7 @@ class Sources implements ISources {
     const fragment: DocumentFragment = document.createDocumentFragment();
     const sourceItemTemp: Nullable<HTMLTemplateElement> = document.querySelector(SourcesSelectors.SourseTempSel);
     if (!isType<HTMLTemplateElement>(sourceItemTemp, HTMLTemplateElement) || isNull(sourceItemTemp)) {
-      throw new Error();
+      throw new Error('sourceItemTemp is not HTMLTemplateElement or equal null');
     }
 
     data.forEach((item: Source) => {
@@ -33,7 +33,7 @@ class Sources implements ISources {
 
     const sourcesBox: Nullable<HTMLElement> = document.querySelector(SourcesSelectors.SourcesSel);
     if (isNull(sourcesBox)) {
-      throw new Error();
+      throw new Error('sourcesBox is null');
     }
     sourcesBox.append(fragment);
   }
