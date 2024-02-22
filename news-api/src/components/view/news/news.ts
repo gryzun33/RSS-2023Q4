@@ -1,13 +1,24 @@
 import './news.css';
 import { Article, isType, Nullable, getElementInFragment, isNull, INews } from '../../../types/types';
 
+enum ArticleSelectors {
+  NewsItemTempSel = '#newsItemTemp',
+  NewsItemSel = '.news__item',
+  NewsItemPhoto = '.news__meta-photo',
+  NewsAuthorSel = '.news__meta-author',
+  NewsDateSel = '.news__meta-date',
+  NewsTitleSel = '.news__description-title',
+  NewsSourceSel = '.news__description-source',
+  NewsContentSel = '.news__description-content',
+  NewsLinkSel = '.news__read-more a',
+}
 class News implements INews {
   public draw(data: Article[]): void {
     const news: Article[] = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
     const fragment: DocumentFragment = document.createDocumentFragment();
 
-    const newsItemTemp: Nullable<HTMLTemplateElement> = document.querySelector('#newsItemTemp');
+    const newsItemTemp: Nullable<HTMLTemplateElement> = document.querySelector(ArticleSelectors.NewsItemTempSel);
     console.log('newsItemTemp=', newsItemTemp);
     if (!isType<HTMLTemplateElement>(newsItemTemp, HTMLTemplateElement) || isNull(newsItemTemp)) {
       throw new Error();
@@ -20,14 +31,14 @@ class News implements INews {
 
       if (newsClone instanceof DocumentFragment) {
         // console.log('true');
-        const newsItem = getElementInFragment<HTMLElement>('.news__item', newsClone);
-        const newsMetaPhoto = getElementInFragment<HTMLElement>('.news__meta-photo', newsClone);
-        const newsMetaAuthor = getElementInFragment<HTMLElement>('.news__meta-author', newsClone);
-        const newsMetaDate = getElementInFragment<HTMLElement>('.news__meta-date', newsClone);
-        const newsTitle = getElementInFragment<HTMLElement>('.news__description-title', newsClone);
-        const newsSource = getElementInFragment<HTMLElement>('.news__description-source', newsClone);
-        const newsContent = getElementInFragment<HTMLElement>('.news__description-content', newsClone);
-        const newsLink = getElementInFragment<HTMLElement>('.news__read-more a', newsClone);
+        const newsItem = getElementInFragment<HTMLElement>(ArticleSelectors.NewsItemSel, newsClone);
+        const newsMetaPhoto = getElementInFragment<HTMLElement>(ArticleSelectors.NewsItemPhoto, newsClone);
+        const newsMetaAuthor = getElementInFragment<HTMLElement>(ArticleSelectors.NewsAuthorSel, newsClone);
+        const newsMetaDate = getElementInFragment<HTMLElement>(ArticleSelectors.NewsDateSel, newsClone);
+        const newsTitle = getElementInFragment<HTMLElement>(ArticleSelectors.NewsTitleSel, newsClone);
+        const newsSource = getElementInFragment<HTMLElement>(ArticleSelectors.NewsSourceSel, newsClone);
+        const newsContent = getElementInFragment<HTMLElement>(ArticleSelectors.NewsContentSel, newsClone);
+        const newsLink = getElementInFragment<HTMLElement>(ArticleSelectors.NewsLinkSel, newsClone);
 
         if (idx % 2) newsItem.classList.add('alt');
 

@@ -1,10 +1,16 @@
 import './sources.css';
 import { Source, Nullable, isType, isNull, getElementInFragment, ISources } from '../../../types/types';
 
+enum SourcesSelectors {
+  SourseTempSel = '#sourceItemTemp',
+  SourseNameSel = '.source__item-name',
+  SourseItemSel = '.source__item',
+  SourcesSel = '.sources',
+}
 class Sources implements ISources {
   public draw(data: Source[]): void {
     const fragment: DocumentFragment = document.createDocumentFragment();
-    const sourceItemTemp: Nullable<HTMLTemplateElement> = document.querySelector('#sourceItemTemp');
+    const sourceItemTemp: Nullable<HTMLTemplateElement> = document.querySelector(SourcesSelectors.SourseTempSel);
     if (!isType<HTMLTemplateElement>(sourceItemTemp, HTMLTemplateElement) || isNull(sourceItemTemp)) {
       throw new Error();
     }
@@ -16,8 +22,8 @@ class Sources implements ISources {
         throw new Error();
       }
 
-      const sourceName = getElementInFragment<HTMLElement>('.source__item-name', sourceClone);
-      const sourceItem = getElementInFragment<HTMLElement>('.source__item', sourceClone);
+      const sourceName = getElementInFragment<HTMLElement>(SourcesSelectors.SourseNameSel, sourceClone);
+      const sourceItem = getElementInFragment<HTMLElement>(SourcesSelectors.SourseItemSel, sourceClone);
 
       sourceName.textContent = item.name;
       sourceItem.setAttribute('data-source-id', item.id);
@@ -25,7 +31,7 @@ class Sources implements ISources {
       fragment.append(sourceClone);
     });
 
-    const sourcesBox: Nullable<HTMLElement> = document.querySelector('.sources');
+    const sourcesBox: Nullable<HTMLElement> = document.querySelector(SourcesSelectors.SourcesSel);
     if (isNull(sourcesBox)) {
       throw new Error();
     }
