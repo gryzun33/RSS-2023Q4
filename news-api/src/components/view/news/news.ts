@@ -1,5 +1,7 @@
 import './news.css';
-import { Article, isType, Nullable, getElementInFragment, isNull, INews } from '../../../types/types';
+import { Article, Nullable, INews } from '../../../types/types';
+import { isType, isNull } from '../../../types/predicats';
+import { getElementInFragment } from '../../../types/helpers';
 
 enum ArticleSelectors {
   NewsItemTempSel = '#newsItemTemp',
@@ -25,11 +27,8 @@ class News implements INews {
 
     news.forEach((item: Article, idx: number) => {
       const newsClone: Node = newsItemTemp.content.cloneNode(true);
-      //   console.log('newsClone=', newsClone);
-      //   console.log('item=', item);
 
       if (newsClone instanceof DocumentFragment) {
-        // console.log('true');
         const newsItem = getElementInFragment<HTMLElement>(ArticleSelectors.NewsItemSel, newsClone);
         const newsMetaPhoto = getElementInFragment<HTMLElement>(ArticleSelectors.NewsItemPhoto, newsClone);
         const newsMetaAuthor = getElementInFragment<HTMLElement>(ArticleSelectors.NewsAuthorSel, newsClone);

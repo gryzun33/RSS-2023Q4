@@ -1,7 +1,8 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
-import { SourceData, NewsList, isNull, AppInterface, IController, IAppView } from '../../types/types';
+import { SourceData, NewsList, AppInterface, IController, IAppView } from '../../types/types';
+import { isNull } from '../../types/predicats';
 
 class App implements AppInterface {
   public controller: IController;

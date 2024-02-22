@@ -1,5 +1,7 @@
 import './sources.css';
-import { Source, Nullable, isType, isNull, getElementInFragment, ISources } from '../../../types/types';
+import { Source, Nullable, ISources } from '../../../types/types';
+import { isType, isNull } from '../../../types/predicats';
+import { getElementInFragment } from '../../../types/helpers';
 
 enum SourcesSelectors {
   SourseTempSel = '#sourceItemTemp',
