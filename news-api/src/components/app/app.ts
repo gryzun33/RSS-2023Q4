@@ -1,7 +1,7 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
-import { SourceData, isType, NewsList } from '../../types/types';
+import { SourceData, NewsList, isNull } from '../../types/types';
 
 class App {
   controller: AppController;
@@ -14,13 +14,12 @@ class App {
 
   start() {
     const sourcesElem: HTMLElement | null = document.querySelector('.sources');
-    if (!isType(sourcesElem, HTMLElement)) {
+    if (isNull<HTMLElement>(sourcesElem)) {
       throw new Error();
-    } else {
-      sourcesElem.addEventListener('click', (e) =>
-        this.controller.getNews(e, (data: NewsList | SourceData) => this.view.drawNews(data))
-      );
     }
+    sourcesElem.addEventListener('click', (e) =>
+      this.controller.getNews(e, (data: NewsList | SourceData) => this.view.drawNews(data))
+    );
 
     this.controller.getSources((data: NewsList | SourceData) => this.view.drawSources(data));
   }

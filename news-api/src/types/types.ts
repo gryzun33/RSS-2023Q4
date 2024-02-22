@@ -27,8 +27,21 @@ export type SourceData = {
 
 export type Options = Record<string, string>;
 
+// export type Article = {
+//   [key: string]: string | Options;
+// };
 export type Article = {
-  [key: string]: string | Options;
+  source: {
+    id: string | null;
+    name: string;
+  };
+  author: string | null;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string;
 };
 
 export type NewsList = {
@@ -42,4 +55,19 @@ export type DrawFunction = (value: SourceData | NewsList) => void;
 export interface ILoader {
   baseLink: string;
   options: Options;
+}
+
+export type Nullable<T> = T | null;
+
+export function getElement<T extends HTMLElement>(selector: string, parent: Node): T {
+  if (!(parent instanceof DocumentFragment)) {
+    throw new Error();
+  }
+  const element: Nullable<T> = parent.querySelector(selector);
+
+  console.log('getelement=', element);
+  if (!element) {
+    throw new Error();
+  }
+  return element;
 }

@@ -12,37 +12,36 @@ class AppController extends AppLoader {
   }
 
   getNews(e: Event, callback: DrawFunction): void {
-    let target = e.target;
-    const newsContainer = e.currentTarget;
+    let target: EventTarget | null = e.target;
+    const newsContainer: EventTarget | null = e.currentTarget;
 
     if (target === null || newsContainer === null) {
       throw new Error();
-    } else {
-      while (target !== newsContainer) {
-        if (target instanceof HTMLElement && newsContainer instanceof HTMLElement) {
-          if (target.classList.contains('source__item')) {
-            const sourceId: string | null = target.getAttribute('data-source-id');
-            if (newsContainer.getAttribute('data-source') !== sourceId) {
-              if (sourceId === null) {
-                throw new Error();
-              } else {
-                newsContainer.setAttribute('data-source', sourceId);
-              }
-
-              super.getResp(
-                {
-                  endpoint: 'everything',
-                  options: {
-                    sources: sourceId,
-                  },
-                },
-                callback
-              );
+    }
+    while (target !== newsContainer) {
+      if (target instanceof HTMLElement && newsContainer instanceof HTMLElement) {
+        if (target.classList.contains('source__item')) {
+          const sourceId: string | null = target.getAttribute('data-source-id');
+          if (newsContainer.getAttribute('data-source') !== sourceId) {
+            if (sourceId === null) {
+              throw new Error();
+            } else {
+              newsContainer.setAttribute('data-source', sourceId);
             }
-            return;
+
+            super.getResp(
+              {
+                endpoint: 'everything',
+                options: {
+                  sources: sourceId,
+                },
+              },
+              callback
+            );
           }
-          target = target.parentNode;
+          return;
         }
+        target = target.parentNode;
       }
     }
   }
