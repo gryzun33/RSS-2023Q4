@@ -1,5 +1,5 @@
 import './news.css';
-import { Article, isType, Nullable, getElement, isNull } from '../../../types/types';
+import { Article, isType, Nullable, getElementInFragment, isNull } from '../../../types/types';
 
 class News {
   draw(data: Article[]) {
@@ -9,25 +9,25 @@ class News {
 
     const newsItemTemp: Nullable<HTMLTemplateElement> = document.querySelector('#newsItemTemp');
     console.log('newsItemTemp=', newsItemTemp);
-    if (!isType<HTMLTemplateElement>(newsItemTemp, HTMLTemplateElement)) {
+    if (!isType<HTMLTemplateElement>(newsItemTemp, HTMLTemplateElement) || isNull(newsItemTemp)) {
       throw new Error();
     }
 
     news.forEach((item: Article, idx: number) => {
-      const newsClone = newsItemTemp.content.cloneNode(true);
+      const newsClone: Node = newsItemTemp.content.cloneNode(true);
       //   console.log('newsClone=', newsClone);
       //   console.log('item=', item);
 
       if (newsClone instanceof DocumentFragment) {
         // console.log('true');
-        const newsItem = getElement<HTMLElement>('.news__item', newsClone);
-        const newsMetaPhoto = getElement<HTMLElement>('.news__meta-photo', newsClone);
-        const newsMetaAuthor = getElement<HTMLElement>('.news__meta-author', newsClone);
-        const newsMetaDate = getElement<HTMLElement>('.news__meta-date', newsClone);
-        const newsTitle = getElement<HTMLElement>('.news__description-title', newsClone);
-        const newsSource = getElement<HTMLElement>('.news__description-source', newsClone);
-        const newsContent = getElement<HTMLElement>('.news__description-content', newsClone);
-        const newsLink = getElement<HTMLElement>('.news__read-more a', newsClone);
+        const newsItem = getElementInFragment<HTMLElement>('.news__item', newsClone);
+        const newsMetaPhoto = getElementInFragment<HTMLElement>('.news__meta-photo', newsClone);
+        const newsMetaAuthor = getElementInFragment<HTMLElement>('.news__meta-author', newsClone);
+        const newsMetaDate = getElementInFragment<HTMLElement>('.news__meta-date', newsClone);
+        const newsTitle = getElementInFragment<HTMLElement>('.news__description-title', newsClone);
+        const newsSource = getElementInFragment<HTMLElement>('.news__description-source', newsClone);
+        const newsContent = getElementInFragment<HTMLElement>('.news__description-content', newsClone);
+        const newsLink = getElementInFragment<HTMLElement>('.news__read-more a', newsClone);
 
         if (idx % 2) newsItem.classList.add('alt');
 
