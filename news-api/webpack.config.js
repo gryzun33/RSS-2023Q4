@@ -11,6 +11,10 @@ const baseConfig = {
   module: {
     rules: [
       {
+        test: /\.html$/,
+        use: ['html-loader'],
+      },
+      {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
@@ -27,6 +31,7 @@ const baseConfig = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, './dist'),
+    assetModuleFilename: 'assets/[hash][ext]',
   },
   plugins: [
     new DotenvWebpackPlugin(),
