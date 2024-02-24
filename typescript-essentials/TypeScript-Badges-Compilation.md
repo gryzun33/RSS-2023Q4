@@ -21,7 +21,7 @@
 
    ✍️ I learned what data types there are in TS, how they differ from each other, in what cases it is better to use which one and how it helps me to avoid errors in code.
 
-3. **Declare Variable Types in TypeScript**
+3. **Implement Interfaces in TypeScript**
 
    ✍️ I learned what an interface is, its difference from an alias, how to use an interface and extend it, and how to declare an interface with custom array types.
 
