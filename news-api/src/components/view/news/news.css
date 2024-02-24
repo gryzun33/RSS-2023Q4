@@ -103,7 +103,7 @@
 }
 
 .news__item .news__description .news__read-more a {
-  color: var(--secondary-color);
+  color: var(--sources-bg-hover);
   display: inline-block;
   position: relative;
   text-decoration: none;
@@ -138,7 +138,7 @@
   content: '';
   position: absolute;
   height: 5px;
-  background: var(--secondary-color);
+  background: var(--sources-bg-hover);
   width: 35px;
   top: -0.75rem;
   border-radius: 3px;

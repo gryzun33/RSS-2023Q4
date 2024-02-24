@@ -54,8 +54,10 @@ export interface ISources {
 export interface IAppView {
   news: INews;
   sources: ISources;
+  lastWindowWidth: number;
   drawNews(data: NewsList): void;
   drawSources(data: SourceData): void;
+  burgerInteraction(): void;
 }
 
 export interface IController {
