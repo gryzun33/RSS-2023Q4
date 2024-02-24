@@ -14,9 +14,13 @@ export class AppView implements IAppView {
   }
 
   public drawNews(data: NewsList): void {
-    const plug = document.querySelector('.plug-text');
-    plug?.classList.add('hidden');
+    const plug: HTMLElement | null = document.querySelector('.plug-text');
+    if (!plug) {
+      throw new Error('plug is null');
+    }
+    plug.classList.add('hidden');
     const values: Article[] = data?.articles ? data?.articles : [];
+
     this.news.draw(values);
   }
 

@@ -17,6 +17,10 @@ enum ArticleSelectors {
 class News implements INews {
   public draw(data: Article[]): void {
     const news: Article[] = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    const plug: HTMLElement | null = document.querySelector('.plug-text');
+    if (!plug) {
+      throw new Error('plug is null');
+    }
 
     const fragment: DocumentFragment = document.createDocumentFragment();
 
@@ -60,6 +64,11 @@ class News implements INews {
 
     newsBox.innerHTML = '';
     newsBox.appendChild(fragment);
+
+    if (news.length === 0) {
+      plug.classList.remove('hidden');
+      plug.innerText = `There's no such news...`;
+    }
   }
 }
 
