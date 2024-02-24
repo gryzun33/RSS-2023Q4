@@ -11,7 +11,7 @@
 7. **Work with External Libraries in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/VolhaYakushava-9993/ZPN76ZN2?sharingId=E3945895E7F5A848) ✅
 8. **Organize Code with Namespaces in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/VolhaYakushava-9993/N7CWLMNF?sharingId=E3945895E7F5A848) ✅
 
-## Reflections
+## Reflectionsss
 
 1. **Getting Started with TypeScript**
 
