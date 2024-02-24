@@ -6,13 +6,21 @@
   overflow-y: auto;
   align-items: center;
   position: fixed;
-  /* top: 100px; */
+  top: 0;
   left: 0;
   background-color: var(--sources-bg);
 
   font:
     300 1em 'Fira Sans',
     sans-serif;
+
+  @media screen and (max-width: 1439px) {
+    width: 280px;
+  }
+
+  @media screen and (max-width: 900px) {
+    left: -280px;
+  }
 }
 
 .sources::-webkit-scrollbar {

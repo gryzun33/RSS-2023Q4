@@ -3,7 +3,7 @@
   --source-color: #17181c;
   --sources-bg: #ffd640;
   --sources-bg-hover: #ffc900;
-  --secondary-color: #a68200;
+  --secondary-color: #7d71d8;
   --main-bg: #474a51;
   --sources-scroll: #17181c;
 }
@@ -15,7 +15,7 @@
 }
 
 body {
-  color: #fff;
+  /* color: #fff; */
   background: var(--body-bg);
   font-family: sans-serif;
   position: relative;
@@ -26,6 +26,14 @@ body {
 .empty-field {
   width: 350px;
   flex: none;
+
+  @media screen and (max-width: 1439px) {
+    width: 280px;
+  }
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 }
 
 .wrapper {
@@ -45,13 +53,28 @@ header {
 header h1 {
   font-size: 40px;
   font-weight: 800;
+  color: var(--sources-bg);
 }
 
 main {
   width: 100%;
   flex: 1;
   background-color: var(--main-bg);
-  /* display: flex; */
+
+  .plug-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: var(--body-bg);
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  @media screen and (max-width: 900px) {
+    overflow-x: hidden;
+  }
 }
 footer {
   flex-shrink: 0;
@@ -66,10 +89,28 @@ footer {
   /* width: 100%; */
 
   .footer-content {
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 20px;
+
+    .img-github {
+      width: 35px;
+
+      @media screen and (max-width: 500px) {
+        width: 30px;
+      }
+    }
+
+    .img-rss {
+      width: 100px;
+
+      @media screen and (max-width: 500px) {
+        width: 80px;
+      }
+    }
   }
 }
 
