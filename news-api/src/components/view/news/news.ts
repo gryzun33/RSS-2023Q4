@@ -16,7 +16,7 @@ enum ArticleSelectors {
 }
 class News implements INews {
   public draw(data: Article[]): void {
-    const news: Article[] = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    const news: Readonly<Article[]> = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
     const plug: HTMLElement | null = document.querySelector('.plug-text');
     if (!plug) {
       throw new Error('plug is null');

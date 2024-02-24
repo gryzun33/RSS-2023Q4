@@ -17,7 +17,7 @@ class Sources implements ISources {
       throw new Error('sourceItemTemp is not HTMLTemplateElement or equal null');
     }
 
-    data.forEach((item: Source) => {
+    data.forEach((item: Readonly<Source>) => {
       const sourceClone: Node = sourceItemTemp.content.cloneNode(true);
 
       if (!(sourceClone instanceof DocumentFragment)) {
