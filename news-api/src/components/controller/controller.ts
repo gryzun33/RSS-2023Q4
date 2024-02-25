@@ -25,9 +25,8 @@ class AppController extends AppLoader implements IController {
           if (newsContainer.getAttribute('data-source') !== sourceId) {
             if (sourceId === null) {
               throw new Error('id of source is null');
-            } else {
-              newsContainer.setAttribute('data-source', sourceId);
             }
+            newsContainer.setAttribute('data-source', sourceId);
 
             super.getResp(
               {

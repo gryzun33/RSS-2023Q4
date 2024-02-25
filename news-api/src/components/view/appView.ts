@@ -1,6 +1,6 @@
 import News from './news/news';
 import Sources from './sources/sources';
-import { NewsList, SourceData, Article, Source, IAppView, INews, ISources } from '../../types/types';
+import { NewsList, SourceData, Article, Source, IAppView, INews, ISources, Nullable } from '../../types/types';
 export class AppView implements IAppView {
   public news: INews;
   public sources: ISources;
@@ -26,6 +26,7 @@ export class AppView implements IAppView {
 
   public drawSources(data: SourceData): void {
     const values: Source[] = data?.sources ? data?.sources : [];
+
     this.sources.draw(values);
   }
 
@@ -34,7 +35,19 @@ export class AppView implements IAppView {
     if (!sourcesElem) {
       throw new Error('sources are null');
     }
-    sourcesElem.addEventListener('click', () => {
+    const sourceTitle: Nullable<HTMLElement> = document.querySelector('.source-title');
+    if (!sourceTitle) {
+      throw new Error('sourceTitle is null');
+    }
+    sourcesElem.addEventListener('click', (e) => {
+      const target: EventTarget | null = e.target;
+      if (!target) {
+        throw new Error('source is null');
+      }
+      if (target instanceof HTMLElement) {
+        sourceTitle.innerText = target.innerText;
+      }
+
       if (window.innerWidth <= 900) {
         toggleMenu();
       }

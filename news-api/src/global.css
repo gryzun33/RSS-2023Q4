@@ -5,6 +5,7 @@
   --sources-bg-hover: #ffc900;
   --main-bg: #474a51;
   --sources-scroll: #17181c;
+  --sources-title: #ffffff;
 }
 
 * {
@@ -81,6 +82,18 @@ main {
   width: 100%;
   flex: 1;
   background-color: var(--main-bg);
+
+  .source-title {
+    text-align: center;
+    color: var(--sources-title);
+    font-size: 30px;
+    margin-top: 20px;
+
+    @media screen and (max-width: 500px) {
+      font-size: 25px;
+      margin-top: 15px;
+    }
+  }
 
   .plug-text {
     text-align: center;

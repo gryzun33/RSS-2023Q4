@@ -20,10 +20,10 @@ class App implements AppInterface {
     }
 
     sourcesElem.addEventListener('click', (e) =>
-      this.controller.getNews(e, (data: NewsList) => this.view.drawNews(data))
+      this.controller.getNews(e, (data: NewsList): void => this.view.drawNews(data))
     );
 
-    this.controller.getSources((data: SourceData) => this.view.drawSources(data));
+    this.controller.getSources((data: SourceData): void => this.view.drawSources(data));
   }
 }
 
