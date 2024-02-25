@@ -2,6 +2,7 @@ import './news.css';
 import { Article, Nullable, INews } from '../../../types/types';
 import { isType, isNull } from '../../../types/predicats';
 import { getElementInFragment } from '../../../types/helpers';
+// import imageCity from '../../../assets/city.jpeg';
 
 enum ArticleSelectors {
   NewsItemTempSel = '#newsItemTemp',
@@ -43,8 +44,9 @@ class News implements INews {
         const newsLink = getElementInFragment<HTMLElement>(ArticleSelectors.NewsLinkSel, newsClone);
 
         if (idx % 2) newsItem.classList.add('alt');
-
-        newsMetaPhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
+        console.log('image=', item.urlToImage);
+        newsMetaPhoto.style.backgroundImage = `url(${item.urlToImage || '../../../assets/city.jpeg'})`;
+        console.log('imageurl=', newsMetaPhoto.style.backgroundImage);
         newsMetaAuthor.textContent = item.author || item.source.name;
         newsMetaDate.textContent = item.publishedAt.slice(0, 10).split('-').reverse().join('-');
 
