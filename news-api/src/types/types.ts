@@ -50,6 +50,7 @@ export interface INews {
 
 export interface ISources {
   draw(data: Source[]): void;
+  drawCategories(): void;
 }
 export interface IAppView {
   news: INews;
@@ -61,7 +62,7 @@ export interface IAppView {
 }
 
 export interface IController {
-  getSources(callback: DrawFunction<SourceData>): void;
+  getSources(callback: DrawFunction<SourceData>, cat?: string): void;
   getNews(e: Event, callback: DrawFunction<NewsList>): void;
 }
 export interface AppInterface {

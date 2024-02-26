@@ -14,6 +14,7 @@ class App implements AppInterface {
   }
 
   public start() {
+    this.view.sources.drawCategories();
     const sourcesElem: HTMLElement | null = document.querySelector('.sources');
     if (isNull(sourcesElem)) {
       throw new Error('sources are null');
@@ -24,6 +25,21 @@ class App implements AppInterface {
     );
 
     this.controller.getSources((data: SourceData): void => this.view.drawSources(data));
+
+    const categoriesList: HTMLFormElement | null = document.querySelector('.categories-list');
+    // console.log('formvalue = ', categoriesList);
+    if (isNull(categoriesList)) {
+      throw new Error('sources are null');
+    }
+    categoriesList.addEventListener('change', (e) => {
+      const target = e.target;
+      console.log('target= ', target);
+      if (target && target instanceof HTMLInputElement) {
+        target.closest('.cat-input');
+        console.log('formvalue = ', target.value);
+        this.controller.getSources((data: SourceData): void => this.view.drawSources(data), target.value);
+      }
+    });
   }
 }
 

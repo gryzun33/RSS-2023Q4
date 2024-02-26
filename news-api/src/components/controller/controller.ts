@@ -2,13 +2,28 @@ import AppLoader from './appLoader';
 import { DrawFunction, SourceData, NewsList, IController } from '../../types/types';
 
 class AppController extends AppLoader implements IController {
-  public getSources(callback: DrawFunction<SourceData>): void {
-    super.getResp(
-      {
-        endpoint: 'sources',
-      },
-      callback
-    );
+  public getSources(callback: DrawFunction<SourceData>, cat?: string): void {
+    if (!cat) {
+      super.getResp(
+        {
+          endpoint: 'sources',
+          // options: {
+          //   category: 'technology',
+          // },
+        },
+        callback
+      );
+    } else {
+      super.getResp(
+        {
+          endpoint: 'sources',
+          options: {
+            category: cat,
+          },
+        },
+        callback
+      );
+    }
   }
 
   public getNews(e: Event, callback: DrawFunction<NewsList>): void {

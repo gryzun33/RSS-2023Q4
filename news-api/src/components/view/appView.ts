@@ -9,6 +9,7 @@ export class AppView implements IAppView {
   constructor() {
     this.news = new News();
     this.sources = new Sources();
+    // this.categories = new Categories();
     this.lastWindowWidth = window.innerWidth;
     this.burgerInteraction();
   }
@@ -26,11 +27,15 @@ export class AppView implements IAppView {
 
   public drawSources(data: SourceData): void {
     const values: Source[] = data?.sources ? data?.sources : [];
-
+    // this.sources.drawCategories();
     this.sources.draw(values);
   }
 
   public burgerInteraction(): void {
+    const sourcesBox: HTMLElement | null = document.querySelector('.sources-box');
+    if (!sourcesBox) {
+      throw new Error('sources are null');
+    }
     const sourcesElem: HTMLElement | null = document.querySelector('.sources');
     if (!sourcesElem) {
       throw new Error('sources are null');
@@ -62,7 +67,7 @@ export class AppView implements IAppView {
       const newWindowWidth = window.innerWidth;
       if (this.lastWindowWidth <= 900 && newWindowWidth > 900) {
         burger.classList.remove('burger-rotate');
-        sourcesElem.classList.remove('sources-show');
+        sourcesBox.classList.remove('sources-show');
         document.body.classList.remove('block-scroll');
       }
       this.lastWindowWidth = newWindowWidth;
@@ -70,7 +75,7 @@ export class AppView implements IAppView {
 
     function toggleMenu(): void {
       burger?.classList.toggle('burger-rotate');
-      sourcesElem?.classList.toggle('sources-show');
+      sourcesBox?.classList.toggle('sources-show');
       document.body.classList.toggle('block-scroll');
     }
   }
