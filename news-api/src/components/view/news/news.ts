@@ -44,7 +44,7 @@ class News implements INews {
         const newsLink = getElementInFragment<HTMLElement>(ArticleSelectors.NewsLinkSel, newsClone);
 
         if (idx % 2) newsItem.classList.add('alt');
-        newsMetaPhoto.style.backgroundImage = `url(${item.urlToImage || '../../../assets/city.jpeg'})`;
+        newsMetaPhoto.style.backgroundImage = `url(${item.urlToImage || './assets/city.jpeg'})`;
         newsMetaAuthor.textContent = item.author || item.source.name;
         newsMetaDate.textContent = item.publishedAt.slice(0, 10).split('-').reverse().join('-');
 
