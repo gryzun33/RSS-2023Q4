@@ -1,4 +1,4 @@
-export type Source = {
+export interface Source {
   category: string;
   country: string;
   description: string;
@@ -6,7 +6,7 @@ export type Source = {
   language: string;
   name: string;
   url: string;
-};
+}
 
 export type SourceData = {
   sources: Source[];
@@ -15,7 +15,7 @@ export type SourceData = {
 
 export type Options = Record<string, string>;
 
-export type Article = {
+export interface Article {
   source: {
     id: string | null;
     name: string;
@@ -27,7 +27,7 @@ export type Article = {
   urlToImage: string;
   publishedAt: string;
   content: string;
-};
+}
 
 export type NewsList = {
   status: string;
