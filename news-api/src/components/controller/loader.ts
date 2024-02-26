@@ -7,7 +7,6 @@ class Loader implements ILoader {
   constructor(baseLink: string, options: Options) {
     this.baseLink = baseLink;
     this.options = options;
-    // console.log('options=', options);
   }
 
   public getResp<T>(
@@ -32,11 +31,8 @@ class Loader implements ILoader {
   }
 
   private makeUrl(options: Options, endpoint: string): string {
-    console.log('options=', options);
-    console.log('thisoptions=', this.options);
     const urlOptions: Options = { ...this.options, ...options };
     let url = `${this.baseLink}${endpoint}?`;
-    console.log('endpoint=', endpoint);
     Object.keys(urlOptions).forEach((key) => {
       url += `${key}=${urlOptions[key]}&`;
     });

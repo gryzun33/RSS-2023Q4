@@ -2,7 +2,7 @@ import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
 import { SourceData, NewsList, AppInterface, IController, IAppView } from '../../types/types';
-import { isNull } from '../../types/predicats';
+import { isNull, isType } from '../../types/predicats';
 
 class App implements AppInterface {
   public controller: IController;
@@ -27,16 +27,17 @@ class App implements AppInterface {
     this.controller.getSources((data: SourceData): void => this.view.drawSources(data));
 
     const categoriesList: HTMLFormElement | null = document.querySelector('.categories-list');
-    // console.log('formvalue = ', categoriesList);
     if (isNull(categoriesList)) {
       throw new Error('sources are null');
     }
     categoriesList.addEventListener('change', (e) => {
       const target = e.target;
-      console.log('target= ', target);
-      if (target && target instanceof HTMLInputElement) {
+      if (isNull(target) || !isType(target, HTMLInputElement)) {
+        throw new Error(`element is null or isn't HTMLInputElement`);
+      }
+
+      if (target instanceof HTMLInputElement) {
         target.closest('.cat-input');
-        console.log('formvalue = ', target.value);
         this.controller.getSources((data: SourceData): void => this.view.drawSources(data), target.value);
       }
     });

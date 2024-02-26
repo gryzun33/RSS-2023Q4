@@ -35,12 +35,7 @@ enum Categories {
 }
 
 class Sources implements ISources {
-  // categories: string[];
-  // constructor() {
-  //   this.categories = ['All', 'General', 'Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
-  // }
   public draw(data: Source[]): void {
-    console.log('sources=', data);
     const fragment: DocumentFragment = document.createDocumentFragment();
     const sourceItemTemp: Nullable<HTMLTemplateElement> = document.querySelector(SourcesSelectors.SourseTempSel);
     if (!isType<HTMLTemplateElement>(sourceItemTemp, HTMLTemplateElement) || isNull(sourceItemTemp)) {
@@ -71,18 +66,13 @@ class Sources implements ISources {
     sourcesBox.append(fragment);
   }
 
-  public drawCategories() {
+  public drawCategories(): void {
     const categoriesList: HTMLElement | null = document.querySelector('.categories-list');
-    console.log('list=', categoriesList);
     if (isNull(categoriesList)) {
       throw new Error('categoriesList is null');
     }
     const categories: (string | Categories)[] = Object.values(Categories).filter((value) => typeof value === 'string');
-    // const categories = new Map(Object.entries(Categories));
-    // const categories: Categories;
-    // console.log('categories=', categories);
     categories.forEach((category: string | Categories, ind: number) => {
-      // console.log('ind=', value);
       const isChecked = category === 'All' ? 'checked' : '';
       if (typeof category !== 'string') {
         throw new Error(`category isn't string`);

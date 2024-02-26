@@ -59,7 +59,7 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-
+  overflow-y: auto;
   align-items: center;
 }
 

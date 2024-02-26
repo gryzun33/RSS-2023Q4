@@ -11,6 +11,10 @@
   --copyright-text: #333;
   --copyright-link: #444;
   --copyright-hover: #555;
+  --news-bg: #fff;
+  --news-color: #333;
+  --news-descr-title: #a2a2a2;
+  --meta-text: #fff;
 }
 
 * {

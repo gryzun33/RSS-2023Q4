@@ -9,7 +9,6 @@ export class AppView implements IAppView {
   constructor() {
     this.news = new News();
     this.sources = new Sources();
-    // this.categories = new Categories();
     this.lastWindowWidth = window.innerWidth;
     this.burgerInteraction();
   }
@@ -27,16 +26,15 @@ export class AppView implements IAppView {
 
   public drawSources(data: SourceData): void {
     const values: Source[] = data?.sources ? data?.sources : [];
-    // this.sources.drawCategories();
     this.sources.draw(values);
   }
 
   public burgerInteraction(): void {
-    const sourcesBox: HTMLElement | null = document.querySelector('.sources-box');
+    const sourcesBox: Nullable<HTMLElement> = document.querySelector('.sources-box');
     if (!sourcesBox) {
       throw new Error('sources are null');
     }
-    const sourcesElem: HTMLElement | null = document.querySelector('.sources');
+    const sourcesElem: Nullable<HTMLElement> = document.querySelector('.sources');
     if (!sourcesElem) {
       throw new Error('sources are null');
     }
@@ -45,12 +43,16 @@ export class AppView implements IAppView {
       throw new Error('sourceTitle is null');
     }
     sourcesElem.addEventListener('click', (e) => {
-      const target: EventTarget | null = e.target;
+      const target: Nullable<EventTarget> = e.target;
       if (!target) {
         throw new Error('source is null');
       }
       if (target instanceof HTMLElement) {
-        sourceTitle.innerText = target.innerText;
+        const sourceItem: Nullable<HTMLElement> = target.closest('.source__item');
+        if (!sourceItem) {
+          return;
+        }
+        sourceTitle.innerText = sourceItem.innerText;
       }
 
       if (window.innerWidth <= 900) {
