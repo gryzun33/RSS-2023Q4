@@ -1,5 +1,5 @@
 import AppLoader from './appLoader';
-import { DrawFunction, SourceData, NewsList, IController } from '../../types/types';
+import { DrawFunction, SourceData, NewsList, IController, Nullable } from '../../types/types';
 
 class AppController extends AppLoader implements IController {
   public getSources(callback: DrawFunction<SourceData>, cat?: string): void {
@@ -24,7 +24,7 @@ class AppController extends AppLoader implements IController {
   }
 
   public getNews(e: Event, callback: DrawFunction<NewsList>): void {
-    let target: EventTarget | null = e.target;
+    let target: Nullable<EventTarget> = e.target;
     const newsContainer: EventTarget | null = e.currentTarget;
 
     if (!target || !newsContainer) {
@@ -34,7 +34,7 @@ class AppController extends AppLoader implements IController {
       if (!(target instanceof HTMLElement) || !(newsContainer instanceof HTMLElement)) return;
 
       if (target.classList.contains('source__item')) {
-        const sourceId: string | null = target.getAttribute('data-source-id');
+        const sourceId: Nullable<string> = target.getAttribute('data-source-id');
 
         if (newsContainer.getAttribute('data-source') === sourceId) return;
 

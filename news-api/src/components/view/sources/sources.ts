@@ -54,7 +54,7 @@ class Sources implements ISources {
   }
 
   public drawCategories(): void {
-    const categoriesList: HTMLElement | null = document.querySelector('.categories-list');
+    const categoriesList: Nullable<HTMLElement> = document.querySelector('.categories-list');
     if (isNull(categoriesList)) {
       throw new Error('categoriesList is null');
     }

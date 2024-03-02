@@ -1,7 +1,7 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
-import { AppInterface } from '../../types/types';
+import { AppInterface, Nullable } from '../../types/types';
 import { isNull } from '../../types/predicats';
 
 class App implements AppInterface {
@@ -10,7 +10,7 @@ class App implements AppInterface {
 
   public start() {
     this.view.sources.drawCategories();
-    const sourcesElem: HTMLElement | null = document.querySelector('.sources');
+    const sourcesElem: Nullable<HTMLElement> = document.querySelector('.sources');
     if (isNull(sourcesElem)) {
       throw new Error('sources are null');
     }
@@ -19,7 +19,7 @@ class App implements AppInterface {
 
     this.controller.getSources(this.view.drawSources);
 
-    const categoriesList: HTMLFormElement | null = document.querySelector('.categories-list');
+    const categoriesList: Nullable<HTMLFormElement> = document.querySelector('.categories-list');
     if (isNull(categoriesList)) {
       throw new Error('sources are null');
     }

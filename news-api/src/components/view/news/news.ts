@@ -2,7 +2,6 @@ import './news.css';
 import { Article, Nullable, INews } from '../../../types/types';
 import { isType, isNull } from '../../../types/predicats';
 import { getElementInFragment } from '../../../types/helpers';
-// import imageCity from '../../../assets/city.jpeg';
 
 enum ArticleSelectors {
   NewsItemTempSel = '#newsItemTemp',
@@ -18,7 +17,7 @@ enum ArticleSelectors {
 class News implements INews {
   public draw(data: Article[]): void {
     const news: Readonly<Article[]> = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
-    const plug: HTMLElement | null = document.querySelector('.plug-text');
+    const plug: Nullable<HTMLElement> = document.querySelector('.plug-text');
     if (!plug) {
       throw new Error('plug is null');
     }
