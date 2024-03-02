@@ -1,13 +1,10 @@
 import { ILoader, Options, DrawFunction } from '../../utils/types';
 
 class Loader implements ILoader {
-  baseLink: string;
-  options: Options;
-
-  constructor(baseLink: string, options: Options) {
-    this.baseLink = baseLink;
-    this.options = options;
-  }
+  constructor(
+    public baseLink: string,
+    public options: Options
+  ) {}
 
   public getResp<T>(
     { endpoint, options = {} }: { endpoint: string; options?: Options },
