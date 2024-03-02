@@ -13,7 +13,7 @@ export class AppView implements IAppView {
     this.burgerInteraction();
   }
 
-  public drawNews(data: NewsList): void {
+  public drawNews = (data: NewsList): void => {
     const plug: HTMLElement | null = document.querySelector('.plug-text');
     if (!plug) {
       throw new Error('plug is null');
@@ -22,12 +22,12 @@ export class AppView implements IAppView {
     const values: Article[] = data?.articles ? data?.articles : [];
 
     this.news.draw(values);
-  }
+  };
 
-  public drawSources(data: SourceData): void {
+  public drawSources = (data: SourceData): void => {
     const values: Source[] = data?.sources ? data?.sources : [];
     this.sources.draw(values);
-  }
+  };
 
   public burgerInteraction(): void {
     const sourcesBox: Nullable<HTMLElement> = document.querySelector('.sources-box');

@@ -10,19 +10,6 @@ enum SourcesSelectors {
   SourcesSel = '.sources',
 }
 
-// type Categories = ['All', 'General', 'Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
-
-// enum Categories {
-//   All = '',
-//   General = 'general',
-//   Business = 'business',
-//   Entertainment = 'entertainment',
-//   Health = 'health',
-//   Science = 'science',
-//   Sports = 'sports',
-//   Technology = 'technology',
-// }
-
 enum Categories {
   All,
   General,

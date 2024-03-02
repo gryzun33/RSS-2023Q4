@@ -1,17 +1,12 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
-import { SourceData, NewsList, AppInterface, IController, IAppView } from '../../types/types';
-import { isNull, isType } from '../../types/predicats';
+import { AppInterface } from '../../types/types';
+import { isNull } from '../../types/predicats';
 
 class App implements AppInterface {
-  public controller: IController;
-  public view: IAppView;
-
-  constructor() {
-    this.controller = new AppController();
-    this.view = new AppView();
-  }
+  public controller = new AppController();
+  public view = new AppView();
 
   public start() {
     this.view.sources.drawCategories();
@@ -20,11 +15,9 @@ class App implements AppInterface {
       throw new Error('sources are null');
     }
 
-    sourcesElem.addEventListener('click', (e) =>
-      this.controller.getNews(e, (data: NewsList): void => this.view.drawNews(data))
-    );
+    sourcesElem.addEventListener('click', (e) => this.controller.getNews(e, this.view.drawNews));
 
-    this.controller.getSources((data: SourceData): void => this.view.drawSources(data));
+    this.controller.getSources(this.view.drawSources);
 
     const categoriesList: HTMLFormElement | null = document.querySelector('.categories-list');
     if (isNull(categoriesList)) {
@@ -32,13 +25,11 @@ class App implements AppInterface {
     }
     categoriesList.addEventListener('change', (e) => {
       const target = e.target;
-      if (isNull(target) || !isType(target, HTMLInputElement)) {
-        throw new Error(`element is null or isn't HTMLInputElement`);
-      }
-
       if (target instanceof HTMLInputElement) {
         target.closest('.cat-input');
-        this.controller.getSources((data: SourceData): void => this.view.drawSources(data), target.value);
+        this.controller.getSources(this.view.drawSources, target.value);
+      } else {
+        throw new Error(`element isn't HTMLInputElement`);
       }
     });
   }

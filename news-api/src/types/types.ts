@@ -56,8 +56,8 @@ export interface IAppView {
   news: INews;
   sources: ISources;
   lastWindowWidth: number;
-  drawNews(data: NewsList): void;
-  drawSources(data: SourceData): void;
+  drawNews: DrawFunction<NewsList>;
+  drawSources: DrawFunction<SourceData>;
   burgerInteraction(): void;
 }
 

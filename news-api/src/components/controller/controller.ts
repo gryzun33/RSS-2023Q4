@@ -7,9 +7,6 @@ class AppController extends AppLoader implements IController {
       super.getResp(
         {
           endpoint: 'sources',
-          // options: {
-          //   category: 'technology',
-          // },
         },
         callback
       );
