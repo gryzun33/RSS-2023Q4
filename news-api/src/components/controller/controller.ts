@@ -27,33 +27,35 @@ class AppController extends AppLoader implements IController {
     let target: EventTarget | null = e.target;
     const newsContainer: EventTarget | null = e.currentTarget;
 
-    if (target === null || newsContainer === null) {
+    if (!target || !newsContainer) {
       throw new Error('target is null');
     }
     while (target !== newsContainer) {
-      if (target instanceof HTMLElement && newsContainer instanceof HTMLElement) {
-        if (target.classList.contains('source__item')) {
-          const sourceId: string | null = target.getAttribute('data-source-id');
-          if (newsContainer.getAttribute('data-source') !== sourceId) {
-            if (sourceId === null) {
-              throw new Error('id of source is null');
-            }
-            newsContainer.setAttribute('data-source', sourceId);
+      if (!(target instanceof HTMLElement) || !(newsContainer instanceof HTMLElement)) return;
 
-            super.getResp(
-              {
-                endpoint: 'everything',
-                options: {
-                  sources: sourceId,
-                },
-              },
-              callback
-            );
-          }
-          return;
+      if (target.classList.contains('source__item')) {
+        const sourceId: string | null = target.getAttribute('data-source-id');
+
+        if (newsContainer.getAttribute('data-source') === sourceId) return;
+
+        if (sourceId === null) {
+          throw new Error('id of source is null');
         }
-        target = target.parentNode;
+
+        newsContainer.setAttribute('data-source', sourceId);
+
+        super.getResp(
+          {
+            endpoint: 'everything',
+            options: {
+              sources: sourceId,
+            },
+          },
+          callback
+        );
       }
+
+      target = target.parentNode;
     }
   }
 }
