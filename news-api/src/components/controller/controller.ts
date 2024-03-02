@@ -1,5 +1,5 @@
 import AppLoader from './appLoader';
-import { DrawFunction, SourceData, NewsList, IController, Nullable } from '../../types/types';
+import { DrawFunction, SourceData, NewsList, IController, Nullable } from '../../utils/types';
 
 class AppController extends AppLoader implements IController {
   public getSources(callback: DrawFunction<SourceData>, cat?: string): void {

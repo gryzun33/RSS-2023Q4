@@ -1,6 +1,27 @@
 import News from './news/news';
 import Sources from './sources/sources';
-import { NewsList, SourceData, Article, Source, IAppView, Nullable } from '../../types/types';
+import { NewsList, SourceData, Article, Source, IAppView, Nullable } from '../../utils/types';
+import { CONTROL_WIDTH } from '../../utils/constants';
+
+enum BurgerSelectors {
+  Burger = '.burger',
+  Rotate = 'burger-rotate',
+}
+
+enum SourcesSelectors {
+  SourcesElem = '.sources',
+  SourcesBox = '.sources-box',
+  Title = '.source-title',
+  Item = '.source__item',
+  SourcesShow = 'sources-show',
+}
+
+enum AddSelectors {
+  Plug = '.plug-text',
+  Hidden = 'hidden',
+  BlockScroll = 'block-scroll',
+}
+
 export class AppView implements IAppView {
   public news = new News();
   public sources = new Sources();
@@ -11,11 +32,11 @@ export class AppView implements IAppView {
   }
 
   public drawNews = (data: NewsList): void => {
-    const plug: Nullable<HTMLElement> = document.querySelector('.plug-text');
+    const plug: Nullable<HTMLElement> = document.querySelector(AddSelectors.Plug);
     if (!plug) {
       throw new Error('plug is null');
     }
-    plug.classList.add('hidden');
+    plug.classList.add(AddSelectors.Hidden);
     const values: Article[] = data?.articles ?? [];
 
     this.news.draw(values);
@@ -27,15 +48,15 @@ export class AppView implements IAppView {
   };
 
   public burgerInteraction(): void {
-    const sourcesBox: Nullable<HTMLElement> = document.querySelector('.sources-box');
+    const sourcesBox: Nullable<HTMLElement> = document.querySelector(SourcesSelectors.SourcesBox);
     if (!sourcesBox) {
       throw new Error('sources are null');
     }
-    const sourcesElem: Nullable<HTMLElement> = document.querySelector('.sources');
+    const sourcesElem: Nullable<HTMLElement> = document.querySelector(SourcesSelectors.SourcesElem);
     if (!sourcesElem) {
       throw new Error('sources are null');
     }
-    const sourceTitle: Nullable<HTMLElement> = document.querySelector('.source-title');
+    const sourceTitle: Nullable<HTMLElement> = document.querySelector(SourcesSelectors.Title);
     if (!sourceTitle) {
       throw new Error('sourceTitle is null');
     }
@@ -45,18 +66,18 @@ export class AppView implements IAppView {
         throw new Error('source is null');
       }
       if (target instanceof HTMLElement) {
-        const sourceItem: Nullable<HTMLElement> = target.closest('.source__item');
+        const sourceItem: Nullable<HTMLElement> = target.closest(SourcesSelectors.Item);
         if (!sourceItem) {
           return;
         }
         sourceTitle.innerText = sourceItem.innerText;
       }
 
-      if (window.innerWidth <= 900) {
+      if (window.innerWidth <= CONTROL_WIDTH) {
         toggleMenu();
       }
     });
-    const burger: Nullable<HTMLElement> = document.querySelector('.burger');
+    const burger: Nullable<HTMLElement> = document.querySelector(BurgerSelectors.Burger);
     if (!burger) {
       throw new Error('sources are null');
     }
@@ -64,18 +85,18 @@ export class AppView implements IAppView {
 
     window.addEventListener('resize', () => {
       const newWindowWidth = window.innerWidth;
-      if (this.lastWindowWidth <= 900 && newWindowWidth > 900) {
-        burger.classList.remove('burger-rotate');
-        sourcesBox.classList.remove('sources-show');
-        document.body.classList.remove('block-scroll');
+      if (this.lastWindowWidth <= CONTROL_WIDTH && newWindowWidth > CONTROL_WIDTH) {
+        burger.classList.remove(BurgerSelectors.Rotate);
+        sourcesBox.classList.remove(SourcesSelectors.SourcesShow);
+        document.body.classList.remove(AddSelectors.BlockScroll);
       }
       this.lastWindowWidth = newWindowWidth;
     });
 
     function toggleMenu(): void {
-      burger?.classList.toggle('burger-rotate');
-      sourcesBox?.classList.toggle('sources-show');
-      document.body.classList.toggle('block-scroll');
+      burger?.classList.toggle(BurgerSelectors.Rotate);
+      sourcesBox?.classList.toggle(SourcesSelectors.SourcesShow);
+      document.body.classList.toggle(AddSelectors.BlockScroll);
     }
   }
 }

@@ -1,5 +1,5 @@
 import Loader from './loader';
-import { isUndefined } from '../../types/predicats';
+import { isUndefined } from '../../utils/predicats';
 
 class AppLoader extends Loader {
   constructor() {

@@ -1,4 +1,4 @@
-import { ILoader, Options, DrawFunction } from '../../types/types';
+import { ILoader, Options, DrawFunction } from '../../utils/types';
 
 class Loader implements ILoader {
   baseLink: string;

@@ -1,7 +1,8 @@
 import './news.css';
-import { Article, Nullable, INews } from '../../../types/types';
-import { isType, isNull } from '../../../types/predicats';
-import { getElementInFragment } from '../../../types/helpers';
+import { Article, Nullable, INews } from '../../../utils/types';
+import { isType, isNull } from '../../../utils/predicats';
+import { getElementInFragment } from '../../../utils/helpers';
+import { NUMB_ARTICLES_ON_PAGE } from '../../../utils/constants';
 
 enum ArticleSelectors {
   NewsItemTempSel = '#newsItemTemp',
@@ -16,7 +17,8 @@ enum ArticleSelectors {
 }
 class News implements INews {
   public draw(data: Article[]): void {
-    const news: Readonly<Article[]> = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    const news: Readonly<Article[]> =
+      data.length >= NUMB_ARTICLES_ON_PAGE ? data.filter((_item, idx) => idx < NUMB_ARTICLES_ON_PAGE) : data;
     const plug: Nullable<HTMLElement> = document.querySelector('.plug-text');
     if (!plug) {
       throw new Error('plug is null');

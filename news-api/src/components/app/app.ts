@@ -1,8 +1,8 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
-import { AppInterface, Nullable } from '../../types/types';
-import { isNull } from '../../types/predicats';
+import { AppInterface, Nullable } from '../../utils/types';
+import { isNull } from '../../utils/predicats';
 
 class App implements AppInterface {
   public controller = new AppController();
