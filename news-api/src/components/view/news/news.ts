@@ -27,7 +27,7 @@ class News implements INews {
     const fragment: DocumentFragment = document.createDocumentFragment();
 
     const newsItemTemp: Nullable<HTMLTemplateElement> = document.querySelector(ArticleSelectors.NewsItemTempSel);
-    if (!isType<HTMLTemplateElement>(newsItemTemp, HTMLTemplateElement) || isNull(newsItemTemp)) {
+    if (!isType(newsItemTemp, HTMLTemplateElement) || isNull(newsItemTemp)) {
       throw new Error('newsItemTemp is not instance of HTMLTemplateElement or equal null ');
     }
 

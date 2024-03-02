@@ -17,10 +17,10 @@ export type Options = Record<string, string>;
 
 export interface Article {
   source: {
-    id: string | null;
+    id: Nullable<string>;
     name: string;
   };
-  author: string | null;
+  author: Nullable<string>;
   title: string;
   description: string;
   url: string;
@@ -45,11 +45,11 @@ export interface ILoader {
 export type Nullable<T> = T | null;
 
 export interface INews {
-  draw(data: Article[]): void;
+  draw: DrawFunction<Article[]>;
 }
 
 export interface ISources {
-  draw(data: Source[]): void;
+  draw: DrawFunction<Source[]>;
   drawCategories(): void;
 }
 export interface IAppView {
