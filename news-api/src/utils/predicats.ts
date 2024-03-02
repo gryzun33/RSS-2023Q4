@@ -9,3 +9,7 @@ export function isUndefined<T>(value: T | undefined): value is undefined {
 export function isNull<T>(value: T | null): value is null {
   return value === 'null';
 }
+
+export function isString<T>(value: T | string): value is string {
+  return typeof value === 'string';
+}

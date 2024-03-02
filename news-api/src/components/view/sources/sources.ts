@@ -1,6 +1,6 @@
 import './sources.css';
 import { Source, Nullable, ISources } from '../../../utils/types';
-import { isType, isNull } from '../../../utils/predicats';
+import { isType, isNull, isString } from '../../../utils/predicats';
 import { getElementInFragment } from '../../../utils/helpers';
 
 enum SourcesSelectors {
@@ -58,12 +58,9 @@ class Sources implements ISources {
     if (isNull(categoriesList)) {
       throw new Error('categoriesList is null');
     }
-    const categories: (string | Categories)[] = Object.values(Categories).filter((value) => typeof value === 'string');
-    categories.forEach((category: string | Categories, ind: number) => {
+    const categories: string[] = Object.values(Categories).filter(isString);
+    categories.forEach((category: string, ind: number) => {
       const isChecked = category === 'All' ? 'checked' : '';
-      if (typeof category !== 'string') {
-        throw new Error(`category isn't string`);
-      }
       const value = ind === 0 ? '' : category.toLowerCase();
 
       const labelHTML = `
