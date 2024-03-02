@@ -1,6 +1,11 @@
 import AppLoader from './appLoader';
 import { DrawFunction, SourceData, NewsList, IController, Nullable } from '../../utils/types';
 
+enum SourceSelectors {
+  ClassItem = 'source__item',
+  DataID = 'data-source-id',
+  DataSource = 'data-source',
+}
 class AppController extends AppLoader implements IController {
   public getSources(callback: DrawFunction<SourceData>, cat?: string): void {
     if (!cat) {
@@ -33,16 +38,16 @@ class AppController extends AppLoader implements IController {
     while (target !== newsContainer) {
       if (!(target instanceof HTMLElement) || !(newsContainer instanceof HTMLElement)) return;
 
-      if (target.classList.contains('source__item')) {
-        const sourceId: Nullable<string> = target.getAttribute('data-source-id');
+      if (target.classList.contains(SourceSelectors.ClassItem)) {
+        const sourceId: Nullable<string> = target.getAttribute(SourceSelectors.DataID);
 
-        if (newsContainer.getAttribute('data-source') === sourceId) return;
+        if (newsContainer.getAttribute(SourceSelectors.DataSource) === sourceId) return;
 
         if (sourceId === null) {
           throw new Error('id of source is null');
         }
 
-        newsContainer.setAttribute('data-source', sourceId);
+        newsContainer.setAttribute(SourceSelectors.DataSource, sourceId);
 
         super.getResp(
           {
