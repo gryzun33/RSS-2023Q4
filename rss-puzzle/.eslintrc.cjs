@@ -28,5 +28,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-explicit-any': 2,
+    'no-console': 'off',
+    'lines-between-class-members': 'off',
   },
 };

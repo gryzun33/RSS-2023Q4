@@ -1,28 +1,25 @@
-type CompProps = {
-  tag: string;
-  classNames: string[];
-  textContent?: string;
-};
+import { Props } from '../utils/types.ts';
 
-export default class BaseComponent {
-  public element: HTMLElement;
+export default class BaseComponent<T extends HTMLElement = HTMLElement> {
+  protected element: T;
 
-  constructor(props: CompProps) {
-    this.element = document.createElement(props.tag);
+  constructor(props: Props) {
+    this.element = document.createElement(props.tag || 'div') as T;
     this.setCssClasses(props.classNames);
-    this.setTextContent(props.textContent);
-    // this.setCallback(props.callback);
+    if (props.text !== null) {
+      this.setTextContent(props.text);
+    }
   }
 
-  getElement() {
+  public getElement() {
     return this.element;
   }
 
-  setCssClasses(cssClasses: string[] = []): void {
+  public setCssClasses(cssClasses: string[] = []): void {
     cssClasses.map((cssClass) => this.element.classList.add(cssClass));
   }
 
-  setTextContent(text: string = '') {
+  public setTextContent(text: string = '') {
     this.element.textContent = text;
   }
 
@@ -36,5 +33,22 @@ export default class BaseComponent {
 
   public removeClass(className: string): void {
     this.element.classList.remove(className);
+  }
+
+  public append(...children: BaseComponent[]) {
+    children.forEach((child) => {
+      if (child instanceof BaseComponent) {
+        // child = child.element;
+        this.element.append(child.element);
+      }
+    });
+  }
+
+  public attr(name: string, value: string) {
+    if (value) {
+      this.element.setAttribute(name, value);
+      return this;
+    }
+    return this.element.getAttribute(name);
   }
 }
