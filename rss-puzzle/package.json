@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "prepare": "husky",
+    "prepare": "cd .. && husky rss-puzzle/.husky",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
@@ -14,7 +14,7 @@
     "fix": "eslint . --fix --ext .ts"
   },
   "validate-branch-name": {
-    "pattern": "^feat/RSS-PZ-\\d{1,2}-.*$",
+    "pattern": "^(feat|fix|refactor|docs|chore)/RSS-PZ-\\d{1,2}-.*$",
     "errorMsg": "branch name does not match the template"
   },
   "devDependencies": {
