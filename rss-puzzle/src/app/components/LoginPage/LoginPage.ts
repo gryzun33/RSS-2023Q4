@@ -1,5 +1,3 @@
-import './login-page.scss';
-
 import BaseComponent from '../BaseComponent.ts';
 import Input from './Input.ts';
 import Button from './Button.ts';
@@ -32,7 +30,7 @@ export default class LoginPage extends BaseComponent {
     });
     this.inputName = new Input({
       type: 'text',
-      placeholder: 'Enter name...',
+      placeholder: '',
       classNames: ['login-input', 'input-name'],
       required: true,
       minlength: '3',
@@ -47,7 +45,7 @@ export default class LoginPage extends BaseComponent {
     });
     this.inputSurname = new Input({
       type: 'text',
-      placeholder: 'Enter surname...',
+      placeholder: '',
       classNames: ['login-input', 'input-surname'],
       required: true,
       minlength: '3',

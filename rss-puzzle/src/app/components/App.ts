@@ -6,7 +6,8 @@ export default class App {
   public loginPage = new LoginPage();
 
   constructor() {
-    this.root = document.createElement('div');
+    this.root = document.createElement('div') as HTMLElement;
+    this.root.classList.add('wrapper');
   }
 
   public start(): void {

@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  // @include flex(center, center);
+  background-image: url("./assets/images/main-bg.jpeg");
+  height: 100dvh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: "Asap", sans-serif;
+  // font-family: "Lilita One", sans-serif;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
