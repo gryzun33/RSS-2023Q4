@@ -8,6 +8,9 @@ export type InputProps = Omit<Props, 'tag'> & {
   type: string;
   placeholder: string;
   required?: boolean;
+  minlength: string;
+  pattern: string;
+  onChange: () => void;
 };
 
 export type ButtonProps = Omit<Props, 'tag'> & {

@@ -24,7 +24,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   }
 
   public addClass(className: string): void {
-    this.element.classList.toggle(className);
+    this.element.classList.add(className);
   }
 
   public toggleClass(className: string): void {
@@ -50,5 +50,10 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
       return this;
     }
     return this.element.getAttribute(name);
+  }
+
+  on(eventType: string, callback: (event: Event) => void) {
+    console.log('eventtype', eventType);
+    this.element.addEventListener(eventType, callback);
   }
 }

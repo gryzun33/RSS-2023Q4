@@ -6,8 +6,11 @@ import Button from './Button.ts';
 
 export default class LoginPage extends BaseComponent {
   protected loginForm?: BaseComponent<HTMLFormElement>;
-  protected inputName?: BaseComponent<HTMLInputElement>;
-  protected inputSurname?: BaseComponent<HTMLInputElement>;
+  protected inputName?: Input;
+  protected inputSurname?: Input;
+
+  protected loginBtn?: Button;
+
   protected inputs: HTMLInputElement[] = [];
 
   constructor() {
@@ -32,6 +35,9 @@ export default class LoginPage extends BaseComponent {
       placeholder: 'Enter name...',
       classNames: ['login-input', 'input-name'],
       required: true,
+      minlength: '3',
+      pattern: '^[A-Z][\\-a-zA-Z]*$',
+      onChange: this.checkValidity,
     });
     labelName.append(this.inputName);
 
@@ -44,19 +50,38 @@ export default class LoginPage extends BaseComponent {
       placeholder: 'Enter surname...',
       classNames: ['login-input', 'input-surname'],
       required: true,
+      minlength: '3',
+      pattern: '^[A-Z][\\-a-zA-Z]*$',
+      onChange: this.checkValidity,
     });
     labelSurname.append(this.inputSurname);
 
-    const loginBtn = new Button({
+    this.loginBtn = new Button({
       type: 'submit',
       classNames: ['login-btn'],
-      disabled: false,
+      disabled: true,
       text: 'Login',
     });
 
-    this.loginForm.append(labelName, labelSurname, loginBtn);
+    this.loginForm.append(labelName, labelSurname, this.loginBtn);
     loginContent.append(this.loginForm);
     this.append(loginContent);
     this.inputs.push(this.inputName.getElement(), this.inputSurname.getElement());
+
+    this.loginBtn.on('click', this.checkValidity);
+
+    this.loginForm.on('submit', (e: Event) => {
+      e.preventDefault();
+    });
   }
+
+  public checkValidity = () => {
+    const invalidInput = [this.inputName, this.inputSurname].find(
+      (i) => !i?.getElement().validity.valid
+    );
+    if (invalidInput) {
+      console.log(invalidInput);
+      invalidInput.validInput();
+    }
+  };
 }

@@ -34,3 +34,19 @@
 .login-label {
   @include flex-column(center, normal);
 }
+
+.login-input {
+  outline: none;
+}
+
+// .login-input:focus {
+//   border: 2px solid black;
+// }
+
+.input-invalid {
+  border: 1px solid red;
+}
+
+// .login-input:invalid {
+//   border: 1px solid red;
+// }
