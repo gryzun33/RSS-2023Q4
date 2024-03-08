@@ -15,6 +15,7 @@ export default class LoginPage extends BaseComponent {
   // public loadStartPage?: callbackFunc;
 
   constructor(public loadStartPage: СallbackFunc) {
+    console.log('newloginpage');
     super({ tag: 'div', classNames: ['login-page'] });
     // this.loadStartPage = props.callback;
     this.createView();
@@ -74,12 +75,7 @@ export default class LoginPage extends BaseComponent {
 
     this.loginForm.on('submit', (e: Event) => {
       e.preventDefault();
-
-      if (!this.inputName || !this.inputSurname) {
-        throw new Error('data in form fields is undefined');
-      }
-      storage.saveData('name', this.inputName.getElement().value);
-      storage.saveData('surname', this.inputSurname.getElement().value);
+      console.log('submit');
     });
   }
 
@@ -93,7 +89,12 @@ export default class LoginPage extends BaseComponent {
     if (invalidInput) {
       invalidInput.validInput();
     } else {
+      storage.saveData('name', this.inputName.getElement().value);
+      storage.saveData('surname', this.inputSurname.getElement().value);
       this.loadStartPage();
+      // if (!this.inputName || !this.inputSurname) {
+      //   throw new Error('data in form fields is undefined');
+      // }
     }
   };
 }

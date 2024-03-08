@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import LoginPage from './LoginPage/LoginPage';
 import StartPage from './StartPage';
 import MainPage from './MainPage';
+import { storage } from './Storage';
 
 export default class App {
   private root: HTMLElement;
@@ -9,7 +10,6 @@ export default class App {
   public mainPage?: BaseComponent;
   public startPage?: BaseComponent;
   // public loginPage = new LoginPage();
-
   constructor() {
     this.root = document.createElement('div') as HTMLElement;
     this.root.classList.add('wrapper');
@@ -18,11 +18,25 @@ export default class App {
   }
 
   public start(): void {
-    this.loginPage = new LoginPage(this.loadStartPage);
-    this.root.append(this.loginPage.getElement());
+    if (this.isUserLogin()) {
+      this.loadStartPage();
+    } else {
+      this.loadLoginPage();
+    }
+    // this.loginPage = new LoginPage(this.loadStartPage);
+    // this.root.append(this.loginPage.getElement());
     // this.startPage = new StartPage();
     // this.root.append(this.startPage.getElement());
   }
+
+  public loadLoginPage = (): void => {
+    console.log('loginpage');
+    if (this.mainPage) {
+      this.mainPage.destroy();
+    }
+    this.loginPage = new LoginPage(this.loadStartPage);
+    this.root.append(this.loginPage.getElement());
+  };
 
   public loadStartPage = (): void => {
     console.log('startpage');
@@ -38,7 +52,16 @@ export default class App {
     if (this.startPage) {
       this.startPage.destroy();
     }
-    this.mainPage = new MainPage();
+    this.mainPage = new MainPage(this.reloadLoginPage);
     this.root.append(this.mainPage.getElement());
+  };
+
+  protected isUserLogin(): string | null {
+    return storage.getData('name');
+  }
+
+  public reloadLoginPage = () => {
+    storage.removeStorage();
+    this.loadLoginPage();
   };
 }
