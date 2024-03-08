@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 // import puzzleImg from '../../assets/images/puzzle-svg.svg';
 import puzzleImg from '../utils/icons';
 import numbIconsOnStart from '../utils/constants';
+import { storage } from './Storage';
 
 export default class StartPage extends BaseComponent {
   constructor() {
@@ -20,6 +21,13 @@ export default class StartPage extends BaseComponent {
     }
 
     const title = new BaseComponent({ tag: 'h1', classNames: ['start-title'], text: 'RSS-Puzzle' });
+
+    const userName = `${storage.getData('name')} ${storage.getData('surname')}`;
+    const greeting = new BaseComponent({
+      tag: 'p',
+      classNames: ['start-greeting'],
+      text: `Welcome ${userName}!`,
+    });
     const rules1 = new BaseComponent({ tag: 'p', classNames: ['start-rules'] });
     const rules2 = new BaseComponent({ tag: 'p', classNames: ['start-rules'] });
     const rules3 = new BaseComponent({ tag: 'p', classNames: ['start-rules'] });
@@ -27,9 +35,6 @@ export default class StartPage extends BaseComponent {
     rules1.setTextContent(rulesText1);
     rules2.setTextContent(rulesText1);
     rules3.setTextContent(rulesText1);
-    this.append(title, rules1, rules2, rules3);
-
-    // const puzzles: BaseComponent[] = new Array(numbIconsOnStart).fill(puzzle);
-    // this.append(...puzzles);
+    this.append(title, greeting, rules1, rules2, rules3);
   }
 }
