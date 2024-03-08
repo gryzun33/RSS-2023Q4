@@ -2,6 +2,8 @@ import BaseComponent from '../BaseComponent';
 import Input from './Input';
 import Button from './Button';
 import { storage } from '../Storage';
+import { СallbackFunc } from '../../utils/types';
+// import { callbackFunc } from '../../utils/types';
 
 export default class LoginPage extends BaseComponent {
   protected loginForm?: BaseComponent<HTMLFormElement>;
@@ -10,8 +12,11 @@ export default class LoginPage extends BaseComponent {
   protected loginBtn?: Button;
   protected inputs: HTMLInputElement[] = [];
 
-  constructor() {
+  // public loadStartPage?: callbackFunc;
+
+  constructor(public loadStartPage: СallbackFunc) {
     super({ tag: 'div', classNames: ['login-page'] });
+    // this.loadStartPage = props.callback;
     this.createView();
   }
 
@@ -79,11 +84,16 @@ export default class LoginPage extends BaseComponent {
   }
 
   public checkValidity = () => {
+    if (!this.inputName || !this.inputSurname) {
+      throw new Error('data in form fields is undefined');
+    }
     const invalidInput = [this.inputName, this.inputSurname].find(
       (i) => !i?.getElement().validity.valid
     );
     if (invalidInput) {
       invalidInput.validInput();
+    } else {
+      this.loadStartPage();
     }
   };
 }

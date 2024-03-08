@@ -2,6 +2,7 @@ import { Props } from '../utils/types';
 
 export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   protected element: T;
+  protected children: BaseComponent[];
 
   constructor(props: Props) {
     this.element = document.createElement(props.tag || 'div') as T;
@@ -9,6 +10,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     if (props.text !== null) {
       this.setTextContent(props.text);
     }
+    this.children = [];
   }
 
   public getElement() {
@@ -35,11 +37,11 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.element.classList.remove(className);
   }
 
-  public append(...children: BaseComponent[]) {
-    children.forEach((child) => {
+  public append(...compChildren: BaseComponent[]) {
+    compChildren.forEach((child) => {
       if (child instanceof BaseComponent) {
-        // child = child.element;
         this.element.append(child.element);
+        this.children.push(child);
       }
     });
   }
@@ -53,7 +55,25 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   }
 
   on(eventType: string, callback: (event: Event) => void) {
-    console.log('eventtype', eventType);
     this.element.addEventListener(eventType, callback);
+  }
+
+  off(eventType: string, callback: (event: Event) => void) {
+    this.element.removeEventListener(eventType, callback);
+    // return this;
+  }
+
+  destroyChildren() {
+    if (this.children.length > 0) {
+      this.children.forEach((child) => {
+        child.destroy();
+      });
+      this.children.length = 0;
+    }
+  }
+
+  destroy() {
+    this.destroyChildren();
+    this.element.remove();
   }
 }
