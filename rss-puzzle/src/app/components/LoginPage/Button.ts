@@ -1,5 +1,5 @@
-import BaseComponent from '../BaseComponent.ts';
-import { ButtonProps } from '../../utils/types.ts';
+import BaseComponent from '../BaseComponent';
+import { ButtonProps } from '../../utils/types';
 
 export default class Button extends BaseComponent<HTMLButtonElement> {
   constructor(props: ButtonProps) {

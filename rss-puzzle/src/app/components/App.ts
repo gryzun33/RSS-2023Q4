@@ -1,4 +1,4 @@
-import LoginPage from './LoginPage/LoginPage.ts';
+import LoginPage from './LoginPage/LoginPage';
 
 export default class App {
   private root: HTMLElement;

@@ -1,14 +1,13 @@
-import BaseComponent from '../BaseComponent.ts';
-import Input from './Input.ts';
-import Button from './Button.ts';
+import BaseComponent from '../BaseComponent';
+import Input from './Input';
+import Button from './Button';
+import { storage } from '../Storage';
 
 export default class LoginPage extends BaseComponent {
   protected loginForm?: BaseComponent<HTMLFormElement>;
   protected inputName?: Input;
   protected inputSurname?: Input;
-
   protected loginBtn?: Button;
-
   protected inputs: HTMLInputElement[] = [];
 
   constructor() {
@@ -70,6 +69,12 @@ export default class LoginPage extends BaseComponent {
 
     this.loginForm.on('submit', (e: Event) => {
       e.preventDefault();
+
+      if (!this.inputName || !this.inputSurname) {
+        throw new Error('data in form fields is undefined');
+      }
+      storage.saveData('name', this.inputName.getElement().value);
+      storage.saveData('surname', this.inputSurname.getElement().value);
     });
   }
 
@@ -78,7 +83,6 @@ export default class LoginPage extends BaseComponent {
       (i) => !i?.getElement().validity.valid
     );
     if (invalidInput) {
-      console.log(invalidInput);
       invalidInput.validInput();
     }
   };

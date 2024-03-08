@@ -4,12 +4,7 @@ module.exports = {
     es2021: true,
   },
   plugins: ['@typescript-eslint'],
-  extends: [
-    'airbnb-base',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-  ],
+  extends: ['airbnb-base', 'airbnb-typescript/base', 'prettier'],
   parser: '@typescript-eslint/parser',
   overrides: [
     {
@@ -25,10 +20,12 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   rules: {
     '@typescript-eslint/no-explicit-any': 2,
     'no-console': 'off',
     'lines-between-class-members': 'off',
+    '@typescript-eslint/lines-between-class-members': 'off',
   },
 };

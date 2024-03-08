@@ -1,4 +1,4 @@
-import { Props } from '../utils/types.ts';
+import { Props } from '../utils/types';
 
 export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   protected element: T;
