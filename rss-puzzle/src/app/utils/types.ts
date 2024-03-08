@@ -15,7 +15,7 @@ export type InputProps = Omit<Props, 'tag'> & {
 };
 
 export type ButtonProps = Omit<Props, 'tag'> & {
-  type: string;
+  type?: string;
   disabled?: boolean;
 };
 

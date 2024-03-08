@@ -45,6 +45,9 @@
 .login-btn {
   margin-top: 30px;
   @include btn;
+  &:hover {
+    background-color: $color-btn-hover;
+  }
 }
 
 .input-invalid {

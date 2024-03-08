@@ -1,11 +1,13 @@
 import BaseComponent from './BaseComponent';
+import Button from './LoginPage/Button';
 // import puzzleImg from '../../assets/images/puzzle-svg.svg';
 import puzzleImg from '../utils/icons';
 import numbIconsOnStart from '../utils/constants';
 import { storage } from './Storage';
+import { СallbackFunc } from '../utils/types';
 
 export default class StartPage extends BaseComponent {
-  constructor() {
+  constructor(public loadMainPage: СallbackFunc) {
     super({ tag: 'div', classNames: ['start-page'] });
     this.createView();
   }
@@ -35,6 +37,12 @@ export default class StartPage extends BaseComponent {
     rules1.setTextContent(rulesText1);
     rules2.setTextContent(rulesText1);
     rules3.setTextContent(rulesText1);
-    this.append(title, greeting, rules1, rules2, rules3);
+
+    const startBtn = new Button({
+      classNames: ['start-btn'],
+      text: 'Start',
+      callback: this.loadMainPage,
+    });
+    this.append(title, greeting, rules1, rules2, rules3, startBtn);
   }
 }

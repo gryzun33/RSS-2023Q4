@@ -1,11 +1,12 @@
 import BaseComponent from './BaseComponent';
 import LoginPage from './LoginPage/LoginPage';
 import StartPage from './StartPage';
+import MainPage from './MainPage';
 
 export default class App {
   private root: HTMLElement;
   public loginPage?: BaseComponent;
-
+  public mainPage?: BaseComponent;
   public startPage?: BaseComponent;
   // public loginPage = new LoginPage();
 
@@ -28,7 +29,16 @@ export default class App {
     if (this.loginPage) {
       this.loginPage.destroy();
     }
-    this.startPage = new StartPage();
+    this.startPage = new StartPage(this.loadMainPage);
     this.root.append(this.startPage.getElement());
+  };
+
+  public loadMainPage = (): void => {
+    console.log('mainpage');
+    if (this.startPage) {
+      this.startPage.destroy();
+    }
+    this.mainPage = new MainPage();
+    this.root.append(this.mainPage.getElement());
   };
 }
