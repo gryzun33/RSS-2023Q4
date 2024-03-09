@@ -20,3 +20,10 @@ export type ButtonProps = Omit<Props, 'tag'> & {
 };
 
 export type СallbackFunc = () => void;
+
+export type WordData = {
+  word: string;
+  oldNumber: number;
+  newNumber: number;
+  width: string;
+};

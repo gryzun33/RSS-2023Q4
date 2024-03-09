@@ -97,6 +97,7 @@
   @include btn;
   background-color: $color-btn-bg-start;
   color: $color-text;
+  font-weight: 600;
 
   &:hover {
     background-color: $color-bg;

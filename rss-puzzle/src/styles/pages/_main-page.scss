@@ -1,0 +1,83 @@
+.main-page {
+  width: 1200px;
+  height: 100%;
+  background-color: rgba(71, 111, 103, 0.8);
+  @include flex-column();
+}
+
+.top-panel {
+  width: 100%;
+  height: 100px;
+  padding: 20px;
+  @include flex(flex-end, center);
+
+  .logout-btn {
+    @include btn;
+    background-color: $color-btn-bg-start;
+    color: $color-text;
+    width: 100px;
+    height: 40px;
+
+    &:hover {
+      background-color: $color-bg;
+    }
+  }
+}
+
+.result-box {
+  margin-top: 30px;
+  position: relative;
+  width: 800px;
+  background-color: $color-bg;
+  align-self: center;
+
+  .rows-icons-box {
+    position: absolute;
+    right: 100%;
+    top: 0;
+
+    .row-icon-wrapper {
+      width: 50px;
+      height: 50px;
+      @include flex(center, center);
+    }
+
+    .row-icon {
+      @include flex(center, center);
+      background-color: grey;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+
+  .result-field {
+    width: 100%;
+
+    .row {
+      width: 100%;
+      height: 50px;
+      @include flex(space-around, normal);
+    }
+
+    .row-active {
+      background-color: $color-active-row;
+    }
+  }
+}
+
+.source-block {
+  align-self: center;
+  width: 800px;
+  background-color: $color-source-block;
+  height: 50px;
+  margin-top: 50px;
+  @include flex(space-around, normal);
+}
+
+.piece {
+  // flex: 1;
+  height: 100%;
+  border: 2px solid red;
+  background-color: white;
+}

@@ -54,6 +54,14 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     return this.element.getAttribute(name);
   }
 
+  getData(str: string) {
+    return this.element.dataset[str];
+  }
+
+  css(prop: string, value: string) {
+    this.element.style.setProperty(prop, value);
+  }
+
   on(eventType: string, callback: (event: Event) => void) {
     this.element.addEventListener(eventType, callback);
   }
