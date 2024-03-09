@@ -8,13 +8,13 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "ci:format": "prettier --check \"src/**/*.{js,css,scss,ts,html}\"",
-    "format": "prettier --write \"src/**/*.{js,css,scss,ts,html}\"",
+    "ci:format": "prettier . --check",
+    "format": "prettier . --write",
     "lint": "eslint . --ext .ts",
     "fix": "eslint . --fix --ext .ts"
   },
   "validate-branch-name": {
-    "pattern": "^(feat|fix|refactor|docs|chore)/RSS-PZ-\\d{1,2}-.*$",
+    "pattern": "^(feat|fix|refactor|docs|chore)/RSS-PZ-\\d{2,}-.*$",
     "errorMsg": "branch name does not match the template"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.0.11",
+    "modern-normalize": "^2.0.0",
     "prettier": "3.2.5",
     "sass": "^1.71.1",
     "typescript": "^5.2.2",
