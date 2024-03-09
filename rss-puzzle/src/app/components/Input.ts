@@ -1,5 +1,5 @@
-import BaseComponent from '../BaseComponent';
-import { InputProps } from '../../utils/types';
+import BaseComponent from './BaseComponent';
+import { InputProps } from '../utils/types';
 
 export default class Input extends BaseComponent<HTMLInputElement> {
   constructor(props: InputProps) {

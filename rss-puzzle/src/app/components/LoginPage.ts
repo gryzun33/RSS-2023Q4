@@ -1,8 +1,8 @@
-import BaseComponent from '../BaseComponent';
+import BaseComponent from './BaseComponent';
 import Input from './Input';
 import Button from './Button';
-import { storage } from '../Storage';
-import { СallbackFunc } from '../../utils/types';
+import { storage } from './Storage';
+import { СallbackFunc } from '../utils/types';
 // import { callbackFunc } from '../../utils/types';
 
 export default class LoginPage extends BaseComponent {

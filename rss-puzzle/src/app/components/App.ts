@@ -1,5 +1,5 @@
 import BaseComponent from './BaseComponent';
-import LoginPage from './LoginPage/LoginPage';
+import LoginPage from './LoginPage';
 import StartPage from './StartPage';
 import MainPage from './MainPage';
 import { storage } from './Storage';

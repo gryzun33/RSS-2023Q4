@@ -1,5 +1,5 @@
 import BaseComponent from './BaseComponent';
-import Button from './LoginPage/Button';
+import Button from './Button';
 import { СallbackFunc } from '../utils/types';
 
 export default class MainPage extends BaseComponent {
