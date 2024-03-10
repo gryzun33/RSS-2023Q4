@@ -9,7 +9,7 @@ export default class Piece extends BaseComponent {
     super({ tag: 'div', classNames: ['piece'], text: props.word });
 
     this.attr('data-number', `${props.oldNumber}`);
-    this.css('order', `${props.newNumber}`);
+    // this.css('order', `${props.newNumber}`);
     this.css('width', `${props.width}`);
     this.on('click', this.onClickHandler);
   }

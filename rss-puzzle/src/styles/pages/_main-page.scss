@@ -57,7 +57,7 @@
     .row {
       width: 100%;
       height: 50px;
-      @include flex(space-around, normal);
+      @include flex(center, normal);
     }
 
     .row-active {
@@ -72,7 +72,7 @@
   background-color: $color-source-block;
   height: 50px;
   margin-top: 50px;
-  @include flex(space-around, normal);
+  @include flex(center, normal);
 }
 
 .piece {

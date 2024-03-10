@@ -1,11 +1,13 @@
 import BaseComponent from './BaseComponent';
 import Piece from './Piece';
 import { WordData } from '../utils/types';
+import emitter from './EventEmitter';
 
 export default class SourceBlock extends BaseComponent {
   public pieces: BaseComponent[] = [];
   constructor() {
     super({ tag: 'div', classNames: ['source-block'] });
+    emitter.on('moveToSource', this.addPiece);
   }
 
   public createPuzzleRow(text: string) {
@@ -18,6 +20,10 @@ export default class SourceBlock extends BaseComponent {
       this.pieces.push(piece);
     });
   }
+
+  protected addPiece = (piece: BaseComponent) => {
+    this.append(piece);
+  };
 
   protected getWordsData(text: string) {
     const arrWords = text.split(' ');
@@ -38,7 +44,7 @@ export default class SourceBlock extends BaseComponent {
       };
       data.push(objWord);
     });
-    // data.sort((a, b) => a.newNumber - b.newNumber);
+    data.sort((a, b) => a.newNumber - b.newNumber);
 
     return data;
   }
