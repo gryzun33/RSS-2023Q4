@@ -84,6 +84,7 @@
   color: $color-text-light;
   transition: 0.3s ease-out;
   cursor: pointer;
+  transition: transform 0.3s ease;
 
   &:hover {
     background-color: $color-piece-hover;

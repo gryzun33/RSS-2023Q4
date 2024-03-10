@@ -1,4 +1,5 @@
 import level1 from '../puzzle-data/wordCollectionLevel1.json';
+import BaseComponent from './BaseComponent';
 // import level2 from '../puzzle-data/wordCollectionLevel2.json';
 // import level3 from '../puzzle-data/wordCollectionLevel3.json';
 // import level4 from '../puzzle-data/wordCollectionLevel4.json';
@@ -10,6 +11,11 @@ class AppState {
   public level: number = 0;
   public round: number = 0;
   public row: number = 0;
+
+  public emptiesInSource: number[] = [];
+  public emptiesInResult: number[] = [];
+
+  public currPuzzle = new Map();
   //  constructor() {
   //   this.updateState();
   //  }
@@ -22,6 +28,32 @@ class AppState {
 
   public getNumbOfCells(): number {
     return this.getCurrentText().split(' ').length;
+  }
+
+  public addToAppState = (
+    comp: BaseComponent,
+    parent: BaseComponent,
+    oldInd: number,
+    newInd: number
+  ) => {
+    const key = comp.getElement();
+    const value = {
+      parent,
+      oldInd,
+      newInd,
+    };
+    this.currPuzzle.set(key, value);
+  };
+
+  public getIndex(key: HTMLElement): number {
+    const value = this.currPuzzle.get(key);
+    const index: number = value.newInd;
+    return index;
+  }
+
+  public setIndex(key: HTMLElement, ind: number): void {
+    const value = this.currPuzzle.get(key);
+    value.newInd = ind;
   }
 }
 

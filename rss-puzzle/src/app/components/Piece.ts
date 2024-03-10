@@ -1,7 +1,6 @@
 import BaseComponent from './BaseComponent';
-// import { Props } from "../utils/types";
-// import emitter from './EventEmitter';
 import { WordData } from '../utils/types';
+import appState from './AppState';
 
 export default class Piece extends BaseComponent {
   protected isInResult: boolean = false;
@@ -11,26 +10,10 @@ export default class Piece extends BaseComponent {
   ) {
     super({ tag: 'div', classNames: ['piece'], text: props.word });
 
-    this.attr('data-number', `${props.oldNumber}`);
-    this.attr('data-newnumber', `${props.newNumber}`);
-    // this.css('order', `${props.newNumber}`);
-    this.css('width', `${props.width}`);
-    // this.on('click', this.onClickHandler);
-  }
+    // this.attr('data-number', `${props.oldNumber}`);
+    // this.attr('data-newnumber', `${props.newNumber}`);
 
-  // protected onClickHandler = () => {
-  //   console.log('clickonpiece');
-  //   if (!this.isInResult) {
-  //     const index = this.getData('newnumber');
-  //     if (!index) {
-  //       throw new Error();
-  //     }
-  //     const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
-  //     this.parent.children[index] = empty
-  //     emitter.emit('moveToResult', this);
-  //   } else {
-  //     emitter.emit('moveToSource', this);
-  //   }
-  //   this.isInResult = !this.isInResult;
-  // };
+    this.css('width', `${props.width}`);
+    appState.addToAppState(this, parent, props.oldNumber, props.newNumber);
+  }
 }
