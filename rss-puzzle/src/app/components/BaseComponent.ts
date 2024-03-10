@@ -17,6 +17,10 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     return this.element;
   }
 
+  public getChildren() {
+    return this.children;
+  }
+
   public setCssClasses(cssClasses: string[] = []): void {
     cssClasses.map((cssClass) => this.element.classList.add(cssClass));
   }
@@ -46,7 +50,12 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     });
   }
 
-  public attr(name: string, value: string) {
+  public insertBefore(newComp: BaseComponent, child: BaseComponent, index: number) {
+    this.element.insertBefore(newComp.element, child.element);
+    this.children[index] = newComp;
+  }
+
+  public attr(name: string, value?: string) {
     if (value) {
       this.element.setAttribute(name, value);
       return this;
@@ -55,6 +64,9 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   }
 
   getData(str: string) {
+    // if (!this.element.dataset[str]) {
+    //   throw new Error();
+    // }
     return this.element.dataset[str];
   }
 

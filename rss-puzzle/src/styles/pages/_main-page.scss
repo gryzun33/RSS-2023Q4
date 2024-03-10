@@ -44,10 +44,11 @@
 
     .row-icon {
       @include flex(center, center);
-      background-color: grey;
+      background-color: $color-bg;
       width: 40px;
       height: 40px;
       border-radius: 50%;
+      color: $color-text;
     }
   }
 
@@ -57,7 +58,7 @@
     .row {
       width: 100%;
       height: 50px;
-      @include flex(center, normal);
+      @include flex(center, center);
     }
 
     .row-active {
@@ -69,15 +70,31 @@
 .source-block {
   align-self: center;
   width: 800px;
-  background-color: $color-source-block;
+  background-color: $color-bg;
   height: 50px;
   margin-top: 50px;
-  @include flex(center, normal);
+  @include flex(center, center);
 }
 
 .piece {
-  // flex: 1;
+  @include flex(center, center);
   height: 100%;
-  border: 2px solid red;
-  background-color: white;
+  border: 2px solid $color-text-light;
+  background-color: $color-piece-bg;
+  color: $color-text-light;
+  transition: 0.3s ease-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-piece-hover;
+  }
+}
+
+.empty {
+  height: 80%;
+  width: 45px;
+  background-color: $color-empty;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }

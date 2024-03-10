@@ -33,7 +33,7 @@ export default class MainPage extends BaseComponent {
     this.append(topPanel, resultBox, sourceBlock, bottomPanel);
 
     sourceBlock.createPuzzleRow(appState.getCurrentText());
-    resultField.setActiveRow(appState.row);
+    resultField.setActiveRow(appState.row, appState.getNumbOfCells());
   }
 
   // protected updateView() {

@@ -5,16 +5,12 @@ import emitter from './EventEmitter';
 
 export default class ResultField extends BaseComponent {
   public rows: Row[] = [];
-  public activeRow?: BaseComponent;
+  public activeRow?: Row;
   constructor() {
     super({ tag: 'div', classNames: ['result-field'] });
     this.createView();
     // this.activeRow = this.rows[0];
     [this.activeRow] = this.rows;
-    emitter.on('moveToResult', this.addPiece);
-    // if (this.activeRow) {
-    //   emitter.on('moveToResult', this.addPiece);
-    // }
   }
 
   protected createView() {
@@ -25,14 +21,11 @@ export default class ResultField extends BaseComponent {
     }
   }
 
-  public setActiveRow(i: number) {
-    this.activeRow = this.rows[i];
-    this.rows[i].addClass('row-active');
+  public setActiveRow(ind: number, numbOfCells: number) {
+    this.activeRow = this.rows[ind];
+    this.rows[ind].isActive = true;
+    this.activeRow.createEmptyCells(numbOfCells);
+    emitter.on('moveToResult', this.activeRow.addPiece);
+    // emitter.emit('moveToSource', this.activeRow.addPiece);
   }
-
-  protected addPiece = (piece: BaseComponent) => {
-    if (this.activeRow) {
-      this.activeRow.append(piece);
-    }
-  };
 }

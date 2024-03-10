@@ -8,13 +8,29 @@ export default class SourceBlock extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: ['source-block'] });
     emitter.on('moveToSource', this.addPiece);
+    this.on('click', this.onClickHandler);
   }
+
+  protected onClickHandler = (e: Event) => {
+    console.log('target=', e.target);
+    if (e.target instanceof HTMLElement && e.target.closest('.piece')) {
+      const index = e.target.getAttribute('data-newnumber');
+      if (index !== null) {
+        const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
+        empty.attr('data-newnumber', `${index}`);
+        const currentPiece = this.children[+index];
+        this.insertBefore(empty, this.children[+index], +index);
+        emitter.emit('moveToResult', currentPiece);
+      }
+    }
+  };
 
   public createPuzzleRow(text: string) {
     const wordsData = this.getWordsData(text);
     console.log(wordsData);
     wordsData.forEach((wordData: WordData) => {
-      const piece = new Piece(wordData);
+      const piece = new Piece(wordData, this);
+      // const empty = new BaseComponent(wordData, this);
 
       this.append(piece);
       this.pieces.push(piece);
@@ -22,11 +38,19 @@ export default class SourceBlock extends BaseComponent {
   }
 
   protected addPiece = (piece: BaseComponent) => {
-    this.append(piece);
+    const emptyElem = this.element.querySelector('.empty');
+    if (!emptyElem) return;
+    const index = emptyElem.getAttribute('data-newnumber');
+    if (index === null) return;
+    const emptyComp = this.children[+index];
+    piece.attr('data-newnumber', `${index}`);
+    this.insertBefore(piece, emptyComp, +index);
+    emptyComp.destroy();
   };
 
   protected getWordsData(text: string) {
     const arrWords = text.split(' ');
+    const fullLength = arrWords.join('').length;
     const l = arrWords.length;
     const newSet = new Set<number>();
     while (newSet.size < l) {
@@ -34,8 +58,9 @@ export default class SourceBlock extends BaseComponent {
     }
     const newArr: number[] = Array.from(newSet);
     const data: WordData[] = [];
-    const width = `${(100 / l).toFixed(2)}%`;
+    // const width = `${(100 / l).toFixed(2)}%`;
     arrWords.forEach((word, i) => {
+      const width = `${((word.length * 100) / fullLength).toFixed(2)}%`;
       const objWord: WordData = {
         word,
         width,

@@ -13,11 +13,15 @@ class AppState {
   //  constructor() {
   //   this.updateState();
   //  }
-  public getCurrentText() {
+  public getCurrentText(): string {
     const levelData = this.levelsData[this.level];
     const round = levelData.rounds[this.round];
     const row = round.words[this.row];
     return row.textExample;
+  }
+
+  public getNumbOfCells(): number {
+    return this.getCurrentText().split(' ').length;
   }
 }
 
