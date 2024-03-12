@@ -14,6 +14,6 @@ export default class Piece extends BaseComponent {
     // this.attr('data-newnumber', `${props.newNumber}`);
 
     this.css('width', `${props.width}`);
-    appState.addToAppState(this, parent, props.oldNumber, props.newNumber);
+    appState.addToAppState(this, 'source', props.oldNumber, props.newNumber, props.word);
   }
 }

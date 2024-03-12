@@ -39,3 +39,16 @@
   border: none;
   outline: none;
 }
+
+@mixin btn-main-page {
+  @include btn;
+  background-color: $color-btn-bg-start;
+  color: $color-text;
+  width: 150px;
+  height: 40px;
+  font-size: 18px;
+
+  &:hover {
+    background-color: $color-bg;
+  }
+}

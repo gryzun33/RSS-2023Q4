@@ -10,6 +10,7 @@ export default class Row extends BaseComponent {
   }
 
   public createEmptyCells(numbOfCells: number) {
+    // appState.emptiesInResult = [];
     // this.activeRow.addClass('row-active');
     for (let i = 0; i < numbOfCells; i += 1) {
       const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
@@ -17,19 +18,25 @@ export default class Row extends BaseComponent {
       // empty.attr('data-newnumber', `${i}`);
       this.append(empty);
     }
+    console.log('emtyresult1=', appState.emptiesInResult);
   }
 
-  public addPiece = (piece: BaseComponent) => {
+  public addPiece = (piece?: BaseComponent) => {
+    if (!piece) {
+      throw new Error('piece is undefined');
+    }
     appState.emptiesInResult.sort();
+    console.log('emptiesinrsult222= ', appState.emptiesInResult);
     const index = appState.emptiesInResult[0];
     const emptyComp = this.children[+index];
-    appState.setIndex(piece.getElement(), index);
+    appState.setIndex(piece.getElement(), index, 'result');
     // piece.attr('data-newnumber', `${index}`);
     this.insertBefore(piece, emptyComp, +index);
     emptyComp.destroy();
     appState.emptiesInResult.shift();
     console.log('appstate=', appState);
 
+    appState.checkRow();
     // const emptyElem = this.element.querySelector('.empty');
     // if (!emptyElem) return;
     // const index = emptyElem.getAttribute('data-newnumber');

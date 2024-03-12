@@ -37,4 +37,4 @@ export type StorageState = {
 };
 
 export const storage = new StorageService<StorageState>('gryzun33-puzzle');
-console.log('sorage=', storage);
+// console.log('sorage=', storage);

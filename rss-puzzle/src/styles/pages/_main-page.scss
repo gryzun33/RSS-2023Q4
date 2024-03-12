@@ -2,7 +2,7 @@
   width: 1200px;
   height: 100%;
   background-color: rgba(71, 111, 103, 0.8);
-  @include flex-column();
+  @include flex-column(normal, center);
 }
 
 .top-panel {
@@ -72,7 +72,7 @@
   width: 800px;
   background-color: $color-bg;
   height: 50px;
-  margin-top: 50px;
+  margin-top: 30px;
   @include flex(center, center);
 }
 
@@ -98,4 +98,20 @@
   border-radius: 5px;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.bottom-panel {
+  margin-top: 30px;
+  width: 800px;
+  // align-self: center;
+  @include flex(center);
+
+  .continue-btn {
+    @include btn-main-page;
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+  }
 }

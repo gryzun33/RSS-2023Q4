@@ -1,6 +1,6 @@
 import BaseComponent from './BaseComponent';
 
-type Listener = (arg: BaseComponent) => void;
+type Listener = (arg?: BaseComponent) => void;
 
 class EventEmitter {
   private listeners: { [event: string]: Listener[] } = {};
@@ -18,7 +18,7 @@ class EventEmitter {
     }
   }
 
-  emit(event: string, arg: BaseComponent): void {
+  emit(event: string, arg?: BaseComponent): void {
     console.log('arg=', arg);
     const eventListeners = this.listeners[event];
     if (eventListeners) {

@@ -10,5 +10,16 @@ export default class Button extends BaseComponent<HTMLButtonElement> {
     if (props.callback) {
       this.on('click', props.callback);
     }
+    if (props.disabled) {
+      this.disable();
+    }
   }
+
+  public disable = (): void => {
+    this.element.disabled = true;
+  };
+
+  public enable = (): void => {
+    this.element.disabled = false;
+  };
 }

@@ -39,7 +39,7 @@ export default class App {
   };
 
   public loadStartPage = (): void => {
-    console.log('startpage');
+    // console.log('startpage');
     if (this.loginPage) {
       this.loginPage.destroy();
     }

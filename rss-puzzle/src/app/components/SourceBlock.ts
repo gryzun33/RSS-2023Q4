@@ -13,6 +13,7 @@ export default class SourceBlock extends BaseComponent {
   }
 
   protected onClickHandler = (e: Event) => {
+    console.log('emotiesinsource1=', appState.emptiesInSource);
     console.log('target=', e.target);
     if (e.target instanceof HTMLElement && e.target.closest('.piece')) {
       const index = appState.getIndex(e.target);
@@ -34,22 +35,27 @@ export default class SourceBlock extends BaseComponent {
   };
 
   public createPuzzleRow(text: string) {
+    this.destroyChildren();
     const wordsData = this.getWordsData(text);
     console.log(wordsData);
     wordsData.forEach((wordData: WordData) => {
       const piece = new Piece(wordData, this);
       // const empty = new BaseComponent(wordData, this);
-      console.log('piece', piece.getElement());
+      // console.log('piece', piece.getElement());
       this.append(piece);
       this.pieces.push(piece);
     });
   }
 
-  protected addPiece = (piece: BaseComponent) => {
+  protected addPiece = (piece?: BaseComponent) => {
+    if (!piece) {
+      throw new Error('piece is undefined');
+    }
+    console.log('emotiesinsource2=', appState.emptiesInSource);
     appState.emptiesInSource.sort();
     const index = appState.emptiesInSource[0];
     const emptyComp = this.children[+index];
-    appState.setIndex(piece.getElement(), index);
+    appState.setIndex(piece.getElement(), index, 'source');
     this.insertBefore(piece, emptyComp, +index);
     emptyComp.destroy();
     appState.emptiesInSource.shift();

@@ -51,6 +51,8 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   }
 
   public insertBefore(newComp: BaseComponent, child: BaseComponent, index: number) {
+    // console.log('newComp=', newComp);
+    // console.log('child=', child);
     this.element.insertBefore(newComp.element, child.element);
     this.children[index] = newComp;
   }

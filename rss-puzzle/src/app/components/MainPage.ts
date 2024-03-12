@@ -5,8 +5,11 @@ import ResultField from './ResultField';
 import SourceBlock from './SourceBlock';
 import { СallbackFunc } from '../utils/types';
 import appState from './AppState';
+import ContinueBtn from './ContinueBtn';
 
 export default class MainPage extends BaseComponent {
+  public resultField?: ResultField;
+  public sourceBlock?: SourceBlock;
   constructor(public reloadLoginPage: СallbackFunc) {
     super({ tag: 'div', classNames: ['main-page'] });
     this.createView();
@@ -23,18 +26,50 @@ export default class MainPage extends BaseComponent {
 
     const resultBox = new BaseComponent({ tag: 'div', classNames: ['result-box'] });
     const rowsBox = new RowsIconsBox();
-    const resultField = new ResultField();
-    resultBox.append(rowsBox, resultField);
+    this.resultField = new ResultField();
+    resultBox.append(rowsBox, this.resultField);
 
-    const sourceBlock = new SourceBlock();
+    this.sourceBlock = new SourceBlock();
 
     const bottomPanel = new BaseComponent({ tag: 'div', classNames: ['bottom-panel'] });
+    const continueBtn = new ContinueBtn({
+      classNames: ['continue-btn'],
+      text: 'Continue',
+      disabled: true,
+      callback: this.nextStep,
+    });
+    bottomPanel.append(continueBtn);
 
-    this.append(topPanel, resultBox, sourceBlock, bottomPanel);
+    this.append(topPanel, resultBox, this.sourceBlock, bottomPanel);
 
-    sourceBlock.createPuzzleRow(appState.getCurrentText());
-    resultField.setActiveRow(appState.row, appState.getNumbOfCells());
+    this.startNextRow();
   }
+
+  public startNextRow() {
+    console.log('startnextrow');
+    // console.log(this.sourceBlock);
+    // console.log(this.resultField);
+    if (this.sourceBlock && this.resultField) {
+      const { currentText, row } = appState.getCurrentData();
+      const numbOfCells: number = currentText.split(' ').length;
+      if (appState.row === 0) {
+        this.resultField.updateView(row, numbOfCells);
+      } else {
+        this.resultField.setActiveRow(row, numbOfCells);
+      }
+      this.sourceBlock.createPuzzleRow(currentText);
+    }
+  }
+
+  public nextStep = () => {
+    appState.resetState();
+    console.log('appState1=', appState);
+    // console.log('empties=', appState.emptiesInResult);
+    // if (appState.isLastRow()) {
+    //   return;
+    // }
+    this.startNextRow();
+  };
 
   // protected updateView() {
   //   sourceBlock.createPuzzleRow(appState.getCurrentText());
