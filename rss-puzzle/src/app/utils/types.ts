@@ -26,4 +26,6 @@ export type WordData = {
   oldNumber: number;
   newNumber: number;
   width: string;
+  bgSize: number;
+  bgPositionX: number;
 };

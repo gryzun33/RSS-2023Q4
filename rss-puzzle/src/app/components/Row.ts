@@ -49,21 +49,32 @@ export default class Row extends BaseComponent {
 
   protected onClickHandler = (e: Event) => {
     console.log('target=', e.target);
-    if (e.target instanceof HTMLElement && e.target.closest('.piece')) {
-      const index = appState.getIndex(e.target);
-      appState.emptiesInResult.push(index);
-      const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
-      const currentPiece = this.children[+index];
-      this.insertBefore(empty, this.children[+index], +index);
-      emitter.emit('moveToSource', currentPiece);
-      // const index = e.target.getAttribute('data-newnumber');
-      // if (index !== null) {
-      //   const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
-      //   empty.attr('data-newnumber', `${index}`);
-      //   const currentPiece = this.children[+index];
-      //   this.insertBefore(empty, this.children[+index], +index);
-      //   emitter.emit('moveToSource', currentPiece);
-      // }
+
+    if (!(e.target instanceof HTMLElement)) {
+      throw new Error();
     }
+    const piece = e.target.closest('.piece');
+    if (!piece) {
+      return;
+    }
+    if (!(piece instanceof HTMLElement)) {
+      throw new Error();
+    }
+    // if (e.target instanceof HTMLElement && e.target.closest('.piece')) {
+    const index = appState.getIndex(piece);
+    appState.emptiesInResult.push(index);
+    const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
+    const currentPiece = this.children[+index];
+    this.insertBefore(empty, this.children[+index], +index);
+    emitter.emit('moveToSource', currentPiece);
+    // const index = e.target.getAttribute('data-newnumber');
+    // if (index !== null) {
+    //   const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
+    //   empty.attr('data-newnumber', `${index}`);
+    //   const currentPiece = this.children[+index];
+    //   this.insertBefore(empty, this.children[+index], +index);
+    //   emitter.emit('moveToSource', currentPiece);
+    // }
+    // }
   };
 }
