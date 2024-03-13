@@ -12,6 +12,33 @@
   padding: 20px;
   @include flex(flex-end, center);
 
+  .hints-box {
+    @include flex(normal, normal);
+    margin-right: 20px;
+    gap: 10px;
+
+    .hint-btn {
+      width: 50px;
+      height: 50px;
+      background-size: 70% auto;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .hint-active {
+      background-color: $color-hint-active;
+    }
+
+    .hint-image {
+      background-image: url("/src/assets/icons/image-hint.svg");
+    }
+  }
+
   .logout-btn {
     @include btn;
     background-color: $color-btn-bg-start;
@@ -37,7 +64,7 @@
     position: absolute;
     right: 100%;
     top: 0;
-    display: none;
+    // display: none;
 
     .row-icon-wrapper {
       width: 50px;
@@ -85,6 +112,7 @@
   height: 100%;
   // border: 2px solid $color-text-light;
   background-color: $color-piece-bg;
+  border-radius: 5px;
 
   transition: 0.3s ease-out;
   cursor: pointer;
@@ -102,6 +130,7 @@
   .image-bg {
     position: absolute;
     z-index: 1;
+    display: none;
   }
 
   .piece-text {
@@ -110,10 +139,28 @@
     height: 100%;
     position: relative;
     border: 2px solid $color-text-light;
-    color: $color-piece-text;
+    border-radius: 5px;
+    color: $color-text-light;
     font-weight: 600;
-    text-shadow: 0px 0px 3px #3a4240;
+    font-size: 20px;
+    text-shadow: 0px 0px 5px #3a4240;
     z-index: 2;
+  }
+}
+
+.piece-image-active {
+  border-radius: 0;
+  .image-bg {
+    display: block;
+    animation: show 0.5s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+}
+
+.piece-image-active {
+  .piece-text {
+    border-radius: 0;
+    color: $color-piece-text;
   }
 }
 
@@ -140,5 +187,28 @@
       pointer-events: none;
       opacity: 0.6;
     }
+  }
+}
+
+.hide-elem {
+  animation: hide 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

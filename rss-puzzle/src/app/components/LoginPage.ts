@@ -62,7 +62,7 @@ export default class LoginPage extends BaseComponent {
     this.loginBtn = new Button({
       type: 'submit',
       classNames: ['login-btn'],
-      disabled: true,
+      // disabled: true,
       text: 'Login',
     });
 
@@ -73,13 +73,14 @@ export default class LoginPage extends BaseComponent {
 
     this.loginBtn.on('click', this.checkValidity);
 
-    this.loginForm.on('submit', (e: Event) => {
-      e.preventDefault();
-      console.log('submit');
-    });
+    // this.loginForm.on('submit', (e: Event) => {
+    //   e.preventDefault();
+    //   console.log('submit');
+    // });
   }
 
   public checkValidity = () => {
+    console.log('checkvalidity');
     if (!this.inputName || !this.inputSurname) {
       throw new Error('data in form fields is undefined');
     }

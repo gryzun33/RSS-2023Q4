@@ -6,6 +6,7 @@ import SourceBlock from './SourceBlock';
 import { СallbackFunc } from '../utils/types';
 import appState from './AppState';
 import ContinueBtn from './ContinueBtn';
+import Hints from './Hints';
 
 export default class MainPage extends BaseComponent {
   public resultField?: ResultField;
@@ -17,12 +18,14 @@ export default class MainPage extends BaseComponent {
 
   protected createView() {
     const topPanel = new BaseComponent({ tag: 'div', classNames: ['top-panel'] });
+    const hints = new Hints();
+
     const logOutBtn = new Button({
       classNames: ['logout-btn'],
       text: 'Logout',
       callback: this.reloadLoginPage,
     });
-    topPanel.append(logOutBtn);
+    topPanel.append(hints, logOutBtn);
 
     const resultBox = new BaseComponent({ tag: 'div', classNames: ['result-box'] });
     const rowsBox = new RowsIconsBox();
@@ -64,14 +67,6 @@ export default class MainPage extends BaseComponent {
   public nextStep = () => {
     appState.resetState();
     console.log('appState1=', appState);
-    // console.log('empties=', appState.emptiesInResult);
-    // if (appState.isLastRow()) {
-    //   return;
-    // }
     this.startNextRow();
   };
-
-  // protected updateView() {
-  //   sourceBlock.createPuzzleRow(appState.getCurrentText());
-  // }
 }

@@ -1,7 +1,7 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
 // import puzzleImg from '../../assets/images/puzzle-svg.svg';
-import puzzleImg from '../utils/icons';
+import { puzzleImg } from '../utils/icons';
 import { numbIconsOnStart } from '../utils/constants';
 import { storage } from './Storage';
 import { СallbackFunc } from '../utils/types';
