@@ -8,7 +8,7 @@ export default class Hints extends BaseComponent {
   }
 
   protected createView() {
-    const imageToggler = new HintButton('hint-image', 'toggleImage');
+    const imageToggler = new HintButton('hint-image', 'toggleImage', 'image');
     this.append(imageToggler);
   }
 }

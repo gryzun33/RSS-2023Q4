@@ -9,6 +9,7 @@ export default class Piece extends BaseComponent {
   protected isImage: boolean = false;
   protected isInResult: boolean = false;
   public image?: BaseComponent<HTMLImageElement>;
+
   constructor(
     props: WordData,
     public parent: BaseComponent
@@ -25,6 +26,10 @@ export default class Piece extends BaseComponent {
 
     emitter.on('toggleImage', this.toggleImage);
     emitter.on('iscorrect', this.changeStateInactive);
+
+    if (appState.hints.image) {
+      this.addClass('piece-image-active');
+    }
   }
 
   addText(word: string) {
@@ -33,7 +38,7 @@ export default class Piece extends BaseComponent {
   }
 
   addImage(props: WordData) {
-    const { levelsData, level, round, row } = appState;
+    const { row } = appState;
 
     this.image = new BaseComponent<HTMLImageElement>({ tag: 'img', classNames: ['image-bg'] });
     // document.addEventListener('click', handleClick, { once: true });
@@ -43,8 +48,9 @@ export default class Piece extends BaseComponent {
     // const level: number = appState.level;
     // const round: number = appState.round;
     // const row: number = appState.row;
-    const src = levelsData[level].rounds[round].levelData.imageSrc;
-    const alt = levelsData[level].rounds[round].levelData.name;
+    // const src = levelsData[level].rounds[round].levelData.imageSrc;
+    // const alt = levelsData[level].rounds[round].levelData.name;
+    const { src, alt } = appState.getCurrentImageData();
     const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${src}`;
     console.log('fullScr=', fullSrc);
     this.image.attr('src', fullSrc);

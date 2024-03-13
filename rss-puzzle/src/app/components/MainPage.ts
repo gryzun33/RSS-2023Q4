@@ -11,6 +11,10 @@ import Hints from './Hints';
 export default class MainPage extends BaseComponent {
   public resultField?: ResultField;
   public sourceBlock?: SourceBlock;
+
+  public continueBtn?: ContinueBtn;
+
+  protected isImageShowed: boolean = false;
   constructor(public reloadLoginPage: СallbackFunc) {
     super({ tag: 'div', classNames: ['main-page'] });
     this.createView();
@@ -35,13 +39,13 @@ export default class MainPage extends BaseComponent {
     this.sourceBlock = new SourceBlock();
 
     const bottomPanel = new BaseComponent({ tag: 'div', classNames: ['bottom-panel'] });
-    const continueBtn = new ContinueBtn({
+    this.continueBtn = new ContinueBtn({
       classNames: ['continue-btn'],
       text: 'Continue',
       disabled: true,
       callback: this.nextStep,
     });
-    bottomPanel.append(continueBtn);
+    bottomPanel.append(this.continueBtn);
 
     this.append(topPanel, resultBox, this.sourceBlock, bottomPanel);
 
@@ -65,8 +69,31 @@ export default class MainPage extends BaseComponent {
   }
 
   public nextStep = () => {
-    appState.resetState();
-    console.log('appState1=', appState);
-    this.startNextRow();
+    if (appState.isLastRow() && !this.isImageShowed) {
+      if (!this.resultField) {
+        throw new Error('resultField is undefined');
+      }
+      if (!this.continueBtn) {
+        throw new Error('contniueBtn is undefined');
+      }
+      if (!this.sourceBlock) {
+        throw new Error('sourceBlock is undefined');
+      }
+
+      console.log('nextstepimage');
+      this.resultField.showFullImage();
+      this.sourceBlock.showRoundData();
+      this.continueBtn.disable();
+      setTimeout(() => {
+        this.continueBtn?.enable();
+        this.isImageShowed = true;
+      }, 1000);
+    } else {
+      this.isImageShowed = false;
+      appState.resetState();
+      console.log('appState1=', appState);
+      this.startNextRow();
+    }
+    // if(isImageShowed)
   };
 }

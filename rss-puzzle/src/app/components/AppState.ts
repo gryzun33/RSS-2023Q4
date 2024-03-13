@@ -15,9 +15,13 @@ type PieceData = {
   word: string;
 };
 
+type HintsState = {
+  image: boolean;
+};
+
 class AppState {
   public isStart: boolean = true;
-  public levelsData = [level1];
+  public levels = [level1];
   public level: number = 0;
   public round: number = 0;
   public row: number = 0;
@@ -28,14 +32,22 @@ class AppState {
   public emptiesInSource: number[] = [];
   public emptiesInResult: number[] = [];
 
+  public hints: HintsState = {
+    image: false,
+  };
+  public currPuzzle = new Map();
   constructor() {
     this.text = '';
   }
 
-  public currPuzzle = new Map();
   //  constructor() {
   //   this.updateState();
   //  }
+  public changeHintState(hintName: string) {
+    if (hintName === 'image') {
+      this.hints[hintName] = !this.hints[hintName];
+    }
+  }
 
   public resetState() {
     // this.emptiesInResult = [];
@@ -46,7 +58,7 @@ class AppState {
     const { round, row } = this.getCurrentRow();
     console.log('row=', row);
     console.log('round=', round);
-    const levelData = this.levelsData[this.level];
+    const levelData = this.levels[this.level];
     const currRound = levelData.rounds[round];
     const currRowData = currRound.words[row];
     this.text = currRowData.textExample;
@@ -124,11 +136,33 @@ class AppState {
   }
 
   protected isFinishLevel(): boolean {
-    const lengthOflevel: number = this.levelsData[this.level].rounds.length;
+    const lengthOflevel: number = this.levels[this.level].rounds.length;
     if (this.round === lengthOflevel - 1 && this.isLastRow()) {
       return true;
     }
     return false;
+  }
+
+  public getCurrentImageData(): { src: string; alt: string } {
+    const levelData = this.levels[this.level];
+    const currRound = levelData.rounds[this.round];
+    const src = currRound.levelData.imageSrc;
+    const alt = currRound.levelData.name;
+    const data = {
+      src,
+      alt,
+    };
+    return data;
+  }
+
+  public getRoundData() {
+    // const levelData = this.levels[this.level];
+    // const currRound = levelData.rounds[this.round]
+    const { levelData } = this.levels[this.level].rounds[this.round];
+    // const imageName = levelData.name;
+    // const author = levelData.author;
+    // const year = levelData.year;
+    return levelData;
   }
 }
 

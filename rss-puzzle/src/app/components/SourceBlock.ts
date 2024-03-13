@@ -140,4 +140,12 @@ export default class SourceBlock extends BaseComponent {
     console.log('position=', positionX);
     return { size, positionX };
   }
+
+  public showRoundData() {
+    this.destroyChildren();
+    const { name, author, year } = appState.getRoundData();
+    const text = `${name}, ${author}, ${year}`;
+    const resultText = new BaseComponent({ tag: 'div', classNames: ['result-text'], text });
+    this.append(resultText);
+  }
 }

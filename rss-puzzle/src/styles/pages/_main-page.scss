@@ -84,6 +84,19 @@
 
   .result-field {
     width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    .full-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: auto;
+      z-index: 3;
+      animation: show 1s linear forwards;
+    }
 
     .row {
       width: 100%;
@@ -105,6 +118,29 @@
   height: 50px;
   margin-top: 30px;
   @include flex(center, center);
+
+  .result-text {
+    font-family: "Lilita One";
+    color: $color-2;
+    // text-shadow: 0px 0px 3px #3a4240;
+    font-size: 25px;
+    font-weight: 600;
+    animation: show 1s linear forwards;
+
+    // animation: changeColorResult 3s linear infinite forwards;
+  }
+}
+
+@keyframes changeColorResult {
+  0% {
+    color: $color-1;
+  }
+  50% {
+    color: $color-3;
+  }
+  100% {
+    color: $color-1;
+  }
 }
 
 .piece {
@@ -191,7 +227,7 @@
 }
 
 .hide-elem {
-  animation: hide 0.5s ease-in-out;
+  animation: hide 1s ease-in-out;
   animation-fill-mode: forwards;
 }
 

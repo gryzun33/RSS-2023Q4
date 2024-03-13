@@ -76,6 +76,14 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.element.style.setProperty(prop, value);
   }
 
+  find(selector: string) {
+    return this.element.querySelector(selector);
+  }
+
+  findAll(selector: string) {
+    return [...this.element.querySelectorAll(selector)];
+  }
+
   on(eventType: string, callback: (event: Event) => void) {
     this.element.addEventListener(eventType, callback);
   }

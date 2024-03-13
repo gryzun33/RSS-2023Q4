@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import Row from './Row';
 import { numbRows } from '../utils/constants';
 import emitter from './EventEmitter';
+// import appState from './AppState';
 
 export default class ResultField extends BaseComponent {
   public rows: Row[] = [];
@@ -41,5 +42,19 @@ export default class ResultField extends BaseComponent {
     emitter.on('moveToResult', this.activeRow.addPiece);
 
     // emitter.emit('moveToSource', this.activeRow.addPiece);
+  }
+
+  public showFullImage(): void {
+    console.log('fullimageshow');
+    const textElements = this.findAll('.piece-text');
+    textElements.forEach((elem) => {
+      elem.classList.add('hide-elem');
+    });
+    //   const fullImage = new BaseComponent<HTMLImageElement>({ tag: 'img', classNames: ['full-bg'] });
+    //   const { src, alt } = appState.getCurrentImageData();
+    //   const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${src}`;
+    //   fullImage.attr('src', fullSrc);
+    //   fullImage.attr('alt', alt);
+    //   this.append(fullImage);
   }
 }
