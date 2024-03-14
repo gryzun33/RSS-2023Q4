@@ -84,6 +84,10 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     return [...this.element.querySelectorAll(selector)];
   }
 
+  closest(selector: string) {
+    return this.element.closest(selector);
+  }
+
   on(eventType: string, callback: (event: Event) => void) {
     this.element.addEventListener(eventType, callback);
   }
@@ -103,6 +107,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   }
 
   destroy() {
+    console.log('destroy=', this.element);
     this.destroyChildren();
     this.element.remove();
   }

@@ -148,4 +148,8 @@ export default class SourceBlock extends BaseComponent {
     const resultText = new BaseComponent({ tag: 'div', classNames: ['result-text'], text });
     this.append(resultText);
   }
+
+  public clearChildren() {
+    this.children = [];
+  }
 }

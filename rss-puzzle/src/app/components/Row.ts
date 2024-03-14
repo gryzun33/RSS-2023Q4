@@ -18,7 +18,7 @@ export default class Row extends BaseComponent {
       // empty.attr('data-newnumber', `${i}`);
       this.append(empty);
     }
-    console.log('emtyresult1=', appState.emptiesInResult);
+    // console.log('emtyresult1=', appState.emptiesInResult);
   }
 
   public addPiece = (piece?: BaseComponent) => {
@@ -81,4 +81,15 @@ export default class Row extends BaseComponent {
     // }
     // }
   };
+
+  // public showCorrectRow() {
+
+  //   this.children.forEach((child) => {
+  //     // const elem = child.getElement();
+  //     if()
+
+  //     const order: number = appState.getCorrectIndex(elem);
+  //     child.css('order', `${order}`);
+  //   });
+  // }
 }

@@ -24,6 +24,8 @@ class AppState {
   public row: number = 0;
   public numbRows: number = numbRows;
 
+  public roundStatistic: boolean[] = [];
+
   public text: string;
 
   public isAllInResult: boolean = false;
@@ -91,6 +93,12 @@ class AppState {
     return index;
   }
 
+  public getCorrectIndex(key: HTMLElement): number {
+    const value = this.currPuzzle.get(key);
+    const index: number = value.oldInd;
+    return index;
+  }
+
   public setIndex(key: HTMLElement, ind: number, parent: string): void {
     const value = this.currPuzzle.get(key);
     value.newInd = ind;
@@ -130,6 +138,7 @@ class AppState {
     // console.log('words=', words);
     if (words.join(' ') === this.text && !this.isFinishLevel()) {
       console.log('correct');
+      this.roundStatistic.push(true);
       emitter.emit('iscorrect');
     } else {
       emitter.emit('isnotcorrect');
@@ -181,6 +190,16 @@ class AppState {
     const key = piece.getElement();
     const value = this.currPuzzle.get(key);
     return value.oldInd === value.newInd;
+  }
+
+  public changeAfterHint() {
+    // const values: PieceData[] = Array.from(this.currPuzzle.values());
+    // values.forEach((pieceData: PieceData) => {
+    //   pieceData.newInd = pieceData.oldInd;
+    // });
+    this.roundStatistic.push(false);
+    emitter.emit('iscorrect');
+    // this.checkRow();
   }
 }
 

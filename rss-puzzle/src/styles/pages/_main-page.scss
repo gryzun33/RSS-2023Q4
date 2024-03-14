@@ -224,9 +224,11 @@
   width: 100%;
   // align-self: center;
   @include flex(center);
+  gap: 10px;
 
   .continue-btn,
-  .check-btn {
+  .check-btn,
+  .auto-btn {
     @include btn-main-page;
     display: none;
 
@@ -234,6 +236,10 @@
       pointer-events: none;
       opacity: 0.6;
     }
+  }
+
+  .auto-btn {
+    background-color: $color-app-btn;
   }
 
   .btn-show {

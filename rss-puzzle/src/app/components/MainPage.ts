@@ -7,15 +7,19 @@ import { СallbackFunc } from '../utils/types';
 import appState from './AppState';
 import ContinueBtn from './ContinueBtn';
 import CheckBtn from './CheckBtn';
+import AutoCompleteBtn from './AutoCompleteBtn';
 import Hints from './Hints';
 
 export default class MainPage extends BaseComponent {
-  public resultField?: ResultField;
-  public sourceBlock?: SourceBlock;
-
+  // public resultField?: ResultField;
+  // public sourceBlock?: SourceBlock;
+  public sourceBlock = new SourceBlock();
+  public resultField = new ResultField();
   public continueBtn?: ContinueBtn;
 
   public checkBtn?: CheckBtn;
+
+  public autoBtn?: AutoCompleteBtn;
 
   protected isImageShowed: boolean = false;
   constructor(public reloadLoginPage: СallbackFunc) {
@@ -36,12 +40,11 @@ export default class MainPage extends BaseComponent {
 
     const resultBox = new BaseComponent({ tag: 'div', classNames: ['result-box'] });
     const rowsBox = new RowsIconsBox();
-    this.resultField = new ResultField();
+
     resultBox.append(rowsBox, this.resultField);
 
-    this.sourceBlock = new SourceBlock();
-
     const bottomPanel = new BaseComponent({ tag: 'div', classNames: ['bottom-panel'] });
+
     this.continueBtn = new ContinueBtn({
       classNames: ['continue-btn'],
       text: 'Continue',
@@ -56,7 +59,14 @@ export default class MainPage extends BaseComponent {
       callback: this.showIncorrectWords,
     });
 
-    bottomPanel.append(this.continueBtn, this.checkBtn);
+    this.autoBtn = new AutoCompleteBtn({
+      classNames: ['auto-btn', 'btn-show'],
+      text: `I dont't know`,
+      // disabled: true,
+      callback: this.finishWithHint,
+    });
+
+    bottomPanel.append(this.continueBtn, this.checkBtn, this.autoBtn);
 
     this.append(topPanel, resultBox, this.sourceBlock, bottomPanel);
 
@@ -71,6 +81,7 @@ export default class MainPage extends BaseComponent {
       const { currentText, row } = appState.getCurrentData();
       const numbOfCells: number = currentText.split(' ').length;
       if (appState.row === 0) {
+        console.log('row=000000');
         this.resultField.updateView(row, numbOfCells);
       } else {
         this.resultField.setActiveRow(row, numbOfCells);
@@ -100,7 +111,9 @@ export default class MainPage extends BaseComponent {
         this.isImageShowed = true;
       }, 1000);
     } else {
+      console.log('clickoncontinue');
       this.isImageShowed = false;
+      this.autoBtn?.enable();
       appState.resetState();
       console.log('appState1=', appState);
       this.startNextRow();
@@ -116,11 +129,35 @@ export default class MainPage extends BaseComponent {
     //     piece.addClass('piece-incorrect');
     //   }
     // });
-    const pieces = this.resultField?.activeRow?.getChildren();
+    const pieces = this.resultField.activeRow?.getChildren();
     pieces?.forEach((piece) => {
       if (!appState.isCorrectPiece(piece)) {
         piece.addClass('piece-incorrect');
       }
     });
+  };
+
+  public finishWithHint = () => {
+    console.log('finishwithhint');
+    if (!this.resultField.activeRow) {
+      throw new Error();
+    }
+    this.resultField.activeRow.append(...this.sourceBlock.getChildren());
+    this.sourceBlock.clearChildren();
+
+    const activeRowChildren = this.resultField.activeRow.getChildren();
+
+    activeRowChildren.forEach((child) => {
+      if (child.closest('.empty')) {
+        child.destroy();
+      } else {
+        const elem = child.getElement();
+        const order = appState.getCorrectIndex(elem);
+        child.css('order', `${order}`);
+      }
+    });
+    // this.resultField?.activeRow?.showCorrectRow();
+    appState.changeAfterHint();
+    // this.isImageShowed = true;
   };
 }

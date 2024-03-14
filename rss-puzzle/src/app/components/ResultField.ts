@@ -24,6 +24,7 @@ export default class ResultField extends BaseComponent {
   }
 
   public updateView(row: number, numbOfCells: number) {
+    console.log('destroychilden');
     this.destroyChildren();
     this.createView();
     this.setActiveRow(row, numbOfCells);
