@@ -17,10 +17,13 @@ export default class Button extends BaseComponent<HTMLButtonElement> {
 
   public disable = (): void => {
     console.log('disable');
-    this.element.disabled = true;
+    // this.element.disabled = true;
+    this.removeClass('btn-show');
   };
 
   public enable = (): void => {
-    this.element.disabled = false;
+    // this.element.disabled = false;
+
+    this.addClass('btn-show');
   };
 }

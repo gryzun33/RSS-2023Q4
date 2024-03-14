@@ -228,11 +228,18 @@
   .continue-btn,
   .check-btn {
     @include btn-main-page;
+    display: none;
 
     &:disabled {
       pointer-events: none;
       opacity: 0.6;
     }
+  }
+
+  .btn-show {
+    display: flex;
+    animation: show 0.5s ease-in-out;
+    animation-fill-mode: forwards;
   }
 }
 
