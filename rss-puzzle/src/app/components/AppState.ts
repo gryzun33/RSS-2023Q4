@@ -2,6 +2,7 @@ import level1 from '../puzzle-data/wordCollectionLevel1.json';
 import BaseComponent from './BaseComponent';
 import { numbRows } from '../utils/constants';
 import emitter from './EventEmitter';
+import { HintsState } from '../utils/types';
 // import Row from './Row';
 // import level2 from '../puzzle-data/wordCollectionLevel2.json';
 // import level3 from '../puzzle-data/wordCollectionLevel3.json';
@@ -15,10 +16,6 @@ type PieceData = {
   word: string;
 };
 
-type HintsState = {
-  image: boolean;
-};
-
 class AppState {
   public isStart: boolean = true;
   public levels = [level1];
@@ -28,6 +25,10 @@ class AppState {
   public numbRows: number = numbRows;
 
   public text: string;
+
+  public isAllInResult: boolean = false;
+
+  // public allPiecesData: PieceData[] = [];
 
   public emptiesInSource: number[] = [];
   public emptiesInResult: number[] = [];
@@ -40,19 +41,15 @@ class AppState {
     this.text = '';
   }
 
-  //  constructor() {
-  //   this.updateState();
-  //  }
-  public changeHintState(hintName: string) {
-    if (hintName === 'image') {
-      this.hints[hintName] = !this.hints[hintName];
-    }
+  public changeHintState(hintName: keyof HintsState) {
+    this.hints[hintName] = !this.hints[hintName];
   }
 
   public resetState() {
     // this.emptiesInResult = [];
     this.emptiesInSource = [];
     this.currPuzzle.clear();
+    this.isAllInResult = false;
   }
   public getCurrentData(): { currentText: string; row: number } {
     const { round, row } = this.getCurrentRow();
@@ -84,6 +81,7 @@ class AppState {
       newInd,
       word,
     };
+    // this.allPiecesData.push(value);
     this.currPuzzle.set(key, value);
   };
 
@@ -119,19 +117,23 @@ class AppState {
 
   public checkRow(): void {
     const values: PieceData[] = Array.from(this.currPuzzle.values());
+    console.log('datafromCheckRow', values);
     const parents: string[] = values.map((value: PieceData) => value.parent);
     if (!parents.every((parent) => parent === 'result')) {
+      this.isAllInResult = false;
       console.log('not all');
       return;
     }
+    this.isAllInResult = true;
     values.sort((a, b) => a.newInd - b.newInd);
     const words: string[] = values.map((value) => value.word);
-    console.log('words=', words);
+    // console.log('words=', words);
     if (words.join(' ') === this.text && !this.isFinishLevel()) {
-      console.log('good');
+      console.log('correct');
       emitter.emit('iscorrect');
     } else {
-      console.log('no good');
+      emitter.emit('isnotcorrect');
+      console.log('not correct');
     }
   }
 
@@ -156,13 +158,29 @@ class AppState {
   }
 
   public getRoundData() {
-    // const levelData = this.levels[this.level];
-    // const currRound = levelData.rounds[this.round]
     const { levelData } = this.levels[this.level].rounds[this.round];
-    // const imageName = levelData.name;
-    // const author = levelData.author;
-    // const year = levelData.year;
     return levelData;
+  }
+
+  // public getIncorrectIndexes() {
+  // const values: PieceData[] = Array.from(this.currPuzzle.values());
+  // const wrongIndexes: number[] = [];
+  // values.forEach((pieceData: PieceData, i) => {
+  //   if (pieceData.newInd !== pieceData.oldInd) {
+  //     wrongIndexes.push(i);
+  //   }
+  // });
+
+  // this.currPuzzle.forEach(([key,value]) => {
+
+  // })
+  // return wrongIndexes;
+  // }
+
+  isCorrectPiece(piece: BaseComponent) {
+    const key = piece.getElement();
+    const value = this.currPuzzle.get(key);
+    return value.oldInd === value.newInd;
   }
 }
 

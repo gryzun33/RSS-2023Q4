@@ -48,7 +48,7 @@ export default class SourceBlock extends BaseComponent {
   public createPuzzleRow(text: string) {
     this.destroyChildren();
     const wordsData = this.getWordsData(text);
-    console.log(wordsData);
+    // console.log(wordsData);
     wordsData.forEach((wordData: WordData) => {
       const piece = new Piece(wordData, this);
       // const empty = new BaseComponent(wordData, this);
@@ -123,11 +123,11 @@ export default class SourceBlock extends BaseComponent {
   }
 
   protected getBgStyles(left: number, detailSize: number): { size: number; positionX: number } {
-    console.log('detailSize=', detailSize);
+    // console.log('detailSize=', detailSize);
     const ratio = 100 / detailSize;
-    console.log('ratio=', ratio);
+    // console.log('ratio=', ratio);
     const size: number = ratio * 100;
-    console.log('size=', size);
+    // console.log('size=', size);
 
     const positionX: number = left * ratio;
     // const positionX = (left * ratio * (size - 100)) / 100;
@@ -137,7 +137,7 @@ export default class SourceBlock extends BaseComponent {
     // const positionX: number = 50 - (left * 100) / detailSize;
     // const positionX: number = -left;
 
-    console.log('position=', positionX);
+    // console.log('position=', positionX);
     return { size, positionX };
   }
 

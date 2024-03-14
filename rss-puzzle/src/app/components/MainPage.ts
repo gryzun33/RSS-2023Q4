@@ -6,6 +6,7 @@ import SourceBlock from './SourceBlock';
 import { СallbackFunc } from '../utils/types';
 import appState from './AppState';
 import ContinueBtn from './ContinueBtn';
+import CheckBtn from './CheckBtn';
 import Hints from './Hints';
 
 export default class MainPage extends BaseComponent {
@@ -13,6 +14,8 @@ export default class MainPage extends BaseComponent {
   public sourceBlock?: SourceBlock;
 
   public continueBtn?: ContinueBtn;
+
+  public checkBtn?: CheckBtn;
 
   protected isImageShowed: boolean = false;
   constructor(public reloadLoginPage: СallbackFunc) {
@@ -45,7 +48,15 @@ export default class MainPage extends BaseComponent {
       disabled: true,
       callback: this.nextStep,
     });
-    bottomPanel.append(this.continueBtn);
+
+    this.checkBtn = new CheckBtn({
+      classNames: ['check-btn'],
+      text: 'Check',
+      disabled: true,
+      callback: this.showIncorrectWords,
+    });
+
+    bottomPanel.append(this.continueBtn, this.checkBtn);
 
     this.append(topPanel, resultBox, this.sourceBlock, bottomPanel);
 
@@ -95,5 +106,21 @@ export default class MainPage extends BaseComponent {
       this.startNextRow();
     }
     // if(isImageShowed)
+  };
+
+  public showIncorrectWords = () => {
+    // const incorrect: number[] = appState.getIncorrectIndexes();
+    // const pieces = this.resultField?.activeRow?.getChildren();
+    // pieces?.forEach((piece, i) => {
+    //   if (incorrect.includes(i)) {
+    //     piece.addClass('piece-incorrect');
+    //   }
+    // });
+    const pieces = this.resultField?.activeRow?.getChildren();
+    pieces?.forEach((piece) => {
+      if (!appState.isCorrectPiece(piece)) {
+        piece.addClass('piece-incorrect');
+      }
+    });
   };
 }

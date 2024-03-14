@@ -179,7 +179,10 @@
     color: $color-text-light;
     font-weight: 600;
     font-size: 20px;
-    text-shadow: 0px 0px 5px #3a4240;
+    text-shadow:
+      0px 0px 5px #3a4240,
+      0px 0px 5px #3a4240,
+      0px 0px 5px #3a4240;
     z-index: 2;
   }
 }
@@ -200,6 +203,12 @@
   }
 }
 
+.piece-incorrect {
+  .piece-text {
+    color: $color-incorrect;
+  }
+}
+
 .empty {
   height: 80%;
   width: 45px;
@@ -216,7 +225,8 @@
   // align-self: center;
   @include flex(center);
 
-  .continue-btn {
+  .continue-btn,
+  .check-btn {
     @include btn-main-page;
 
     &:disabled {

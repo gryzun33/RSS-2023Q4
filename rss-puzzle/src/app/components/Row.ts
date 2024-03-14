@@ -48,6 +48,10 @@ export default class Row extends BaseComponent {
   };
 
   protected onClickHandler = (e: Event) => {
+    this.children.forEach((childPiece) => {
+      childPiece.removeClass('piece-incorrect');
+    });
+
     console.log('target=', e.target);
 
     if (!(e.target instanceof HTMLElement)) {

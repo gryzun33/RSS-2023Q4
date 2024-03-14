@@ -53,7 +53,7 @@ export default class LoginPage extends BaseComponent {
       placeholder: '',
       classNames: ['login-input', 'input-surname'],
       required: true,
-      minlength: '3',
+      minlength: '4',
       pattern: '^[A-Z][\\-a-zA-Z]*$',
       onChange: this.checkValidity,
     });

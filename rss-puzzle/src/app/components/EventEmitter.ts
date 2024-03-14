@@ -19,7 +19,7 @@ class EventEmitter {
   }
 
   emit(event: string, arg?: BaseComponent): void {
-    console.log('arg=', arg);
+    // console.log('arg=', arg);
     const eventListeners = this.listeners[event];
     if (eventListeners) {
       eventListeners.forEach((listener) => {

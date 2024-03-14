@@ -48,7 +48,7 @@ export default class App {
   };
 
   public loadMainPage = (): void => {
-    console.log('mainpage');
+    // console.log('mainpage');
     if (this.startPage) {
       this.startPage.destroy();
     }

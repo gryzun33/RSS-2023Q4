@@ -52,7 +52,7 @@ export default class Piece extends BaseComponent {
     // const alt = levelsData[level].rounds[round].levelData.name;
     const { src, alt } = appState.getCurrentImageData();
     const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${src}`;
-    console.log('fullScr=', fullSrc);
+    // console.log('fullScr=', fullSrc);
     this.image.attr('src', fullSrc);
     this.image.attr('alt', alt);
     this.image.css('top', `${-row * 50}px`);

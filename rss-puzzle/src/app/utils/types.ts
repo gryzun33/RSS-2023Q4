@@ -29,3 +29,7 @@ export type WordData = {
   bgSize: number;
   bgPositionX: number;
 };
+
+export type HintsState = {
+  image: boolean;
+};
