@@ -107,7 +107,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   }
 
   destroy() {
-    console.log('destroy=', this.element);
+    // console.log('destroy=', this.element);
     this.destroyChildren();
     this.element.remove();
   }

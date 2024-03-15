@@ -21,7 +21,11 @@ export default class Row extends BaseComponent {
     // console.log('emtyresult1=', appState.emptiesInResult);
   }
 
-  public addPiece = (piece?: BaseComponent) => {
+  public addPiece = (piece?: unknown) => {
+    if (!(piece instanceof BaseComponent)) {
+      throw new Error();
+    }
+
     if (!piece) {
       throw new Error('piece is undefined');
     }

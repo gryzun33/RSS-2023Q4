@@ -8,7 +8,10 @@ import appState from './AppState';
 import ContinueBtn from './ContinueBtn';
 import CheckBtn from './CheckBtn';
 import AutoCompleteBtn from './AutoCompleteBtn';
+import LevelSelect from './LevelSelect';
+import RoundSelect from './RoundSelect';
 import Hints from './Hints';
+import emitter from './EventEmitter';
 
 export default class MainPage extends BaseComponent {
   // public resultField?: ResultField;
@@ -25,10 +28,21 @@ export default class MainPage extends BaseComponent {
   constructor(public reloadLoginPage: СallbackFunc) {
     super({ tag: 'div', classNames: ['main-page'] });
     this.createView();
+    emitter.on('setNewRound', this.startNextRow);
   }
 
   protected createView() {
     const topPanel = new BaseComponent({ tag: 'div', classNames: ['top-panel'] });
+
+    const selects = new BaseComponent({ tag: 'div', classNames: ['selects'] });
+    const levelSelect = new LevelSelect(appState.levels.length);
+    const roundSelect = new RoundSelect(appState.getNumbOfRounds());
+
+    console.log('levelselect=', levelSelect);
+    console.log('roundselect=', roundSelect);
+
+    selects.append(levelSelect, roundSelect);
+
     const hints = new Hints();
 
     const logOutBtn = new Button({
@@ -36,7 +50,7 @@ export default class MainPage extends BaseComponent {
       text: 'Logout',
       callback: this.reloadLoginPage,
     });
-    topPanel.append(hints, logOutBtn);
+    topPanel.append(selects, hints, logOutBtn);
 
     const resultBox = new BaseComponent({ tag: 'div', classNames: ['result-box'] });
     const rowsBox = new RowsIconsBox();
@@ -70,25 +84,32 @@ export default class MainPage extends BaseComponent {
 
     this.append(topPanel, resultBox, this.sourceBlock, bottomPanel);
 
-    this.startNextRow();
+    this.startNextRow(false);
   }
 
-  public startNextRow() {
-    console.log('startnextrow');
-    // console.log(this.sourceBlock);
-    // console.log(this.resultField);
-    if (this.sourceBlock && this.resultField) {
-      const { currentText, row } = appState.getCurrentData();
-      const numbOfCells: number = currentText.split(' ').length;
-      if (appState.row === 0) {
-        console.log('row=000000');
-        this.resultField.updateView(row, numbOfCells);
-      } else {
-        this.resultField.setActiveRow(row, numbOfCells);
-      }
-      this.sourceBlock.createPuzzleRow(currentText);
+  public startNextRow = (isSelected: unknown) => {
+    if (typeof isSelected !== 'boolean') {
+      throw new Error();
     }
-  }
+
+    // console.log('startnextrow');
+    // console.log(this.sourceBlock);
+    console.log(this.resultField);
+    // if (this.sourceBlock && this.resultField) {
+
+    const { currentText, row } = appState.getNextData(isSelected);
+    const numbOfCells: number = currentText.split(' ').length;
+    if (appState.row === 0) {
+      console.log('row=000000');
+      this.resultField.updateView(row, numbOfCells);
+    } else {
+      this.resultField.setActiveRow(row, numbOfCells);
+    }
+    this.sourceBlock.createPuzzleRow(currentText);
+
+    console.log('appstate=', appState);
+    // }
+  };
 
   public nextStep = () => {
     if (appState.isLastRow() && !this.isImageShowed) {
@@ -102,7 +123,7 @@ export default class MainPage extends BaseComponent {
         throw new Error('sourceBlock is undefined');
       }
 
-      console.log('nextstepimage');
+      // console.log('nextstepimage');
       this.resultField.showFullImage();
       this.sourceBlock.showRoundData();
       this.continueBtn.disable();
@@ -111,12 +132,12 @@ export default class MainPage extends BaseComponent {
         this.isImageShowed = true;
       }, 1000);
     } else {
-      console.log('clickoncontinue');
+      // console.log('clickoncontinue');
       this.isImageShowed = false;
       this.autoBtn?.enable();
       appState.resetState();
       console.log('appState1=', appState);
-      this.startNextRow();
+      this.startNextRow(false);
     }
     // if(isImageShowed)
   };
@@ -160,4 +181,6 @@ export default class MainPage extends BaseComponent {
     appState.changeAfterHint();
     // this.isImageShowed = true;
   };
+
+  // protected showChosenRound = () => {};
 }

@@ -4,11 +4,12 @@ import { numbRows } from '../utils/constants';
 import emitter from './EventEmitter';
 import { HintsState } from '../utils/types';
 // import Row from './Row';
-// import level2 from '../puzzle-data/wordCollectionLevel2.json';
-// import level3 from '../puzzle-data/wordCollectionLevel3.json';
-// import level4 from '../puzzle-data/wordCollectionLevel4.json';
-// import level5 from '../puzzle-data/wordCollectionLevel5.json';
-// import level6 from '../puzzle-data/wordCollectionLevel6.json';
+import level2 from '../puzzle-data/wordCollectionLevel2.json';
+import level3 from '../puzzle-data/wordCollectionLevel3.json';
+import level4 from '../puzzle-data/wordCollectionLevel4.json';
+import level5 from '../puzzle-data/wordCollectionLevel5.json';
+import level6 from '../puzzle-data/wordCollectionLevel6.json';
+
 type PieceData = {
   oldInd: number;
   newInd: number;
@@ -18,7 +19,7 @@ type PieceData = {
 
 class AppState {
   public isStart: boolean = true;
-  public levels = [level1];
+  public levels = [level1, level2, level3, level4, level5, level6];
   public level: number = 0;
   public round: number = 0;
   public row: number = 0;
@@ -48,21 +49,30 @@ class AppState {
   }
 
   public resetState() {
-    // this.emptiesInResult = [];
+    this.emptiesInResult = [];
     this.emptiesInSource = [];
     this.currPuzzle.clear();
     this.isAllInResult = false;
   }
-  public getCurrentData(): { currentText: string; row: number } {
-    const { round, row } = this.getCurrentRow();
-    console.log('row=', row);
+  public getNextData(isSelected: boolean): { currentText: string; row: number } {
+    const { round, row } = isSelected ? this : this.getCurrentRow();
     console.log('round=', round);
+    console.log('row=', row);
     const levelData = this.levels[this.level];
     const currRound = levelData.rounds[round];
     const currRowData = currRound.words[row];
     this.text = currRowData.textExample;
     // return this.text;
     return { currentText: this.text, row };
+  }
+
+  // public getSelectedData() {}
+
+  public getNumbOfRounds(): number {
+    const levelData = this.levels[this.level];
+    const roundsLength = levelData.rounds.length;
+    console.log('roundslength=', roundsLength);
+    return roundsLength;
   }
 
   // public getNumbOfCells(): number {

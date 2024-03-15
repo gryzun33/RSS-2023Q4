@@ -58,7 +58,11 @@ export default class SourceBlock extends BaseComponent {
     });
   }
 
-  protected addPiece = (piece?: BaseComponent) => {
+  protected addPiece = (piece?: unknown) => {
+    if (!(piece instanceof BaseComponent)) {
+      throw new Error();
+    }
+
     if (!piece) {
       throw new Error('piece is undefined');
     }

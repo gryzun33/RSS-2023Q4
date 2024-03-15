@@ -7,5 +7,6 @@ export default class ContinueBtn extends Button {
     super(props);
     this.on('click', this.disable);
     emitter.on('iscorrect', this.enable);
+    emitter.on('setNewRound', this.disable);
   }
 }

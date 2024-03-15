@@ -1,6 +1,6 @@
-import BaseComponent from './BaseComponent';
+// import BaseComponent from './BaseComponent';
 
-type Listener = (arg?: BaseComponent) => void;
+type Listener = (...args: unknown[]) => void;
 
 class EventEmitter {
   private listeners: { [event: string]: Listener[] } = {};
@@ -18,12 +18,12 @@ class EventEmitter {
     }
   }
 
-  emit(event: string, arg?: BaseComponent): void {
+  emit(event: string, ...args: unknown[]): void {
     // console.log('arg=', arg);
     const eventListeners = this.listeners[event];
     if (eventListeners) {
       eventListeners.forEach((listener) => {
-        listener(arg);
+        listener(...args);
       });
     }
   }
