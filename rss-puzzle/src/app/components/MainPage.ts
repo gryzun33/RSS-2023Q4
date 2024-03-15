@@ -19,10 +19,10 @@ export default class MainPage extends BaseComponent {
   public sourceBlock = new SourceBlock();
   public resultField = new ResultField();
   public continueBtn?: ContinueBtn;
-
   public checkBtn?: CheckBtn;
-
   public autoBtn?: AutoCompleteBtn;
+  public levelSelect?: LevelSelect;
+  public roundSelect?: RoundSelect;
 
   protected isImageShowed: boolean = false;
   constructor(public reloadLoginPage: СallbackFunc) {
@@ -35,13 +35,13 @@ export default class MainPage extends BaseComponent {
     const topPanel = new BaseComponent({ tag: 'div', classNames: ['top-panel'] });
 
     const selects = new BaseComponent({ tag: 'div', classNames: ['selects'] });
-    const levelSelect = new LevelSelect(appState.levels.length);
-    const roundSelect = new RoundSelect(appState.getNumbOfRounds());
+    this.levelSelect = new LevelSelect(appState.levels.length);
+    this.roundSelect = new RoundSelect(appState.getNumbOfRounds());
 
-    console.log('levelselect=', levelSelect);
-    console.log('roundselect=', roundSelect);
+    // console.log('levelselect=', this.levelSelect);
+    // console.log('roundselect=', this.roundSelect);
 
-    selects.append(levelSelect, roundSelect);
+    selects.append(this.levelSelect, this.roundSelect);
 
     const hints = new Hints();
 
@@ -94,20 +94,26 @@ export default class MainPage extends BaseComponent {
 
     // console.log('startnextrow');
     // console.log(this.sourceBlock);
-    console.log(this.resultField);
+    // console.log(this.resultField);
     // if (this.sourceBlock && this.resultField) {
 
     const { currentText, row } = appState.getNextData(isSelected);
     const numbOfCells: number = currentText.split(' ').length;
     if (appState.row === 0) {
-      console.log('row=000000');
+      // console.log('row=000000');
       this.resultField.updateView(row, numbOfCells);
     } else {
       this.resultField.setActiveRow(row, numbOfCells);
     }
     this.sourceBlock.createPuzzleRow(currentText);
-
-    console.log('appstate=', appState);
+    if (!isSelected && appState.row === 0) {
+      if (!this.roundSelect || !this.levelSelect) {
+        throw new Error('select is undefined');
+      }
+      this.roundSelect.setSelectValue(appState.round);
+      this.levelSelect.setSelectValue(appState.level);
+    }
+    // console.log('appstate=', appState);
     // }
   };
 
@@ -136,7 +142,7 @@ export default class MainPage extends BaseComponent {
       this.isImageShowed = false;
       this.autoBtn?.enable();
       appState.resetState();
-      console.log('appState1=', appState);
+      // console.log('appState1=', appState);
       this.startNextRow(false);
     }
     // if(isImageShowed)
@@ -175,8 +181,10 @@ export default class MainPage extends BaseComponent {
         const elem = child.getElement();
         const order = appState.getCorrectIndex(elem);
         child.css('order', `${order}`);
+        child.removeClass('piece-incorrect');
       }
     });
+    this.checkBtn?.disable();
     // this.resultField?.activeRow?.showCorrectRow();
     appState.changeAfterHint();
     // this.isImageShowed = true;

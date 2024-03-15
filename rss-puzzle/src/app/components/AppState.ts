@@ -98,7 +98,7 @@ class AppState {
     this.isAllInResult = false;
   }
   public getNextData(isSelected: boolean): { currentText: string; row: number } {
-    const { round, row } = isSelected ? this : this.getCurrentRow();
+    const { round, row } = isSelected ? this : this.getNextRow();
     console.log('round=', round);
     console.log('row=', row);
     const levelData = this.levels[this.level];
@@ -162,14 +162,30 @@ class AppState {
     return this.row === this.numbRows - 1;
   }
 
-  public getCurrentRow(): { round: number; row: number } {
+  public isLastRound(): boolean {
+    return this.round === this.getNumbOfRounds() - 1;
+  }
+
+  public isLastLevel(): boolean {
+    return this.level === this.levels.length - 1;
+  }
+
+  public getNextRow(): { round: number; row: number } {
     if (this.isStart) {
       this.isStart = false;
     } else if (!this.isLastRow()) {
       this.row += 1;
-    } else {
+    } else if (!this.isLastRound()) {
       // emitter.emit('newround');
       this.round += 1;
+      this.row = 0;
+    } else if (!this.isLastLevel()) {
+      this.level += 1;
+      this.round = 0;
+      this.row = 0;
+    } else {
+      this.level = 0;
+      this.round = 0;
       this.row = 0;
     }
 
@@ -187,33 +203,23 @@ class AppState {
     }
     this.isAllInResult = true;
     values.sort((a, b) => a.newInd - b.newInd);
-    const words: string[] = values.map((value) => value.word);
-    // console.log('words=', words);
-    if (words.join(' ') === this.text && this.isLastRow()) {
+    // const words: string[] = values.map((value) => value.word);
+
+    if (values.every((word) => word.oldInd === word.newInd) && this.isLastRow()) {
       this.setStatisticsData();
     }
+    // if (words.join(' ') === this.text && this.isLastRow()) {
+    //   this.setStatisticsData();
+    // }
 
-    if (words.join(' ') === this.text && !this.isFinishLevel()) {
+    if (values.every((word) => word.oldInd === word.newInd)) {
       console.log('correct');
 
       this.roundStatistic.push(true);
       emitter.emit('iscorrect');
-      // if (this.isLastRow()) {
-      //   this.setStatisticsData();
-      //   console.log('statistics=', this.statistics);
-      // }
     } else {
       emitter.emit('isnotcorrect');
-      // console.log('not correct');
     }
-  }
-
-  protected isFinishLevel(): boolean {
-    const lengthOflevel: number = this.levels[this.level].rounds.length;
-    if (this.round === lengthOflevel - 1 && this.isLastRow()) {
-      return true;
-    }
-    return false;
   }
 
   public getCurrentImageData(): { src: string; alt: string } {
