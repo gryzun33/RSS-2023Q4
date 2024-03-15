@@ -9,5 +9,6 @@ export default class CheckBtn extends Button {
     emitter.on('isnotcorrect', this.enable);
 
     emitter.on('moveToSource', this.disable);
+    emitter.on('setNewRound', this.disable);
   }
 }

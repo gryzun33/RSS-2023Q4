@@ -1,52 +1,34 @@
 import Select from './Select';
-import BaseComponent from './BaseComponent';
+// import BaseComponent from './BaseComponent';
 import appState from './AppState';
 import emitter from './EventEmitter';
-// import doneImg from '../../assets/icons/done.svg';
 
 export default class RoundSelect extends Select {
+  protected status: boolean[] = appState.getDoneRounds(appState.round);
   constructor(public length: number) {
     super('Round');
     this.createView();
     this.dropList.addClass('list-round');
     emitter.on('setNewLevel', this.updateView);
+    emitter.on('addDoneRound', this.showDoneItem);
     this.dropList.on('click', this.onClickHandler);
   }
 
   protected createView(): void {
     super.createView();
-    this.updateView(this.length);
+    this.updateView(this.length, this.status);
   }
 
-  protected updateView = (l: unknown, value: unknown = appState.round) => {
-    console.log('length = ', l);
+  protected updateView = (l: unknown, status: unknown, value: unknown = appState.round) => {
     if (typeof l !== 'number') {
       throw new Error('number of rounds is not defined');
     }
-    // if (typeof value !== 'string') {
-    //   throw new Error('value is not string');
-    // }
-    // console.log('thisitems=', this.items);
-    this.items = [];
-    this.selectMap.clear();
-    this.dropList.destroyChildren();
-    for (let i = 0; i < l; i += 1) {
-      const item = new BaseComponent({ tag: 'li', classNames: ['select-item'] });
-      const itemText = new BaseComponent({
-        tag: 'span',
-        classNames: ['item-text'],
-        text: `${i + 1}`,
-      });
-      // const doneIcon = new BaseComponent({ tag: 'img', classNames: ['done-icon'] });
-      // doneIcon.attr('src', doneImg);
-      // doneIcon.attr('alt', 'done');
-      item.append(itemText /* doneIcon */);
 
-      this.items.push(item);
-      this.dropList.append(item);
-      this.selectMap.set(item.getElement(), i);
+    if (!Array.isArray(status)) {
+      throw new Error('status of rounds is not defined');
     }
 
+    this.updateItemsView(l, status);
     this.setSelectValue(value);
   };
 
@@ -56,12 +38,6 @@ export default class RoundSelect extends Select {
     if (typeof value === 'number') {
       selectValue = `${value + 1}`;
     }
-
-    // if (value === '') {
-    //   selectValue = '';
-    // }
-
-    // console.log('setroundvalue');
 
     this.mainItem.setTextContent(selectValue);
   }
@@ -86,10 +62,7 @@ export default class RoundSelect extends Select {
     appState.round = index;
     appState.row = 0;
     appState.resetState();
-    // const roundsLength = appState.getNumbOfRounds();
-
     this.toggleList();
-
     emitter.emit('setNewRound', true);
   };
 }

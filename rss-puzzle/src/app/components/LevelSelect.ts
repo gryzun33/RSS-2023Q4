@@ -1,38 +1,27 @@
 import appState from './AppState';
 import emitter from './EventEmitter';
 import Select from './Select';
-import BaseComponent from './BaseComponent';
+// import BaseComponent from './BaseComponent';
 
 export default class LevelSelect extends Select {
+  protected status = appState.getDoneLevels();
   constructor(public length: number) {
     super('Level');
     this.createView();
     this.dropList.addClass('list-level');
     this.dropList.on('click', this.onClickHandler);
+    emitter.on('addlevelRound', this.showDoneItem);
   }
 
   protected createView(): void {
     super.createView();
-    this.updateView(this.length);
+    this.updateView(this.length, this.status);
   }
 
-  protected updateView(l: number) {
-    this.items = [];
-    this.selectMap.clear();
-    this.dropList.destroyChildren();
-    for (let i = 0; i < l; i += 1) {
-      const item = new BaseComponent({ tag: 'li', classNames: ['select-item'], text: `${i + 1}` });
-      this.items.push(item);
-      this.dropList.append(item);
-      this.selectMap.set(item.getElement(), i);
-    }
+  protected updateView(l: number, status: boolean[]) {
+    this.updateItemsView(l, status);
     this.setSelectValue();
   }
-
-  // protected updateView(): void {
-  //   super.updateView(this.length);
-  //   this.setSelectValue();
-  // }
 
   public setSelectValue(value: number = appState.level) {
     console.log('setlevelvalue');
@@ -57,9 +46,10 @@ export default class LevelSelect extends Select {
     }
     this.setSelectValue(index);
     appState.level = index;
+    const statusRounds = appState.getDoneRounds(index);
     const roundsLength = appState.getNumbOfRounds();
 
     this.toggleList();
-    emitter.emit('setNewLevel', roundsLength, '');
+    emitter.emit('setNewLevel', roundsLength, statusRounds, '');
   };
 }

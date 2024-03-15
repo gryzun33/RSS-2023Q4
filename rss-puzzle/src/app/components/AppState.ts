@@ -17,7 +17,48 @@ type PieceData = {
   word: string;
 };
 
+type Statistics = number[][];
+
+// type LevelFullData = {
+//   rounds: RoundData[];
+//   roundsCount: number;
+// };
+
+// type RoundData = {
+//   levelData: LevelData;
+//   words: ExampleData[];
+// };
+
+// type LevelData = {
+//   id: string;
+//   name: string;
+//   imageSrc: string;
+//   curSrc: string;
+//   author: string;
+//   year: string;
+// };
+
+// type ExampleData = {
+//   audioExample: string;
+//   textExample: string;
+//   textExampleTranslate: string;
+//   id: number;
+//   word: string;
+//   wordTranslate: string;
+// };
+
+const roundCompleted = {
+  done: 1,
+  undone: 0,
+};
+
 class AppState {
+  // const statistics = [
+  //   {
+
+  //   }
+  // ]
+
   public isStart: boolean = true;
   public levels = [level1, level2, level3, level4, level5, level6];
   public level: number = 0;
@@ -40,6 +81,8 @@ class AppState {
     image: false,
   };
   public currPuzzle = new Map();
+
+  public statistics: Statistics = this.createStatisticsArray();
   constructor() {
     this.text = '';
   }
@@ -135,24 +178,33 @@ class AppState {
 
   public checkRow(): void {
     const values: PieceData[] = Array.from(this.currPuzzle.values());
-    console.log('datafromCheckRow', values);
+    // console.log('datafromCheckRow', values);
     const parents: string[] = values.map((value: PieceData) => value.parent);
     if (!parents.every((parent) => parent === 'result')) {
       this.isAllInResult = false;
-      console.log('not all');
+      // console.log('not all');
       return;
     }
     this.isAllInResult = true;
     values.sort((a, b) => a.newInd - b.newInd);
     const words: string[] = values.map((value) => value.word);
     // console.log('words=', words);
+    if (words.join(' ') === this.text && this.isLastRow()) {
+      this.setStatisticsData();
+    }
+
     if (words.join(' ') === this.text && !this.isFinishLevel()) {
       console.log('correct');
+
       this.roundStatistic.push(true);
       emitter.emit('iscorrect');
+      // if (this.isLastRow()) {
+      //   this.setStatisticsData();
+      //   console.log('statistics=', this.statistics);
+      // }
     } else {
       emitter.emit('isnotcorrect');
-      console.log('not correct');
+      // console.log('not correct');
     }
   }
 
@@ -207,9 +259,52 @@ class AppState {
     // values.forEach((pieceData: PieceData) => {
     //   pieceData.newInd = pieceData.oldInd;
     // });
+
     this.roundStatistic.push(false);
     emitter.emit('iscorrect');
+    if (this.isLastRow()) {
+      this.setStatisticsData();
+      console.log('statistics=', this.statistics);
+    }
     // this.checkRow();
+  }
+
+  createStatisticsArray(): Statistics {
+    const levelsArr: number[][] = [];
+    // console.log('levels=', this.levels);
+    for (let i = 0; i < this.levels.length; i += 1) {
+      const roundsLength = this.levels[i].rounds.length;
+      const roundsArr: number[] = [];
+      for (let j = 0; j < roundsLength; j += 1) {
+        roundsArr.push(roundCompleted.undone);
+      }
+      levelsArr.push(roundsArr);
+    }
+    console.log('statistics=', levelsArr);
+    return levelsArr;
+  }
+
+  setStatisticsData() {
+    this.statistics[this.level][this.round] = roundCompleted.done;
+    emitter.emit('addDoneRound', this.round);
+    if (this.statistics[this.level].every((elem) => elem === roundCompleted.done)) {
+      emitter.emit('addDoneLevel', this.level);
+    }
+  }
+
+  public getDoneLevels() {
+    const levelsStatus = this.statistics.map((round) =>
+      round.every((item) => item === roundCompleted.done)
+    );
+    console.log('statuslevels=', levelsStatus);
+    return levelsStatus;
+  }
+
+  public getDoneRounds(ind: number) {
+    // const statisticRound = this.statistics[ind];
+    const roundsStatus = this.statistics[ind].map((round) => round === roundCompleted.done);
+    console.log('statusrounds=', roundsStatus);
+    return roundsStatus;
   }
 }
 

@@ -103,6 +103,20 @@
               width: 20px;
               top: 3px;
               right: 3px;
+              display: none;
+
+              // .select-item-done & {
+              //   display: block;
+              // }
+            }
+          }
+
+          .select-item-done {
+            background-color: $color-3;
+            color: $color-select-border;
+
+            .done-icon-visible {
+              display: block;
             }
           }
         }
