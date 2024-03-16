@@ -1,10 +1,10 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
-// import puzzleImg from '../../assets/images/puzzle-svg.svg';
 import { puzzleImg } from '../utils/icons';
 import { numbIconsOnStart } from '../utils/constants';
 import { storage } from './Storage';
 import { СallbackFunc } from '../utils/types';
+import startText from '../utils/textData';
 
 export default class StartPage extends BaseComponent {
   constructor(public loadMainPage: СallbackFunc) {
@@ -30,19 +30,15 @@ export default class StartPage extends BaseComponent {
       classNames: ['start-greeting'],
       text: `Welcome ${userName}!`,
     });
-    const rules1 = new BaseComponent({ tag: 'p', classNames: ['start-rules'] });
-    const rules2 = new BaseComponent({ tag: 'p', classNames: ['start-rules'] });
-    const rules3 = new BaseComponent({ tag: 'p', classNames: ['start-rules'] });
-    const rulesText1 = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, earum delectus natus obcaecati consectetur sint dolorum aperiam vero, et porro exercitationem quos eos incidunt ab explicabo deserunt temporibus! Praesentium, repellat.`;
-    rules1.setTextContent(rulesText1);
-    rules2.setTextContent(rulesText1);
-    rules3.setTextContent(rulesText1);
+    const rules = new BaseComponent({ tag: 'div', classNames: ['start-rules'] });
+
+    rules.html(startText);
 
     const startBtn = new Button({
       classNames: ['start-btn'],
       text: 'Start',
       callback: this.loadMainPage,
     });
-    this.append(title, greeting, rules1, rules2, rules3, startBtn);
+    this.append(title, greeting, rules, startBtn);
   }
 }

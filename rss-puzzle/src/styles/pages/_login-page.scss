@@ -11,6 +11,7 @@
   background-color: $color-bg;
   padding: 30px;
   border-radius: 20px;
+  animation: show 0.5s ease-in-out forwards;
 }
 
 .login-form {

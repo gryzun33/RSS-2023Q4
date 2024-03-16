@@ -97,6 +97,10 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     // return this;
   }
 
+  html(html: string) {
+    this.element.innerHTML = html;
+  }
+
   destroyChildren() {
     if (this.children.length > 0) {
       this.children.forEach((child) => {

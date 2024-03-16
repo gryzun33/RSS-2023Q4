@@ -4,6 +4,7 @@
   height: 100%;
   background-color: rgba(71, 111, 103, 0.8);
   @include flex-column(normal, center);
+  animation: show 0.5s ease-in-out forwards;
 }
 
 .top-panel {

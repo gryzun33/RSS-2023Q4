@@ -3,6 +3,7 @@ import LoginPage from './LoginPage';
 import StartPage from './StartPage';
 import MainPage from './MainPage';
 import { storage } from './Storage';
+import appState from './AppState';
 
 export default class App {
   private root: HTMLElement;
@@ -63,5 +64,6 @@ export default class App {
   public reloadLoginPage = () => {
     storage.removeStorage();
     this.loadLoginPage();
+    appState.isStart = true;
   };
 }

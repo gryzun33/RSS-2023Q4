@@ -27,7 +27,8 @@ export default class Input extends BaseComponent<HTMLInputElement> {
       this.element.setCustomValidity(`The field can contain English alphabet letters or '-'`);
       this.element.reportValidity();
     } else if (this.element.validity.tooShort) {
-      this.element.setCustomValidity('Type at least three characters');
+      const length = this.attr('minlength');
+      this.element.setCustomValidity(`Type at least ${length} characters`);
       this.element.reportValidity();
     } else {
       this.element.setCustomValidity('');
