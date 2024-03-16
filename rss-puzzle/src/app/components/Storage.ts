@@ -16,7 +16,7 @@ export class StorageService<T> {
     localStorage.setItem(storageKey, JSON.stringify(data));
   }
 
-  public getData<K extends keyof T>(key: K): string | null {
+  public getData<K extends keyof T>(key: K): T[K] | null {
     const storageKey = this.getStorageKey(key.toString());
     const data = localStorage.getItem(storageKey);
     return data ? JSON.parse(data) : null;
@@ -34,6 +34,11 @@ export class StorageService<T> {
 export type StorageState = {
   name: string;
   surname: string;
+  state: {
+    level: number;
+    round: number;
+    statistics: number[][];
+  };
 };
 
 export const storage = new StorageService<StorageState>('gryzun33-puzzle');

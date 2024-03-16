@@ -4,7 +4,7 @@ import appState from './AppState';
 import emitter from './EventEmitter';
 
 export default class RoundSelect extends Select {
-  protected status: boolean[] = appState.getDoneRounds(appState.round);
+  protected status: boolean[] = appState.getDoneRounds(appState.level);
   constructor(public length: number) {
     super('Round');
     this.createView();

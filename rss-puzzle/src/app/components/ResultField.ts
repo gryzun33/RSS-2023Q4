@@ -24,7 +24,7 @@ export default class ResultField extends BaseComponent {
   }
 
   public updateView(row: number, numbOfCells: number) {
-    console.log('destroychilden');
+    console.log('updateviewRRRRRRRRRRR');
     this.destroyChildren();
     this.createView();
     this.setActiveRow(row, numbOfCells);
@@ -36,7 +36,7 @@ export default class ResultField extends BaseComponent {
     }
 
     this.activeRow = this.rows[ind];
-    this.rows[ind].isActive = true;
+    // this.rows[ind].isActive = true;
     this.activeRow.createEmptyCells(numbOfCells);
     // need to fix ?????
 

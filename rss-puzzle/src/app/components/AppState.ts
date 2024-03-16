@@ -3,12 +3,12 @@ import BaseComponent from './BaseComponent';
 import { numbRows } from '../utils/constants';
 import emitter from './EventEmitter';
 import { HintsState } from '../utils/types';
-// import Row from './Row';
 import level2 from '../puzzle-data/wordCollectionLevel2.json';
 import level3 from '../puzzle-data/wordCollectionLevel3.json';
 import level4 from '../puzzle-data/wordCollectionLevel4.json';
 import level5 from '../puzzle-data/wordCollectionLevel5.json';
 import level6 from '../puzzle-data/wordCollectionLevel6.json';
+import { storage } from './Storage';
 
 type PieceData = {
   oldInd: number;
@@ -19,61 +19,21 @@ type PieceData = {
 
 type Statistics = number[][];
 
-// type LevelFullData = {
-//   rounds: RoundData[];
-//   roundsCount: number;
-// };
-
-// type RoundData = {
-//   levelData: LevelData;
-//   words: ExampleData[];
-// };
-
-// type LevelData = {
-//   id: string;
-//   name: string;
-//   imageSrc: string;
-//   curSrc: string;
-//   author: string;
-//   year: string;
-// };
-
-// type ExampleData = {
-//   audioExample: string;
-//   textExample: string;
-//   textExampleTranslate: string;
-//   id: number;
-//   word: string;
-//   wordTranslate: string;
-// };
-
 const roundCompleted = {
   done: 1,
   undone: 0,
 };
 
 class AppState {
-  // const statistics = [
-  //   {
-
-  //   }
-  // ]
-
   public isStart: boolean = true;
   public levels = [level1, level2, level3, level4, level5, level6];
   public level: number = 0;
   public round: number = 0;
   public row: number = 0;
   public numbRows: number = numbRows;
-
   public roundStatistic: boolean[] = [];
-
   public text: string;
-
   public isAllInResult: boolean = false;
-
-  // public allPiecesData: PieceData[] = [];
-
   public emptiesInSource: number[] = [];
   public emptiesInResult: number[] = [];
 
@@ -85,6 +45,7 @@ class AppState {
   public statistics: Statistics = this.createStatisticsArray();
   constructor() {
     this.text = '';
+    this.getDataFromStorage();
   }
 
   public changeHintState(hintName: keyof HintsState) {
@@ -98,14 +59,15 @@ class AppState {
     this.isAllInResult = false;
   }
   public getNextData(isSelected: boolean): { currentText: string; row: number } {
-    const { round, row } = isSelected ? this : this.getNextRow();
+    const { level, round, row } = isSelected ? this : this.getNextRow();
     console.log('round=', round);
     console.log('row=', row);
-    const levelData = this.levels[this.level];
+    const levelData = this.levels[level];
     const currRound = levelData.rounds[round];
     const currRowData = currRound.words[row];
     this.text = currRowData.textExample;
     // return this.text;
+
     return { currentText: this.text, row };
   }
 
@@ -170,7 +132,7 @@ class AppState {
     return this.level === this.levels.length - 1;
   }
 
-  public getNextRow(): { round: number; row: number } {
+  public getNextRow(): { level: number; round: number; row: number } {
     if (this.isStart) {
       this.isStart = false;
     } else if (!this.isLastRow()) {
@@ -189,7 +151,7 @@ class AppState {
       this.row = 0;
     }
 
-    return { round: this.round, row: this.row };
+    return { level: this.level, round: this.round, row: this.row };
   }
 
   public checkRow(): void {
@@ -203,15 +165,12 @@ class AppState {
     }
     this.isAllInResult = true;
     values.sort((a, b) => a.newInd - b.newInd);
-    // const words: string[] = values.map((value) => value.word);
 
     if (values.every((word) => word.oldInd === word.newInd) && this.isLastRow()) {
       this.setStatisticsData();
-    }
-    // if (words.join(' ') === this.text && this.isLastRow()) {
-    //   this.setStatisticsData();
-    // }
 
+      this.addStateToStorage();
+    }
     if (values.every((word) => word.oldInd === word.newInd)) {
       console.log('correct');
 
@@ -239,21 +198,6 @@ class AppState {
     return levelData;
   }
 
-  // public getIncorrectIndexes() {
-  // const values: PieceData[] = Array.from(this.currPuzzle.values());
-  // const wrongIndexes: number[] = [];
-  // values.forEach((pieceData: PieceData, i) => {
-  //   if (pieceData.newInd !== pieceData.oldInd) {
-  //     wrongIndexes.push(i);
-  //   }
-  // });
-
-  // this.currPuzzle.forEach(([key,value]) => {
-
-  // })
-  // return wrongIndexes;
-  // }
-
   isCorrectPiece(piece: BaseComponent) {
     const key = piece.getElement();
     const value = this.currPuzzle.get(key);
@@ -261,18 +205,13 @@ class AppState {
   }
 
   public changeAfterHint() {
-    // const values: PieceData[] = Array.from(this.currPuzzle.values());
-    // values.forEach((pieceData: PieceData) => {
-    //   pieceData.newInd = pieceData.oldInd;
-    // });
-
     this.roundStatistic.push(false);
     emitter.emit('iscorrect');
     if (this.isLastRow()) {
       this.setStatisticsData();
+      this.addStateToStorage();
       console.log('statistics=', this.statistics);
     }
-    // this.checkRow();
   }
 
   createStatisticsArray(): Statistics {
@@ -307,10 +246,32 @@ class AppState {
   }
 
   public getDoneRounds(ind: number) {
+    console.log('ind????????=', ind);
     // const statisticRound = this.statistics[ind];
     const roundsStatus = this.statistics[ind].map((round) => round === roundCompleted.done);
     console.log('statusrounds=', roundsStatus);
     return roundsStatus;
+  }
+
+  protected addStateToStorage(): void {
+    const state = {
+      level: this.level,
+      round: this.round,
+      statistics: this.statistics,
+    };
+    storage.saveData('state', state);
+  }
+
+  protected getDataFromStorage(): void {
+    const state = storage.getData('state');
+    console.log('state=', state);
+    if (state) {
+      this.level = state.level;
+      this.round = state.round;
+      this.row = numbRows - 1;
+      this.statistics = state.statistics;
+      this.isStart = false;
+    }
   }
 }
 
