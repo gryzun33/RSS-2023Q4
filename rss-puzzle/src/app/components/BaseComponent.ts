@@ -1,8 +1,15 @@
 import { Props } from '../utils/types';
 
+type Handler = {
+  eventType: string;
+  callback: (event: Event) => void;
+};
+
 export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   protected element: T;
   protected children: BaseComponent[];
+
+  protected handlers: Handler[] = [];
 
   constructor(props: Props) {
     this.element = document.createElement(props.tag || 'div') as T;
@@ -90,6 +97,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
 
   on(eventType: string, callback: (event: Event) => void) {
     this.element.addEventListener(eventType, callback);
+    this.handlers.push({ eventType, callback });
   }
 
   off(eventType: string, callback: (event: Event) => void) {
@@ -114,5 +122,12 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     // console.log('destroy=', this.element);
     this.destroyChildren();
     this.element.remove();
+    this.deleteHandlers();
+  }
+
+  deleteHandlers() {
+    this.handlers.forEach((handler: Handler) => {
+      this.off(handler.eventType, handler.callback);
+    });
   }
 }

@@ -3,6 +3,7 @@ import Row from './Row';
 import { numbRows } from '../utils/constants';
 import emitter from './EventEmitter';
 import appState from './AppState';
+// import emitter from './EventEmitter';
 // import appState from './AppState';
 
 export default class ResultField extends BaseComponent {
@@ -13,6 +14,7 @@ export default class ResultField extends BaseComponent {
     // this.createView();
     // this.activeRow = this.rows[0];
     [this.activeRow] = this.rows;
+    emitter.on('iscorrect', this.blockRow);
   }
 
   protected createView() {
@@ -55,6 +57,8 @@ export default class ResultField extends BaseComponent {
     }
 
     this.activeRow = this.rows[ind];
+
+    this.activeRow.removeClass('row-block');
     // this.rows[ind].isActive = true;
     this.activeRow.createEmptyCells(numbOfCells);
     // need to fix ?????
@@ -77,4 +81,11 @@ export default class ResultField extends BaseComponent {
     //   fullImage.attr('alt', alt);
     //   this.append(fullImage);
   }
+
+  protected blockRow = () => {
+    if (!this.activeRow) {
+      throw new Error('activerow is undefined');
+    }
+    this.activeRow.addClass('row-block');
+  };
 }

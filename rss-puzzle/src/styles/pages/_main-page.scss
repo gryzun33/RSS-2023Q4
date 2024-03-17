@@ -253,6 +253,10 @@
       // border-radius: 5px;
     }
 
+    .row-block {
+      pointer-events: none;
+    }
+
     .row-active {
       background-color: $color-active-row;
     }

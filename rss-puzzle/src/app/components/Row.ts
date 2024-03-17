@@ -5,7 +5,7 @@ import appState from './AppState';
 export default class Row extends BaseComponent {
   public isActive: boolean = false;
   constructor() {
-    super({ tag: 'div', classNames: ['row'] });
+    super({ tag: 'div', classNames: ['row', 'row-block'] });
     this.on('click', this.onClickHandler);
   }
 
