@@ -218,6 +218,16 @@ class AppState {
     return levelData;
   }
 
+  public getRowData() {
+    const roundsData = this.levels[this.level].rounds[this.round].words;
+    const rowData = roundsData[this.row];
+    return rowData;
+  }
+
+  public getTranslation() {
+    return this.getRowData().textExampleTranslate;
+  }
+
   isCorrectPiece(piece: BaseComponent) {
     const key = piece.getElement();
     const value = this.currPuzzle.get(key);

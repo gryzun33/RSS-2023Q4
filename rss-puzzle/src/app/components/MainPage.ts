@@ -11,6 +11,7 @@ import AutoCompleteBtn from './AutoCompleteBtn';
 import LevelSelect from './LevelSelect';
 import RoundSelect from './RoundSelect';
 import Hints from './Hints';
+import TransaltionView from './TransaltionView';
 import emitter from './EventEmitter';
 
 export default class MainPage extends BaseComponent {
@@ -18,6 +19,9 @@ export default class MainPage extends BaseComponent {
   // public sourceBlock?: SourceBlock;
   public sourceBlock = new SourceBlock();
   public resultField = new ResultField();
+
+  public translationView = new TransaltionView();
+  public hintsView = new BaseComponent({ tag: 'div', classNames: ['hints-view'] });
   public continueBtn?: ContinueBtn;
   public checkBtn?: CheckBtn;
   public autoBtn?: AutoCompleteBtn;
@@ -54,6 +58,10 @@ export default class MainPage extends BaseComponent {
 
     const mainBox = new BaseComponent({ tag: 'div', classNames: ['main-box'] });
 
+    // const hintsView = new BaseComponent({ tag: 'div', classNames: ['hints-view'] });
+
+    this.hintsView.append(this.translationView);
+
     const resultBox = new BaseComponent({ tag: 'div', classNames: ['result-box'] });
     const rowsBox = new RowsIconsBox();
 
@@ -84,7 +92,7 @@ export default class MainPage extends BaseComponent {
 
     bottomPanel.append(this.continueBtn, this.checkBtn, this.autoBtn);
 
-    mainBox.append(resultBox, this.sourceBlock, bottomPanel);
+    mainBox.append(this.hintsView, resultBox, this.sourceBlock, bottomPanel);
 
     this.append(topPanel, mainBox);
 
@@ -95,7 +103,7 @@ export default class MainPage extends BaseComponent {
     if (typeof isSelected !== 'boolean') {
       throw new Error();
     }
-
+    this.hintsView.attr('visibility', 'visible');
     // console.log('startnextrow');
     // console.log(this.sourceBlock);
     // console.log(this.resultField);
@@ -110,6 +118,7 @@ export default class MainPage extends BaseComponent {
       this.resultField.setActiveRow(row, numbOfCells);
     }
     this.sourceBlock.createPuzzleRow(currentText);
+    this.translationView.addTransaltion();
     if (!isSelected && appState.row === 0) {
       if (!this.roundSelect || !this.levelSelect) {
         throw new Error('select is undefined');
@@ -137,6 +146,7 @@ export default class MainPage extends BaseComponent {
       this.resultField.showFullImage();
       this.sourceBlock.showRoundData();
       this.continueBtn.disable();
+      this.hintsView.attr('visibility', 'hidden');
       setTimeout(() => {
         this.continueBtn?.enable();
         this.isImageShowed = true;
