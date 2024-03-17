@@ -178,6 +178,11 @@
     .hint-image {
       background-image: url("/src/assets/icons/image-hint.svg");
     }
+
+    .hint-translation {
+      background-size: 80% auto;
+      background-image: url("/src/assets/icons/text-hint.svg");
+    }
   }
 
   .logout-btn {
@@ -204,6 +209,14 @@
       0px 0px 5px #3a4240,
       0px 0px 5px #3a4240;
   }
+
+  .hint-view-hidden {
+    display: none;
+  }
+}
+
+.hints-view-hidden {
+  visibility: hidden;
 }
 
 .result-box {

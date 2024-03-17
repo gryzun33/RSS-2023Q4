@@ -10,7 +10,7 @@ import CheckBtn from './CheckBtn';
 import AutoCompleteBtn from './AutoCompleteBtn';
 import LevelSelect from './LevelSelect';
 import RoundSelect from './RoundSelect';
-import Hints from './Hints';
+import Hints from './HintsButtons';
 import TransaltionView from './TransaltionView';
 import emitter from './EventEmitter';
 
@@ -103,7 +103,7 @@ export default class MainPage extends BaseComponent {
     if (typeof isSelected !== 'boolean') {
       throw new Error();
     }
-    this.hintsView.attr('visibility', 'visible');
+    this.hintsView.removeClass('hints-view-hidden');
     // console.log('startnextrow');
     // console.log(this.sourceBlock);
     // console.log(this.resultField);
@@ -146,7 +146,7 @@ export default class MainPage extends BaseComponent {
       this.resultField.showFullImage();
       this.sourceBlock.showRoundData();
       this.continueBtn.disable();
-      this.hintsView.attr('visibility', 'hidden');
+      this.hintsView.addClass('hints-view-hidden');
       setTimeout(() => {
         this.continueBtn?.enable();
         this.isImageShowed = true;

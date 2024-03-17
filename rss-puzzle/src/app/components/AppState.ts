@@ -39,6 +39,8 @@ class AppState {
 
   public hints: HintsState = {
     image: false,
+    translation: false,
+    sound: false,
   };
   public currPuzzle = new Map();
 

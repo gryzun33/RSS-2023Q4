@@ -32,4 +32,6 @@ export type WordData = {
 
 export type HintsState = {
   image: boolean;
+  translation: boolean;
+  sound: boolean;
 };
