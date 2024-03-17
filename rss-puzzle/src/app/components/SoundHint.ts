@@ -16,6 +16,7 @@ export default class SoundHint extends BaseComponent {
     super({ tag: 'button', classNames: ['sound-view', 'hint-view-hidden'] });
     emitter.on('toggleSound', this.toggleVisibility);
     this.on('click', this.activateSoundHint);
+    this.audio.addEventListener('ended', this.stopAnimation);
   }
 
   public addSound = (row: number) => {
@@ -28,6 +29,11 @@ export default class SoundHint extends BaseComponent {
 
   protected activateSoundHint = () => {
     this.audio.play();
+    this.addClass('sound-view-active');
+  };
+
+  protected stopAnimation = () => {
+    this.removeClass('sound-view-active');
   };
 
   protected toggleVisibility = () => {

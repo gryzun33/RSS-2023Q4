@@ -236,6 +236,10 @@
     background-image: url("/src/assets/icons/sound-hint-view.svg");
   }
 
+  .sound-view-active {
+    animation: sound 1s infinite;
+  }
+
   .hint-view-hidden {
     display: none;
   }
@@ -481,5 +485,17 @@
   }
   to {
     opacity: 0;
+  }
+}
+
+@keyframes sound {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
