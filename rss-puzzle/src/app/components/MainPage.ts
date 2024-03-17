@@ -52,6 +52,8 @@ export default class MainPage extends BaseComponent {
     });
     topPanel.append(selects, hints, logOutBtn);
 
+    const mainBox = new BaseComponent({ tag: 'div', classNames: ['main-box'] });
+
     const resultBox = new BaseComponent({ tag: 'div', classNames: ['result-box'] });
     const rowsBox = new RowsIconsBox();
 
@@ -82,7 +84,9 @@ export default class MainPage extends BaseComponent {
 
     bottomPanel.append(this.continueBtn, this.checkBtn, this.autoBtn);
 
-    this.append(topPanel, resultBox, this.sourceBlock, bottomPanel);
+    mainBox.append(resultBox, this.sourceBlock, bottomPanel);
+
+    this.append(topPanel, mainBox);
 
     this.startNextRow(false);
   }
@@ -141,7 +145,7 @@ export default class MainPage extends BaseComponent {
       // console.log('clickoncontinue');
       this.isImageShowed = false;
       this.autoBtn?.enable();
-      appState.resetState();
+      appState.resetRowState();
       // console.log('appState1=', appState);
       this.startNextRow(false);
     }

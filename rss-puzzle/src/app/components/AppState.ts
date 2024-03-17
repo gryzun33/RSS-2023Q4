@@ -53,11 +53,29 @@ class AppState {
   }
 
   public resetState() {
+    this.isStart = true;
+    this.level = 0;
+    this.round = 0;
+    this.row = 0;
+    this.roundStatistic = [];
+    this.text = '';
+    this.statistics = this.createStatisticsArray();
+    this.resetRowState();
+  }
+
+  public resetRowState() {
     this.emptiesInResult = [];
     this.emptiesInSource = [];
     this.currPuzzle.clear();
     this.isAllInResult = false;
   }
+
+  // public resetState() {
+  //   this.emptiesInResult = [];
+  //   this.emptiesInSource = [];
+  //   this.currPuzzle.clear();
+  //   this.isAllInResult = false;
+  // }
   public getNextData(isSelected: boolean): { currentText: string; row: number } {
     const { level, round, row } = isSelected ? this : this.getNextRow();
     console.log('round=', round);
@@ -181,14 +199,16 @@ class AppState {
     }
   }
 
-  public getCurrentImageData(): { src: string; alt: string } {
+  public getCurrentImageData(): { src: string; alt: string; fullSrc: string } {
     const levelData = this.levels[this.level];
     const currRound = levelData.rounds[this.round];
     const src = currRound.levelData.imageSrc;
     const alt = currRound.levelData.name;
+    const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${src}`;
     const data = {
       src,
       alt,
+      fullSrc,
     };
     return data;
   }

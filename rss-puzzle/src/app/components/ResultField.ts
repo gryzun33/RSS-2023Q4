@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import Row from './Row';
 import { numbRows } from '../utils/constants';
 import emitter from './EventEmitter';
+import appState from './AppState';
 // import appState from './AppState';
 
 export default class ResultField extends BaseComponent {
@@ -15,6 +16,24 @@ export default class ResultField extends BaseComponent {
   }
 
   protected createView() {
+    const image = new Image();
+    image.src = appState.getCurrentImageData().fullSrc;
+    image.onload = () => {
+      const width = image.naturalWidth;
+      const height = image.naturalHeight;
+      const aspectRatio = (width / height).toFixed(2);
+      const aspectRatioSource = (+aspectRatio * 10).toString();
+      emitter.emit('updateSourceView', aspectRatioSource);
+
+      // const aspectRatioStr = aspectRatio.toString();
+
+      this.css('aspect-ratio', aspectRatio.toString());
+
+      // console.log('Ширина изображения:', width);
+      // console.log('Высота изображения:', height);
+      // console.log('Соотношение сторон изображения:', aspectRatio);
+    };
+
     this.rows = [];
     for (let i = 0; i < numbRows; i += 1) {
       const row = new Row();

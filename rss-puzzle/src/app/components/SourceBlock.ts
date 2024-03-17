@@ -9,6 +9,7 @@ export default class SourceBlock extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: ['source-block'] });
     emitter.on('moveToSource', this.addPiece);
+    emitter.on('updateSourceView', this.updateView);
     this.on('click', this.onClickHandler);
   }
 
@@ -156,4 +157,12 @@ export default class SourceBlock extends BaseComponent {
   public clearChildren() {
     this.children = [];
   }
+
+  protected updateView = (aspectRatio: unknown) => {
+    if (typeof aspectRatio !== 'string') {
+      throw new Error('aspectRatio is not string');
+    }
+
+    this.css('aspect-ratio', aspectRatio);
+  };
 }

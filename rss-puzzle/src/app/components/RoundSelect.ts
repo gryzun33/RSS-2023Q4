@@ -61,7 +61,7 @@ export default class RoundSelect extends Select {
     this.setSelectValue(index);
     appState.round = index;
     appState.row = 0;
-    appState.resetState();
+    appState.resetRowState();
     this.toggleList();
     emitter.emit('setNewRound', true);
   };

@@ -55,7 +55,7 @@ export default class Piece extends BaseComponent {
     // console.log('fullScr=', fullSrc);
     this.image.attr('src', fullSrc);
     this.image.attr('alt', alt);
-    this.image.css('top', `${-row * 50}px`);
+    this.image.css('top', `${-row * 100}%`);
     this.image.css('left', `${-props.bgPositionX}%`);
     this.image.css('width', `${props.bgSize}%`);
 

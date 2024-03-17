@@ -64,6 +64,6 @@ export default class App {
   public reloadLoginPage = () => {
     storage.removeStorage();
     this.loadLoginPage();
-    appState.isStart = true;
+    appState.resetState();
   };
 }
