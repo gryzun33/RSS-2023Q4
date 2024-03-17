@@ -63,6 +63,11 @@ class AppState {
     this.text = '';
     this.statistics = this.createStatisticsArray();
     this.resetRowState();
+    this.hints = {
+      image: false,
+      translation: false,
+      sound: false,
+    };
   }
 
   public resetRowState() {
@@ -215,19 +220,32 @@ class AppState {
     return data;
   }
 
+  public getSoundSrc(rowInd: number) {
+    // const examples = this.getRoundExamplesData;
+
+    const src = this.getRowData(rowInd).audioExample;
+    const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${src}`;
+    return fullSrc;
+  }
+
   public getRoundData() {
     const { levelData } = this.levels[this.level].rounds[this.round];
     return levelData;
   }
 
-  public getRowData() {
+  public getRoundExamplesData() {
+    const { words } = this.levels[this.level].rounds[this.round];
+    return words;
+  }
+
+  public getRowData(rowInd: number) {
     const roundsData = this.levels[this.level].rounds[this.round].words;
-    const rowData = roundsData[this.row];
+    const rowData = roundsData[rowInd];
     return rowData;
   }
 
-  public getTranslation() {
-    return this.getRowData().textExampleTranslate;
+  public getTranslation(rowInd: number) {
+    return this.getRowData(rowInd).textExampleTranslate;
   }
 
   isCorrectPiece(piece: BaseComponent) {

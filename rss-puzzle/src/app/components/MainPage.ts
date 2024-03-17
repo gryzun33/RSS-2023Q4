@@ -12,6 +12,7 @@ import LevelSelect from './LevelSelect';
 import RoundSelect from './RoundSelect';
 import Hints from './HintsButtons';
 import TransaltionView from './TransaltionView';
+import SoundHint from './SoundHint';
 import emitter from './EventEmitter';
 
 export default class MainPage extends BaseComponent {
@@ -22,6 +23,7 @@ export default class MainPage extends BaseComponent {
 
   public translationView = new TransaltionView();
   public hintsView = new BaseComponent({ tag: 'div', classNames: ['hints-view'] });
+  public soundView = new SoundHint();
   public continueBtn?: ContinueBtn;
   public checkBtn?: CheckBtn;
   public autoBtn?: AutoCompleteBtn;
@@ -60,7 +62,7 @@ export default class MainPage extends BaseComponent {
 
     // const hintsView = new BaseComponent({ tag: 'div', classNames: ['hints-view'] });
 
-    this.hintsView.append(this.translationView);
+    this.hintsView.append(this.soundView, this.translationView);
 
     const resultBox = new BaseComponent({ tag: 'div', classNames: ['result-box'] });
     const rowsBox = new RowsIconsBox();
@@ -118,7 +120,8 @@ export default class MainPage extends BaseComponent {
       this.resultField.setActiveRow(row, numbOfCells);
     }
     this.sourceBlock.createPuzzleRow(currentText);
-    this.translationView.addTransaltion();
+    this.translationView.addTransaltion(row);
+    this.soundView.addSound(row);
     if (!isSelected && appState.row === 0) {
       if (!this.roundSelect || !this.levelSelect) {
         throw new Error('select is undefined');
@@ -145,12 +148,13 @@ export default class MainPage extends BaseComponent {
       // console.log('nextstepimage');
       this.resultField.showFullImage();
       this.sourceBlock.showRoundData();
-      this.continueBtn.disable();
+      this.isImageShowed = true;
+      // this.continueBtn.disable();
       this.hintsView.addClass('hints-view-hidden');
-      setTimeout(() => {
-        this.continueBtn?.enable();
-        this.isImageShowed = true;
-      }, 1000);
+      // setTimeout(() => {
+      // this.continueBtn?.enable();
+      // this.isImageShowed = true;
+      // }, 1000);
     } else {
       // console.log('clickoncontinue');
       this.isImageShowed = false;
@@ -158,6 +162,7 @@ export default class MainPage extends BaseComponent {
       appState.resetRowState();
       // console.log('appState1=', appState);
       this.startNextRow(false);
+      this.continueBtn?.disable();
     }
     // if(isImageShowed)
   };

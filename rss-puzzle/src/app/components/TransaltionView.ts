@@ -8,8 +8,8 @@ export default class TransaltionView extends BaseComponent {
     emitter.on('toggleTranslation', this.toggleVisibility);
   }
 
-  addTransaltion() {
-    const translText = appState.getTranslation();
+  addTransaltion(rowInd: number) {
+    const translText = appState.getTranslation(rowInd);
     this.setTextContent(translText);
   }
 
@@ -17,7 +17,7 @@ export default class TransaltionView extends BaseComponent {
     this.toggleClass('hint-view-hidden');
   };
 
-  removeVisibility = () => {
-    this.removeClass('hint-view-hidden');
-  };
+  // removeVisibility = () => {
+  //   this.removeClass('hint-view-hidden');
+  // };
 }
