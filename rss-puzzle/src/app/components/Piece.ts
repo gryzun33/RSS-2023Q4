@@ -6,8 +6,8 @@ import emitter from './EventEmitter';
 
 export default class Piece extends BaseComponent {
   protected state: boolean = true;
-  protected isImage: boolean = false;
-  protected isInResult: boolean = false;
+  // protected isImage: boolean = false;
+  // protected isInResult: boolean = false;
   public image?: BaseComponent<HTMLImageElement>;
 
   constructor(

@@ -9,9 +9,14 @@ export default class HintButtons extends BaseComponent {
 
   protected createView() {
     const imageToggler = new HintButton('hint-image', 'toggleImage', 'image');
-    this.append(imageToggler);
 
-    const imageTranslation = new HintButton('hint-translation', 'toggleTranslation', 'translation');
-    this.append(imageTranslation);
+    const translationToggler = new HintButton(
+      'hint-translation',
+      'toggleTranslation',
+      'translation'
+    );
+
+    const soundToggler = new HintButton('hint-sound', 'toggleSound', 'sound');
+    this.append(imageToggler, translationToggler, soundToggler);
   }
 }
