@@ -38,9 +38,9 @@ class AppState {
   public emptiesInResult: number[] = [];
 
   public hints: HintsState = {
-    image: false,
-    translation: false,
-    sound: false,
+    image: true,
+    translation: true,
+    sound: true,
   };
   public currPuzzle = new Map();
 
@@ -52,6 +52,7 @@ class AppState {
 
   public changeHintState(hintName: keyof HintsState) {
     this.hints[hintName] = !this.hints[hintName];
+    storage.saveData('hints', this.hints);
   }
 
   public resetState() {
@@ -64,9 +65,9 @@ class AppState {
     this.statistics = this.createStatisticsArray();
     this.resetRowState();
     this.hints = {
-      image: false,
-      translation: false,
-      sound: false,
+      image: true,
+      translation: true,
+      sound: true,
     };
   }
 
@@ -314,13 +315,19 @@ class AppState {
 
   protected getDataFromStorage(): void {
     const state = storage.getData('state');
-    console.log('state=', state);
+    const hints = storage.getData('hints');
+
+    // console.log('state=', state);
     if (state) {
       this.level = state.level;
       this.round = state.round;
       this.row = numbRows - 1;
       this.statistics = state.statistics;
       this.isStart = false;
+    }
+    if (hints) {
+      this.hints = hints;
+      console.log('hints=', hints);
     }
   }
 }

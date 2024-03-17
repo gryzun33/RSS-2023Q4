@@ -11,6 +11,9 @@ export default class HintButton extends BaseComponent {
   ) {
     super({ tag: 'button', classNames: ['hint-btn', className] });
     this.on('click', this.onClickHandler);
+    if (appState.hints[hintName]) {
+      this.addClass('hint-active');
+    }
   }
 
   protected onClickHandler = () => {

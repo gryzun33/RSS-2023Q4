@@ -4,8 +4,11 @@ import emitter from './EventEmitter';
 
 export default class TransaltionView extends BaseComponent {
   constructor() {
-    super({ tag: 'p', classNames: ['translation', 'hint-view-hidden'] });
+    super({ tag: 'p', classNames: ['translation'] });
     emitter.on('toggleTranslation', this.toggleVisibility);
+    if (!appState.hints.translation) {
+      this.addClass('hint-view-hidden');
+    }
   }
 
   addTransaltion(rowInd: number) {

@@ -13,10 +13,13 @@ export default class SoundHint extends BaseComponent {
 
   protected duration: number = 0;
   constructor() {
-    super({ tag: 'button', classNames: ['sound-view', 'hint-view-hidden'] });
+    super({ tag: 'button', classNames: ['sound-view'] });
     emitter.on('toggleSound', this.toggleVisibility);
     this.on('click', this.activateSoundHint);
     this.audio.addEventListener('ended', this.stopAnimation);
+    if (!appState.hints.sound) {
+      this.addClass('hint-view-hidden');
+    }
   }
 
   public addSound = (row: number) => {

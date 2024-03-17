@@ -89,6 +89,8 @@ export default class SourceBlock extends BaseComponent {
 
   protected getWordsData(text: string) {
     const arrWords = text.split(' ');
+    const paddings = arrWords.length * 3;
+    const lengthWithoutPaddings = 100 - paddings;
     const fullLength = arrWords.join('').length;
     const l = arrWords.length;
     const newSet = new Set<number>();
@@ -107,7 +109,10 @@ export default class SourceBlock extends BaseComponent {
     // const width = `${(100 / l).toFixed(2)}%`;
     let left: number = 0;
     arrWords.forEach((word, i) => {
-      const widthInPercent: number = +((word.length * 100) / fullLength).toFixed(2);
+      const widthInPercent: number = +(
+        (word.length * lengthWithoutPaddings) / fullLength +
+        3
+      ).toFixed(2);
 
       const bg = this.getBgStyles(left, widthInPercent);
 

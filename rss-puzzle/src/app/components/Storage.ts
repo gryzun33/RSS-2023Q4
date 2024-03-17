@@ -1,3 +1,5 @@
+import { HintsState } from '../utils/types';
+
 export class StorageService<T> {
   protected keys = new Set<string>();
   constructor(private keyPrefix: string) {}
@@ -39,6 +41,7 @@ export type StorageState = {
     round: number;
     statistics: number[][];
   };
+  hints: HintsState;
 };
 
 export const storage = new StorageService<StorageState>('gryzun33-puzzle');
