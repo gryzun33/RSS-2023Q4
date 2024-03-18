@@ -86,8 +86,6 @@ class AppState {
   // }
   public getNextData(isSelected: boolean): { currentText: string; row: number } {
     const { level, round, row } = isSelected ? this : this.getNextRow();
-    console.log('round=', round);
-    console.log('row=', row);
     const levelData = this.levels[level];
     const currRound = levelData.rounds[round];
     const currRowData = currRound.words[row];
@@ -156,6 +154,10 @@ class AppState {
 
   public isLastLevel(): boolean {
     return this.level === this.levels.length - 1;
+  }
+
+  public resetRoundStatistic() {
+    this.roundStatistic = [];
   }
 
   public getNextRow(): { level: number; round: number; row: number } {
@@ -234,6 +236,12 @@ class AppState {
     return levelData;
   }
 
+  public getRoundDataForModal() {
+    const { author, name, year, cutSrc } = this.getRoundData();
+    const fullcutSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${cutSrc}`;
+    return { author, name, year, fullcutSrc };
+  }
+
   public getRoundExamplesData() {
     const { words } = this.levels[this.level].rounds[this.round];
     return words;
@@ -288,7 +296,7 @@ class AppState {
       }
       levelsArr.push(roundsArr);
     }
-    console.log('statistics=', levelsArr);
+    // console.log('statistics=', levelsArr);
     return levelsArr;
   }
 
@@ -312,7 +320,7 @@ class AppState {
     console.log('ind????????=', ind);
     // const statisticRound = this.statistics[ind];
     const roundsStatus = this.statistics[ind].map((round) => round === roundCompleted.done);
-    console.log('statusrounds=', roundsStatus);
+    // console.log('statusrounds=', roundsStatus);
     return roundsStatus;
   }
 
@@ -343,7 +351,7 @@ class AppState {
     }
     if (hints) {
       this.hints = hints;
-      console.log('hints=', hints);
+      // console.log('hints=', hints);
     }
   }
 }

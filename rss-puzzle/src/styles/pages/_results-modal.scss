@@ -23,10 +23,16 @@
   @include flex-column(normal, center);
 }
 
-.modal-title {
-  font-size: 25px;
-  font-weight: 600;
+.image-modal {
+  width: 150px;
+  border-radius: 5px;
+}
+
+.modal-text {
+  font-size: 20px;
   color: $color-modal-title;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .overlay-show {
@@ -49,7 +55,7 @@
 }
 
 .result-list {
-  // width: 450px;
+  margin-top: 10px;
   @include flex-column(normal, normal);
 }
 
@@ -57,6 +63,7 @@
 .unknown-title {
   font-size: 20px;
   margin-top: 10px;
+  align-self: center;
 }
 
 .title-hidden {

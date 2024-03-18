@@ -6,8 +6,10 @@ import appState from './AppState';
 export default class ResultsModal extends BaseComponent {
   public modalContent = new BaseComponent({ tag: 'div', classNames: ['modal-content'] });
   protected statistic: boolean[] = appState.getRoundStatistic();
-  protected roundData = appState.getDataForModal();
+  protected roundExamples = appState.getDataForModal();
 
+  // protected {author, name, year }= appState.getRoundData();
+  protected roundData = appState.getRoundDataForModal();
   protected audio = new Audio();
   protected nextStep: () => void;
 
@@ -20,7 +22,12 @@ export default class ResultsModal extends BaseComponent {
   }
 
   protected createView() {
-    const title = new BaseComponent({ tag: 'h2', classNames: ['modal-title'], text: 'Results' });
+    // const title = new BaseComponent({ tag: 'h2', classNames: ['modal-title'], text: 'Results' });
+    const img = new BaseComponent<HTMLImageElement>({ tag: 'img', classNames: ['image-modal'] });
+    img.attr('src', `${this.roundData.fullcutSrc}`);
+    img.attr('alt', `${this.roundData.name}`);
+    const text = `${this.roundData.author} - ${this.roundData.name}, ${this.roundData.year}`;
+    const description = new BaseComponent({ tag: 'p', classNames: ['modal-text'], text });
 
     const resultList = new BaseComponent({ tag: 'div', classNames: ['result-list'] });
     const unknownTitle = new BaseComponent({
@@ -32,19 +39,19 @@ export default class ResultsModal extends BaseComponent {
     const unknownList = new BaseComponent({ tag: 'ul', classNames: ['known-list'] });
     const knownList = new BaseComponent({ tag: 'ul', classNames: ['unknown-list'] });
 
-    this.roundData.forEach((example, i) => {
+    this.roundExamples.forEach((example, i) => {
       const item = new BaseComponent({ tag: 'li', classNames: ['list-item'] });
       const icon = new BaseComponent({ tag: 'button', classNames: ['sound-modal'] });
       icon.on('click', () => {
         this.audio.src = example.audioSrc;
         this.audio.play();
       });
-      const text = new BaseComponent({
+      const answer = new BaseComponent({
         tag: 'span',
         classNames: ['item-text'],
         text: example.text,
       });
-      item.append(icon, text);
+      item.append(icon, answer);
       if (this.statistic[i]) {
         knownList.append(item);
       } else {
@@ -59,7 +66,7 @@ export default class ResultsModal extends BaseComponent {
     });
 
     resultList.append(unknownTitle, unknownList, knownTitle, knownList);
-    this.modalContent.append(title, resultList, continueBtn);
+    this.modalContent.append(img, description, resultList, continueBtn);
     this.append(this.modalContent);
     this.checkVisibilityTitle(knownTitle, unknownTitle);
   }
@@ -73,7 +80,7 @@ export default class ResultsModal extends BaseComponent {
     this.addClass('overlay-hide');
     this.modalContent.addClass('modal-hide');
     this.modalContent.on('animationend', () => {
-      console.log('thisModal = ', this);
+      console.log('thisModal ===== ', this);
       this.destroy();
     });
   }

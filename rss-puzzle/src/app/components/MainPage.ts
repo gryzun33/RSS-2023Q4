@@ -92,7 +92,7 @@ export default class MainPage extends BaseComponent {
 
     this.autoBtn = new AutoCompleteBtn({
       classNames: ['auto-btn', 'btn-show'],
-      text: `I dont't know`,
+      text: `Auto-Complete`,
       // disabled: true,
       callback: this.finishWithHint,
     });
@@ -128,12 +128,14 @@ export default class MainPage extends BaseComponent {
     if (appState.row === 0) {
       // console.log('row=000000');
       this.resultField.updateView(row, numbOfCells);
+      appState.resetRoundStatistic();
     } else {
       this.resultField.setActiveRow(row, numbOfCells);
     }
     this.sourceBlock.createPuzzleRow(currentText);
     this.translationView.addTransaltion(row);
     this.soundView.addSound(row);
+
     if (!isSelected && appState.row === 0) {
       if (!this.roundSelect || !this.levelSelect) {
         throw new Error('select is undefined');
