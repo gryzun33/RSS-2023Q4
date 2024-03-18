@@ -2,11 +2,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  // border: 2px solid red;
 }
 
 body {
-  // @include flex(center, center);
   background-image: url("./assets/images/main-bg.jpeg");
   min-height: 100vh;
   background-size: cover;
@@ -16,7 +14,6 @@ body {
   font-weight: 400;
   @include flex(center, center);
   position: relative;
-  // font-family: "Lilita One", sans-serif;
 }
 
 .wrapper {

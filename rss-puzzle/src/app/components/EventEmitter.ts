@@ -1,5 +1,3 @@
-// import BaseComponent from './BaseComponent';
-
 type Listener = (...args: unknown[]) => void;
 
 class EventEmitter {
@@ -19,7 +17,6 @@ class EventEmitter {
   }
 
   emit(event: string, ...args: unknown[]): void {
-    // console.log('arg=', arg);
     const eventListeners = this.listeners[event];
     if (eventListeners) {
       eventListeners.forEach((listener) => {

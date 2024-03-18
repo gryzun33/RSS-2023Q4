@@ -6,8 +6,6 @@
 
 .login-content {
   width: 350px;
-  // height: 600px;
-  // border: 2px solid black;
   background-color: $color-bg;
   padding: 30px;
   border-radius: 20px;
@@ -39,10 +37,6 @@
   color: $color-text;
 }
 
-// .login-input:focus {
-//   border: 2px solid black;
-// }
-
 .login-btn {
   margin-top: 30px;
   @include btn;
@@ -54,7 +48,3 @@
 .input-invalid {
   border: 2px solid $color-invalid;
 }
-
-// .login-input:invalid {
-//   border: 1px solid red;
-// }

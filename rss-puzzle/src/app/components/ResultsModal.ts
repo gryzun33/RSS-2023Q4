@@ -1,28 +1,25 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
 import appState from './AppState';
-// import { CallbackFunc } from '../utils/types';
+import { СallbackFunc } from '../utils/types';
 
 export default class ResultsModal extends BaseComponent {
   public modalContent = new BaseComponent({ tag: 'div', classNames: ['modal-content'] });
   protected statistic: boolean[] = appState.getRoundStatistic();
   protected roundExamples = appState.getDataForModal();
 
-  // protected {author, name, year }= appState.getRoundData();
   protected roundData = appState.getRoundDataForModal();
   protected audio = new Audio();
-  protected nextStep: () => void;
+  protected nextStep: СallbackFunc;
 
-  constructor(nextStep: () => void) {
+  constructor(nextStep: СallbackFunc) {
     super({ tag: 'div', classNames: ['modal-overlay'] });
     this.createView();
     this.open();
     this.nextStep = nextStep;
-    // this.soundIcons.forEach((icon) => icon.on('click', this.playSound))
   }
 
   protected createView() {
-    // const title = new BaseComponent({ tag: 'h2', classNames: ['modal-title'], text: 'Results' });
     const img = new BaseComponent<HTMLImageElement>({ tag: 'img', classNames: ['image-modal'] });
     img.attr('src', `${this.roundData.fullcutSrc}`);
     img.attr('alt', `${this.roundData.name}`);
@@ -80,7 +77,6 @@ export default class ResultsModal extends BaseComponent {
     this.addClass('overlay-hide');
     this.modalContent.addClass('modal-hide');
     this.modalContent.on('animationend', () => {
-      console.log('thisModal ===== ', this);
       this.destroy();
     });
   }
@@ -97,13 +93,4 @@ export default class ResultsModal extends BaseComponent {
     this.close();
     this.nextStep();
   };
-
-  // protected playSound = (e: Event) => {
-  //   if (!e.target || !(e.target instanceof HTMLElement)) {
-  //     throw new Error();
-  //   }
-
-  //   const icon = e.target.closest('sound-modal');
-  //   this.audio.src =
-  // };
 }

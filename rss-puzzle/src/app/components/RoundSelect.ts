@@ -1,5 +1,4 @@
 import Select from './Select';
-// import BaseComponent from './BaseComponent';
 import appState from './AppState';
 import emitter from './EventEmitter';
 

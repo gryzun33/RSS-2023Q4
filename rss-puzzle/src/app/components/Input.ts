@@ -16,9 +16,7 @@ export default class Input extends BaseComponent<HTMLInputElement> {
 
   validInput = () => {
     this.addClass('input-invalid');
-    // console.log('validation');
     if (this.element.validity.valueMissing) {
-      // console.log('true');
       this.element.setCustomValidity('Fill this field');
     } else if (!this.element.value[0].match(/[A-Z]/)) {
       this.element.setCustomValidity('The first letter must be in uppercase');

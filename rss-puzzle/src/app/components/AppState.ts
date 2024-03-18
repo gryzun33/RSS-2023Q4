@@ -2,22 +2,13 @@ import level1 from '../puzzle-data/wordCollectionLevel1.json';
 import BaseComponent from './BaseComponent';
 import { numbRows } from '../utils/constants';
 import emitter from './EventEmitter';
-import { HintsState } from '../utils/types';
+import { HintsState, Statistics, PieceData } from '../utils/types';
 import level2 from '../puzzle-data/wordCollectionLevel2.json';
 import level3 from '../puzzle-data/wordCollectionLevel3.json';
 import level4 from '../puzzle-data/wordCollectionLevel4.json';
 import level5 from '../puzzle-data/wordCollectionLevel5.json';
 import level6 from '../puzzle-data/wordCollectionLevel6.json';
 import { storage } from './Storage';
-
-type PieceData = {
-  oldInd: number;
-  newInd: number;
-  parent: string;
-  word: string;
-};
-
-type Statistics = number[][];
 
 const roundCompleted = {
   done: 1,
@@ -77,36 +68,21 @@ class AppState {
     this.currPuzzle.clear();
     this.isAllInResult = false;
   }
-
-  // public resetState() {
-  //   this.emptiesInResult = [];
-  //   this.emptiesInSource = [];
-  //   this.currPuzzle.clear();
-  //   this.isAllInResult = false;
-  // }
   public getNextData(isSelected: boolean): { currentText: string; row: number } {
     const { level, round, row } = isSelected ? this : this.getNextRow();
     const levelData = this.levels[level];
     const currRound = levelData.rounds[round];
     const currRowData = currRound.words[row];
     this.text = currRowData.textExample;
-    // return this.text;
-
     return { currentText: this.text, row };
   }
-
-  // public getSelectedData() {}
 
   public getNumbOfRounds(): number {
     const levelData = this.levels[this.level];
     const roundsLength = levelData.rounds.length;
-    console.log('roundslength=', roundsLength);
+
     return roundsLength;
   }
-
-  // public getNumbOfCells(): number {
-  //   return this.getCurrentText().split(' ').length;
-  // }
 
   public addToAppState = (
     comp: BaseComponent,
@@ -122,7 +98,6 @@ class AppState {
       newInd,
       word,
     };
-    // this.allPiecesData.push(value);
     this.currPuzzle.set(key, value);
   };
 
@@ -166,7 +141,6 @@ class AppState {
     } else if (!this.isLastRow()) {
       this.row += 1;
     } else if (!this.isLastRound()) {
-      // emitter.emit('newround');
       this.round += 1;
       this.row = 0;
     } else if (!this.isLastLevel()) {
@@ -184,11 +158,9 @@ class AppState {
 
   public checkRow(): void {
     const values: PieceData[] = Array.from(this.currPuzzle.values());
-    // console.log('datafromCheckRow', values);
     const parents: string[] = values.map((value: PieceData) => value.parent);
     if (!parents.every((parent) => parent === 'result')) {
       this.isAllInResult = false;
-      // console.log('not all');
       return;
     }
     this.isAllInResult = true;
@@ -196,12 +168,9 @@ class AppState {
 
     if (values.every((word) => word.oldInd === word.newInd) && this.isLastRow()) {
       this.setStatisticsData();
-
       this.addStateToStorage();
     }
     if (values.every((word) => word.oldInd === word.newInd)) {
-      console.log('correct');
-
       this.roundStatistic.push(true);
       emitter.emit('iscorrect');
     } else {
@@ -224,8 +193,6 @@ class AppState {
   }
 
   public getSoundSrc = (rowInd: number) => {
-    // const examples = this.getRoundExamplesData;
-
     const src = this.getRowData(rowInd).audioExample;
     const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${src}`;
     return fullSrc;
@@ -281,13 +248,11 @@ class AppState {
     if (this.isLastRow()) {
       this.setStatisticsData();
       this.addStateToStorage();
-      console.log('statistics=', this.statistics);
     }
   }
 
   createStatisticsArray(): Statistics {
     const levelsArr: number[][] = [];
-    // console.log('levels=', this.levels);
     for (let i = 0; i < this.levels.length; i += 1) {
       const roundsLength = this.levels[i].rounds.length;
       const roundsArr: number[] = [];
@@ -296,7 +261,6 @@ class AppState {
       }
       levelsArr.push(roundsArr);
     }
-    // console.log('statistics=', levelsArr);
     return levelsArr;
   }
 
@@ -312,15 +276,11 @@ class AppState {
     const levelsStatus = this.statistics.map((round) =>
       round.every((item) => item === roundCompleted.done)
     );
-    console.log('statuslevels=', levelsStatus);
     return levelsStatus;
   }
 
   public getDoneRounds(ind: number) {
-    console.log('ind????????=', ind);
-    // const statisticRound = this.statistics[ind];
     const roundsStatus = this.statistics[ind].map((round) => round === roundCompleted.done);
-    // console.log('statusrounds=', roundsStatus);
     return roundsStatus;
   }
 
@@ -340,8 +300,6 @@ class AppState {
   protected getDataFromStorage(): void {
     const state = storage.getData('state');
     const hints = storage.getData('hints');
-
-    // console.log('state=', state);
     if (state) {
       this.level = state.level;
       this.round = state.round;
@@ -351,7 +309,6 @@ class AppState {
     }
     if (hints) {
       this.hints = hints;
-      // console.log('hints=', hints);
     }
   }
 }

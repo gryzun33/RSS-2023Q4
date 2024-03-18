@@ -1,4 +1,3 @@
-// import appState from './AppState';
 import BaseComponent from './BaseComponent';
 import doneImg from '../../assets/icons/done.svg';
 
@@ -10,7 +9,6 @@ export default class Select extends BaseComponent {
   public dropList = new BaseComponent({ tag: 'ul', classNames: ['select-list'] });
   constructor(protected label: string) {
     super({ tag: 'div', classNames: ['select-box'] });
-    // this.createView();
     this.mainItem.on('click', this.toggleList);
   }
 

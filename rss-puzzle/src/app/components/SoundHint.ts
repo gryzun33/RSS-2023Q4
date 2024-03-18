@@ -1,15 +1,9 @@
 import appState from './AppState';
-// import AudioComponent from './AudioComponent';
 import BaseComponent from './BaseComponent';
 import emitter from './EventEmitter';
 
-// import BaseComponent from './BaseComponent';
-
-// import appState from "./AppState";
 export default class SoundHint extends BaseComponent {
-  // audio = new Audio();
   protected audio = new Audio();
-  // protected soundSrc: string = '';
 
   protected duration: number = 0;
   constructor() {

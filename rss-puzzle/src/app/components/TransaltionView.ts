@@ -19,8 +19,4 @@ export default class TransaltionView extends BaseComponent {
   toggleVisibility = () => {
     this.toggleClass('hint-view-hidden');
   };
-
-  // removeVisibility = () => {
-  //   this.removeClass('hint-view-hidden');
-  // };
 }

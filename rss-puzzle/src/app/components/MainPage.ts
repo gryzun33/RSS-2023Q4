@@ -49,9 +49,6 @@ export default class MainPage extends BaseComponent {
     this.levelSelect = new LevelSelect(appState.levels.length);
     this.roundSelect = new RoundSelect(appState.getNumbOfRounds());
 
-    // console.log('levelselect=', this.levelSelect);
-    // console.log('roundselect=', this.roundSelect);
-
     selects.append(this.levelSelect, this.roundSelect);
 
     const hints = new Hints();
@@ -64,8 +61,6 @@ export default class MainPage extends BaseComponent {
     topPanel.append(selects, hints, logOutBtn);
 
     const mainBox = new BaseComponent({ tag: 'div', classNames: ['main-box'] });
-
-    // const hintsView = new BaseComponent({ tag: 'div', classNames: ['hints-view'] });
 
     this.hintsView.append(this.soundView, this.translationView);
 
@@ -93,7 +88,6 @@ export default class MainPage extends BaseComponent {
     this.autoBtn = new AutoCompleteBtn({
       classNames: ['auto-btn', 'btn-show'],
       text: `Auto-Complete`,
-      // disabled: true,
       callback: this.finishWithHint,
     });
 
@@ -118,15 +112,9 @@ export default class MainPage extends BaseComponent {
       throw new Error();
     }
     this.hintsView.removeClass('hints-view-hidden');
-    // console.log('startnextrow');
-    // console.log(this.sourceBlock);
-    // console.log(this.resultField);
-    // if (this.sourceBlock && this.resultField) {
-
     const { currentText, row } = appState.getNextData(isSelected);
     const numbOfCells: number = currentText.split(' ').length;
     if (appState.row === 0) {
-      // console.log('row=000000');
       this.resultField.updateView(row, numbOfCells);
       appState.resetRoundStatistic();
     } else {
@@ -143,8 +131,6 @@ export default class MainPage extends BaseComponent {
       this.roundSelect.setSelectValue(appState.round);
       this.levelSelect.setSelectValue(appState.level);
     }
-    // console.log('appstate=', appState);
-    // }
   };
 
   public nextStep = () => {
@@ -158,41 +144,22 @@ export default class MainPage extends BaseComponent {
       if (!this.sourceBlock) {
         throw new Error('sourceBlock is undefined');
       }
-
-      // console.log('nextstepimage');
       this.resultField.showFullImage();
       this.sourceBlock.showRoundData();
       this.isImageShowed = true;
-      // this.continueBtn.disable();
       this.hintsView.addClass('hints-view-hidden');
       this.resultBtn?.enable();
-      // setTimeout(() => {
-      // this.continueBtn?.enable();
-      // this.isImageShowed = true;
-      // }, 1000);
-      // emitter.emit('showResult');
     } else {
-      // console.log('clickoncontinue');
       this.isImageShowed = false;
-
       appState.resetRowState();
-      // console.log('appState1=', appState);
       this.startNextRow(false);
       this.continueBtn?.disable();
       this.resultBtn?.disable();
       this.autoBtn?.enable();
     }
-    // if(isImageShowed)
   };
 
   public showIncorrectWords = () => {
-    // const incorrect: number[] = appState.getIncorrectIndexes();
-    // const pieces = this.resultField?.activeRow?.getChildren();
-    // pieces?.forEach((piece, i) => {
-    //   if (incorrect.includes(i)) {
-    //     piece.addClass('piece-incorrect');
-    //   }
-    // });
     const pieces = this.resultField.activeRow?.getChildren();
     pieces?.forEach((piece) => {
       if (!appState.isCorrectPiece(piece)) {
@@ -202,9 +169,8 @@ export default class MainPage extends BaseComponent {
   };
 
   public finishWithHint = () => {
-    console.log('finishwithhint');
     if (!this.resultField.activeRow) {
-      throw new Error();
+      throw new Error('activeRow is undefined');
     }
     this.resultField.activeRow.append(...this.sourceBlock.getChildren());
     this.sourceBlock.clearChildren();
@@ -222,15 +188,11 @@ export default class MainPage extends BaseComponent {
       }
     });
     this.checkBtn?.disable();
-    // this.resultField?.activeRow?.showCorrectRow();
     appState.changeAfterHint();
-    // this.isImageShowed = true;
   };
 
   protected createResultModal = () => {
     this.modal = new ResultsModal(this.nextStep);
     document.body.append(this.modal.getElement());
   };
-
-  // protected showChosenRound = () => {};
 }

@@ -24,7 +24,6 @@ export default class LevelSelect extends Select {
   }
 
   public setSelectValue(value: number = appState.level) {
-    console.log('setlevelvalue');
     this.mainItem.setTextContent(`${value + 1}`);
   }
 

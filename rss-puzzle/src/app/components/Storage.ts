@@ -11,10 +11,7 @@ export class StorageService<T> {
   }
 
   public saveData<K extends keyof T>(key: K, data: T[K]): void {
-    console.log('savedata');
-
     const storageKey = this.getStorageKey(key.toString());
-    console.log('storagekey', storageKey);
     localStorage.setItem(storageKey, JSON.stringify(data));
   }
 
@@ -25,9 +22,7 @@ export class StorageService<T> {
   }
 
   public removeStorage(): void {
-    console.log('remove');
     this.keys.forEach((key: string) => {
-      console.log('removkey', key);
       localStorage.removeItem(key);
     });
   }
@@ -45,4 +40,3 @@ export type StorageState = {
 };
 
 export const storage = new StorageService<StorageState>('gryzun33-puzzle');
-// console.log('sorage=', storage);

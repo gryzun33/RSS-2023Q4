@@ -8,7 +8,6 @@ export default class RowsIconsBox extends BaseComponent {
   }
 
   protected createView() {
-    // const rowsBox = new BaseComponent({ tag: 'div', classNames: ['rows-box'] });
     for (let i = 0; i < numbRows; i += 1) {
       const rowIconWrapper = new BaseComponent({ tag: 'div', classNames: ['row-icon-wrapper'] });
       const rowIcon = new BaseComponent({

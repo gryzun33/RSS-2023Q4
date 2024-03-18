@@ -1,9 +1,4 @@
-import { Props } from '../utils/types';
-
-type Handler = {
-  eventType: string;
-  callback: (event: Event) => void;
-};
+import { Props, Handler } from '../utils/types';
 
 export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   protected element: T;
@@ -58,8 +53,6 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   }
 
   public insertBefore(newComp: BaseComponent, child: BaseComponent, index: number) {
-    // console.log('newComp=', newComp);
-    // console.log('child=', child);
     this.element.insertBefore(newComp.element, child.element);
     this.children[index] = newComp;
   }
@@ -72,19 +65,8 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     return this.element.getAttribute(name);
   }
 
-  getData(str: string) {
-    // if (!this.element.dataset[str]) {
-    //   throw new Error();
-    // }
-    return this.element.dataset[str];
-  }
-
   css(prop: string, value: string) {
     this.element.style.setProperty(prop, value);
-  }
-
-  find(selector: string) {
-    return this.element.querySelector(selector);
   }
 
   findAll(selector: string) {
@@ -102,7 +84,6 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
 
   off(eventType: string, callback: (event: Event) => void) {
     this.element.removeEventListener(eventType, callback);
-    // return this;
   }
 
   html(html: string) {
@@ -119,7 +100,6 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   }
 
   destroy() {
-    // console.log('destroy=', this.element);
     this.destroyChildren();
     this.element.remove();
     this.deleteHandlers();

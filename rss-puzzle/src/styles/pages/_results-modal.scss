@@ -16,9 +16,6 @@
   border-radius: 10px;
   padding: 20px 30px;
   max-width: 600px;
-  // height: 600px;
-  // box-shadow: 0px 0px 10px 1px $color-border;
-  // position: relative;
 
   @include flex-column(normal, center);
 }
@@ -41,17 +38,14 @@
 
 .modal-show {
   animation: modal-show 0.3s ease-in-out forwards;
-  // animation-fill-mode: forwards;
 }
 
 .overlay-hide {
   animation: overlay-hide 0.3s ease-in-out forwards;
-  animation-fill-mode: forwards;
 }
 
 .modal-hide {
   animation: modal-hide 0.3s ease-in-out forwards;
-  animation-fill-mode: forwards;
 }
 
 .result-list {

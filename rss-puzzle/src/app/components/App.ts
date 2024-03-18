@@ -10,12 +10,10 @@ export default class App {
   public loginPage?: BaseComponent;
   public mainPage?: BaseComponent;
   public startPage?: BaseComponent;
-  // public loginPage = new LoginPage();
   constructor() {
     this.root = document.createElement('div') as HTMLElement;
     this.root.classList.add('wrapper');
     document.body.append(this.root);
-    // this.start();
   }
 
   public start(): void {
@@ -24,14 +22,9 @@ export default class App {
     } else {
       this.loadLoginPage();
     }
-    // this.loginPage = new LoginPage(this.loadStartPage);
-    // this.root.append(this.loginPage.getElement());
-    // this.startPage = new StartPage();
-    // this.root.append(this.startPage.getElement());
   }
 
   public loadLoginPage = (): void => {
-    console.log('loginpage');
     if (this.mainPage) {
       this.mainPage.destroy();
     }
@@ -40,7 +33,6 @@ export default class App {
   };
 
   public loadStartPage = (): void => {
-    // console.log('startpage');
     if (this.loginPage) {
       this.loginPage.destroy();
     }
@@ -49,7 +41,6 @@ export default class App {
   };
 
   public loadMainPage = (): void => {
-    // console.log('mainpage');
     if (this.startPage) {
       this.startPage.destroy();
     }

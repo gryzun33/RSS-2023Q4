@@ -35,3 +35,17 @@ export type HintsState = {
   translation: boolean;
   sound: boolean;
 };
+
+export type PieceData = {
+  oldInd: number;
+  newInd: number;
+  parent: string;
+  word: string;
+};
+
+export type Statistics = number[][];
+
+export type Handler = {
+  eventType: string;
+  callback: (event: Event) => void;
+};
