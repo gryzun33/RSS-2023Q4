@@ -7,11 +7,14 @@ export default class ResultsModal extends BaseComponent {
   protected audioSrcMap = new Map<HTMLElement, string>();
   protected roundData = appState.getDataForModal();
 
+  protected audio = new Audio();
+
   protected soundIcons: HTMLElement[] = [];
   constructor() {
     super({ tag: 'div', classNames: ['modal-overlay'] });
     this.createView();
     this.open();
+    // this.soundIcons.forEach((icon) => icon.on('click', this.playSound))
   }
 
   protected createView() {
@@ -30,6 +33,10 @@ export default class ResultsModal extends BaseComponent {
     this.roundData.forEach((example, i) => {
       const item = new BaseComponent({ tag: 'li', classNames: ['list-item'] });
       const icon = new BaseComponent({ tag: 'button', classNames: ['sound-modal'] });
+      icon.on('click', () => {
+        this.audio.src = example.audioSrc;
+        this.audio.play();
+      });
       const text = new BaseComponent({
         tag: 'span',
         classNames: ['item-text'],
@@ -73,4 +80,13 @@ export default class ResultsModal extends BaseComponent {
       unknownTitle.addClass('title-hidden');
     }
   }
+
+  // protected playSound = (e: Event) => {
+  //   if (!e.target || !(e.target instanceof HTMLElement)) {
+  //     throw new Error();
+  //   }
+
+  //   const icon = e.target.closest('sound-modal');
+  //   this.audio.src =
+  // };
 }
