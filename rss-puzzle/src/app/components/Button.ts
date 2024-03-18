@@ -16,7 +16,7 @@ export default class Button extends BaseComponent<HTMLButtonElement> {
   }
 
   public disable = (): void => {
-    console.log('disable');
+    // console.log('disable');
     // this.element.disabled = true;
     this.removeClass('btn-show');
   };

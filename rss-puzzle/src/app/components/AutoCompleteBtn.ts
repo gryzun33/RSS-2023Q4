@@ -6,7 +6,7 @@ export default class AutoCompleteBtn extends Button {
   constructor(props: ButtonProps) {
     super(props);
     this.on('click', this.disable);
-    emitter.on('iscorrect', this.enable);
+    emitter.on('iscorrect', this.disable);
     emitter.on('setNewRound', this.enable);
   }
 }

@@ -13,6 +13,7 @@ import RoundSelect from './RoundSelect';
 import Hints from './HintsButtons';
 import TransaltionView from './TransaltionView';
 import SoundHint from './SoundHint';
+import ResultsModal from './ResultsModal';
 import emitter from './EventEmitter';
 
 export default class MainPage extends BaseComponent {
@@ -27,8 +28,12 @@ export default class MainPage extends BaseComponent {
   public continueBtn?: ContinueBtn;
   public checkBtn?: CheckBtn;
   public autoBtn?: AutoCompleteBtn;
+
+  public resultBtn?: Button;
   public levelSelect?: LevelSelect;
   public roundSelect?: RoundSelect;
+
+  protected modal?: ResultsModal;
 
   protected isImageShowed: boolean = false;
   constructor(public reloadLoginPage: СallbackFunc) {
@@ -92,7 +97,14 @@ export default class MainPage extends BaseComponent {
       callback: this.finishWithHint,
     });
 
-    bottomPanel.append(this.continueBtn, this.checkBtn, this.autoBtn);
+    this.resultBtn = new Button({
+      classNames: ['result-btn'],
+      text: `Results`,
+      disabled: true,
+      callback: this.createResultModal,
+    });
+
+    bottomPanel.append(this.continueBtn, this.checkBtn, this.autoBtn, this.resultBtn);
 
     mainBox.append(this.hintsView, resultBox, this.sourceBlock, bottomPanel);
 
@@ -151,18 +163,22 @@ export default class MainPage extends BaseComponent {
       this.isImageShowed = true;
       // this.continueBtn.disable();
       this.hintsView.addClass('hints-view-hidden');
+      this.resultBtn?.enable();
       // setTimeout(() => {
       // this.continueBtn?.enable();
       // this.isImageShowed = true;
       // }, 1000);
+      // emitter.emit('showResult');
     } else {
       // console.log('clickoncontinue');
       this.isImageShowed = false;
-      this.autoBtn?.enable();
+
       appState.resetRowState();
       // console.log('appState1=', appState);
       this.startNextRow(false);
       this.continueBtn?.disable();
+      this.resultBtn?.disable();
+      this.autoBtn?.enable();
     }
     // if(isImageShowed)
   };
@@ -207,6 +223,11 @@ export default class MainPage extends BaseComponent {
     // this.resultField?.activeRow?.showCorrectRow();
     appState.changeAfterHint();
     // this.isImageShowed = true;
+  };
+
+  protected createResultModal = () => {
+    this.modal = new ResultsModal();
+    document.body.append(this.modal.getElement());
   };
 
   // protected showChosenRound = () => {};

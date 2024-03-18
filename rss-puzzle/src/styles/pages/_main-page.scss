@@ -77,7 +77,7 @@
         .select-list {
           position: absolute;
           top: 32px;
-          z-index: 10;
+          z-index: 4;
           width: 100%;
           // max-height: 152px;
           background-color: $color-bg;
@@ -402,6 +402,7 @@
 }
 
 .piece-image-active {
+  background-color: transparent;
   border-radius: 0;
   .image-bg {
     display: block;
@@ -444,14 +445,15 @@
 
   .continue-btn,
   .check-btn,
-  .auto-btn {
+  .auto-btn,
+  .result-btn {
     @include btn-main-page;
     display: none;
 
-    &:disabled {
-      pointer-events: none;
-      opacity: 0.6;
-    }
+    // &:disabled {
+    //   pointer-events: none;
+    //   opacity: 0.6;
+    // }
   }
 
   .auto-btn {
