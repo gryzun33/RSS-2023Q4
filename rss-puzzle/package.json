@@ -11,7 +11,8 @@
     "ci:format": "prettier . --check",
     "format": "prettier . --write",
     "lint": "eslint . --ext .ts",
-    "fix": "eslint . --fix --ext .ts"
+    "fix": "eslint . --fix --ext .ts",
+    "deploy": "npm run build && npx gh-pages -d dist -e rss-puzzle"
   },
   "validate-branch-name": {
     "pattern": "^(feat|fix|refactor|docs|chore)/RSS-PZ-\\d{2,}-.*$",
@@ -25,6 +26,7 @@
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "gh-pages": "^6.1.1",
     "husky": "^9.0.11",
     "modern-normalize": "^2.0.0",
     "prettier": "3.2.5",
