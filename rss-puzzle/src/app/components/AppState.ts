@@ -221,13 +221,13 @@ class AppState {
     return data;
   }
 
-  public getSoundSrc(rowInd: number) {
+  public getSoundSrc = (rowInd: number) => {
     // const examples = this.getRoundExamplesData;
 
     const src = this.getRowData(rowInd).audioExample;
     const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${src}`;
     return fullSrc;
-  }
+  };
 
   public getRoundData() {
     const { levelData } = this.levels[this.level].rounds[this.round];
@@ -237,6 +237,18 @@ class AppState {
   public getRoundExamplesData() {
     const { words } = this.levels[this.level].rounds[this.round];
     return words;
+  }
+
+  public getDataForModal() {
+    const data = this.getRoundExamplesData();
+    const resultData = data.map((example) => {
+      const obj = {
+        text: example.textExample,
+        audioSrc: `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${example.audioExample}`,
+      };
+      return obj;
+    });
+    return resultData;
   }
 
   public getRowData(rowInd: number) {
@@ -311,6 +323,10 @@ class AppState {
       statistics: this.statistics,
     };
     storage.saveData('state', state);
+  }
+
+  public getRoundStatistic() {
+    return this.roundStatistic;
   }
 
   protected getDataFromStorage(): void {

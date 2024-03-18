@@ -14,8 +14,8 @@
   background-color: $color-bg;
   z-index: 6;
   border-radius: 10px;
-  padding: 20px;
-  width: 600px;
+  padding: 20px 30px;
+  max-width: 600px;
   // height: 600px;
   // box-shadow: 0px 0px 10px 1px $color-border;
   // position: relative;
@@ -48,9 +48,58 @@
   animation-fill-mode: forwards;
 }
 
-// .modal-hidden {
-//   display: none;
-// }
+.result-list {
+  // width: 450px;
+  @include flex-column(normal, normal);
+}
+
+.known-title,
+.unknown-title {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.title-hidden {
+  display: none;
+}
+
+.known-title {
+  color: $color-label;
+}
+
+.unknown-title {
+  color: $color-invalid;
+}
+
+.known-list,
+.unknown-list {
+  width: 100%;
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+.list-item {
+  @include flex(normal, center);
+
+  .sound-modal {
+    width: 30px;
+    height: 30px;
+    background-image: url("/src/assets/icons/sound-hint-view.svg");
+    background-size: 100% auto;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .item-text {
+    margin-left: 10px;
+    font-size: 16px;
+    color: $color-text;
+  }
+}
 
 @keyframes modal-show {
   from {
