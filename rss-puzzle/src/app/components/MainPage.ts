@@ -226,7 +226,7 @@ export default class MainPage extends BaseComponent {
   };
 
   protected createResultModal = () => {
-    this.modal = new ResultsModal();
+    this.modal = new ResultsModal(this.nextStep);
     document.body.append(this.modal.getElement());
   };
 

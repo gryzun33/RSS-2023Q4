@@ -101,6 +101,17 @@
   }
 }
 
+.continue-btn-modal {
+  @include btn;
+  margin-top: 20px;
+  width: 150px;
+  height: 40px;
+
+  &:hover {
+    color: $color-title;
+  }
+}
+
 @keyframes modal-show {
   from {
     transform: scale(0);

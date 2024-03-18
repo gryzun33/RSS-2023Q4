@@ -1,19 +1,21 @@
 import BaseComponent from './BaseComponent';
+import Button from './Button';
 import appState from './AppState';
+// import { CallbackFunc } from '../utils/types';
 
 export default class ResultsModal extends BaseComponent {
   public modalContent = new BaseComponent({ tag: 'div', classNames: ['modal-content'] });
   protected statistic: boolean[] = appState.getRoundStatistic();
-  protected audioSrcMap = new Map<HTMLElement, string>();
   protected roundData = appState.getDataForModal();
 
   protected audio = new Audio();
+  protected nextStep: () => void;
 
-  protected soundIcons: HTMLElement[] = [];
-  constructor() {
+  constructor(nextStep: () => void) {
     super({ tag: 'div', classNames: ['modal-overlay'] });
     this.createView();
     this.open();
+    this.nextStep = nextStep;
     // this.soundIcons.forEach((icon) => icon.on('click', this.playSound))
   }
 
@@ -42,8 +44,6 @@ export default class ResultsModal extends BaseComponent {
         classNames: ['item-text'],
         text: example.text,
       });
-      this.audioSrcMap.set(icon.getElement(), example.audioSrc);
-      this.soundIcons.push(icon.getElement());
       item.append(icon, text);
       if (this.statistic[i]) {
         knownList.append(item);
@@ -52,9 +52,14 @@ export default class ResultsModal extends BaseComponent {
       }
     });
 
-    resultList.append(unknownTitle, unknownList, knownTitle, knownList);
+    const continueBtn = new Button({
+      classNames: ['continue-btn-modal'],
+      text: 'Continue',
+      callback: this.onClickContinueBtn,
+    });
 
-    this.modalContent.append(title, resultList);
+    resultList.append(unknownTitle, unknownList, knownTitle, knownList);
+    this.modalContent.append(title, resultList, continueBtn);
     this.append(this.modalContent);
     this.checkVisibilityTitle(knownTitle, unknownTitle);
   }
@@ -65,8 +70,8 @@ export default class ResultsModal extends BaseComponent {
   }
 
   protected close() {
-    this.removeClass('overlay-show');
-    this.modalContent.removeClass('modal-show');
+    this.addClass('overlay-hide');
+    this.modalContent.addClass('modal-hide');
     this.modalContent.on('animationend', () => {
       console.log('thisModal = ', this);
       this.destroy();
@@ -80,6 +85,11 @@ export default class ResultsModal extends BaseComponent {
       unknownTitle.addClass('title-hidden');
     }
   }
+
+  protected onClickContinueBtn = () => {
+    this.close();
+    this.nextStep();
+  };
 
   // protected playSound = (e: Event) => {
   //   if (!e.target || !(e.target instanceof HTMLElement)) {
