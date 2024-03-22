@@ -11,7 +11,7 @@ import AutoCompleteBtn from './AutoCompleteBtn';
 import LevelSelect from './LevelSelect';
 import RoundSelect from './RoundSelect';
 import Hints from './HintsButtons';
-import TransaltionView from './TransaltionView';
+import TranslationView from './TranslationView';
 import SoundHint from './SoundHint';
 import ResultsModal from './ResultsModal';
 import emitter from './EventEmitter';
@@ -22,7 +22,7 @@ export default class MainPage extends BaseComponent {
   public sourceBlock = new SourceBlock();
   public resultField = new ResultField();
 
-  public translationView = new TransaltionView();
+  public translationView = new TranslationView();
   public hintsView = new BaseComponent({ tag: 'div', classNames: ['hints-view'] });
   public soundView = new SoundHint();
   public continueBtn?: ContinueBtn;
@@ -46,7 +46,7 @@ export default class MainPage extends BaseComponent {
     const topPanel = new BaseComponent({ tag: 'div', classNames: ['top-panel'] });
 
     const selects = new BaseComponent({ tag: 'div', classNames: ['selects'] });
-    this.levelSelect = new LevelSelect(appState.levels.length);
+    this.levelSelect = new LevelSelect(appState.getLevelsLength());
     this.roundSelect = new RoundSelect(appState.getNumbOfRounds());
 
     selects.append(this.levelSelect, this.roundSelect);
@@ -109,12 +109,12 @@ export default class MainPage extends BaseComponent {
 
   public startNextRow = (isSelected: unknown) => {
     if (typeof isSelected !== 'boolean') {
-      throw new Error();
+      throw new Error('isSelected isn`t boolean');
     }
     this.hintsView.removeClass('hints-view-hidden');
     const { currentText, row } = appState.getNextData(isSelected);
     const numbOfCells: number = currentText.split(' ').length;
-    if (appState.row === 0) {
+    if (row === 0) {
       this.resultField.updateView(row, numbOfCells);
       appState.resetRoundStatistic();
     } else {
@@ -124,16 +124,16 @@ export default class MainPage extends BaseComponent {
     this.translationView.addTransaltion(row);
     this.soundView.addSound(row);
 
-    if (!isSelected && appState.row === 0) {
+    if (!isSelected && row === 0) {
       if (!this.roundSelect || !this.levelSelect) {
         throw new Error('select is undefined');
       }
-      this.roundSelect.setSelectValue(appState.round);
-      this.levelSelect.setSelectValue(appState.level);
+      this.roundSelect.setSelectValue(appState.getRound());
+      this.levelSelect.setSelectValue(appState.getLevel());
     }
   };
 
-  public nextStep = () => {
+  public nextStep = (): void => {
     if (appState.isLastRow() && !this.isImageShowed) {
       if (!this.resultField) {
         throw new Error('resultField is undefined');
@@ -159,7 +159,7 @@ export default class MainPage extends BaseComponent {
     }
   };
 
-  public showIncorrectWords = () => {
+  public showIncorrectWords = (): void => {
     const pieces = this.resultField.activeRow?.getChildren();
     pieces?.forEach((piece) => {
       if (!appState.isCorrectPiece(piece)) {
@@ -168,7 +168,7 @@ export default class MainPage extends BaseComponent {
     });
   };
 
-  public finishWithHint = () => {
+  public finishWithHint = (): void => {
     if (!this.resultField.activeRow) {
       throw new Error('activeRow is undefined');
     }
@@ -191,7 +191,7 @@ export default class MainPage extends BaseComponent {
     appState.changeAfterHint();
   };
 
-  protected createResultModal = () => {
+  protected createResultModal = (): void => {
     this.modal = new ResultsModal(this.nextStep);
     document.body.append(this.modal.getElement());
   };

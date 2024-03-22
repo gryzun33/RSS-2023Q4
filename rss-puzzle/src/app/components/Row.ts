@@ -9,15 +9,15 @@ export default class Row extends BaseComponent {
     this.on('click', this.onClickHandler);
   }
 
-  public createEmptyCells(numbOfCells: number) {
+  public createEmptyCells(numbOfCells: number): void {
     for (let i = 0; i < numbOfCells; i += 1) {
       const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
-      appState.emptiesInResult.push(i);
+      appState.addEmptyInResult(i);
       this.append(empty);
     }
   }
 
-  public addPiece = (piece?: unknown) => {
+  public addPiece = (piece?: unknown): void => {
     if (!(piece instanceof BaseComponent)) {
       throw new Error();
     }
@@ -25,13 +25,13 @@ export default class Row extends BaseComponent {
     if (!piece) {
       throw new Error('piece is undefined');
     }
-    appState.emptiesInResult.sort();
-    const index = appState.emptiesInResult[0];
+    const index = appState.getFirstEmptyInResult();
     const emptyComp = this.children[+index];
     appState.setIndex(piece.getElement(), index, 'result');
     this.insertBefore(piece, emptyComp, +index);
     emptyComp.destroy();
-    appState.emptiesInResult.shift();
+    appState.removeFirstEmptyInResult();
+
     appState.checkRow();
   };
 
@@ -51,7 +51,7 @@ export default class Row extends BaseComponent {
       throw new Error('piece isn`t HTMLElement');
     }
     const index = appState.getIndex(piece);
-    appState.emptiesInResult.push(index);
+    appState.addEmptyInResult(index);
     const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
     const currentPiece = this.children[+index];
     this.insertBefore(empty, this.children[+index], +index);

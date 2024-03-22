@@ -27,7 +27,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     cssClasses.map((cssClass) => this.element.classList.add(cssClass));
   }
 
-  public setTextContent(text: string = '') {
+  public setTextContent(text: string = ''): void {
     this.element.textContent = text;
   }
 
@@ -43,7 +43,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.element.classList.remove(className);
   }
 
-  public append(...compChildren: BaseComponent[]) {
+  public append(...compChildren: BaseComponent[]): void {
     compChildren.forEach((child) => {
       if (child instanceof BaseComponent) {
         this.element.append(child.element);
@@ -65,32 +65,32 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     return this.element.getAttribute(name);
   }
 
-  css(prop: string, value: string) {
+  public css(prop: string, value: string) {
     this.element.style.setProperty(prop, value);
   }
 
-  findAll(selector: string) {
+  public findAll(selector: string) {
     return [...this.element.querySelectorAll(selector)];
   }
 
-  closest(selector: string) {
+  public closest(selector: string) {
     return this.element.closest(selector);
   }
 
-  on(eventType: string, callback: (event: Event) => void) {
+  public on(eventType: string, callback: (event: Event) => void) {
     this.element.addEventListener(eventType, callback);
     this.handlers.push({ eventType, callback });
   }
 
-  off(eventType: string, callback: (event: Event) => void) {
+  public off(eventType: string, callback: (event: Event) => void) {
     this.element.removeEventListener(eventType, callback);
   }
 
-  html(html: string) {
+  public html(html: string) {
     this.element.innerHTML = html;
   }
 
-  destroyChildren() {
+  public destroyChildren(): void {
     if (this.children.length > 0) {
       this.children.forEach((child) => {
         child.destroy();
@@ -99,13 +99,13 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     }
   }
 
-  destroy() {
+  public destroy(): void {
     this.destroyChildren();
     this.element.remove();
     this.deleteHandlers();
   }
 
-  deleteHandlers() {
+  public deleteHandlers(): void {
     this.handlers.forEach((handler: Handler) => {
       this.off(handler.eventType, handler.callback);
     });

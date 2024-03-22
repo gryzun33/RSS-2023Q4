@@ -25,12 +25,12 @@ export default class Piece extends BaseComponent {
     }
   }
 
-  addText(word: string) {
+  protected addText(word: string): void {
     const text = new BaseComponent({ tag: 'div', classNames: ['piece-text'], text: word });
     this.append(text);
   }
 
-  addImage(props: WordData) {
+  protected addImage(props: WordData): void {
     const { row } = appState;
 
     this.image = new BaseComponent<HTMLImageElement>({ tag: 'img', classNames: ['image-bg'] });
@@ -38,8 +38,8 @@ export default class Piece extends BaseComponent {
     if (!this.image) {
       throw new Error('image is undefined');
     }
-    const { src, alt } = appState.getCurrentImageData();
-    const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${src}`;
+    const { alt, fullSrc } = appState.getCurrentImageData();
+
     this.image.attr('src', fullSrc);
     this.image.attr('alt', alt);
     this.image.css('top', `${-row * 100}%`);
@@ -48,14 +48,14 @@ export default class Piece extends BaseComponent {
     this.append(this.image);
   }
 
-  public toggleImage = () => {
+  public toggleImage = (): void => {
     if (!this.state) {
       return;
     }
     this.toggleClass('piece-image-active');
   };
 
-  public changeStateInactive = () => {
+  public changeStateInactive = (): void => {
     this.state = false;
     this.addClass('piece-image-active');
   };

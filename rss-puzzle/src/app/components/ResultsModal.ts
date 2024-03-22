@@ -19,7 +19,7 @@ export default class ResultsModal extends BaseComponent {
     this.nextStep = nextStep;
   }
 
-  protected createView() {
+  protected createView(): void {
     const img = new BaseComponent<HTMLImageElement>({ tag: 'img', classNames: ['image-modal'] });
     img.attr('src', `${this.roundData.fullcutSrc}`);
     img.attr('alt', `${this.roundData.name}`);
@@ -68,12 +68,12 @@ export default class ResultsModal extends BaseComponent {
     this.checkVisibilityTitle(knownTitle, unknownTitle);
   }
 
-  protected open() {
+  protected open(): void {
     this.addClass('overlay-show');
     this.modalContent.addClass('modal-show');
   }
 
-  protected close() {
+  protected close(): void {
     this.addClass('overlay-hide');
     this.modalContent.addClass('modal-hide');
     this.modalContent.on('animationend', () => {
@@ -89,7 +89,7 @@ export default class ResultsModal extends BaseComponent {
     }
   }
 
-  protected onClickContinueBtn = () => {
+  protected onClickContinueBtn = (): void => {
     this.close();
     this.nextStep();
   };

@@ -26,14 +26,14 @@ export default class SourceBlock extends BaseComponent {
       throw new Error(`piece isn't HTMLElement`);
     }
     const index = appState.getIndex(piece);
-    appState.emptiesInSource.push(index);
+    appState.addEmptyInSource(index);
     const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
     const currentPiece = this.children[+index];
     this.insertBefore(empty, this.children[+index], +index);
     emitter.emit('moveToResult', currentPiece);
   };
 
-  public createPuzzleRow(text: string) {
+  public createPuzzleRow(text: string): void {
     this.destroyChildren();
     const wordsData = this.getWordsData(text);
     wordsData.forEach((wordData: WordData) => {
@@ -43,23 +43,22 @@ export default class SourceBlock extends BaseComponent {
     });
   }
 
-  protected addPiece = (piece?: unknown) => {
+  protected addPiece = (piece?: unknown): void => {
     if (!piece) {
       throw new Error('piece is undefined');
     }
     if (!(piece instanceof BaseComponent)) {
       throw new Error('piece isn`t instance of BaseComponent');
     }
-    appState.emptiesInSource.sort();
-    const index = appState.emptiesInSource[0];
+    const index = appState.getFirstEmptyInSource();
     const emptyComp = this.children[+index];
     appState.setIndex(piece.getElement(), index, 'source');
     this.insertBefore(piece, emptyComp, +index);
     emptyComp.destroy();
-    appState.emptiesInSource.shift();
+    appState.removeFirstEmptyInSource();
   };
 
-  protected getWordsData(text: string) {
+  protected getWordsData(text: string): WordData[] {
     const arrWords = text.split(' ');
     const paddings = arrWords.length * padding;
     const lengthWithoutPaddings = 100 - paddings;
@@ -104,7 +103,7 @@ export default class SourceBlock extends BaseComponent {
     return { size, positionX };
   }
 
-  public showRoundData() {
+  public showRoundData(): void {
     this.destroyChildren();
     const { name, author, year } = appState.getRoundData();
     const text = `${author} - ${name}, ${year}`;
@@ -112,11 +111,11 @@ export default class SourceBlock extends BaseComponent {
     this.append(resultText);
   }
 
-  public clearChildren() {
+  public clearChildren(): void {
     this.children = [];
   }
 
-  protected updateView = (aspectRatio: unknown) => {
+  protected updateView = (aspectRatio: unknown): void => {
     if (typeof aspectRatio !== 'string') {
       throw new Error('aspectRatio is not string');
     }

@@ -2,7 +2,7 @@ import BaseComponent from './BaseComponent';
 import appState from './AppState';
 import emitter from './EventEmitter';
 
-export default class TransaltionView extends BaseComponent {
+export default class TranslationView extends BaseComponent {
   constructor() {
     super({ tag: 'p', classNames: ['translation'] });
     emitter.on('toggleTranslation', this.toggleVisibility);
@@ -11,12 +11,12 @@ export default class TransaltionView extends BaseComponent {
     }
   }
 
-  addTransaltion(rowInd: number) {
+  public addTransaltion(rowInd: number): void {
     const translText = appState.getTranslation(rowInd);
     this.setTextContent(translText);
   }
 
-  toggleVisibility = () => {
+  protected toggleVisibility = (): void => {
     this.toggleClass('hint-view-hidden');
   };
 }

@@ -16,17 +16,17 @@ const roundCompleted = {
 };
 
 class AppState {
-  public isStart: boolean = true;
-  public levels = [level1, level2, level3, level4, level5, level6];
+  protected isStart: boolean = true;
+  protected levels = [level1, level2, level3, level4, level5, level6];
   public level: number = 0;
   public round: number = 0;
   public row: number = 0;
-  public numbRows: number = numbRows;
-  public roundStatistic: boolean[] = [];
-  public text: string;
-  public isAllInResult: boolean = false;
-  public emptiesInSource: number[] = [];
-  public emptiesInResult: number[] = [];
+  protected numbRows: number = numbRows;
+  protected roundStatistic: boolean[] = [];
+  protected text: string;
+  protected isAllInResult: boolean = false;
+  protected emptiesInSource: number[] = [];
+  protected emptiesInResult: number[] = [];
 
   public hints: HintsState = {
     image: true,
@@ -41,12 +41,36 @@ class AppState {
     this.getDataFromStorage();
   }
 
+  public getLevelsLength(): number {
+    return this.levels.length;
+  }
+
+  public getLevel(): number {
+    return this.level;
+  }
+
+  public getRound(): number {
+    return this.round;
+  }
+
+  public setLevel(index: number): void {
+    this.level = index;
+  }
+
+  public setRound(index: number): void {
+    this.round = index;
+  }
+
+  public setRow(index: number): void {
+    this.row = index;
+  }
+
   public changeHintState(hintName: keyof HintsState) {
     this.hints[hintName] = !this.hints[hintName];
     storage.saveData('hints', this.hints);
   }
 
-  public resetState() {
+  public resetState(): void {
     this.isStart = true;
     this.level = 0;
     this.round = 0;
@@ -62,7 +86,7 @@ class AppState {
     };
   }
 
-  public resetRowState() {
+  public resetRowState(): void {
     this.emptiesInResult = [];
     this.emptiesInSource = [];
     this.currPuzzle.clear();
@@ -80,7 +104,6 @@ class AppState {
   public getNumbOfRounds(): number {
     const levelData = this.levels[this.level];
     const roundsLength = levelData.rounds.length;
-
     return roundsLength;
   }
 
@@ -123,19 +146,44 @@ class AppState {
     return this.row === this.numbRows - 1;
   }
 
-  public isLastRound(): boolean {
+  protected isLastRound(): boolean {
     return this.round === this.getNumbOfRounds() - 1;
   }
 
-  public isLastLevel(): boolean {
+  protected isLastLevel(): boolean {
     return this.level === this.levels.length - 1;
   }
 
-  public resetRoundStatistic() {
+  public resetRoundStatistic(): void {
     this.roundStatistic = [];
   }
 
-  public getNextRow(): { level: number; round: number; row: number } {
+  public getFirstEmptyInSource(): number {
+    this.emptiesInSource.sort();
+    return this.emptiesInSource[0];
+  }
+  public getFirstEmptyInResult(): number {
+    this.emptiesInResult.sort();
+    return this.emptiesInResult[0];
+  }
+
+  public addEmptyInSource(index: number): void {
+    this.emptiesInSource.push(index);
+  }
+
+  public addEmptyInResult(index: number): void {
+    this.emptiesInResult.push(index);
+  }
+
+  public removeFirstEmptyInSource(): void {
+    this.emptiesInSource.shift();
+  }
+
+  public removeFirstEmptyInResult(): void {
+    this.emptiesInResult.shift();
+  }
+
+  protected getNextRow(): { level: number; round: number; row: number } {
     if (this.isStart) {
       this.isStart = false;
     } else if (!this.isLastRow()) {
@@ -192,7 +240,7 @@ class AppState {
     return data;
   }
 
-  public getSoundSrc = (rowInd: number) => {
+  public getSoundSrc = (rowInd: number): string => {
     const src = this.getRowData(rowInd).audioExample;
     const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${src}`;
     return fullSrc;
@@ -232,17 +280,17 @@ class AppState {
     return rowData;
   }
 
-  public getTranslation(rowInd: number) {
+  public getTranslation(rowInd: number): string {
     return this.getRowData(rowInd).textExampleTranslate;
   }
 
-  isCorrectPiece(piece: BaseComponent) {
+  public isCorrectPiece(piece: BaseComponent): boolean {
     const key = piece.getElement();
     const value = this.currPuzzle.get(key);
     return value.oldInd === value.newInd;
   }
 
-  public changeAfterHint() {
+  public changeAfterHint(): void {
     this.roundStatistic.push(false);
     emitter.emit('iscorrect');
     if (this.isLastRow()) {
@@ -251,7 +299,7 @@ class AppState {
     }
   }
 
-  createStatisticsArray(): Statistics {
+  protected createStatisticsArray(): Statistics {
     const levelsArr: number[][] = [];
     for (let i = 0; i < this.levels.length; i += 1) {
       const roundsLength = this.levels[i].rounds.length;
@@ -264,7 +312,7 @@ class AppState {
     return levelsArr;
   }
 
-  setStatisticsData() {
+  protected setStatisticsData(): void {
     this.statistics[this.level][this.round] = roundCompleted.done;
     emitter.emit('addDoneRound', this.round);
     if (this.statistics[this.level].every((elem) => elem === roundCompleted.done)) {
@@ -272,14 +320,14 @@ class AppState {
     }
   }
 
-  public getDoneLevels() {
+  public getDoneLevels(): boolean[] {
     const levelsStatus = this.statistics.map((round) =>
       round.every((item) => item === roundCompleted.done)
     );
     return levelsStatus;
   }
 
-  public getDoneRounds(ind: number) {
+  public getDoneRounds(ind: number): boolean[] {
     const roundsStatus = this.statistics[ind].map((round) => round === roundCompleted.done);
     return roundsStatus;
   }
@@ -293,7 +341,7 @@ class AppState {
     storage.saveData('state', state);
   }
 
-  public getRoundStatistic() {
+  public getRoundStatistic(): boolean[] {
     return this.roundStatistic;
   }
 

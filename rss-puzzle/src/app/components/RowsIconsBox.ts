@@ -7,7 +7,7 @@ export default class RowsIconsBox extends BaseComponent {
     this.createView();
   }
 
-  protected createView() {
+  protected createView(): void {
     for (let i = 0; i < numbRows; i += 1) {
       const rowIconWrapper = new BaseComponent({ tag: 'div', classNames: ['row-icon-wrapper'] });
       const rowIcon = new BaseComponent({

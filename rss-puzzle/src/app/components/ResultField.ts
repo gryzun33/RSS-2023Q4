@@ -13,7 +13,7 @@ export default class ResultField extends BaseComponent {
     emitter.on('iscorrect', this.blockRow);
   }
 
-  protected createView() {
+  protected createView(): void {
     const image = new Image();
     image.src = appState.getCurrentImageData().fullSrc;
     image.onload = () => {
@@ -33,13 +33,13 @@ export default class ResultField extends BaseComponent {
     }
   }
 
-  public updateView(row: number, numbOfCells: number) {
+  public updateView(row: number, numbOfCells: number): void {
     this.destroyChildren();
     this.createView();
     this.setActiveRow(row, numbOfCells);
   }
 
-  public setActiveRow(ind: number, numbOfCells: number) {
+  public setActiveRow(ind: number, numbOfCells: number): void {
     if (this.activeRow) {
       emitter.off('moveToResult', this.activeRow.addPiece);
     }
@@ -57,7 +57,7 @@ export default class ResultField extends BaseComponent {
     });
   }
 
-  protected blockRow = () => {
+  protected blockRow = (): void => {
     if (!this.activeRow) {
       throw new Error('activerow is undefined');
     }

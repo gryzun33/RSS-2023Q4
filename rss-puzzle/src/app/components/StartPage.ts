@@ -12,7 +12,7 @@ export default class StartPage extends BaseComponent {
     this.createView();
   }
 
-  protected createView() {
+  protected createView(): void {
     for (let i = 0; i < numbIconsOnStart; i += 1) {
       const puzzle = new BaseComponent({
         tag: 'div',

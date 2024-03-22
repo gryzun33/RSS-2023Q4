@@ -6,10 +6,10 @@ import { storage } from './Storage';
 import appState from './AppState';
 
 export default class App {
-  private root: HTMLElement;
-  public loginPage?: BaseComponent;
-  public mainPage?: BaseComponent;
-  public startPage?: BaseComponent;
+  protected root: HTMLElement;
+  protected loginPage?: BaseComponent;
+  protected mainPage?: BaseComponent;
+  protected startPage?: BaseComponent;
   constructor() {
     this.root = document.createElement('div') as HTMLElement;
     this.root.classList.add('wrapper');

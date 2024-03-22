@@ -14,7 +14,7 @@ export default class Input extends BaseComponent<HTMLInputElement> {
     this.on('input', this.validInput);
   }
 
-  validInput = () => {
+  public validInput = (): void => {
     this.addClass('input-invalid');
     if (this.element.validity.valueMissing) {
       this.element.setCustomValidity('Fill this field');

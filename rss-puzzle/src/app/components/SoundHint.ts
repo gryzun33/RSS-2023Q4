@@ -16,7 +16,7 @@ export default class SoundHint extends BaseComponent {
     }
   }
 
-  public addSound = (row: number) => {
+  public addSound = (row: number): void => {
     const src = appState.getSoundSrc(row);
     this.audio.src = src;
     this.audio.onload = () => {
@@ -24,16 +24,16 @@ export default class SoundHint extends BaseComponent {
     };
   };
 
-  protected activateSoundHint = () => {
+  protected activateSoundHint = (): void => {
     this.audio.play();
     this.addClass('sound-view-active');
   };
 
-  protected stopAnimation = () => {
+  protected stopAnimation = (): void => {
     this.removeClass('sound-view-active');
   };
 
-  protected toggleVisibility = () => {
+  protected toggleVisibility = (): void => {
     this.toggleClass('hint-view-hidden');
   };
 }

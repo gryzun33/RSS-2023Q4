@@ -19,7 +19,7 @@ export default class Select extends BaseComponent {
     this.append(label, contentWrapper);
   }
 
-  protected updateItemsView(l: number, status: boolean[]) {
+  protected updateItemsView(l: number, status: boolean[]): void {
     this.items = [];
     this.selectMap.clear();
     this.dropList.destroyChildren();

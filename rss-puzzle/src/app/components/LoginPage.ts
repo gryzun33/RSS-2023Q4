@@ -67,7 +67,7 @@ export default class LoginPage extends BaseComponent {
     this.loginBtn.on('click', this.checkValidity);
   }
 
-  public checkValidity = () => {
+  public checkValidity = (): void => {
     if (!this.inputName || !this.inputSurname) {
       throw new Error('data in form fields is undefined');
     }

@@ -3,7 +3,7 @@ import appState from './AppState';
 import emitter from './EventEmitter';
 
 export default class RoundSelect extends Select {
-  protected status: boolean[] = appState.getDoneRounds(appState.level);
+  protected status: boolean[] = appState.getDoneRounds(appState.getLevel());
   constructor(public length: number) {
     super('Round');
     this.createView();
@@ -18,7 +18,7 @@ export default class RoundSelect extends Select {
     this.updateView(this.length, this.status);
   }
 
-  protected updateView = (l: unknown, status: unknown, value: unknown = appState.round) => {
+  protected updateView = (l: unknown, status: unknown, value: unknown = appState.getRound()) => {
     if (typeof l !== 'number') {
       throw new Error('number of rounds is not defined');
     }
@@ -58,8 +58,8 @@ export default class RoundSelect extends Select {
       throw new Error('index is undefined');
     }
     this.setSelectValue(index);
-    appState.round = index;
-    appState.row = 0;
+    appState.setRound(index);
+    appState.setRow(0);
     appState.resetRowState();
     this.toggleList();
     emitter.emit('setNewRound', true);
