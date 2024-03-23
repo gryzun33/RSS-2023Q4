@@ -11,5 +11,14 @@ export default defineConfig({
     modules: {
       localsConvention: 'camelCase',
     },
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import "./src/styles/fonts.scss";
+          @import "./src/styles/variables.scss";
+          @import "./src/styles/mixins.scss";
+        `,
+      },
+    },
   },
 });
