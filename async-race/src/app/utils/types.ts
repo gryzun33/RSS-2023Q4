@@ -1,5 +1,5 @@
-export type Props<T extends HTMLElement = HTMLElement> = Partial<T> & {
-  tag?: keyof HTMLElementTagNameMap;
+export type Props = {
+  tag: keyof HTMLElementTagNameMap;
   classNames?: string[];
   text?: string;
   callback?: () => void;
