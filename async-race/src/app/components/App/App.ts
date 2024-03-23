@@ -11,5 +11,6 @@ export default class App {
 
   public start(): void {
     console.log('hello');
+    this.root.innerText = 'HEllO';
   }
 }
