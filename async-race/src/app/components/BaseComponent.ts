@@ -1,18 +1,19 @@
 import { Props, Handler } from '../utils/types';
 
-export default class BaseComponent {
-  protected element: HTMLElement;
+export default class BaseComponent<T extends HTMLElement = HTMLElement> {
+  protected element: T;
   protected children: BaseComponent[];
+
   protected handlers: Handler[] = [];
 
   constructor(props: Props) {
-    this.element = document.createElement(props.tag);
+    this.element = document.createElement(props.tag || 'div') as T;
+    this.addClasses(props.classNames);
     if (props.text !== null) {
       this.setTextContent(props.text);
     }
     this.children = [];
   }
-
   public getElement() {
     return this.element;
   }
