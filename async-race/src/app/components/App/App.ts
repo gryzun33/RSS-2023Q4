@@ -1,6 +1,8 @@
 import styles from './app.module.scss';
 import Button from '../Button';
 import BaseComponent from '../BaseComponent';
+// import getCars from '../../api';
+import GarageView from '../GarageView/GarageView';
 // import BaseComponent from '../BaseComponent';
 
 export default class App {
@@ -15,16 +17,13 @@ export default class App {
     text: 'to Winners',
   });
 
-  constructor() {
-    // this.root = document.createElement('div') as HTMLElement;
-    // this.root.classList.add(styles.wrapper);
-    // this.createView();
-  }
+  protected garageView?: BaseComponent;
 
   public start(): void {
-    // console.log('hello');
-    // this.root.innerText = 'HEllO';
     this.createView();
+
+    // const data = getCars();
+    // console.log('dataApp', data);
   }
 
   protected createView(): void {
@@ -32,5 +31,12 @@ export default class App {
     btnBox.append(this.garageBtn, this.winnersBtn);
     this.root.append(btnBox);
     document.body.append(this.root.getElement());
+
+    this.createGarageView();
+  }
+
+  protected createGarageView() {
+    this.garageView = new GarageView();
+    this.root.append(this.garageView);
   }
 }
