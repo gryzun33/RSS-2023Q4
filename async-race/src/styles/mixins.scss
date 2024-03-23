@@ -1,0 +1,12 @@
+@mixin flex($justify: normal, $align: normal) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-column($justify: normal, $align: normal) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
+}

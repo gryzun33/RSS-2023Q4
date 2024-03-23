@@ -27,5 +27,6 @@ module.exports = {
     'no-console': 'off',
     'lines-between-class-members': 'off',
     '@typescript-eslint/lines-between-class-members': 'off',
+    'class-methods-use-this': 'off',
   },
 };
