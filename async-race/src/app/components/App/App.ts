@@ -1,9 +1,11 @@
 import styles from './app.module.scss';
 import Button from '../Button';
 import BaseComponent from '../BaseComponent';
-// import getCars from '../../api';
+import getCars from '../../api';
 import GarageView from '../GarageView/GarageView';
 // import BaseComponent from '../BaseComponent';
+import state from '../State';
+import { CarData } from '../../utils/types';
 
 export default class App {
   protected root = new BaseComponent({ tag: 'div', classNames: [styles.wrapper] });
@@ -38,5 +40,18 @@ export default class App {
   protected createGarageView() {
     this.garageView = new GarageView();
     this.root.append(this.garageView);
+    if (state.isStart) {
+      state.isStart = false;
+      getCars(this.addCarsToApp);
+    }
   }
+
+  public addCarsToApp = (cars: CarData[]) => {
+    cars.forEach((car: CarData) => {
+      state.addCarToGarage(car);
+      // if(this.garageView) {
+      //   this.garageView.addNewCar(car);
+      // }
+    });
+  };
 }
