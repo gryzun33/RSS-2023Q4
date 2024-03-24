@@ -21,6 +21,6 @@ export type CarData = NewCarData & {
 };
 
 export type NewCarData = {
-  model: string;
+  name: string;
   color: string;
 };

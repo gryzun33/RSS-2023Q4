@@ -19,7 +19,7 @@ export default class App {
     text: 'to Winners',
   });
 
-  protected garageView?: BaseComponent;
+  protected garageView?: GarageView;
 
   public start(): void {
     this.createView();
@@ -49,9 +49,9 @@ export default class App {
   public addCarsToApp = (cars: CarData[]) => {
     cars.forEach((car: CarData) => {
       state.addCarToGarage(car);
-      // if(this.garageView) {
-      //   this.garageView.addNewCar(car);
-      // }
+      if (this.garageView) {
+        this.garageView.addNewCar(car);
+      }
     });
   };
 }

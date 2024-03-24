@@ -1,0 +1,26 @@
+.car-block {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  border-bottom: 1px solid yellow;
+}
+
+.car-img {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 70px;
+  bottom: -5px;
+}
+
+.flag-icon {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  right: 100px;
+  bottom: 0;
+  background-position: center center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-image: url("../../../assets/icons/flag.svg");
+}
