@@ -1,8 +1,8 @@
 import { Props, Handler } from '../utils/types';
 
 export default class BaseComponent<T extends HTMLElement = HTMLElement> {
-  protected element: T;
-  protected children: BaseComponent[];
+  public element: T;
+  public children: BaseComponent[];
 
   protected handlers: Handler[] = [];
 

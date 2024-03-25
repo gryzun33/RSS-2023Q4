@@ -1,7 +1,7 @@
 import styles from './app.module.scss';
 import Button from '../Button';
 import BaseComponent from '../BaseComponent';
-import getCars from '../../api';
+import { getCars } from '../../api';
 import GarageView from '../GarageView/GarageView';
 // import BaseComponent from '../BaseComponent';
 import state from '../State';
