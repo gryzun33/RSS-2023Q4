@@ -50,7 +50,7 @@ export default class App {
     cars.forEach((car: CarData) => {
       state.addCarToGarage(car);
       if (this.garageView) {
-        this.garageView.addNewCar(car);
+        this.garageView.addNewCarToView(car);
       }
     });
   };
