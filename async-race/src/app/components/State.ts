@@ -7,31 +7,30 @@ class State {
 
   public allCarsCount: number = 0;
 
-  public currPage: number = 3;
+  public currPage: number = 2;
   public carsOnPage: number = 0;
 
-  public cars: CarData[] = [];
+  // public cars: CarData[] = [];
 
   public carsMap = new Map<number, CarData>();
 
-  // constructor() {
-  // emitter.on('addNewCar', this.addCarToGarage);
-  // }
-
   public addCarToState = (car: CarData) => {
-    // if (!isCarData(car)) {
-    //   throw new Error('argument is not type CarData');
-    // }
-    this.cars.push(car);
+    // this.cars.push(car);
     this.carsMap.set(car.id, car);
     emitter.emit('addNewCar', car);
   };
 
   public addCarsToState(cars: CarData[]) {
+    emitter.emit('destroyGarageView');
+    this.carsMap.clear();
     cars.forEach((car) => {
       this.addCarToState(car);
     });
   }
+
+  // public deleteCarFromState(id: string) {
+  //   this.carsMap.delete(Number(id));
+  // }
 }
 
 const state = new State();

@@ -17,6 +17,7 @@ export default class GarageView extends BaseComponent {
     super({ tag: 'div', classNames: ['garage-wrapper'] });
     this.createView();
     emitter.on('addNewCar', this.addNewCarToView);
+    emitter.on('destroyGarageView', this.destroyGarage);
   }
 
   protected createView(): void {
@@ -30,5 +31,12 @@ export default class GarageView extends BaseComponent {
 
     const newCar = new CarView(car);
     this.garageList.append(newCar);
+  };
+
+  protected destroyGarage = () => {
+    if (this.garageList.children) {
+      // console.log('children=', this.garageList.children);
+      this.garageList.destroyChildren();
+    }
   };
 }

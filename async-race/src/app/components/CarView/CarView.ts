@@ -4,6 +4,7 @@ import BaseComponent from '../BaseComponent';
 import { CarData } from '../../utils/types';
 import Button from '../Button';
 import carIcon from '../../utils/icons';
+import { deleteCar } from '../../api';
 
 export default class CarView extends BaseComponent {
   public selectBtn = new Button({ classNames: ['select-btn'], text: 'select' });
@@ -16,6 +17,7 @@ export default class CarView extends BaseComponent {
     super({ tag: 'div', classNames: [styles.carBlock] });
     this.element.id = data.id.toString();
     this.createView(data);
+    this.removeBtn.on('click', this.clickOnRemoveBtn);
   }
 
   protected createView(data: CarData) {
@@ -31,4 +33,12 @@ export default class CarView extends BaseComponent {
     controls.append(this.startBtn, this.stopBtn);
     this.append(carName, buttons, controls, this.carImg, flag);
   }
+
+  protected clickOnRemoveBtn = () => {
+    const id = this.attr('id');
+    if (typeof id !== 'string') {
+      throw new Error('id is not string');
+    }
+    deleteCar(id);
+  };
 }

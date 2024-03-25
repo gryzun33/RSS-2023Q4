@@ -24,9 +24,6 @@ export default class App {
 
   public start(): void {
     this.createView();
-
-    // const data = getCars();
-    // console.log('dataApp', data);
   }
 
   protected createView(): void {
@@ -46,22 +43,5 @@ export default class App {
       { key: '_page', value: String(state.currPage) },
       { key: '_limit', value: String(limitCarsOnPage) },
     ]);
-
-    // if (state.isStart) {
-    //   state.isStart = false;
-    //   getCars(this.addCarsToState, [
-    //     { key: '_page', value: String(state.currPage) },
-    //     { key: '_limit', value: String(limitCarsOnPage) },
-    //   ]);
-    // }
   }
-
-  // public addCarsToApp = (cars: CarData[]) => {
-  //   cars.forEach((car: CarData) => {
-  //     state.addCarToGarage(car);
-  //     if (this.garageView) {
-  //       this.garageView.addNewCarToView(car);
-  //     }
-  //   });
-  // };
 }

@@ -25,17 +25,23 @@ export async function getCars(params: Params[] = []) {
   try {
     const response = await fetch(`${baseURL}${path.garage}${getQueryString(params)}`);
     const data = await response.json();
-    state.addCarsToState(data);
-    state.carsOnPage = data.length;
-    state.allCarsCount = Number(response.headers.get('X-Total-Count'));
-    console.log('headers', response.headers.get('X-Total-Count'));
-    // console.log('cars', data);
-    // return data;
+
+    if (data.length === 0 && state.currPage > 1) {
+      state.currPage -= 1;
+      getCars([
+        { key: '_page', value: String(state.currPage) },
+        { key: '_limit', value: String(limitCarsOnPage) },
+      ]);
+    } else {
+      state.addCarsToState(data);
+      state.carsOnPage = data.length;
+      state.allCarsCount = Number(response.headers.get('X-Total-Count'));
+      console.log('headers', response.headers.get('X-Total-Count'));
+    }
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
     }
-    // return null;
   }
 }
 
@@ -55,13 +61,29 @@ export async function createCar(newCarData: NewCarData) {
       state.carsOnPage += 1;
       state.addCarToState(data);
     }
-
-    // console.log('cars', data);
-    // return data;
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
     }
-    // return null;
+  }
+}
+
+export async function deleteCar(id: string) {
+  try {
+    const response = await fetch(`${baseURL}${path.garage}/${id}`, {
+      method: 'DELETE',
+    });
+    const data = await response.json();
+    getCars([
+      { key: '_page', value: String(state.currPage) },
+      { key: '_limit', value: String(limitCarsOnPage) },
+    ]);
+
+    // state.deleteCarFromState(id);
+    console.log('deletecar', data);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+    }
   }
 }
