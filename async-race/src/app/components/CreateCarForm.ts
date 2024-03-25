@@ -1,7 +1,7 @@
 import InteractionForm from './InteractionForm';
 import { createCar } from '../api';
-import { CarData, NewCarData } from '../utils/types';
-import emitter from './EventEmitter';
+import { NewCarData } from '../utils/types';
+// import emitter from './EventEmitter';
 
 export default class CreateCarForm extends InteractionForm {
   constructor() {
@@ -18,15 +18,13 @@ export default class CreateCarForm extends InteractionForm {
       name: this.getInputValue(this.inputName),
       color: this.getInputValue(this.inputColor),
     };
-    createCar(this.addNewCar, newCarData);
+    createCar(newCarData);
 
-    // this.element.reset();
-
-    // console.log('name=', this.getInputValue(this.inputName));
-    // console.log('color=', this.getInputValue(this.inputColor));
+    this.resetForm();
   };
 
-  public addNewCar = (carData: CarData) => {
-    emitter.emit('addNewCar', carData);
-  };
+  protected resetForm() {
+    this.inputName.element.value = '';
+    this.inputColor.element.value = '#000000';
+  }
 }

@@ -5,7 +5,8 @@ import { getCars } from '../../api';
 import GarageView from '../GarageView/GarageView';
 // import BaseComponent from '../BaseComponent';
 import state from '../State';
-import { CarData } from '../../utils/types';
+// import { CarData } from '../../utils/types';
+import { limitCarsOnPage } from '../../utils/constants';
 
 export default class App {
   protected root = new BaseComponent({ tag: 'div', classNames: [styles.wrapper] });
@@ -40,18 +41,27 @@ export default class App {
   protected createGarageView() {
     this.garageView = new GarageView();
     this.root.append(this.garageView);
-    if (state.isStart) {
-      state.isStart = false;
-      getCars(this.addCarsToApp);
-    }
+
+    getCars([
+      { key: '_page', value: String(state.currPage) },
+      { key: '_limit', value: String(limitCarsOnPage) },
+    ]);
+
+    // if (state.isStart) {
+    //   state.isStart = false;
+    //   getCars(this.addCarsToState, [
+    //     { key: '_page', value: String(state.currPage) },
+    //     { key: '_limit', value: String(limitCarsOnPage) },
+    //   ]);
+    // }
   }
 
-  public addCarsToApp = (cars: CarData[]) => {
-    cars.forEach((car: CarData) => {
-      state.addCarToGarage(car);
-      if (this.garageView) {
-        this.garageView.addNewCarToView(car);
-      }
-    });
-  };
+  // public addCarsToApp = (cars: CarData[]) => {
+  //   cars.forEach((car: CarData) => {
+  //     state.addCarToGarage(car);
+  //     if (this.garageView) {
+  //       this.garageView.addNewCarToView(car);
+  //     }
+  //   });
+  // };
 }
