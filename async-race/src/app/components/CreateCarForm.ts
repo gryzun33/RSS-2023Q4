@@ -22,9 +22,4 @@ export default class CreateCarForm extends InteractionForm {
 
     this.resetForm();
   };
-
-  protected resetForm() {
-    this.inputName.element.value = '';
-    this.inputColor.element.value = '#000000';
-  }
 }

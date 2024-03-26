@@ -19,7 +19,7 @@ export default class Button extends BaseComponent<HTMLButtonElement> {
     this.element.disabled = true;
   };
 
-  public enable = (): void => {
-    this.addClass('btn-show');
-  };
+  // public enable = (): void => {
+  //   this.addClass('btn-show');
+  // };
 }

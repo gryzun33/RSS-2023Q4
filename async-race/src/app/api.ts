@@ -69,6 +69,24 @@ export async function createCar(newCarData: NewCarData) {
   }
 }
 
+export async function updateCar(id: string, newCarData: NewCarData) {
+  try {
+    const response = await fetch(`${baseURL}${path.garage}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newCarData),
+    });
+    const data = await response.json();
+    state.updateCarInState(data);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+    }
+  }
+}
+
 export async function deleteCar(id: string) {
   try {
     const response = await fetch(`${baseURL}${path.garage}/${id}`, {
@@ -113,8 +131,6 @@ export async function startCar(id: string, status: string) {
     const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
       method: 'PATCH',
     });
-
-    // console.log('params= ', params);
 
     const data = await response.json();
     driveCar(id, 'drive');

@@ -64,6 +64,10 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     return this.element.getAttribute(name);
   }
 
+  public removeAttr(name: string) {
+    this.element.removeAttribute(name);
+  }
+
   public css(prop: string, value: string) {
     this.element.style.setProperty(prop, value);
   }

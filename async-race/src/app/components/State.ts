@@ -25,6 +25,12 @@ class State {
     emitter.emit('addNewCar', car);
   };
 
+  public updateCarInState = (car: CarData) => {
+    // this.cars.push(car);
+    this.carsMap.set(car.id, car);
+    emitter.emit('updateCar', car);
+  };
+
   public addCarsToState(cars: CarData[]) {
     emitter.emit('destroyGarageView');
     this.carsMap.clear();
@@ -54,6 +60,14 @@ class State {
     }
     carData.status = 'broken';
     emitter.emit('stopMoving', id);
+  }
+
+  public setCarStatusStop(id: string) {
+    const carData = this.carsMap.get(+id);
+    if (!carData) {
+      throw new Error('carData is undefined');
+    }
+    carData.status = 'stop';
   }
 }
 

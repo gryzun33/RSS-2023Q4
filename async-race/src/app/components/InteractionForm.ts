@@ -32,16 +32,21 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
     });
   }
 
-  public disable() {
+  public disable = () => {
     this.children.forEach((component) => {
       component.attr('disabled', 'true');
     });
-  }
+  };
 
-  public enable() {
+  public enable = () => {
     this.children.forEach((component) => {
-      component.attr('disabled', 'false');
+      component.removeAttr('disabled');
     });
+  };
+
+  protected resetForm() {
+    this.inputName.element.value = '';
+    this.inputColor.element.value = '#000000';
   }
 
   // protected getNameValue() {
