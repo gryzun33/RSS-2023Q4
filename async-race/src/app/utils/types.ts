@@ -17,7 +17,7 @@ export type ButtonProps = Omit<Props, 'tag'> & {
 
 export type CarData = NewCarData & {
   id: number;
-  status?: 'start' | 'stop' | 'drive';
+  status?: 'stop' | 'drive' | 'broken';
 };
 
 export type NewCarData = {

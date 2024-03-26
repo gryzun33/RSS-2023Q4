@@ -2,6 +2,11 @@ import { CarData } from '../utils/types';
 // import isCarData from '../utils/predicates';
 import emitter from './EventEmitter';
 
+type EngineData = {
+  velocity: number;
+  distance: number;
+};
+
 class State {
   public isStart: boolean = true;
 
@@ -31,6 +36,25 @@ class State {
   // public deleteCarFromState(id: string) {
   //   this.carsMap.delete(Number(id));
   // }
+
+  public setCarStatusDrive(id: string, engineData: EngineData) {
+    const duration = engineData.distance / engineData.velocity;
+    const carData = this.carsMap.get(+id);
+    if (!carData) {
+      throw new Error('carData is undefined');
+    }
+    carData.status = 'drive';
+    emitter.emit('startMoving', duration, id);
+  }
+
+  public setCarStatusBroken(id: string) {
+    const carData = this.carsMap.get(+id);
+    if (!carData) {
+      throw new Error('carData is undefined');
+    }
+    carData.status = 'broken';
+    emitter.emit('stopMoving', id);
+  }
 }
 
 const state = new State();

@@ -7,6 +7,7 @@ const baseURL = 'http://127.0.0.1:3000';
 const path = {
   garage: '/garage',
   winners: '/winners',
+  engine: '/engine',
 };
 
 type Params = {
@@ -87,3 +88,58 @@ export async function deleteCar(id: string) {
     }
   }
 }
+
+export async function driveCar(id: string, status: string) {
+  try {
+    const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
+      method: 'PATCH',
+    });
+    if (response.status === 500) {
+      state.setCarStatusBroken(id);
+    }
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log('driveCar=', data);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+    }
+  }
+}
+
+export async function startCar(id: string, status: string) {
+  try {
+    const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
+      method: 'PATCH',
+    });
+
+    // console.log('params= ', params);
+
+    const data = await response.json();
+    driveCar(id, 'drive');
+    state.setCarStatusDrive(id, data);
+    console.log('datastartCar=', data);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+    }
+  }
+}
+
+// export async function startCar(params: Params[] = []) {
+//   try {
+//     const response = await fetch(`${baseURL}${path.engine}${getQueryString(params)}`, {
+//       method: 'PATCH',
+//     });
+
+//     console.log('params= ', params);
+
+//     const data = await response.json();
+//     console.log('datastartCar=', data);
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       console.error('Error:', error.message);
+//     }
+//   }
+// }
