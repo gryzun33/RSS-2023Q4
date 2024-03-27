@@ -83,9 +83,9 @@ class State {
   //   this.carsMap.delete(Number(id));
   // }
 
-  public setCarStatusDrive(id: string, engineData: EngineData) {
+  public setCarStatusDrive(id: number, engineData: EngineData) {
     const duration = engineData.distance / engineData.velocity;
-    const carData = this.carsMap.get(+id);
+    const carData = this.carsMap.get(id);
     if (!carData) {
       throw new Error('carData is undefined');
     }
@@ -93,8 +93,8 @@ class State {
     emitter.emit('startMoving', duration, id);
   }
 
-  public setCarStatusBroken(id: string) {
-    const carData = this.carsMap.get(+id);
+  public setCarStatusBroken(id: number) {
+    const carData = this.carsMap.get(id);
     if (!carData) {
       throw new Error('carData is undefined');
     }
@@ -102,16 +102,16 @@ class State {
     emitter.emit('stopMoving', id);
   }
 
-  public setCarStatusStop(id: string) {
-    const carData = this.carsMap.get(+id);
+  public setCarStatusStop(id: number) {
+    const carData = this.carsMap.get(id);
     if (!carData) {
       throw new Error('carData is undefined');
     }
     carData.status = 'stop';
   }
 
-  public getCarStatus(id: string) {
-    const carData = this.carsMap.get(+id);
+  public getCarStatus(id: number) {
+    const carData = this.carsMap.get(id);
     if (!carData) {
       throw new Error('cardData is undefined');
     }

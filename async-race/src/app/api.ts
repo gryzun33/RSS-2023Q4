@@ -95,7 +95,7 @@ export async function updateCar(id: string, newCarData: NewCarData) {
   }
 }
 
-export async function deleteCar(id: string) {
+export async function deleteCar(id: number) {
   try {
     const response = await fetch(`${baseURL}${path.garage}/${id}`, {
       method: 'DELETE',
@@ -112,7 +112,7 @@ export async function deleteCar(id: string) {
   }
 }
 
-export async function driveCar(id: string, status: string, controller: AbortController) {
+export async function driveCar(id: number, status: string, controller: AbortController) {
   try {
     // controller = new AbortController();
     const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
@@ -133,9 +133,23 @@ export async function driveCar(id: string, status: string, controller: AbortCont
       console.error(error.message);
     }
   }
+
+  // return fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
+  //   method: 'PATCH',
+  //   signal: controller.signal,
+  // })
+  //   .then(({ status }) => {
+  //     return true;
+  //   })
+  //   .catch((error) => {
+  //     if (error instanceof Error) {
+  //       console.log(error);
+  //       console.error(error.message);
+  //     }
+  //   });
 }
 
-export async function startCar(id: string, status: string, controller: AbortController) {
+export async function startCar(id: number, status: string, controller: AbortController) {
   try {
     const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
       method: 'PATCH',
@@ -151,6 +165,43 @@ export async function startCar(id: string, status: string, controller: AbortCont
     }
   }
 }
+
+// function startCars() {
+//   // const promises
+
+//   fetch(`${baseURL}${path.engine}?id=${car.id}&status=started`, { method: 'PATCH' })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       state.setCarStatusDrive(id, data);
+//       return fetch(`${baseURL}${path.engine}?id=${id}&status=drive`, {
+//         method: 'PATCH',
+//         signal: controller.signal,
+//       });
+//     })
+//     .then((response) => {
+//       if (response.status === 500) {
+//         state.setCarStatusBroken(id);
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       // Выполняем действие с результатами
+//       console.log('driveCar=', data);
+
+//       // Возвращаем информацию о том, какой запрос выполнен первым
+//       // return { carId: car.id, firstResult, secondResult };
+//     })
+//     .catch((error) => {
+//       console.error('Произошла ошибка:', error);
+//       // Возвращаем информацию о том, что запрос завершился ошибкой
+//       // return { carId: car.id, error: true };
+//     });
+// }
 
 export async function addRandomCars(newCars: NewCarData[]) {
   try {

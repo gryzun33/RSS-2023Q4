@@ -7,7 +7,7 @@ import emitter from '../EventEmitter';
 import isCarData from '../../utils/predicates';
 import Button from '../Button';
 import getRandomCars from '../../utils/getRandomCars';
-import { addRandomCars, getCars } from '../../api';
+import { addRandomCars, getCars, startCar } from '../../api';
 import { NewCarData } from '../../utils/types';
 import state from '../State';
 
@@ -28,6 +28,7 @@ export default class GarageView extends BaseComponent {
   protected nextBtn = new Button({ classNames: ['next-btn'], text: 'next' });
   // protected totalCars: number = 0;
   // protected page: number = 1;
+  protected cars: CarView[] = [];
   constructor() {
     super({ tag: 'div', classNames: ['garage-wrapper'] });
     this.createView();
@@ -38,6 +39,7 @@ export default class GarageView extends BaseComponent {
     this.generateBtn.on('click', this.onClickGenerateBtn);
     this.prevBtn.on('click', this.onClickPrevBtn);
     this.nextBtn.on('click', this.onClickNextBtn);
+    this.raceBtn.on('click', this.onClickRaceBtn);
   }
 
   protected createView(): void {
@@ -82,25 +84,34 @@ export default class GarageView extends BaseComponent {
     }
 
     const newCar = new CarView(car);
+    this.cars.push(newCar);
+    console.log('cars=', this.cars);
     this.garageList.append(newCar);
   };
 
   protected destroyGarage = () => {
+    this.cars = [];
     if (this.garageList.children) {
       // console.log('children=', this.garageList.children);
       this.garageList.destroyChildren();
     }
   };
 
-  protected onClickGenerateBtn(): void {
+  protected onClickGenerateBtn = (): void => {
     const newCars: NewCarData[] = getRandomCars();
     addRandomCars(newCars);
-  }
+  };
 
-  protected onClickPrevBtn(): void {
+  protected onClickPrevBtn = (): void => {
     getCars(state.currPage - 1);
-  }
-  protected onClickNextBtn(): void {
+  };
+  protected onClickNextBtn = (): void => {
     getCars(state.currPage + 1);
-  }
+  };
+
+  protected onClickRaceBtn = (): void => {
+    this.cars.forEach((car) => {
+      startCar(car.id, 'started', car.fetchController);
+    });
+  };
 }

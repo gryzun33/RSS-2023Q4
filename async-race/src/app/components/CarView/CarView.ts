@@ -10,7 +10,7 @@ import state from '../State';
 import isCarData from '../../utils/predicates';
 
 export default class CarView extends BaseComponent {
-  protected fetchController = new AbortController();
+  public fetchController = new AbortController();
   protected animationId?: number;
   public selectBtn = new Button({ classNames: ['select-btn'], text: 'select' });
   public removeBtn = new Button({ classNames: ['remove-btn'], text: 'remove' });
@@ -20,8 +20,11 @@ export default class CarView extends BaseComponent {
 
   public carName = new BaseComponent({ tag: 'div', classNames: ['car-name'] });
 
+  public id: number = 0;
+
   constructor(data: CarData) {
     super({ tag: 'div', classNames: [styles.carBlock] });
+    this.id = data.id;
     this.element.id = data.id.toString();
     this.createView(data);
     this.removeBtn.on('click', this.clickOnRemoveBtn);
@@ -48,27 +51,27 @@ export default class CarView extends BaseComponent {
   }
 
   protected clickOnRemoveBtn = () => {
-    const id = this.attr('id');
-    if (typeof id !== 'string') {
-      throw new Error('id is not string');
-    }
-    deleteCar(id);
+    // const id = this.attr('id');
+    // if (typeof id !== 'string') {
+    //   throw new Error('id is not string');
+    // }
+    deleteCar(this.id);
   };
 
   protected clickOnStartBtn = () => {
-    console.log('status=', state.getCarStatus(this.element.id));
+    console.log('status=', state.getCarStatus(this.id));
     this.fetchController = new AbortController();
-    startCar(this.element.id, 'started', this.fetchController);
+    startCar(this.id, 'started', this.fetchController);
   };
 
   protected clickOnStopBtn = () => {
-    if (state.getCarStatus(this.element.id) === 'drive') {
+    if (state.getCarStatus(this.id) === 'drive') {
       this.fetchController.abort();
-      this.stopMoving(this.element.id);
+      this.stopMoving(this.id);
     }
 
     this.carImg.css('transform', `translateX(0px)`);
-    state.setCarStatusStop(this.element.id);
+    state.setCarStatusStop(this.id);
   };
 
   protected clickOnSelectBtn = () => {
@@ -87,11 +90,11 @@ export default class CarView extends BaseComponent {
     this.carImg.html(carIcon(car.color));
   };
   public animateCar = (duration: unknown, id: unknown) => {
-    if (typeof id !== 'string') {
-      throw new Error('id is not string');
+    if (typeof id !== 'number') {
+      throw new Error('id is not number');
     }
 
-    if (this.element.id !== id) {
+    if (this.id !== id) {
       return;
     }
     if (typeof duration !== 'number') {
@@ -120,11 +123,11 @@ export default class CarView extends BaseComponent {
   };
 
   public stopMoving = (id: unknown) => {
-    if (typeof id !== 'string') {
-      throw new Error('id is not string');
+    if (typeof id !== 'number') {
+      throw new Error('id is not number');
     }
 
-    if (this.element.id !== id) {
+    if (this.id !== id) {
       return;
     }
 
