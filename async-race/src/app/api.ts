@@ -114,33 +114,37 @@ export async function deleteCar(id: string) {
   }
 }
 
-export async function driveCar(id: string, status: string) {
+export async function driveCar(id: string, status: string, controller: AbortController) {
   try {
+    // controller = new AbortController();
     const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
       method: 'PATCH',
+      signal: controller.signal,
     });
+
     if (response.status === 500) {
       state.setCarStatusBroken(id);
     }
     if (response.status === 200) {
       const data = await response.json();
+
       console.log('driveCar=', data);
     }
   } catch (error) {
     if (error instanceof Error) {
-      console.error('Error:', error.message);
+      console.error(error.message);
     }
   }
 }
 
-export async function startCar(id: string, status: string) {
+export async function startCar(id: string, status: string, controller: AbortController) {
   try {
     const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
       method: 'PATCH',
     });
 
     const data = await response.json();
-    driveCar(id, 'drive');
+    driveCar(id, 'drive', controller);
     state.setCarStatusDrive(id, data);
     console.log('datastartCar=', data);
   } catch (error) {

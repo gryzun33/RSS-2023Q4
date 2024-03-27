@@ -1,5 +1,4 @@
 import styles from './carview.module.scss';
-
 import BaseComponent from '../BaseComponent';
 import { CarData } from '../../utils/types';
 import Button from '../Button';
@@ -11,6 +10,7 @@ import state from '../State';
 import isCarData from '../../utils/predicates';
 
 export default class CarView extends BaseComponent {
+  protected fetchController = new AbortController();
   protected animationId?: number;
   public selectBtn = new Button({ classNames: ['select-btn'], text: 'select' });
   public removeBtn = new Button({ classNames: ['remove-btn'], text: 'remove' });
@@ -56,10 +56,17 @@ export default class CarView extends BaseComponent {
   };
 
   protected clickOnStartBtn = () => {
-    startCar(this.element.id, 'started');
+    console.log('status=', state.getCarStatus(this.element.id));
+    this.fetchController = new AbortController();
+    startCar(this.element.id, 'started', this.fetchController);
   };
 
   protected clickOnStopBtn = () => {
+    if (state.getCarStatus(this.element.id) === 'drive') {
+      this.fetchController.abort();
+      this.stopMoving(this.element.id);
+    }
+
     this.carImg.css('transform', `translateX(0px)`);
     state.setCarStatusStop(this.element.id);
   };

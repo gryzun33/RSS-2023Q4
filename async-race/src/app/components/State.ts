@@ -20,9 +20,13 @@ class State {
   public carsMap = new Map<number, CarData>();
 
   public addCarToState = (car: CarData) => {
+    const newCar: CarData = {
+      ...car,
+      status: 'stop',
+    };
     // this.cars.push(car);
-    this.carsMap.set(car.id, car);
-    emitter.emit('addNewCar', car);
+    this.carsMap.set(car.id, newCar);
+    emitter.emit('addNewCar', newCar);
   };
 
   public updateCarInState = (car: CarData) => {
@@ -73,6 +77,15 @@ class State {
       throw new Error('carData is undefined');
     }
     carData.status = 'stop';
+  }
+
+  public getCarStatus(id: string) {
+    const carData = this.carsMap.get(+id);
+    if (!carData) {
+      throw new Error('cardData is undefined');
+    }
+    const { status } = carData;
+    return status;
   }
 }
 
