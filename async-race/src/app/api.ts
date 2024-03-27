@@ -154,19 +154,26 @@ export async function startCar(id: string, status: string, controller: AbortCont
   }
 }
 
-// export async function startCar(params: Params[] = []) {
-//   try {
-//     const response = await fetch(`${baseURL}${path.engine}${getQueryString(params)}`, {
-//       method: 'PATCH',
-//     });
+export async function addRandomCars(newCars: NewCarData[]) {
+  try {
+    const promises = newCars.map((carData: NewCarData) =>
+      fetch(`${baseURL}${path.garage}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(carData),
+      })
+    );
+    await Promise.all(promises);
 
-//     console.log('params= ', params);
-
-//     const data = await response.json();
-//     console.log('datastartCar=', data);
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       console.error('Error:', error.message);
-//     }
-//   }
-// }
+    getCars([
+      { key: '_page', value: String(state.currPage) },
+      { key: '_limit', value: String(limitCarsOnPage) },
+    ]);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+    }
+  }
+}

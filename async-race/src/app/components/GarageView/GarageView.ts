@@ -6,6 +6,9 @@ import UpdateCarForm from '../UpdateCarForm';
 import emitter from '../EventEmitter';
 import isCarData from '../../utils/predicates';
 import Button from '../Button';
+import getRandomCars from '../../utils/getRandomCars';
+import { addRandomCars } from '../../api';
+import { NewCarData } from '../../utils/types';
 
 export default class GarageView extends BaseComponent {
   protected createForm = new CreateCarForm();
@@ -25,6 +28,7 @@ export default class GarageView extends BaseComponent {
     emitter.on('addNewCar', this.addNewCarToView);
     emitter.on('destroyGarageView', this.destroyGarage);
     emitter.on('updateCount', this.updateCarsCount);
+    this.generateBtn.on('click', this.onClickGenerateBtn);
   }
 
   protected createView(): void {
@@ -55,4 +59,9 @@ export default class GarageView extends BaseComponent {
       this.garageList.destroyChildren();
     }
   };
+
+  protected onClickGenerateBtn(): void {
+    const newCars: NewCarData[] = getRandomCars();
+    addRandomCars(newCars);
+  }
 }
