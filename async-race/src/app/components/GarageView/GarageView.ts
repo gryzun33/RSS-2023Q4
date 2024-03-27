@@ -19,6 +19,8 @@ export default class GarageView extends BaseComponent {
   public generateBtn = new Button({ classNames: ['generate-btn'], text: 'generate cars' });
 
   public garageTitle = new BaseComponent({ tag: 'p', classNames: ['garage-title'] });
+
+  public pageTitle = new BaseComponent({ tag: 'p', classNames: ['page-title'] });
   protected garageList = new BaseComponent({ tag: 'div', classNames: ['garage-list'] });
   protected totalCars: number = 0;
   protected page: number = 1;
@@ -28,13 +30,21 @@ export default class GarageView extends BaseComponent {
     emitter.on('addNewCar', this.addNewCarToView);
     emitter.on('destroyGarageView', this.destroyGarage);
     emitter.on('updateCount', this.updateCarsCount);
+    emitter.on('updatePage', this.updatePages);
     this.generateBtn.on('click', this.onClickGenerateBtn);
   }
 
   protected createView(): void {
     const buttonsBlock = new BaseComponent({ tag: 'div', classNames: ['buttons-block'] });
     buttonsBlock.append(this.raceBtn, this.resetBtn, this.generateBtn);
-    this.append(this.createForm, this.updateForm, buttonsBlock, this.garageTitle, this.garageList);
+    this.append(
+      this.createForm,
+      this.updateForm,
+      buttonsBlock,
+      this.garageTitle,
+      this.pageTitle,
+      this.garageList
+    );
   }
 
   public updateCarsCount = (count: unknown) => {
@@ -42,6 +52,17 @@ export default class GarageView extends BaseComponent {
       throw new Error('count is not number');
     }
     this.garageTitle.setTextContent(`Garage(${count})`);
+  };
+
+  public updatePages = (page: unknown, prevBtn: unknown, nextBtn: unknown) => {
+    if (typeof page !== 'number') {
+      throw new Error('count is not number');
+    }
+    if (typeof prevBtn !== 'boolean' || typeof nextBtn !== 'boolean') {
+      throw new Error('state of pagination is not boolean');
+    }
+
+    this.pageTitle.setTextContent(`Page N${page}`);
   };
 
   public addNewCarToView = (car: unknown): void => {

@@ -10,35 +10,39 @@ const path = {
   engine: '/engine',
 };
 
-type Params = {
-  key: string;
-  value: string;
-};
+// type Params = {
+//   key: string;
+//   value: string;
+// };
 
-function getQueryString(params: Params[] = []) {
-  const str =
-    params.length > 0 ? `?${params.map((el: Params) => `${el.key}=${el.value}`).join('&')}` : '';
-  console.log('string=', str);
-  return str;
-}
+// function getQueryString(params: Params[] = []) {
+//   const str =
+//     params.length > 0 ? `?${params.map((el: Params) => `${el.key}=${el.value}`).join('&')}` : '';
+//   console.log('string=', str);
+//   return str;
+// }
 
-export async function getCars(params: Params[] = []) {
+export async function getCars(page: number) {
   try {
-    const response = await fetch(`${baseURL}${path.garage}${getQueryString(params)}`);
+    const response = await fetch(
+      `${baseURL}${path.garage}?_page=${page}&_limit=${limitCarsOnPage}}`
+    );
     const data = await response.json();
+    console.log('data31=', data);
 
     if (data.length === 0 && state.currPage > 1) {
       state.currPage -= 1;
-      getCars([
-        { key: '_page', value: String(state.currPage) },
-        { key: '_limit', value: String(limitCarsOnPage) },
-      ]);
+      getCars(state.currPage);
     } else {
-      state.addCarsToState(data);
-      state.carsOnPage = data.length;
-      state.updateAllCarsCount(Number(response.headers.get('X-Total-Count')));
+      console.log('ggggggg');
+      const carsCount = Number(response.headers.get('X-Total-Count'));
+      state.updateGarageData(data, carsCount, page);
+      // state.addCarsToState(data);
+      // state.carsOnPage = data.length;
+
+      // state.updateAllCarsCount(Number(response.headers.get('X-Total-Count')));
       // state.allCarsCount = Number(response.headers.get('X-Total-Count'));
-      console.log('headers', response.headers.get('X-Total-Count'));
+      // console.log('headers', response.headers.get('X-Total-Count'));
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -61,10 +65,7 @@ export async function createCar(newCarData: NewCarData) {
 
     console.log('newcar=', data);
 
-    getCars([
-      { key: '_page', value: String(state.currPage) },
-      { key: '_limit', value: String(limitCarsOnPage) },
-    ]);
+    getCars(state.currPage);
     // if (state.carsOnPage < limitCarsOnPage) {
     //   state.carsOnPage += 1;
     //   state.addCarToState(data);
@@ -100,10 +101,7 @@ export async function deleteCar(id: string) {
       method: 'DELETE',
     });
     const data = await response.json();
-    getCars([
-      { key: '_page', value: String(state.currPage) },
-      { key: '_limit', value: String(limitCarsOnPage) },
-    ]);
+    getCars(state.currPage);
 
     // state.deleteCarFromState(id);
     console.log('deletecar', data);
@@ -167,10 +165,7 @@ export async function addRandomCars(newCars: NewCarData[]) {
     );
     await Promise.all(promises);
 
-    getCars([
-      { key: '_page', value: String(state.currPage) },
-      { key: '_limit', value: String(limitCarsOnPage) },
-    ]);
+    getCars(state.currPage);
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);

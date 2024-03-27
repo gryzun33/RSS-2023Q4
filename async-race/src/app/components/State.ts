@@ -1,6 +1,7 @@
 import { CarData } from '../utils/types';
 // import isCarData from '../utils/predicates';
 import emitter from './EventEmitter';
+import { limitCarsOnPage } from '../utils/constants';
 
 type EngineData = {
   velocity: number;
@@ -14,6 +15,9 @@ class State {
 
   public currPage: number = 1;
   public carsOnPage: number = 0;
+
+  public prevBtn: boolean = false;
+  public nextBtn: boolean = true;
 
   // public cars: CarData[] = [];
 
@@ -43,9 +47,36 @@ class State {
     });
   }
 
-  public updateAllCarsCount(count: number) {
-    this.allCarsCount = count;
-    emitter.emit('updateCount', count);
+  public updateGarageData(cars: CarData[], count: number, numb: number) {
+    this.addCarsToState(cars);
+    this.updateAllCarsCount(count);
+    this.updatePageNumber(numb);
+  }
+
+  public updateAllCarsCount(newCount: number) {
+    if (this.allCarsCount !== newCount) {
+      this.allCarsCount = newCount;
+      emitter.emit('updateCount', newCount);
+    }
+  }
+
+  public getCurrentPage(): number {
+    return this.currPage;
+  }
+
+  public updatePageNumber(newPage: number) {
+    this.currPage = newPage;
+    if (this.currPage === 1) {
+      this.prevBtn = false;
+    } else {
+      this.prevBtn = true;
+    }
+    if (Math.ceil(this.allCarsCount / limitCarsOnPage) === this.currPage) {
+      this.nextBtn = false;
+    } else {
+      this.nextBtn = true;
+    }
+    emitter.emit('updatePage', newPage, this.prevBtn, this.nextBtn);
   }
 
   // public deleteCarFromState(id: string) {

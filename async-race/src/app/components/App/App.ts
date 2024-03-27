@@ -6,7 +6,7 @@ import GarageView from '../GarageView/GarageView';
 // import BaseComponent from '../BaseComponent';
 import state from '../State';
 // import { CarData } from '../../utils/types';
-import { limitCarsOnPage } from '../../utils/constants';
+// import { limitCarsOnPage } from '../../utils/constants';
 
 export default class App {
   protected root = new BaseComponent({ tag: 'div', classNames: [styles.wrapper] });
@@ -39,9 +39,6 @@ export default class App {
     this.garageView = new GarageView();
     this.root.append(this.garageView);
 
-    getCars([
-      { key: '_page', value: String(state.currPage) },
-      { key: '_limit', value: String(limitCarsOnPage) },
-    ]);
+    getCars(state.currPage);
   }
 }
