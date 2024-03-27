@@ -7,8 +7,9 @@ import emitter from '../EventEmitter';
 import isCarData from '../../utils/predicates';
 import Button from '../Button';
 import getRandomCars from '../../utils/getRandomCars';
-import { addRandomCars } from '../../api';
+import { addRandomCars, getCars } from '../../api';
 import { NewCarData } from '../../utils/types';
+import state from '../State';
 
 export default class GarageView extends BaseComponent {
   protected createForm = new CreateCarForm();
@@ -22,8 +23,11 @@ export default class GarageView extends BaseComponent {
 
   public pageTitle = new BaseComponent({ tag: 'p', classNames: ['page-title'] });
   protected garageList = new BaseComponent({ tag: 'div', classNames: ['garage-list'] });
-  protected totalCars: number = 0;
-  protected page: number = 1;
+
+  protected prevBtn = new Button({ classNames: ['prev-btn'], text: 'prev' });
+  protected nextBtn = new Button({ classNames: ['next-btn'], text: 'next' });
+  // protected totalCars: number = 0;
+  // protected page: number = 1;
   constructor() {
     super({ tag: 'div', classNames: ['garage-wrapper'] });
     this.createView();
@@ -32,18 +36,23 @@ export default class GarageView extends BaseComponent {
     emitter.on('updateCount', this.updateCarsCount);
     emitter.on('updatePage', this.updatePages);
     this.generateBtn.on('click', this.onClickGenerateBtn);
+    this.prevBtn.on('click', this.onClickPrevBtn);
+    this.nextBtn.on('click', this.onClickNextBtn);
   }
 
   protected createView(): void {
     const buttonsBlock = new BaseComponent({ tag: 'div', classNames: ['buttons-block'] });
     buttonsBlock.append(this.raceBtn, this.resetBtn, this.generateBtn);
+    const pagination = new BaseComponent({ tag: 'div', classNames: ['pagination'] });
+    pagination.append(this.prevBtn, this.nextBtn);
     this.append(
       this.createForm,
       this.updateForm,
       buttonsBlock,
       this.garageTitle,
       this.pageTitle,
-      this.garageList
+      this.garageList,
+      pagination
     );
   }
 
@@ -54,15 +63,17 @@ export default class GarageView extends BaseComponent {
     this.garageTitle.setTextContent(`Garage(${count})`);
   };
 
-  public updatePages = (page: unknown, prevBtn: unknown, nextBtn: unknown) => {
+  public updatePages = (page: unknown, prevBtnState: unknown, nextBtnState: unknown) => {
     if (typeof page !== 'number') {
       throw new Error('count is not number');
     }
-    if (typeof prevBtn !== 'boolean' || typeof nextBtn !== 'boolean') {
+    if (typeof prevBtnState !== 'boolean' || typeof nextBtnState !== 'boolean') {
       throw new Error('state of pagination is not boolean');
     }
 
     this.pageTitle.setTextContent(`Page N${page}`);
+    this.prevBtn.element.disabled = !prevBtnState;
+    this.nextBtn.element.disabled = !nextBtnState;
   };
 
   public addNewCarToView = (car: unknown): void => {
@@ -84,5 +95,12 @@ export default class GarageView extends BaseComponent {
   protected onClickGenerateBtn(): void {
     const newCars: NewCarData[] = getRandomCars();
     addRandomCars(newCars);
+  }
+
+  protected onClickPrevBtn(): void {
+    getCars(state.currPage - 1);
+  }
+  protected onClickNextBtn(): void {
+    getCars(state.currPage + 1);
   }
 }

@@ -1,4 +1,4 @@
-import { NewCarData } from './utils/types';
+import { CarData, NewCarData } from './utils/types';
 import state from './components/State';
 import { limitCarsOnPage } from './utils/constants';
 
@@ -27,7 +27,7 @@ export async function getCars(page: number) {
     const response = await fetch(
       `${baseURL}${path.garage}?_page=${page}&_limit=${limitCarsOnPage}}`
     );
-    const data = await response.json();
+    const data: CarData[] = await response.json();
     console.log('data31=', data);
 
     if (data.length === 0 && state.currPage > 1) {
