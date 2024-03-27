@@ -12,7 +12,7 @@ class State {
 
   public allCarsCount: number = 0;
 
-  public currPage: number = 2;
+  public currPage: number = 1;
   public carsOnPage: number = 0;
 
   // public cars: CarData[] = [];
@@ -37,6 +37,11 @@ class State {
     cars.forEach((car) => {
       this.addCarToState(car);
     });
+  }
+
+  public updateAllCarsCount(count: number) {
+    this.allCarsCount = count;
+    emitter.emit('updateCount', count);
   }
 
   // public deleteCarFromState(id: string) {

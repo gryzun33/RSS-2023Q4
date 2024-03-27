@@ -36,7 +36,8 @@ export async function getCars(params: Params[] = []) {
     } else {
       state.addCarsToState(data);
       state.carsOnPage = data.length;
-      state.allCarsCount = Number(response.headers.get('X-Total-Count'));
+      state.updateAllCarsCount(Number(response.headers.get('X-Total-Count')));
+      // state.allCarsCount = Number(response.headers.get('X-Total-Count'));
       console.log('headers', response.headers.get('X-Total-Count'));
     }
   } catch (error) {
@@ -55,13 +56,19 @@ export async function createCar(newCarData: NewCarData) {
       },
       body: JSON.stringify(newCarData),
     });
+
     const data = await response.json();
 
-    console.log('carsonpge=', state.carsOnPage);
-    if (state.carsOnPage < limitCarsOnPage) {
-      state.carsOnPage += 1;
-      state.addCarToState(data);
-    }
+    console.log('newcar=', data);
+
+    getCars([
+      { key: '_page', value: String(state.currPage) },
+      { key: '_limit', value: String(limitCarsOnPage) },
+    ]);
+    // if (state.carsOnPage < limitCarsOnPage) {
+    //   state.carsOnPage += 1;
+    //   state.addCarToState(data);
+    // }
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
