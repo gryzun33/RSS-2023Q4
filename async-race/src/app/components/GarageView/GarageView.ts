@@ -111,6 +111,7 @@ export default class GarageView extends BaseComponent {
   };
 
   protected onClickRaceBtn = (): void => {
+    state.setRaceState(true);
     this.cars.forEach((car) => {
       car.clickOnStartBtn();
       // startCar(car.id, 'started', car.fetchController);
@@ -118,6 +119,8 @@ export default class GarageView extends BaseComponent {
   };
 
   protected onClickResetBtn = (): void => {
+    state.setRaceState(false);
+    state.setWinner(0);
     this.cars.forEach((car) => {
       car.clickOnStopBtn();
     });

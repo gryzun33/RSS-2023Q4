@@ -124,9 +124,14 @@ export async function driveCar(id: number, status: string, controller: AbortCont
       state.setCarStatusBroken(id);
     }
     if (response.status === 200) {
-      const data = await response.json();
+      if (!state.winner && state.race) {
+        state.setRaceState(false);
+        state.setWinner(id);
+        console.log('WINNER ID=', id);
+      }
+      // const data = await response.json();
 
-      console.log('driveCar=', data);
+      // console.log('driveCar=', data);
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -171,63 +176,14 @@ export async function stopCar(id: number, controller: AbortController) {
     await fetch(`${baseURL}${path.engine}?id=${id}&status=stopped`, {
       method: 'PATCH',
     });
-
     controller.abort();
     state.setCarStatusStop(id);
-
-    // if (response.ok) {
-    //   console.log('response stop ok');
-    //   controller.abort();
-    //   state.setCarStatusStop(id);
-    // }
-
-    // const data = await response.json();
-    // driveCar(id, 'drive', controller);
-    // state.setCarStatusDrive(id, data);
-    // console.log('datastartCar=', data);
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
     }
   }
 }
-
-// function startCars() {
-//   // const promises
-
-//   fetch(`${baseURL}${path.engine}?id=${car.id}&status=started`, { method: 'PATCH' })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       state.setCarStatusDrive(id, data);
-//       return fetch(`${baseURL}${path.engine}?id=${id}&status=drive`, {
-//         method: 'PATCH',
-//         signal: controller.signal,
-//       });
-//     })
-//     .then((response) => {
-//       if (response.status === 500) {
-//         state.setCarStatusBroken(id);
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       // Выполняем действие с результатами
-//       console.log('driveCar=', data);
-
-//       // Возвращаем информацию о том, какой запрос выполнен первым
-//       // return { carId: car.id, firstResult, secondResult };
-//     })
-//     .catch((error) => {
-//       console.error('Произошла ошибка:', error);
-//       // Возвращаем информацию о том, что запрос завершился ошибкой
-//       // return { carId: car.id, error: true };
-//     });
-// }
 
 export async function addRandomCars(newCars: NewCarData[]) {
   try {

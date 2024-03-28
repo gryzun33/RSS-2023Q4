@@ -9,6 +9,8 @@ type EngineData = {
 };
 
 class State {
+  public race: boolean = false;
+  public winner: number = 0;
   public isStart: boolean = true;
 
   public allCarsCount: number = 0;
@@ -22,6 +24,18 @@ class State {
   // public cars: CarData[] = [];
 
   public carsMap = new Map<number, CarData>();
+
+  public setRaceState(raceState: boolean) {
+    this.race = raceState;
+  }
+
+  public setWinner(id: number) {
+    this.winner = id;
+  }
+
+  public getWinner(): number {
+    return this.winner;
+  }
 
   public addCarToState = (car: CarData) => {
     const newCar: CarData = {
