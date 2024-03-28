@@ -22,6 +22,36 @@ const path = {
 //   return str;
 // }
 
+// export async function updateWinner(id: number) {
+//   fetch(`${baseURL}${path.winners}/${id}`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(state.getWinnerData(id)),
+//   })
+//     .then((response) => {
+//       console.log('response =', response);
+//       if (!response.ok) {
+//         throw new Error(`${response.status}`);
+//       }
+
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log('Data received:', data);
+//     })
+//     .catch((error) => {
+//       console.log('fdgfhdfh');
+//       if (error instanceof Error) {
+//         console.error('Error:', error.message);
+//       }
+//     })
+//     .finally(() => {
+//       console.log('Request completed');
+//     });
+// }
+
 export async function getCars(page: number) {
   try {
     const response = await fetch(
@@ -126,8 +156,9 @@ export async function driveCar(id: number, status: string, controller: AbortCont
     if (response.status === 200) {
       if (!state.winner && state.race) {
         state.setRaceState(false);
-        state.setWinner(id);
+        // state.setWinner(id);
         console.log('WINNER ID=', id);
+        // updateWinner(id);
       }
       // const data = await response.json();
 
@@ -163,7 +194,7 @@ export async function startCar(id: number, status: string, controller: AbortCont
     const data = await response.json();
     driveCar(id, 'drive', controller);
     state.setCarStatusDrive(id, data);
-    console.log('datastartCar=', data);
+    // console.log('datastartCar=', data);
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
@@ -205,16 +236,3 @@ export async function addRandomCars(newCars: NewCarData[]) {
     }
   }
 }
-
-// export async function addWinner(id: number) {
-//   fetch('https://api.example.com/data')
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .then((data) => {
-//       console.log('Data received:', data);
-//     })
-//     .catch((error) => {
-//       console.error('Fetch failed:', error);
-//     });
-// }

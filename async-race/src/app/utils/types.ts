@@ -27,3 +27,12 @@ export type NewCarData = {
 };
 
 export type RandomCar = { [key: string]: string[] };
+
+export type WinnerData = {
+  wins: number;
+  time: number;
+};
+
+export type NewWinnerData = WinnerData & {
+  id: number;
+};

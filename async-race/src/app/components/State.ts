@@ -1,4 +1,4 @@
-import { CarData } from '../utils/types';
+import { CarData, WinnerData } from '../utils/types';
 // import isCarData from '../utils/predicates';
 import emitter from './EventEmitter';
 import { limitCarsOnPage } from '../utils/constants';
@@ -38,8 +38,17 @@ class State {
     emitter.emit('showWinner', carData);
   }
 
-  public getWinner(): number {
+  public getWinnerId(): number {
     return this.winner;
+  }
+
+  public getWinnerData(id: number): WinnerData {
+    const carData = this.carsMap.get(id);
+    if (!carData) {
+      throw new Error('carData is undefined');
+    }
+
+    return { wins: 1, time: carData.duration };
   }
 
   public addCarToState = (car: CarData) => {
