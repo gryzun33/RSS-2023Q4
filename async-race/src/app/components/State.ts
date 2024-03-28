@@ -108,6 +108,8 @@ class State {
       throw new Error('carData is undefined');
     }
     carData.status = 'stop';
+    console.log('car stopped');
+    emitter.emit('toStart', id);
   }
 
   public getCarStatus(id: number) {

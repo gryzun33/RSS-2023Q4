@@ -7,7 +7,7 @@ import emitter from '../EventEmitter';
 import isCarData from '../../utils/predicates';
 import Button from '../Button';
 import getRandomCars from '../../utils/getRandomCars';
-import { addRandomCars, getCars, startCar } from '../../api';
+import { addRandomCars, getCars } from '../../api';
 import { NewCarData } from '../../utils/types';
 import state from '../State';
 
@@ -40,6 +40,7 @@ export default class GarageView extends BaseComponent {
     this.prevBtn.on('click', this.onClickPrevBtn);
     this.nextBtn.on('click', this.onClickNextBtn);
     this.raceBtn.on('click', this.onClickRaceBtn);
+    this.resetBtn.on('click', this.onClickResetBtn);
   }
 
   protected createView(): void {
@@ -85,7 +86,7 @@ export default class GarageView extends BaseComponent {
 
     const newCar = new CarView(car);
     this.cars.push(newCar);
-    console.log('cars=', this.cars);
+    // console.log('cars=', this.cars);
     this.garageList.append(newCar);
   };
 
@@ -111,7 +112,14 @@ export default class GarageView extends BaseComponent {
 
   protected onClickRaceBtn = (): void => {
     this.cars.forEach((car) => {
-      startCar(car.id, 'started', car.fetchController);
+      car.clickOnStartBtn();
+      // startCar(car.id, 'started', car.fetchController);
+    });
+  };
+
+  protected onClickResetBtn = (): void => {
+    this.cars.forEach((car) => {
+      car.clickOnStopBtn();
     });
   };
 }

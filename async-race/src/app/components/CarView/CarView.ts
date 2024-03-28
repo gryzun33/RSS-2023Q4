@@ -3,7 +3,7 @@ import BaseComponent from '../BaseComponent';
 import { CarData } from '../../utils/types';
 import Button from '../Button';
 import carIcon from '../../utils/icons';
-import { deleteCar, startCar } from '../../api';
+import { deleteCar, startCar, stopCar } from '../../api';
 import getDistance from '../../utils/helpers';
 import emitter from '../EventEmitter';
 import state from '../State';
@@ -34,9 +34,10 @@ export default class CarView extends BaseComponent {
     emitter.on('startMoving', this.animateCar);
     emitter.on('stopMoving', this.stopMoving);
     emitter.on('updateCar', this.updateCarView);
+    emitter.on('toStart', this.moveCarToStart);
   }
   protected createView(data: CarData) {
-    console.log('carview', data);
+    // console.log('carview', data);
     // const carName = new BaseComponent({ tag: 'div', classNames: ['car-name'], text: data.name });
     this.carName.setTextContent(data.name);
     const buttons = new BaseComponent({ tag: 'div', classNames: ['buttons-box'] });
@@ -58,20 +59,39 @@ export default class CarView extends BaseComponent {
     deleteCar(this.id);
   };
 
-  protected clickOnStartBtn = () => {
+  public clickOnStartBtn = () => {
     console.log('status=', state.getCarStatus(this.id));
     this.fetchController = new AbortController();
     startCar(this.id, 'started', this.fetchController);
   };
 
-  protected clickOnStopBtn = () => {
-    if (state.getCarStatus(this.id) === 'drive') {
-      this.fetchController.abort();
-      this.stopMoving(this.id);
+  public clickOnStopBtn = () => {
+    // console.log('id=', this.id);
+    // console.log('name=', this.carName);
+    // console.log('status =', state.getCarStatus(this.id));
+
+    // console.log('clickstop');
+    const status = state.getCarStatus(this.id);
+    if (status === 'drive' || status === 'broken') {
+      stopCar(this.id, this.fetchController);
+      // console.log('send request', this.id);
+      // this.fetchController.abort();
+      // this.stopMoving(this.id);
     }
 
+    // state.setCarStatusStop(this.id);
+  };
+
+  protected moveCarToStart = (id: unknown) => {
+    if (typeof id !== 'number') {
+      throw new Error('id is not number');
+    }
+    if (this.id !== id) {
+      return;
+    }
+    console.log('car move to start');
+    this.stopMoving(this.id);
     this.carImg.css('transform', `translateX(0px)`);
-    state.setCarStatusStop(this.id);
   };
 
   protected clickOnSelectBtn = () => {

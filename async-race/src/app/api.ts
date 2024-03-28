@@ -130,7 +130,7 @@ export async function driveCar(id: number, status: string, controller: AbortCont
     }
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error.message);
+      console.log(error.message);
     }
   }
 
@@ -159,6 +159,32 @@ export async function startCar(id: number, status: string, controller: AbortCont
     driveCar(id, 'drive', controller);
     state.setCarStatusDrive(id, data);
     console.log('datastartCar=', data);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+    }
+  }
+}
+
+export async function stopCar(id: number, controller: AbortController) {
+  try {
+    await fetch(`${baseURL}${path.engine}?id=${id}&status=stopped`, {
+      method: 'PATCH',
+    });
+
+    controller.abort();
+    state.setCarStatusStop(id);
+
+    // if (response.ok) {
+    //   console.log('response stop ok');
+    //   controller.abort();
+    //   state.setCarStatusStop(id);
+    // }
+
+    // const data = await response.json();
+    // driveCar(id, 'drive', controller);
+    // state.setCarStatusDrive(id, data);
+    // console.log('datastartCar=', data);
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
