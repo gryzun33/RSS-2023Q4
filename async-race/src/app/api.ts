@@ -205,3 +205,16 @@ export async function addRandomCars(newCars: NewCarData[]) {
     }
   }
 }
+
+// export async function addWinner(id: number) {
+//   fetch('https://api.example.com/data')
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log('Data received:', data);
+//     })
+//     .catch((error) => {
+//       console.error('Fetch failed:', error);
+//     });
+// }

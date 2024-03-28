@@ -31,6 +31,11 @@ class State {
 
   public setWinner(id: number) {
     this.winner = id;
+    if (id === 0) {
+      return;
+    }
+    const carData = this.carsMap.get(id);
+    emitter.emit('showWinner', carData);
   }
 
   public getWinner(): number {
@@ -104,6 +109,7 @@ class State {
       throw new Error('carData is undefined');
     }
     carData.status = 'drive';
+    carData.duration = duration;
     emitter.emit('startMoving', duration, id);
   }
 

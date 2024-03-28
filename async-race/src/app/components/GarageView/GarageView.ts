@@ -1,3 +1,4 @@
+import styles from './garageview.module.scss';
 import BaseComponent from '../BaseComponent';
 import CarView from '../CarView/CarView';
 import CreateCarForm from '../CreateCarForm';
@@ -22,7 +23,9 @@ export default class GarageView extends BaseComponent {
   public garageTitle = new BaseComponent({ tag: 'p', classNames: ['garage-title'] });
 
   public pageTitle = new BaseComponent({ tag: 'p', classNames: ['page-title'] });
-  protected garageList = new BaseComponent({ tag: 'div', classNames: ['garage-list'] });
+
+  public firstTitle = new BaseComponent({ tag: 'p', classNames: [styles.firstTitle] });
+  protected garageList = new BaseComponent({ tag: 'div', classNames: [styles.garageList] });
 
   protected prevBtn = new Button({ classNames: ['prev-btn'], text: 'prev' });
   protected nextBtn = new Button({ classNames: ['next-btn'], text: 'next' });
@@ -30,12 +33,13 @@ export default class GarageView extends BaseComponent {
   // protected page: number = 1;
   protected cars: CarView[] = [];
   constructor() {
-    super({ tag: 'div', classNames: ['garage-wrapper'] });
+    super({ tag: 'div', classNames: [styles.garageWrapper] });
     this.createView();
     emitter.on('addNewCar', this.addNewCarToView);
     emitter.on('destroyGarageView', this.destroyGarage);
     emitter.on('updateCount', this.updateCarsCount);
     emitter.on('updatePage', this.updatePages);
+    emitter.on('showWinner', this.showWinner);
     this.generateBtn.on('click', this.onClickGenerateBtn);
     this.prevBtn.on('click', this.onClickPrevBtn);
     this.nextBtn.on('click', this.onClickNextBtn);
@@ -49,6 +53,7 @@ export default class GarageView extends BaseComponent {
     const pagination = new BaseComponent({ tag: 'div', classNames: ['pagination'] });
     pagination.append(this.prevBtn, this.nextBtn);
     this.append(
+      this.firstTitle,
       this.createForm,
       this.updateForm,
       buttonsBlock,
@@ -124,5 +129,14 @@ export default class GarageView extends BaseComponent {
     this.cars.forEach((car) => {
       car.clickOnStopBtn();
     });
+    this.firstTitle.setTextContent('');
+  };
+
+  protected showWinner = (carData: unknown): void => {
+    if (!isCarData(carData)) {
+      throw new Error('argument is not type CarData');
+    }
+    const time = (carData.duration / 1000).toFixed(2);
+    this.firstTitle.setTextContent(`${carData.name} went first in ${time}`);
   };
 }

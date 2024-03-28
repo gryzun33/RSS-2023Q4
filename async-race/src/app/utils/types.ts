@@ -18,9 +18,12 @@ export type ButtonProps = Omit<Props, 'tag'> & {
 export type CarData = NewCarData & {
   id: number;
   status?: 'stop' | 'drive' | 'broken';
+  duration: number;
 };
 
 export type NewCarData = {
   name: string;
   color: string;
 };
+
+export type RandomCar = { [key: string]: string[] };
