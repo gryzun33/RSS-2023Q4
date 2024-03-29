@@ -203,11 +203,19 @@ export async function addRandomCars(newCars: NewCarData[]) {
   }
 }
 
-export async function getWinners(params?: Params[]) {
+export async function getWinners(params: Params[], page: number) {
+  console.log('params=', params);
   fetch(`${baseURL}${path.winners}${getQueryString(params)}`, {
     method: 'GET',
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log('response=', response);
+      const winnersCount = Number(response.headers.get('X-Total-Count'));
+      console.log('winnerscount', winnersCount);
+      state.setWinnersCount(winnersCount);
+      state.setWinnersPage(page);
+      return response.json();
+    })
     .then((dataWinners: NewWinnerData[]) => {
       // console.log('winners', dataWinners);
 

@@ -203,7 +203,21 @@ class State {
     });
     console.log(winnersData);
     // data.forEach(())
-    emitter.emit('updateWinnersView', winnersData);
+    emitter.emit('updateWinnersView', winnersData, this.winnersPage);
+  }
+
+  public setWinnersCount(count: number) {
+    this.allWinnersCount = count;
+    emitter.emit('updateWinnersCount', count);
+  }
+
+  public getWinnersCount(): number {
+    return this.allWinnersCount;
+  }
+
+  public setWinnersPage(page: number) {
+    this.winnersPage = page;
+    emitter.emit('updateWinnersPage', page);
   }
 }
 

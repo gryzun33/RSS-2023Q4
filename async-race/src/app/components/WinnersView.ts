@@ -37,8 +37,10 @@ export default class WinnersView extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: ['winners-wrapper'] });
     this.createView();
-    this.getWinnersData({ page: state.winnersPage, limit: limitWinners });
+    this.getWinnersData({ page: state.winnersPage, limit: limitWinners, sort: '', order: '' });
     emitter.on('updateWinnersView', this.updateTableView);
+    emitter.on('updateWinnersCount', this.updateWinnersTitle);
+    emitter.on('updateWinnersPage', this.updateWinnersPage);
   }
 
   protected createView() {
@@ -65,9 +67,13 @@ export default class WinnersView extends BaseComponent {
     // this.updateTableView({ page: state.winnersPage, limit: limitWinners });
   }
 
-  protected updateTableView = (data: unknown) => {
+  protected updateTableView = (data: unknown, page: unknown) => {
     if (!Array.isArray(data)) {
       throw new Error('argument is not array');
+    }
+
+    if (typeof page !== 'number') {
+      throw new Error('page is not number');
     }
     console.log('updateview');
 
@@ -76,7 +82,7 @@ export default class WinnersView extends BaseComponent {
       const numbCell = new BaseComponent({
         tag: 'th',
         classNames: ['numb-cell'],
-        text: `${i + 1}`,
+        text: `${i + 1 + (page - 1) * 10}`,
       });
       const iconCell = new BaseComponent({ tag: 'th', classNames: ['icon-cell'] });
       iconCell.html(carIcon(winner.color));
@@ -103,11 +109,22 @@ export default class WinnersView extends BaseComponent {
   };
 
   protected getWinnersData = (tableParams: TableParams) => {
-    const params = Object.entries(tableParams).map(([key, value]) => ({
-      key: `_${key}`,
-      value: `${value}`,
-    }));
-    console.log('params =', params);
-    getWinners();
+    const params = Object.entries(tableParams)
+      .map(([key, value]) => ({
+        key: `_${key}`,
+        value: `${value}`,
+      }))
+      .filter((el) => el.value !== '');
+
+    console.log('params =', params, tableParams.page);
+    getWinners(params, tableParams.page);
+  };
+
+  protected updateWinnersTitle = (count: unknown) => {
+    this.winnersTitle.setTextContent(`Winners (${count})`);
+  };
+
+  protected updateWinnersPage = (page: unknown) => {
+    this.pageTitle.setTextContent(`Page N${page}`);
   };
 }
