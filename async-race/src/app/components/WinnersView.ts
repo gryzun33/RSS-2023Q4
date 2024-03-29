@@ -124,7 +124,15 @@ export default class WinnersView extends BaseComponent {
     this.winnersTitle.setTextContent(`Winners (${count})`);
   };
 
-  protected updateWinnersPage = (page: unknown) => {
+  protected updateWinnersPage = (page: unknown, prevBtnState: unknown, nextBtnState: unknown) => {
+    if (typeof page !== 'number') {
+      throw new Error('count is not number');
+    }
+    if (typeof prevBtnState !== 'boolean' || typeof nextBtnState !== 'boolean') {
+      throw new Error('state of pagination is not boolean');
+    }
     this.pageTitle.setTextContent(`Page N${page}`);
+    this.prevBtn.element.disabled = !prevBtnState;
+    this.nextBtn.element.disabled = !nextBtnState;
   };
 }

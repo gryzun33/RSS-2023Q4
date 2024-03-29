@@ -1,7 +1,7 @@
 import { CarData /* , NewCarData */, NewWinnerData, WinnerData } from '../utils/types';
 // import isCarData from '../utils/predicates';
 import emitter from './EventEmitter';
-import { limitCarsOnPage } from '../utils/constants';
+import { limitCarsOnPage, limitWinners } from '../utils/constants';
 // import { NewWinnerData } from '../utils/types';
 
 type EngineData = {
@@ -24,6 +24,9 @@ class State {
 
   public prevBtn: boolean = false;
   public nextBtn: boolean = true;
+
+  public prevWinners: boolean = false;
+  public nextWinners: boolean = false;
 
   protected promisesCount: number = 0;
 
@@ -217,7 +220,18 @@ class State {
 
   public setWinnersPage(page: number) {
     this.winnersPage = page;
-    emitter.emit('updateWinnersPage', page);
+    if (this.winnersPage === 1) {
+      this.prevWinners = false;
+    } else {
+      this.nextWinners = true;
+    }
+    if (Math.ceil(this.allWinnersCount / limitWinners) === this.winnersPage) {
+      this.nextWinners = false;
+    } else {
+      this.nextWinners = true;
+    }
+
+    emitter.emit('updateWinnersPage', page, this.prevWinners, this.nextWinners);
   }
 }
 
