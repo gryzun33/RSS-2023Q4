@@ -42,3 +42,5 @@ export type Params = {
   key: string;
   value: string;
 };
+
+export type WinnerWithCar = NewWinnerData & NewCarData;

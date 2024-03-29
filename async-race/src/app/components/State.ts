@@ -188,8 +188,8 @@ class State {
   }
 
   public setWinners(winners: NewWinnerData[], cars: CarData[]) {
-    console.log('winners=', winners);
-    console.log('cars=', cars);
+    // console.log('winners=', winners);
+    // console.log('cars=', cars);
 
     const winnersData = winners.map((winner, i) => {
       const obj = {
@@ -203,6 +203,7 @@ class State {
     });
     console.log(winnersData);
     // data.forEach(())
+    emitter.emit('updateWinnersView', winnersData);
   }
 }
 
