@@ -44,3 +44,15 @@ export type Params = {
 };
 
 export type WinnerWithCar = NewWinnerData & NewCarData;
+
+export enum SortState {
+  none = '',
+  wins = 'wins',
+  time = 'time',
+}
+
+export enum OrderState {
+  none = '',
+  up = 'ASC',
+  down = 'DESC',
+}

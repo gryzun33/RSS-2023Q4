@@ -5,7 +5,7 @@ import { getWinners } from '../api';
 import { limitWinners } from '../utils/constants';
 import state from './State';
 import emitter from './EventEmitter';
-import { WinnerWithCar } from '../utils/types';
+import { WinnerWithCar /* , SortState, OrderState */ } from '../utils/types';
 import carIcon from '../utils/icons';
 
 type TableParams = {
@@ -37,10 +37,17 @@ export default class WinnersView extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: ['winners-wrapper'] });
     this.createView();
-    this.getWinnersData({ page: state.winnersPage, limit: limitWinners, sort: '', order: '' });
+    this.getWinnersData({
+      page: state.winnersPage,
+      limit: limitWinners,
+      sort: state.sort,
+      order: state.sort,
+    });
     emitter.on('updateWinnersView', this.updateTableView);
     emitter.on('updateWinnersCount', this.updateWinnersTitle);
     emitter.on('updateWinnersPage', this.updateWinnersPage);
+    this.prevBtn.on('click', this.onClickPrevBtn);
+    this.nextBtn.on('click', this.onClickNextBtn);
   }
 
   protected createView() {
@@ -76,6 +83,10 @@ export default class WinnersView extends BaseComponent {
       throw new Error('page is not number');
     }
     console.log('updateview');
+
+    if (this.tableBody.children) {
+      this.tableBody.destroyChildren();
+    }
 
     data.forEach((winner: WinnerWithCar, i) => {
       const row = new BaseComponent({ tag: 'tr', classNames: ['winner-row'] });
@@ -134,5 +145,23 @@ export default class WinnersView extends BaseComponent {
     this.pageTitle.setTextContent(`Page N${page}`);
     this.prevBtn.element.disabled = !prevBtnState;
     this.nextBtn.element.disabled = !nextBtnState;
+  };
+
+  protected onClickPrevBtn = () => {
+    this.getWinnersData({
+      page: state.winnersPage - 1,
+      limit: limitWinners,
+      sort: state.sort,
+      order: state.sort,
+    });
+  };
+
+  protected onClickNextBtn = () => {
+    this.getWinnersData({
+      page: state.winnersPage + 1,
+      limit: limitWinners,
+      sort: state.sort,
+      order: state.sort,
+    });
   };
 }
