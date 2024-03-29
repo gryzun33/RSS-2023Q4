@@ -1,4 +1,4 @@
-import { CarData, NewCarData, Params } from './utils/types';
+import { CarData, NewCarData, Params, NewWinnerData } from './utils/types';
 import state from './components/State';
 import { limitCarsOnPage } from './utils/constants';
 
@@ -23,7 +23,7 @@ export async function getCars(page: number) {
       `${baseURL}${path.garage}?_page=${page}&_limit=${limitCarsOnPage}}`
     );
     const data: CarData[] = await response.json();
-    console.log('data31=', data);
+    // console.log('data31=', data);
 
     if (data.length === 0 && state.currPage > 1) {
       state.currPage -= 1;
@@ -117,8 +117,6 @@ export async function createWinner(id: number) {
     .then((response) => {
       if (response.status === 500) {
         getWinner(id);
-      } else {
-        getWinners();
       }
     })
     .catch((error) => {
@@ -210,8 +208,18 @@ export async function getWinners(params?: Params[]) {
     method: 'GET',
   })
     .then((response) => response.json())
-    .then((data) => {
-      console.log('winners', data);
+    .then((dataWinners: NewWinnerData[]) => {
+      // console.log('winners', dataWinners);
+
+      const promises = dataWinners.map((car) =>
+        fetch(`${baseURL}${path.garage}/${car.id}`, {
+          method: 'GET',
+        }).then((response) => response.json())
+      );
+
+      Promise.all(promises).then((dataCars: CarData[]) => {
+        state.setWinners(dataWinners, dataCars);
+      });
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -231,7 +239,7 @@ export async function updateWinner(id: number) {
     .then((response) => response.json())
     .then((data) => {
       console.log('winner', data);
-      getWinners();
+      // getWinners();
     })
 
     .catch((error) => {

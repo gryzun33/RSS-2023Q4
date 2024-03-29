@@ -1,6 +1,6 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
-// import { getWinners } from '../api';
+import { getWinners } from '../api';
 // import { Params } from '../utils/types';
 import { limitWinners } from '../utils/constants';
 import state from './State';
@@ -34,7 +34,7 @@ export default class WinnersView extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: ['winners-wrapper'] });
     this.createView();
-    // this.getWinnersData({ page: state.winnersPage, limit: limitWinners })
+    this.getWinnersData({ page: state.winnersPage, limit: limitWinners });
   }
 
   protected createView() {
@@ -58,19 +58,19 @@ export default class WinnersView extends BaseComponent {
     const pagination = new BaseComponent({ tag: 'div', classNames: ['pagination'] });
     pagination.append(this.prevBtn, this.nextBtn);
     this.append(this.winnersTitle, this.pageTitle, table, pagination);
-    this.updateTableView({ page: state.winnersPage, limit: limitWinners });
+    // this.updateTableView({ page: state.winnersPage, limit: limitWinners });
   }
 
-  protected updateTableView(tableParams: TableParams) {
+  protected updateTableView() {
+    // const winnersData = state.getWinnersData(params);
+  }
+
+  protected getWinnersData = (tableParams: TableParams) => {
     const params = Object.entries(tableParams).map(([key, value]) => ({
       key: `_${key}`,
       value: `${value}`,
     }));
     console.log('params =', params);
-    // const winnersData = state.getWinnersData(params);
-  }
-
-  // protected getWinnersData =() => {
-
-  // }
+    getWinners();
+  };
 }

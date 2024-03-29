@@ -1,4 +1,4 @@
-import { CarData, NewWinnerData, WinnerData } from '../utils/types';
+import { CarData /* , NewCarData */, NewWinnerData, WinnerData } from '../utils/types';
 // import isCarData from '../utils/predicates';
 import emitter from './EventEmitter';
 import { limitCarsOnPage } from '../utils/constants';
@@ -15,6 +15,7 @@ class State {
   public isStart: boolean = true;
 
   public allCarsCount: number = 0;
+  public allWinnersCount: number = 0;
 
   public currPage: number = 1;
 
@@ -184,6 +185,24 @@ class State {
       // console.log('finishRace');
       state.promisesCount = 0;
     }
+  }
+
+  public setWinners(winners: NewWinnerData[], cars: CarData[]) {
+    console.log('winners=', winners);
+    console.log('cars=', cars);
+
+    const winnersData = winners.map((winner, i) => {
+      const obj = {
+        id: winner.id,
+        wins: winner.wins,
+        time: winner.time,
+        color: cars[i].color,
+        name: cars[i].name,
+      };
+      return obj;
+    });
+    console.log(winnersData);
+    // data.forEach(())
   }
 }
 
