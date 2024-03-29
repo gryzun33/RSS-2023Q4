@@ -119,8 +119,10 @@ export default class GarageView extends BaseComponent {
     state.setRaceState(true);
     this.cars.forEach((car) => {
       car.clickOnStartBtn();
-      // startCar(car.id, 'started', car.fetchController);
     });
+
+    // const idArr = this.cars.map((car) => car.id);
+    // startAndDriveCars(idArr);
   };
 
   protected onClickResetBtn = (): void => {

@@ -36,12 +36,6 @@ export async function getCars(page: number) {
     } else {
       const carsCount = Number(response.headers.get('X-Total-Count'));
       state.updateGarageData(data, carsCount, page);
-      // state.addCarsToState(data);
-      // state.carsOnPage = data.length;
-
-      // state.updateAllCarsCount(Number(response.headers.get('X-Total-Count')));
-      // state.allCarsCount = Number(response.headers.get('X-Total-Count'));
-      // console.log('headers', response.headers.get('X-Total-Count'));
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -65,10 +59,6 @@ export async function createCar(newCarData: NewCarData) {
     console.log('newcar=', data);
 
     getCars(state.currPage);
-    // if (state.carsOnPage < limitCarsOnPage) {
-    //   state.carsOnPage += 1;
-    //   state.addCarToState(data);
-    // }
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
@@ -104,30 +94,10 @@ export async function deleteWinner(id: number) {
   });
 }
 
-// export async function deleteCar(id: number) {
-//   try {
-//     const response = await fetch(`${baseURL}${path.garage}/${id}`, {
-//       method: 'DELETE',
-//     });
-//     const data = await response.json();
-//     getCars(state.currPage);
-
-//     // state.deleteCarFromState(id);
-//     console.log('deletecar', data);
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       console.error('Error:', error.message);
-//     }
-//   }
-// }
-
 export function deleteCar(id: number) {
   fetch(`${baseURL}${path.garage}/${id}`, {
     method: 'DELETE',
   })
-    // .then((response) => {
-    //   return response.json();
-    // })
     .then(() => {
       getCars(state.currPage);
     })
@@ -140,29 +110,6 @@ export function deleteCar(id: number) {
       }
     });
 }
-
-// export async function driveCar(id: number, status: string, controller: AbortController) {
-//   try {
-//     const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
-//       method: 'PATCH',
-//       signal: controller.signal,
-//     });
-
-//     if (response.status === 500) {
-//       state.setCarStatusBroken(id);
-//     }
-//     if (response.status === 200) {
-//       if (!state.winner && state.race) {
-//         state.setRaceState(false);
-//         state.setWinner(id);
-//         console.log('WINNER ID=', id);
-//       }
-//     }
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       console.log(error.message);
-//     }
-//   }
 
 export async function createWinner(id: number) {
   fetch(`${baseURL}${path.winners}`, {
@@ -211,20 +158,6 @@ export function driveCar(id: number, status: string, controller: AbortController
     });
 }
 
-// return fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
-//   method: 'PATCH',
-//   signal: controller.signal,
-// })
-//   .then(({ status }) => {
-//     return true;
-//   })
-//   .catch((error) => {
-//     if (error instanceof Error) {
-//       console.log(error);
-//       console.error(error.message);
-//     }
-//   });
-
 export async function startCar(id: number, status: string, controller: AbortController) {
   try {
     const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
@@ -234,7 +167,6 @@ export async function startCar(id: number, status: string, controller: AbortCont
     const data = await response.json();
     driveCar(id, 'drive', controller);
     state.setCarStatusDrive(id, data);
-    // console.log('datastartCar=', data);
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
@@ -328,5 +260,55 @@ export async function getWinner(id: number) {
       if (error instanceof Error) {
         console.error('Error:', error.message);
       }
+    });
+}
+
+export function startAndDriveCar(id: number) {
+  return fetch(`${baseURL}${path.engine}?id=${id}&status=started`, {
+    method: 'PATCH',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      state.setCarStatusDrive(id, data);
+    })
+    .then(() =>
+      fetch(`${baseURL}${path.engine}?id=${id}&status=drive`, {
+        method: 'PATCH',
+        /* signal: controller.signal, */
+      })
+    )
+    .then((response) => {
+      console.log('response281=', response);
+      if (response.status === 500) {
+        state.setCarStatusBroken(id);
+        // throw new Error('car is broken');
+      }
+
+      return id;
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error instanceof Error) {
+        console.error('Error:', error.message);
+      }
+    });
+}
+
+export function startAndDriveCars(ids: number[]) {
+  const promises = ids.map((id) => startAndDriveCar(id));
+  Promise.any(promises)
+    .then((id) => {
+      console.log('response302=', id);
+    })
+    .catch((error) => {
+      console.error('Error:', error.message);
+    });
+
+  Promise.allSettled(promises)
+    .then((response) => {
+      console.log('responseall=', response);
+    })
+    .catch((error) => {
+      console.error('Error:', error.message);
     });
 }
