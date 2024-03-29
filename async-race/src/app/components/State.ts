@@ -22,6 +22,8 @@ class State {
   public prevBtn: boolean = false;
   public nextBtn: boolean = true;
 
+  protected promisesCount: number = 0;
+
   // public cars: CarData[] = [];
 
   public carsMap = new Map<number, CarData>();
@@ -170,6 +172,16 @@ class State {
     }
     const { status } = carData;
     return status;
+  }
+
+  public updatePromisesCount() {
+    state.promisesCount += 1;
+    console.log('count=', state.promisesCount);
+    if (state.promisesCount === this.carsMap.size) {
+      emitter.emit('finishRace');
+      console.log('finishRace');
+      state.promisesCount = 0;
+    }
   }
 }
 
