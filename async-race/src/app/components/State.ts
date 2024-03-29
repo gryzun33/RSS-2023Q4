@@ -223,9 +223,9 @@ class State {
     emitter.emit('updateWinnersCount', count);
   }
 
-  public getWinnersCount(): number {
-    return this.allWinnersCount;
-  }
+  // public getWinnersCount(): number {
+  //   return this.allWinnersCount;
+  // }
 
   public setWinnersPage(page: number) {
     this.winnersPage = page;
@@ -241,6 +241,11 @@ class State {
     }
 
     emitter.emit('updateWinnersPage', page, this.prevWinners, this.nextWinners);
+  }
+
+  public setOrderAndSortState(sort: string, order: string) {
+    this.sort = sort;
+    this.order = order;
   }
 }
 

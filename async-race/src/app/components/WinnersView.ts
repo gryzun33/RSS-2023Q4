@@ -5,7 +5,7 @@ import { getWinners } from '../api';
 import { limitWinners } from '../utils/constants';
 import state from './State';
 import emitter from './EventEmitter';
-import { WinnerWithCar /* , SortState, OrderState */ } from '../utils/types';
+import { WinnerWithCar, SortState, OrderState } from '../utils/types';
 import carIcon from '../utils/icons';
 
 type TableParams = {
@@ -17,7 +17,6 @@ type TableParams = {
 export default class WinnersView extends BaseComponent {
   public winnersTitle = new BaseComponent({ tag: 'p', classNames: ['winners-title'] });
   public pageTitle = new BaseComponent({ tag: 'p', classNames: ['page-title'] });
-
   public tableBody = new BaseComponent({ tag: 'tbody', classNames: ['table-body'] });
 
   protected winsColumn = new BaseComponent({
@@ -48,6 +47,8 @@ export default class WinnersView extends BaseComponent {
     emitter.on('updateWinnersPage', this.updateWinnersPage);
     this.prevBtn.on('click', this.onClickPrevBtn);
     this.nextBtn.on('click', this.onClickNextBtn);
+    this.winsColumn.on('click', this.onClickWinsSort);
+    this.timeColumn.on('click', this.onClickTimeSort);
   }
 
   protected createView() {
@@ -152,7 +153,7 @@ export default class WinnersView extends BaseComponent {
       page: state.winnersPage - 1,
       limit: limitWinners,
       sort: state.sort,
-      order: state.sort,
+      order: state.order,
     });
   };
 
@@ -161,7 +162,35 @@ export default class WinnersView extends BaseComponent {
       page: state.winnersPage + 1,
       limit: limitWinners,
       sort: state.sort,
-      order: state.sort,
+      order: state.order,
     });
+  };
+
+  public onClickWinsSort = () => {
+    const order = state.order === OrderState.down ? OrderState.up : OrderState.down;
+    this.getWinnersData({
+      page: state.winnersPage,
+      limit: limitWinners,
+      sort: SortState.wins,
+      order,
+    });
+    state.setOrderAndSortState(SortState.wins, order);
+    const classCss = state.order === OrderState.down ? 'arrow-up' : 'arrow-down';
+    this.winsColumn.addClass(classCss);
+    this.timeColumn.removeClass(classCss);
+  };
+
+  public onClickTimeSort = () => {
+    const order = state.order === OrderState.up ? OrderState.down : OrderState.up;
+    this.getWinnersData({
+      page: state.winnersPage,
+      limit: limitWinners,
+      sort: SortState.time,
+      order,
+    });
+    state.setOrderAndSortState(SortState.time, order);
+    const classCss = state.order === OrderState.down ? 'arrow-up' : 'arrow-down';
+    this.timeColumn.addClass(classCss);
+    this.winsColumn.removeClass(classCss);
   };
 }
