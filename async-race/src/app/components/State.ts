@@ -1,7 +1,8 @@
-import { CarData, WinnerData } from '../utils/types';
+import { CarData, NewWinnerData, WinnerData } from '../utils/types';
 // import isCarData from '../utils/predicates';
 import emitter from './EventEmitter';
 import { limitCarsOnPage } from '../utils/constants';
+// import { NewWinnerData } from '../utils/types';
 
 type EngineData = {
   velocity: number;
@@ -29,7 +30,7 @@ class State {
     this.race = raceState;
   }
 
-  public setWinner(id: number) {
+  public setWinner(id: number): void {
     this.winner = id;
     if (id === 0) {
       return;
@@ -38,8 +39,14 @@ class State {
     emitter.emit('showWinner', carData);
   }
 
-  public getWinnerId(): number {
-    return this.winner;
+  public setWinnerData(data: NewWinnerData): void {
+    const carData = this.carsMap.get(data.id);
+    if (!carData) {
+      throw new Error('carData is undefined');
+    }
+    const timeInSec = data.time * 1000;
+    carData.wins = data.wins + 1;
+    carData.duration = timeInSec < carData.duration ? timeInSec : carData.duration;
   }
 
   public getWinnerData(id: number): WinnerData {
@@ -47,14 +54,29 @@ class State {
     if (!carData) {
       throw new Error('carData is undefined');
     }
+    const timeInSec = +(carData.duration / 1000).toFixed(2);
+    return { wins: carData.wins, time: timeInSec };
+  }
 
-    return { wins: 1, time: carData.duration };
+  // public getWinnerId(): number {
+  //   return this.winner;
+  // }
+
+  public getFisrtWinnerData(id: number): NewWinnerData {
+    const carData = this.carsMap.get(id);
+    if (!carData) {
+      throw new Error('carData is undefined');
+    }
+    // carData.wins += 1;
+    const timeInSec = +(carData.duration / 1000).toFixed(2);
+    return { id: carData.id, wins: 1, time: timeInSec };
   }
 
   public addCarToState = (car: CarData) => {
     const newCar: CarData = {
       ...car,
       status: 'stop',
+      wins: 0,
     };
     // this.cars.push(car);
     this.carsMap.set(car.id, newCar);

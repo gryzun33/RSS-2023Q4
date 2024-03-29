@@ -19,6 +19,7 @@ export type CarData = NewCarData & {
   id: number;
   status?: 'stop' | 'drive' | 'broken';
   duration: number;
+  wins: number;
 };
 
 export type NewCarData = {

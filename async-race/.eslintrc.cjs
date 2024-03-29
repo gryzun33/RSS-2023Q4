@@ -28,5 +28,6 @@ module.exports = {
     'lines-between-class-members': 'off',
     '@typescript-eslint/lines-between-class-members': 'off',
     'class-methods-use-this': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
   },
 };
