@@ -1,8 +1,9 @@
 import styles from './app.module.scss';
 import Button from '../Button';
 import BaseComponent from '../BaseComponent';
-import { getCars, getWinners } from '../../api';
+import { getCars } from '../../api';
 import GarageView from '../GarageView/GarageView';
+import WinnersView from '../WinnersView';
 // import BaseComponent from '../BaseComponent';
 import state from '../State';
 // import { CarData } from '../../utils/types';
@@ -21,6 +22,12 @@ export default class App {
   });
 
   protected garageView?: GarageView;
+  protected winnersView?: WinnersView;
+
+  constructor() {
+    this.garageBtn.on('click', this.createGarageView);
+    this.winnersBtn.on('click', this.createWinnersView);
+  }
 
   public start(): void {
     this.createView();
@@ -35,11 +42,25 @@ export default class App {
     this.createGarageView();
   }
 
-  protected createGarageView() {
+  protected createGarageView = () => {
+    if (this.winnersView) {
+      this.winnersView?.destroy();
+    }
     this.garageView = new GarageView();
     this.root.append(this.garageView);
 
     getCars(state.currPage);
-    getWinners();
-  }
+    // getWinners();
+  };
+
+  protected createWinnersView = () => {
+    this.garageView?.destroy();
+    this.winnersView = new WinnersView();
+    this.root.append(this.winnersView);
+  };
+
+  // protected onClickGarageBtn = () => {
+  //   this.winnersView?.destroy();
+  //   this.garageView = new GarageView();
+  // };
 }

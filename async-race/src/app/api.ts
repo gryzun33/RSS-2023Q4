@@ -1,4 +1,4 @@
-import { CarData, NewCarData } from './utils/types';
+import { CarData, NewCarData, Params } from './utils/types';
 import state from './components/State';
 import { limitCarsOnPage } from './utils/constants';
 
@@ -8,11 +8,6 @@ const path = {
   garage: '/garage',
   winners: '/winners',
   engine: '/engine',
-};
-
-type Params = {
-  key: string;
-  value: string;
 };
 
 function getQueryString(params: Params[] = []) {

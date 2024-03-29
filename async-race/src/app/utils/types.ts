@@ -37,3 +37,8 @@ export type WinnerData = {
 export type NewWinnerData = WinnerData & {
   id: number;
 };
+
+export type Params = {
+  key: string;
+  value: string;
+};

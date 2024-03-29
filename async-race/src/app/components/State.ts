@@ -17,6 +17,8 @@ class State {
   public allCarsCount: number = 0;
 
   public currPage: number = 1;
+
+  public winnersPage: number = 1;
   public carsOnPage: number = 0;
 
   public prevBtn: boolean = false;
@@ -179,7 +181,7 @@ class State {
     console.log('count=', state.promisesCount);
     if (state.promisesCount === this.carsMap.size) {
       emitter.emit('finishRace');
-      console.log('finishRace');
+      // console.log('finishRace');
       state.promisesCount = 0;
     }
   }
