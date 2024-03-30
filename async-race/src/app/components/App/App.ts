@@ -48,6 +48,8 @@ export default class App {
     }
     this.garageView = new GarageView();
     this.root.append(this.garageView);
+    this.garageBtn.disable();
+    this.winnersBtn.enable();
 
     getCars(state.currPage);
     // getWinners();
@@ -57,6 +59,8 @@ export default class App {
     this.garageView?.destroy();
     this.winnersView = new WinnersView();
     this.root.append(this.winnersView);
+    this.winnersBtn.disable();
+    this.garageBtn.enable();
   };
 
   // protected onClickGarageBtn = () => {
