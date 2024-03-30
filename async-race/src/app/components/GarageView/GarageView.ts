@@ -16,19 +16,19 @@ export default class GarageView extends BaseComponent {
   protected createForm = new CreateCarForm();
   protected updateForm = new UpdateCarForm();
 
-  public raceBtn = new Button({ classNames: ['race-btn'], text: 'race' });
-  public resetBtn = new Button({ classNames: ['reset-btn'], text: 'reset' });
-  public generateBtn = new Button({ classNames: ['generate-btn'], text: 'generate cars' });
+  public raceBtn = new Button({ classNames: [styles.raceBtn], text: 'Race' });
+  public resetBtn = new Button({ classNames: [styles.resetBtn], text: 'Reset' });
+  public generateBtn = new Button({ classNames: [styles.generateBtn], text: 'Generate Cars' });
 
-  public garageTitle = new BaseComponent({ tag: 'p', classNames: ['garage-title'] });
+  public garageTitle = new BaseComponent({ tag: 'p', classNames: [styles.garageTitle] });
 
-  public pageTitle = new BaseComponent({ tag: 'p', classNames: ['page-title'] });
+  public pageTitle = new BaseComponent({ tag: 'p', classNames: [styles.pageTitle] });
 
   public firstTitle = new BaseComponent({ tag: 'p', classNames: [styles.firstTitle] });
   protected garageList = new BaseComponent({ tag: 'div', classNames: [styles.garageList] });
 
-  protected prevBtn = new Button({ classNames: ['prev-btn'], text: 'prev' });
-  protected nextBtn = new Button({ classNames: ['next-btn'], text: 'next' });
+  protected prevBtn = new Button({ classNames: [styles.prevBtn] });
+  protected nextBtn = new Button({ classNames: [styles.nextBtn] });
   // protected totalCars: number = 0;
   // protected page: number = 1;
   protected cars: CarView[] = [];
@@ -48,27 +48,20 @@ export default class GarageView extends BaseComponent {
   }
 
   protected createView(): void {
-    const buttonsBlock = new BaseComponent({ tag: 'div', classNames: ['buttons-block'] });
+    const topBlock = new BaseComponent({ tag: 'div', classNames: [styles.topBlock] });
+    const buttonsBlock = new BaseComponent({ tag: 'div', classNames: [styles.buttonsBlock] });
     buttonsBlock.append(this.raceBtn, this.resetBtn, this.generateBtn);
-    const pagination = new BaseComponent({ tag: 'div', classNames: ['pagination'] });
-    pagination.append(this.prevBtn, this.nextBtn);
-    this.append(
-      this.firstTitle,
-      this.createForm,
-      this.updateForm,
-      buttonsBlock,
-      this.garageTitle,
-      this.pageTitle,
-      this.garageList,
-      pagination
-    );
+    topBlock.append(this.createForm, this.updateForm, buttonsBlock, this.garageTitle);
+    const pagination = new BaseComponent({ tag: 'div', classNames: [styles.pagination] });
+    pagination.append(this.prevBtn, this.pageTitle, this.nextBtn);
+    this.append(this.firstTitle, topBlock, this.garageList, pagination);
   }
 
   public updateCarsCount = (count: unknown) => {
     if (typeof count !== 'number') {
       throw new Error('count is not number');
     }
-    this.garageTitle.setTextContent(`Garage(${count})`);
+    this.garageTitle.setTextContent(`Garage (${count})`);
   };
 
   public updatePages = (page: unknown, prevBtnState: unknown, nextBtnState: unknown) => {
@@ -79,7 +72,7 @@ export default class GarageView extends BaseComponent {
       throw new Error('state of pagination is not boolean');
     }
 
-    this.pageTitle.setTextContent(`Page N${page}`);
+    this.pageTitle.setTextContent(`${page}`);
     this.prevBtn.element.disabled = !prevBtnState;
     this.nextBtn.element.disabled = !nextBtnState;
   };

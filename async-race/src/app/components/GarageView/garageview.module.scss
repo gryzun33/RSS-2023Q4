@@ -1,9 +1,6 @@
 .garage-wrapper {
   position: relative;
-}
-
-.garage-list {
-  display: block;
+  @include flex-column;
 }
 
 .first-title {
@@ -19,4 +16,87 @@
     0px 0px 5px black,
     0px 0px 5px black,
     0px 0px 5px black;
+}
+
+.top-block {
+  align-self: center;
+  @include flex-column;
+  width: 400px;
+  margin-top: 5px;
+  gap: 5px;
+}
+
+.buttons-block {
+  width: 100%;
+  @include flex;
+  height: 30px;
+  gap: 5px;
+  align-self: center;
+
+  // margin-top: 5px;
+
+  .race-btn,
+  .reset-btn {
+    width: 100px;
+    height: 30px;
+    @include btn;
+    font-size: 18px;
+  }
+
+  .generate-btn {
+    flex-grow: 1;
+    height: 30px;
+    @include btn;
+    font-size: 18px;
+  }
+}
+
+.garage-title {
+  align-self: center;
+  font-size: 25px;
+  color: $color-title;
+}
+
+.garage-list {
+  display: block;
+}
+
+.pagination {
+  // width: 200px;
+  align-self: center;
+  margin-top: 20px;
+  @include flex;
+  gap: 10px;
+
+  .prev-btn,
+  .next-btn {
+    @include btn;
+    width: 35px;
+    height: 35px;
+    @include bg-icon;
+    background-size: 50% auto;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+
+  .prev-btn {
+    background-image: url("../../../assets/icons/previous-svgrepo-com.svg");
+  }
+
+  .next-btn {
+    background-image: url("../../../assets/icons/next-svgrepo-com.svg");
+  }
+}
+
+.page-title {
+  width: 50px;
+  height: 35px;
+  text-align: center;
+  font-size: 20px;
+  color: $color-text;
+  border-radius: 5px;
+  background-color: $color-bg-btn;
+  @include flex(center, center);
 }

@@ -1,23 +1,25 @@
+import styles from './form.module.scss';
+import { defaultColor } from '../../utils/constants';
 import BaseComponent from './BaseComponent';
 import Button from './Button';
 
 export default class InteractionForm extends BaseComponent<HTMLFormElement> {
   public inputName = new BaseComponent<HTMLInputElement>({
     tag: 'input',
-    classNames: ['input-name'],
+    classNames: [styles.inputName],
   });
   public inputColor = new BaseComponent<HTMLInputElement>({
     tag: 'input',
-    classNames: ['input-color'],
+    classNames: [styles.inputColor],
   });
 
   // public inputNameValue = this.getInputValue(this.inputName);
   // public inputColorValue = this.getInputValue(this.inputColor);
 
-  public submitBtn = new Button({ classNames: ['submit-btn'] });
+  public submitBtn = new Button({ classNames: [styles.submitBtn] });
 
   constructor() {
-    super({ tag: 'form', classNames: ['form-box'] });
+    super({ tag: 'form', classNames: [styles.formBox] });
     this.configureView();
   }
 
@@ -46,7 +48,7 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
 
   protected resetForm() {
     this.inputName.element.value = '';
-    this.inputColor.element.value = '#000000';
+    this.inputColor.element.value = defaultColor;
   }
 
   // protected getNameValue() {

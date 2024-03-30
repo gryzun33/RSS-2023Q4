@@ -34,3 +34,9 @@
     opacity: 0.6;
   }
 }
+
+@mixin bg-icon {
+  background-position: center center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
