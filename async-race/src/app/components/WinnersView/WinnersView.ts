@@ -1,12 +1,12 @@
-import BaseComponent from './BaseComponent';
-import Button from './Button';
+import BaseComponent from '../utilsComponents/BaseComponent';
+import Button from '../utilsComponents/Button';
 import { getWinners } from '../api';
 // import { Params } from '../utils/types';
-import { limitWinners } from '../utils/constants';
-import state from './State';
-import emitter from './EventEmitter';
-import { WinnerWithCar, SortState, OrderState } from '../utils/types';
-import carIcon from '../utils/icons';
+import { limitWinners } from '../../utils/constants';
+import state from '../State';
+import emitter from '../EventEmitter';
+import { WinnerWithCar, SortState, OrderState } from '../../utils/types';
+import carIcon from '../../utils/icons';
 
 type TableParams = {
   page: number;

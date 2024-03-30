@@ -1,9 +1,9 @@
 import styles from './app.module.scss';
-import Button from '../Button';
-import BaseComponent from '../BaseComponent';
-import { getCars } from '../../api';
+import Button from '../utilsComponents/Button';
+import BaseComponent from '../utilsComponents/BaseComponent';
+import { getCars } from '../api';
 import GarageView from '../GarageView/GarageView';
-import WinnersView from '../WinnersView';
+import WinnersView from '../WinnersView/WinnersView';
 // import BaseComponent from '../BaseComponent';
 import state from '../State';
 // import { CarData } from '../../utils/types';
@@ -12,12 +12,12 @@ import state from '../State';
 export default class App {
   protected root = new BaseComponent({ tag: 'div', classNames: [styles.wrapper] });
   protected garageBtn = new Button({
-    classNames: ['garage-btn'],
+    classNames: [styles.garageBtn],
     text: 'to Garage',
   });
 
   protected winnersBtn = new Button({
-    classNames: ['winners-btn'],
+    classNames: [styles.winnersBtn],
     text: 'to Winners',
   });
 
@@ -34,7 +34,7 @@ export default class App {
   }
 
   protected createView(): void {
-    const btnBox = new BaseComponent({ tag: 'div', classNames: ['btn-box'] });
+    const btnBox = new BaseComponent({ tag: 'div', classNames: [styles.btnBox] });
     btnBox.append(this.garageBtn, this.winnersBtn);
     this.root.append(btnBox);
     document.body.append(this.root.getElement());

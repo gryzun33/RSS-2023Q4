@@ -1,6 +1,34 @@
-$color-main-bg: #363635;
-$color-text: #ffffff;
+// $color-main-bg: #363635;
+// $color-text: #ffffff;
 
 $color-1: #595959;
 $color-2: #e3e3e3;
 $color-flag: #d52a2e;
+
+:root {
+  --body-bg: #17181c;
+  --source-color: #17181c;
+  --sources-bg: #ffd640;
+  --sources-bg-hover: #ffc900;
+  --categories-bg: #ffc900;
+  --main-bg: #474a51;
+  --sources-scroll: #17181c;
+  --sources-title: #ffffff;
+  --scroll-thumb: #888;
+  --copyright-text: #333;
+  --copyright-link: #444;
+  --copyright-hover: #555;
+  --news-bg: #fff;
+  --news-color: #333;
+  --news-descr-title: #a2a2a2;
+  --meta-text: #fff;
+}
+
+$color-main-bg: #363635;
+$color-text: #ffffff;
+$color-flag: #d52a2e;
+$color-track: #ffc900;
+$color-bg-btn: #888;
+$color-btn-hover: #333;
+$color-text-disabled: #c8c8c8;
+$color-border-btn: #ffffff;

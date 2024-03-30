@@ -1,6 +1,6 @@
-import { CarData, NewCarData, Params, NewWinnerData } from './utils/types';
-import state from './components/State';
-import { limitCarsOnPage } from './utils/constants';
+import { CarData, NewCarData, Params, NewWinnerData } from '../utils/types';
+import state from './State';
+import { limitCarsOnPage } from '../utils/constants';
 
 const baseURL = 'http://127.0.0.1:3000';
 

@@ -1,9 +1,9 @@
 import styles from './carview.module.scss';
-import BaseComponent from '../BaseComponent';
+import BaseComponent from '../utilsComponents/BaseComponent';
 import { CarData } from '../../utils/types';
-import Button from '../Button';
+import Button from '../utilsComponents/Button';
 import carIcon from '../../utils/icons';
-import { deleteCar, startCar, stopCar } from '../../api';
+import { deleteCar, startCar, stopCar } from '../api';
 import getDistance from '../../utils/helpers';
 import emitter from '../EventEmitter';
 import state from '../State';

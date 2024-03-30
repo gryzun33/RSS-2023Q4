@@ -1,6 +1,6 @@
-import InteractionForm from './InteractionForm';
-import emitter from './EventEmitter';
-import { NewCarData } from '../utils/types';
+import InteractionForm from '../utilsComponents/InteractionForm';
+import emitter from '../EventEmitter';
+import { NewCarData } from '../../utils/types';
 import { updateCar } from '../api';
 
 export default class CreateCarForm extends InteractionForm {

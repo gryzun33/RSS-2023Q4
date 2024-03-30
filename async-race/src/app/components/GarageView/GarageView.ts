@@ -1,14 +1,14 @@
 import styles from './garageview.module.scss';
-import BaseComponent from '../BaseComponent';
+import BaseComponent from '../utilsComponents/BaseComponent';
 import CarView from '../CarView/CarView';
-import CreateCarForm from '../CreateCarForm';
-import UpdateCarForm from '../UpdateCarForm';
+import CreateCarForm from '../CreateCarForm/CreateCarForm';
+import UpdateCarForm from '../UpdateCarForm/UpdateCarForm';
 // import { CarData } from '../../utils/types';
 import emitter from '../EventEmitter';
 import isCarData from '../../utils/predicates';
-import Button from '../Button';
+import Button from '../utilsComponents/Button';
 import getRandomCars from '../../utils/getRandomCars';
-import { addRandomCars, getCars } from '../../api';
+import { addRandomCars, getCars } from '../api';
 import { NewCarData } from '../../utils/types';
 import state from '../State';
 
