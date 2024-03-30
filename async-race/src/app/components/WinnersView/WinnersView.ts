@@ -1,3 +1,4 @@
+import styles from './winnersview.module.scss';
 import BaseComponent from '../utilsComponents/BaseComponent';
 import Button from '../utilsComponents/Button';
 import { getWinners } from '../api';
@@ -15,26 +16,26 @@ type TableParams = {
   order?: string;
 };
 export default class WinnersView extends BaseComponent {
-  public winnersTitle = new BaseComponent({ tag: 'p', classNames: ['winners-title'] });
-  public pageTitle = new BaseComponent({ tag: 'p', classNames: ['page-title'] });
-  public tableBody = new BaseComponent({ tag: 'tbody', classNames: ['table-body'] });
+  public winnersTitle = new BaseComponent({ tag: 'p', classNames: [styles.winnersTitle] });
+  public pageTitle = new BaseComponent({ tag: 'p', classNames: [styles.pageTitle] });
+  public tableBody = new BaseComponent({ tag: 'tbody', classNames: [styles.tableBody] });
 
   protected winsColumn = new BaseComponent({
     tag: 'th',
-    classNames: ['wins-column'],
+    classNames: [styles.winsColumn],
     text: 'Wins',
   });
   protected timeColumn = new BaseComponent({
     tag: 'th',
-    classNames: ['time-column'],
-    text: 'Best Time',
+    classNames: [styles.timeColumn],
+    text: 'Best time',
   });
 
-  protected prevBtn = new Button({ classNames: ['prev-btn'], text: 'prev' });
-  protected nextBtn = new Button({ classNames: ['next-btn'], text: 'next' });
+  protected prevBtn = new Button({ classNames: [styles.prevBtn] });
+  protected nextBtn = new Button({ classNames: [styles.nextBtn] });
 
   constructor() {
-    super({ tag: 'div', classNames: ['winners-wrapper'] });
+    super({ tag: 'div', classNames: [styles.winnersWrapper] });
     this.createView();
     this.getWinnersData({
       page: state.winnersPage,
@@ -52,26 +53,30 @@ export default class WinnersView extends BaseComponent {
   }
 
   protected createView() {
-    const table = new BaseComponent({ tag: 'table', classNames: ['winners-table'] });
-    const tableTitle = new BaseComponent({ tag: 'tr', classNames: ['table-title'] });
+    const table = new BaseComponent({ tag: 'table', classNames: [styles.winnersTable] });
+    const tableTitle = new BaseComponent({ tag: 'tr', classNames: [styles.tableHeader] });
 
-    const numberColumn = new BaseComponent({ tag: 'th', classNames: ['number-column'], text: 'N' });
+    const numberColumn = new BaseComponent({
+      tag: 'th',
+      classNames: [styles.numberColumn],
+      text: 'N',
+    });
     const carViewColumn = new BaseComponent({
       tag: 'th',
-      classNames: ['carview-column'],
+      classNames: [styles.carviewColumn],
       text: 'Car',
     });
     const carNameColumn = new BaseComponent({
       tag: 'th',
-      classNames: ['carname-column'],
+      classNames: [styles.carnameColumn],
       text: 'Name',
     });
 
     tableTitle.append(numberColumn, carViewColumn, carNameColumn, this.winsColumn, this.timeColumn);
     table.append(tableTitle, this.tableBody);
-    const pagination = new BaseComponent({ tag: 'div', classNames: ['pagination'] });
-    pagination.append(this.prevBtn, this.nextBtn);
-    this.append(this.winnersTitle, this.pageTitle, table, pagination);
+    const pagination = new BaseComponent({ tag: 'div', classNames: [styles.pagination] });
+    pagination.append(this.prevBtn, this.pageTitle, this.nextBtn);
+    this.append(this.winnersTitle, table, pagination);
     // this.updateTableView({ page: state.winnersPage, limit: limitWinners });
   }
 
@@ -92,24 +97,24 @@ export default class WinnersView extends BaseComponent {
     data.forEach((winner: WinnerWithCar, i) => {
       const row = new BaseComponent({ tag: 'tr', classNames: ['winner-row'] });
       const numbCell = new BaseComponent({
-        tag: 'th',
+        tag: 'td',
         classNames: ['numb-cell'],
         text: `${i + 1 + (page - 1) * 10}`,
       });
-      const iconCell = new BaseComponent({ tag: 'th', classNames: ['icon-cell'] });
+      const iconCell = new BaseComponent({ tag: 'td', classNames: [styles.iconCell] });
       iconCell.html(carIcon(winner.color));
       const nameCell = new BaseComponent({
-        tag: 'th',
+        tag: 'td',
         classNames: ['name-cell'],
         text: winner.name,
       });
       const winsCell = new BaseComponent({
-        tag: 'th',
+        tag: 'td',
         classNames: ['wins-cell'],
         text: `${winner.wins}`,
       });
       const timeCell = new BaseComponent({
-        tag: 'th',
+        tag: 'td',
         classNames: ['time-cell'],
         text: `${winner.time}`,
       });
@@ -143,7 +148,7 @@ export default class WinnersView extends BaseComponent {
     if (typeof prevBtnState !== 'boolean' || typeof nextBtnState !== 'boolean') {
       throw new Error('state of pagination is not boolean');
     }
-    this.pageTitle.setTextContent(`Page N${page}`);
+    this.pageTitle.setTextContent(`${page}`);
     this.prevBtn.element.disabled = !prevBtnState;
     this.nextBtn.element.disabled = !nextBtnState;
   };
@@ -175,9 +180,12 @@ export default class WinnersView extends BaseComponent {
       order,
     });
     state.setOrderAndSortState(SortState.wins, order);
-    const classCss = state.order === OrderState.down ? 'arrow-up' : 'arrow-down';
+    const classCss = state.order === OrderState.up ? styles.arrowDown : styles.arrowUp;
+    const prevClass = state.order === OrderState.down ? styles.arrowDown : styles.arrowUp;
     this.winsColumn.addClass(classCss);
-    this.timeColumn.removeClass(classCss);
+    this.winsColumn.removeClass(prevClass);
+    this.timeColumn.removeClass(styles.arrowUp);
+    this.timeColumn.removeClass(styles.arrowDown);
   };
 
   public onClickTimeSort = () => {
@@ -189,8 +197,11 @@ export default class WinnersView extends BaseComponent {
       order,
     });
     state.setOrderAndSortState(SortState.time, order);
-    const classCss = state.order === OrderState.down ? 'arrow-up' : 'arrow-down';
+    const classCss = state.order === OrderState.up ? styles.arrowDown : styles.arrowUp;
+    const prevClass = state.order === OrderState.down ? styles.arrowDown : styles.arrowUp;
+    this.timeColumn.removeClass(prevClass);
     this.timeColumn.addClass(classCss);
-    this.winsColumn.removeClass(classCss);
+    this.winsColumn.removeClass(styles.arrowUp);
+    this.winsColumn.removeClass(styles.arrowDown);
   };
 }
