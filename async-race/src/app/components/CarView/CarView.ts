@@ -12,13 +12,13 @@ import isCarData from '../../utils/predicates';
 export default class CarView extends BaseComponent {
   public fetchController = new AbortController();
   protected animationId?: number;
-  public selectBtn = new Button({ classNames: ['select-btn'], text: 'select' });
-  public removeBtn = new Button({ classNames: ['remove-btn'], text: 'remove' });
-  public startBtn = new Button({ classNames: ['start-btn'], text: 'start' });
-  public stopBtn = new Button({ classNames: ['stop-btn'], text: 'stop' });
+  public selectBtn = new Button({ classNames: [styles.selectBtn], text: 'Select' });
+  public removeBtn = new Button({ classNames: [styles.removeBtn], text: 'Remove' });
+  public startBtn = new Button({ classNames: [styles.startBtn], text: 'А' });
+  public stopBtn = new Button({ classNames: [styles.stopBtn], text: 'В' });
   public carImg = new BaseComponent({ tag: 'div', classNames: [styles.carImg] });
 
-  public carName = new BaseComponent({ tag: 'div', classNames: ['car-name'] });
+  public carName = new BaseComponent({ tag: 'div', classNames: [styles.carName] });
 
   public id: number = 0;
 
@@ -40,8 +40,8 @@ export default class CarView extends BaseComponent {
     // console.log('carview', data);
     // const carName = new BaseComponent({ tag: 'div', classNames: ['car-name'], text: data.name });
     this.carName.setTextContent(data.name);
-    const buttons = new BaseComponent({ tag: 'div', classNames: ['buttons-box'] });
-    const controls = new BaseComponent({ tag: 'div', classNames: ['controls-box'] });
+    const buttons = new BaseComponent({ tag: 'div', classNames: [styles.buttonsBox] });
+    const controls = new BaseComponent({ tag: 'div', classNames: [styles.controlsBox] });
     const flag = new BaseComponent({ tag: 'div', classNames: [styles.flagIcon] });
 
     this.carImg.html(carIcon(data.color));
