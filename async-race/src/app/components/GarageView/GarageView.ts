@@ -13,8 +13,8 @@ import { NewCarData, FormState } from '../../utils/types';
 import state from '../State';
 
 enum Forms {
-  CreateForm = 'CreateForm',
-  UpdateForm = 'UpdateForm',
+  CreateForm = 'createForm',
+  UpdateForm = 'updateForm',
 }
 
 export default class GarageView extends BaseComponent {
@@ -44,6 +44,7 @@ export default class GarageView extends BaseComponent {
     this.createView();
     // this.winnersBtn = winnersBtn;
     getCars(state.currPage);
+    this.updateFormsView();
     emitter.on('addNewCar', this.addNewCarToView);
     emitter.on('destroyGarageView', this.destroyGarage);
     emitter.on('updateCount', this.updateCarsCount);
@@ -65,6 +66,18 @@ export default class GarageView extends BaseComponent {
     const pagination = new BaseComponent({ tag: 'div', classNames: [styles.pagination] });
     pagination.append(this.prevBtn, this.pageTitle, this.nextBtn);
     this.append(this.firstTitle, topBlock, this.garageList, pagination);
+  }
+
+  protected updateFormsView() {
+    const formsState = state.getGarageFormsState();
+    if (formsState.length === 0) return;
+    this.forms.forEach((form) => {
+      const formState = formsState.find((fstate) => fstate.formName === form.formName);
+      if (!formState) {
+        throw new Error('formstate is undefined');
+      }
+      form.updateView(formState);
+    });
   }
 
   public updateCarsCount = (count: unknown) => {

@@ -18,6 +18,7 @@ function getQueryString(params: Params[] = []) {
 }
 
 export async function getCars(page: number) {
+  console.log('GETCARS');
   try {
     const response = await fetch(
       `${baseURL}${path.garage}?_page=${page}&_limit=${limitCarsOnPage}}`
@@ -31,6 +32,7 @@ export async function getCars(page: number) {
     } else {
       const carsCount = Number(response.headers.get('X-Total-Count'));
       state.updateGarageData(data, carsCount, page);
+      console.log('UPDATEDATA');
     }
   } catch (error) {
     if (error instanceof Error) {

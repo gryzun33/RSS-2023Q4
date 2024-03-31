@@ -2,7 +2,7 @@ import styles from './form.module.scss';
 import { defaultColor } from '../../utils/constants';
 import BaseComponent from './BaseComponent';
 import Button from './Button';
-import { /* NewCarData, */ InputData } from '../../utils/types';
+import { /* NewCarData, */ FormState, InputData } from '../../utils/types';
 
 export default class InteractionForm extends BaseComponent<HTMLFormElement> {
   public inputName = new BaseComponent<HTMLInputElement>({
@@ -75,5 +75,18 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
     const color = this.inputColor.element.value;
     const id = this.currentId;
     return { name, color, id };
+  }
+
+  public updateView(formState: FormState): void {
+    console.log('formstate', formState);
+
+    if (formState.disabled) {
+      this.disable();
+    } else {
+      this.enable();
+      this.currentId = formState.currentId;
+      this.inputName.element.value = formState.nameInput;
+      this.inputColor.element.value = formState.colorInput;
+    }
   }
 }

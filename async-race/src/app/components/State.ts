@@ -136,10 +136,11 @@ class State {
   }
 
   public updateAllCarsCount(newCount: number) {
-    if (this.allCarsCount !== newCount) {
-      this.allCarsCount = newCount;
-      emitter.emit('updateCount', newCount);
-    }
+    // if (this.allCarsCount !== newCount) {
+    this.allCarsCount = newCount;
+    emitter.emit('updateCount', newCount);
+    console.log('??????updateCount');
+    // }
   }
 
   public getCurrentPage(): number {

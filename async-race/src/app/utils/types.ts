@@ -62,6 +62,7 @@ export type FormState = {
   disabled: boolean;
   nameInput: string;
   colorInput: string;
+  currentId: number;
 };
 
 export type InputData = NewCarData & {
