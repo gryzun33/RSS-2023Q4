@@ -1,7 +1,7 @@
 import styles from './app.module.scss';
 import Button from '../utilsComponents/Button';
 import BaseComponent from '../utilsComponents/BaseComponent';
-import { getCars } from '../api';
+// import { getCars } from '../api';
 import GarageView from '../GarageView/GarageView';
 import WinnersView from '../WinnersView/WinnersView';
 // import BaseComponent from '../BaseComponent';
@@ -38,7 +38,6 @@ export default class App {
     btnBox.append(this.garageBtn, this.winnersBtn);
     this.root.append(btnBox);
     document.body.append(this.root.getElement());
-
     this.createGarageView();
   }
 
@@ -51,7 +50,6 @@ export default class App {
     this.garageBtn.disable();
     this.winnersBtn.enable();
 
-    getCars(state.currPage);
     // getWinners();
   };
 
@@ -61,6 +59,8 @@ export default class App {
     this.root.append(this.winnersView);
     this.winnersBtn.disable();
     this.garageBtn.enable();
+
+    state.resetRace();
   };
 
   // protected onClickGarageBtn = () => {

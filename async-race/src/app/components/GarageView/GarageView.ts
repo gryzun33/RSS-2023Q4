@@ -35,6 +35,7 @@ export default class GarageView extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: [styles.garageWrapper] });
     this.createView();
+    getCars(state.currPage);
     emitter.on('addNewCar', this.addNewCarToView);
     emitter.on('destroyGarageView', this.destroyGarage);
     emitter.on('updateCount', this.updateCarsCount);
@@ -132,6 +133,6 @@ export default class GarageView extends BaseComponent {
       throw new Error('argument is not type CarData');
     }
     const time = (carData.duration / 1000).toFixed(2);
-    this.firstTitle.setTextContent(`${carData.name} went first in ${time}`);
+    this.firstTitle.setTextContent(`${carData.name} went first in ${time}s`);
   };
 }

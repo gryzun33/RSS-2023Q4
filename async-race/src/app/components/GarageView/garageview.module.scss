@@ -1,6 +1,7 @@
 .garage-wrapper {
   position: relative;
   @include flex-column;
+  overflow-x: hidden;
 }
 
 .first-title {

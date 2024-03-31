@@ -18,7 +18,7 @@ type EngineData = {
 class State {
   public race: boolean = false;
   public winner: number = 0;
-  public isStart: boolean = true;
+  // public isStart: boolean = true;
 
   public allCarsCount: number = 0;
   public allWinnersCount: number = 0;
@@ -26,7 +26,7 @@ class State {
   public currPage: number = 1;
 
   public winnersPage: number = 1;
-  public carsOnPage: number = 0;
+  // public carsOnPage: number = 0;
 
   public prevBtn: boolean = false;
   public nextBtn: boolean = true;
@@ -42,6 +42,12 @@ class State {
   // public cars: CarData[] = [];
 
   public carsMap = new Map<number, CarData>();
+
+  public resetRace() {
+    this.race = false;
+    this.winner = 0;
+    this.promisesCount = 0;
+  }
 
   public setRaceState(raceState: boolean) {
     this.race = raceState;
