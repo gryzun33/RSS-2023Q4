@@ -2,9 +2,10 @@ import InteractionForm from '../utilsComponents/InteractionForm';
 import emitter from '../EventEmitter';
 import { NewCarData } from '../../utils/types';
 import { updateCar } from '../api';
+import state from '../State';
 
 export default class CreateCarForm extends InteractionForm {
-  public currentId: string = '';
+  public currentId: number = 0;
   constructor() {
     super();
     this.addClass('update-form');
@@ -15,11 +16,19 @@ export default class CreateCarForm extends InteractionForm {
   }
 
   protected enableForm = (id: unknown) => {
-    if (typeof id !== 'string') {
+    if (typeof id !== 'number') {
       throw new Error('id is not string');
     }
     this.enable();
+    this.inputName.element.focus();
     this.currentId = id;
+    const carData = state.getCarData(id);
+    if (!carData) {
+      throw new Error('carData is undefined');
+    }
+    const { name, color } = carData;
+    this.inputName.element.value = name;
+    this.inputColor.element.value = color;
   };
 
   protected onSubmitHandler = (e: Event) => {

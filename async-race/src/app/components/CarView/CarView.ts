@@ -100,7 +100,7 @@ export default class CarView extends BaseComponent {
   };
 
   protected clickOnSelectBtn = () => {
-    emitter.emit('enableUpdateForm', this.element.id);
+    emitter.emit('enableUpdateForm', this.id);
   };
 
   protected updateCarView = (car: unknown) => {

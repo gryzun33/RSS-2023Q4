@@ -81,6 +81,10 @@ class State {
     return { wins: carData.wins, time: timeInSec };
   }
 
+  public getCarData(id: number) {
+    return this.carsMap.get(id);
+  }
+
   // public getWinnerId(): number {
   //   return this.winner;
   // }

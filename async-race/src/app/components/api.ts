@@ -61,7 +61,7 @@ export async function createCar(newCarData: NewCarData) {
   }
 }
 
-export async function updateCar(id: string, newCarData: NewCarData) {
+export async function updateCar(id: number, newCarData: NewCarData) {
   try {
     const response = await fetch(`${baseURL}${path.garage}/${id}`, {
       method: 'PUT',
