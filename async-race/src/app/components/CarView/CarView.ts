@@ -15,7 +15,7 @@ export default class CarView extends BaseComponent {
   public selectBtn = new Button({ classNames: [styles.selectBtn], text: 'Select' });
   public removeBtn = new Button({ classNames: [styles.removeBtn], text: 'Remove' });
   public startBtn = new Button({ classNames: [styles.startBtn], text: 'А' });
-  public stopBtn = new Button({ classNames: [styles.stopBtn], text: 'В' });
+  public stopBtn = new Button({ classNames: [styles.stopBtn], text: 'В', disabled: true });
   public carImg = new BaseComponent({ tag: 'div', classNames: [styles.carImg] });
 
   public carName = new BaseComponent({ tag: 'div', classNames: [styles.carName] });
@@ -31,7 +31,7 @@ export default class CarView extends BaseComponent {
     this.startBtn.on('click', this.clickOnStartBtn);
     this.stopBtn.on('click', this.clickOnStopBtn);
     this.selectBtn.on('click', this.clickOnSelectBtn);
-    emitter.on('startMoving', this.animateCar);
+    emitter.on('startMoving', this.startMoving);
     emitter.on('stopMoving', this.stopMoving);
     emitter.on('updateCar', this.updateCarView);
     emitter.on('toStart', this.moveCarToStart);
@@ -63,6 +63,8 @@ export default class CarView extends BaseComponent {
     console.log('status=', state.getCarStatus(this.id));
     this.fetchController = new AbortController();
     startCar(this.id, 'started', this.fetchController);
+    this.startBtn.disable();
+    // this.stopBtn.enable();
   };
 
   public clickOnStopBtn = () => {
@@ -79,6 +81,8 @@ export default class CarView extends BaseComponent {
       // this.stopMoving(this.id);
     }
 
+    this.stopBtn.disable();
+
     // state.setCarStatusStop(this.id);
   };
 
@@ -92,6 +96,7 @@ export default class CarView extends BaseComponent {
     console.log('car move to start');
     this.stopMoving(this.id);
     this.carImg.css('transform', `translateX(0px)`);
+    this.startBtn.enable();
   };
 
   protected clickOnSelectBtn = () => {
@@ -109,7 +114,8 @@ export default class CarView extends BaseComponent {
     this.carName.setTextContent(car.name);
     this.carImg.html(carIcon(car.color));
   };
-  public animateCar = (duration: unknown, id: unknown) => {
+
+  public startMoving = (duration: unknown, id: unknown) => {
     if (typeof id !== 'number') {
       throw new Error('id is not number');
     }
@@ -120,6 +126,7 @@ export default class CarView extends BaseComponent {
     if (typeof duration !== 'number') {
       throw new Error('duration is not number');
     }
+    this.stopBtn.enable();
     // const car = document.getElementById('car');
     // const distance = endX - startX;
     const distance = getDistance(this.carImg.element);

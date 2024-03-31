@@ -17,7 +17,7 @@ export default class GarageView extends BaseComponent {
   protected updateForm = new UpdateCarForm();
 
   public raceBtn = new Button({ classNames: [styles.raceBtn], text: 'Race' });
-  public resetBtn = new Button({ classNames: [styles.resetBtn], text: 'Reset' });
+  public resetBtn = new Button({ classNames: [styles.resetBtn], text: 'Reset', disabled: true });
   public generateBtn = new Button({ classNames: [styles.generateBtn], text: 'Generate Cars' });
 
   public garageTitle = new BaseComponent({ tag: 'p', classNames: [styles.garageTitle] });
@@ -32,15 +32,17 @@ export default class GarageView extends BaseComponent {
   // protected totalCars: number = 0;
   // protected page: number = 1;
   protected cars: CarView[] = [];
-  constructor() {
+  constructor(protected winnersBtn: Button) {
     super({ tag: 'div', classNames: [styles.garageWrapper] });
     this.createView();
+    // this.winnersBtn = winnersBtn;
     getCars(state.currPage);
     emitter.on('addNewCar', this.addNewCarToView);
     emitter.on('destroyGarageView', this.destroyGarage);
     emitter.on('updateCount', this.updateCarsCount);
     emitter.on('updatePage', this.updatePages);
     emitter.on('showWinner', this.showWinner);
+    emitter.on('finishRace', this.enableWinnersBtn);
     this.generateBtn.on('click', this.onClickGenerateBtn);
     this.prevBtn.on('click', this.onClickPrevBtn);
     this.nextBtn.on('click', this.onClickNextBtn);
@@ -114,7 +116,9 @@ export default class GarageView extends BaseComponent {
     this.cars.forEach((car) => {
       car.clickOnStartBtn();
     });
-
+    this.resetBtn.disable();
+    this.raceBtn.disable();
+    this.winnersBtn.disable();
     // const idArr = this.cars.map((car) => car.id);
     // startAndDriveCars(idArr);
   };
@@ -126,6 +130,8 @@ export default class GarageView extends BaseComponent {
       car.clickOnStopBtn();
     });
     this.firstTitle.setTextContent('');
+    this.raceBtn.enable();
+    this.resetBtn.disable();
   };
 
   protected showWinner = (carData: unknown): void => {
@@ -134,5 +140,10 @@ export default class GarageView extends BaseComponent {
     }
     const time = (carData.duration / 1000).toFixed(2);
     this.firstTitle.setTextContent(`${carData.name} went first in ${time}s`);
+    this.resetBtn.enable();
+  };
+
+  protected enableWinnersBtn = () => {
+    this.winnersBtn.enable();
   };
 }

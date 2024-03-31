@@ -106,7 +106,7 @@ export function deleteCar(id: number) {
     });
 }
 
-export async function createWinner(id: number) {
+export function createWinner(id: number) {
   fetch(`${baseURL}${path.winners}`, {
     method: 'POST',
     headers: {
@@ -203,7 +203,7 @@ export async function addRandomCars(newCars: NewCarData[]) {
   }
 }
 
-export async function getWinners(params: Params[], page: number) {
+export function getWinners(params: Params[], page: number) {
   console.log('params=', params);
   fetch(`${baseURL}${path.winners}${getQueryString(params)}`, {
     method: 'GET',
@@ -236,7 +236,7 @@ export async function getWinners(params: Params[], page: number) {
     });
 }
 
-export async function updateWinner(id: number) {
+export function updateWinner(id: number) {
   fetch(`${baseURL}${path.winners}/${id}`, {
     method: 'PUT',
     headers: {
@@ -257,7 +257,7 @@ export async function updateWinner(id: number) {
     });
 }
 
-export async function getWinner(id: number) {
+export function getWinner(id: number) {
   fetch(`${baseURL}${path.winners}/${id}`, {
     method: 'GET',
   })

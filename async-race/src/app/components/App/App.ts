@@ -16,7 +16,7 @@ export default class App {
     text: 'to Garage',
   });
 
-  protected winnersBtn = new Button({
+  public winnersBtn = new Button({
     classNames: [styles.winnersBtn],
     text: 'to Winners',
   });
@@ -43,9 +43,9 @@ export default class App {
 
   protected createGarageView = () => {
     if (this.winnersView) {
-      this.winnersView?.destroy();
+      this.winnersView.destroy();
     }
-    this.garageView = new GarageView();
+    this.garageView = new GarageView(this.winnersBtn);
     this.root.append(this.garageView);
     this.garageBtn.disable();
     this.winnersBtn.enable();
@@ -54,7 +54,10 @@ export default class App {
   };
 
   protected createWinnersView = () => {
-    this.garageView?.destroy();
+    if (!this.garageView) {
+      throw new Error('garageview is undefined');
+    }
+    this.garageView.destroy();
     this.winnersView = new WinnersView();
     this.root.append(this.winnersView);
     this.winnersBtn.disable();
