@@ -4,8 +4,8 @@ import { NewCarData } from '../../utils/types';
 // import emitter from './EventEmitter';
 
 export default class CreateCarForm extends InteractionForm {
-  constructor() {
-    super();
+  constructor(formName: string) {
+    super(formName);
     this.addClass('create-form');
     this.submitBtn.setTextContent('Create');
 

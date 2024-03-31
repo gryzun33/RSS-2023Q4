@@ -4,6 +4,7 @@ import {
   WinnerData,
   SortState,
   OrderState,
+  FormState,
 } from '../utils/types';
 // import isCarData from '../utils/predicates';
 import emitter from './EventEmitter';
@@ -38,6 +39,10 @@ class State {
 
   public sort: string = SortState.none;
   public order: string = OrderState.none;
+
+  public formsState: FormState[] = [];
+
+  // public currGarageId: number = 0;
 
   // public cars: CarData[] = [];
 
@@ -256,6 +261,15 @@ class State {
   public setOrderAndSortState(sort: string, order: string) {
     this.sort = sort;
     this.order = order;
+  }
+
+  public saveGarageState(formsState: FormState[]) {
+    this.formsState = formsState;
+    console.log('formsState', this.formsState);
+  }
+
+  public getGarageFormsState() {
+    return this.formsState;
   }
 }
 

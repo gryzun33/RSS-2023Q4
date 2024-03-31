@@ -9,12 +9,19 @@ import isCarData from '../../utils/predicates';
 import Button from '../utilsComponents/Button';
 import getRandomCars from '../../utils/getRandomCars';
 import { addRandomCars, getCars } from '../api';
-import { NewCarData } from '../../utils/types';
+import { NewCarData, FormState } from '../../utils/types';
 import state from '../State';
 
+enum Forms {
+  CreateForm = 'CreateForm',
+  UpdateForm = 'UpdateForm',
+}
+
 export default class GarageView extends BaseComponent {
-  protected createForm = new CreateCarForm();
-  protected updateForm = new UpdateCarForm();
+  protected createForm = new CreateCarForm(Forms.CreateForm);
+  protected updateForm = new UpdateCarForm(Forms.UpdateForm);
+
+  protected forms = [this.createForm, this.updateForm];
 
   public raceBtn = new Button({ classNames: [styles.raceBtn], text: 'Race' });
   public resetBtn = new Button({ classNames: [styles.resetBtn], text: 'Reset', disabled: true });
@@ -143,7 +150,23 @@ export default class GarageView extends BaseComponent {
     this.resetBtn.enable();
   };
 
-  protected enableWinnersBtn = () => {
+  protected enableWinnersBtn = (): void => {
     this.winnersBtn.enable();
   };
+
+  public getFormsState(): FormState[] {
+    const formsState: FormState[] = [];
+    this.forms.forEach((form) => {
+      const { name, color, id } = form.getInputsValues();
+      const formState = {
+        formName: form.formName,
+        disabled: form.disabled,
+        nameInput: name,
+        colorInput: color,
+        currentId: id,
+      };
+      formsState.push(formState);
+    });
+    return formsState;
+  }
 }

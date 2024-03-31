@@ -57,6 +57,7 @@ export default class App {
     if (!this.garageView) {
       throw new Error('garageview is undefined');
     }
+    state.saveGarageState(this.garageView.getFormsState());
     this.garageView.destroy();
     this.winnersView = new WinnersView();
     this.root.append(this.winnersView);

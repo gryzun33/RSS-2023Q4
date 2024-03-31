@@ -56,3 +56,14 @@ export enum OrderState {
   up = 'ASC',
   down = 'DESC',
 }
+
+export type FormState = {
+  formName: string;
+  disabled: boolean;
+  nameInput: string;
+  colorInput: string;
+};
+
+export type InputData = NewCarData & {
+  id: number;
+};

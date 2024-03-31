@@ -2,6 +2,7 @@ import styles from './form.module.scss';
 import { defaultColor } from '../../utils/constants';
 import BaseComponent from './BaseComponent';
 import Button from './Button';
+import { /* NewCarData, */ InputData } from '../../utils/types';
 
 export default class InteractionForm extends BaseComponent<HTMLFormElement> {
   public inputName = new BaseComponent<HTMLInputElement>({
@@ -18,7 +19,11 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
 
   public submitBtn = new Button({ classNames: [styles.submitBtn] });
 
-  constructor() {
+  public disabled: boolean = false;
+
+  public currentId = 0;
+
+  constructor(public formName: string) {
     super({ tag: 'form', classNames: [styles.formBox] });
     this.configureView();
   }
@@ -35,12 +40,14 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
   }
 
   public disable = () => {
+    this.disabled = true;
     this.children.forEach((component) => {
       component.attr('disabled', 'true');
     });
   };
 
   public enable = () => {
+    this.disabled = false;
     this.children.forEach((component) => {
       component.removeAttr('disabled');
     });
@@ -59,7 +66,14 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
   //   this.inputColor.getElement().value;
   // }
 
-  protected getInputValue(input: BaseComponent<HTMLInputElement>) {
+  public getInputValue(input: BaseComponent<HTMLInputElement>) {
     return input.getElement().value;
+  }
+
+  public getInputsValues(): InputData {
+    const name = this.inputName.element.value;
+    const color = this.inputColor.element.value;
+    const id = this.currentId;
+    return { name, color, id };
   }
 }
