@@ -79,6 +79,7 @@ export default class CarView extends BaseComponent {
       // console.log('send request', this.id);
       // this.fetchController.abort();
       // this.stopMoving(this.id);
+      this.carImg.removeClass(styles.carBroken);
     }
 
     this.stopBtn.disable();
@@ -160,6 +161,10 @@ export default class CarView extends BaseComponent {
 
     if (!this.animationId) {
       throw new Error('animationid is undefined');
+    }
+    const status = state.getCarStatus(this.id);
+    if (status === 'broken') {
+      this.carImg.addClass(styles.carBroken);
     }
 
     cancelAnimationFrame(this.animationId);

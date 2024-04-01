@@ -19,9 +19,9 @@
   position: absolute;
   width: 50px;
   height: 60px;
-  right: 80px;
+  right: 75px;
   bottom: -5px;
-  background-image: url("../../../assets/icons/flag-2.svg");
+  background-image: url("../../../assets/icons/finish-flag.svg");
   @include bg-icon;
 }
 
@@ -80,4 +80,11 @@
   .stop-btn {
     color: $color-flag;
   }
+}
+
+.car-broken {
+  background-image: (url("../../../assets/icons/fire.svg"));
+  background-size: 30% auto;
+  background-position: top 0 right 0;
+  background-repeat: no-repeat;
 }
