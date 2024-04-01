@@ -1,6 +1,7 @@
 .winners-wrapper {
   @include flex-column;
   align-self: center;
+  font-family: "Roboto";
 }
 
 .winners-title {
