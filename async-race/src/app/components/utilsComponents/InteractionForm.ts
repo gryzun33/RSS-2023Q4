@@ -65,8 +65,6 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
   }
 
   public updateView(formState: FormState): void {
-    console.log('formstate', formState);
-
     if (formState.disabled) {
       this.disable();
     } else {

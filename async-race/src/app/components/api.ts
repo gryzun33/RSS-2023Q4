@@ -13,18 +13,15 @@ const path = {
 function getQueryString(params: Params[] = []) {
   const str =
     params.length > 0 ? `?${params.map((el: Params) => `${el.key}=${el.value}`).join('&')}` : '';
-  console.log('string=', str);
   return str;
 }
 
 export async function getCars(page: number) {
-  console.log('GETCARS');
   try {
     const response = await fetch(
       `${baseURL}${path.garage}?_page=${page}&_limit=${limitCarsOnPage}}`
     );
     const data: CarData[] = await response.json();
-    // console.log('data31=', data);
 
     if (data.length === 0 && state.currPage > 1) {
       state.currPage -= 1;
@@ -32,7 +29,6 @@ export async function getCars(page: number) {
     } else {
       const carsCount = Number(response.headers.get('X-Total-Count'));
       state.updateGarageData(data, carsCount, page);
-      console.log('UPDATEDATA');
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -43,17 +39,13 @@ export async function getCars(page: number) {
 
 export async function createCar(newCarData: NewCarData) {
   try {
-    const response = await fetch(`${baseURL}${path.garage}`, {
+    await fetch(`${baseURL}${path.garage}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newCarData),
     });
-
-    const data = await response.json();
-
-    console.log('newcar=', data);
 
     getCars(state.currPage);
   } catch (error) {
@@ -142,7 +134,6 @@ export function driveCar(id: number, status: string, controller: AbortController
         if (!state.winner && state.race) {
           state.setRaceState(false);
           state.setWinner(id);
-          console.log('WINNER ID=', id);
           createWinner(id);
         }
       }
@@ -206,14 +197,11 @@ export async function addRandomCars(newCars: NewCarData[]) {
 }
 
 export function getWinners(params: Params[], page: number) {
-  console.log('params=', params);
   fetch(`${baseURL}${path.winners}${getQueryString(params)}`, {
     method: 'GET',
   })
     .then((response) => {
-      console.log('response=', response);
       const winnersCount = Number(response.headers.get('X-Total-Count'));
-      console.log('winnerscount', winnersCount);
       state.setWinnersCount(winnersCount);
       state.setWinnersPage(page);
       return response.json();
@@ -243,17 +231,11 @@ export function updateWinner(id: number) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(state.getWinnerData(id)),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('winner', data);
-    })
-
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.error('Error:', error.message);
-      }
-    });
+  }).catch((error) => {
+    if (error instanceof Error) {
+      console.error('Error:', error.message);
+    }
+  });
 }
 
 export function getWinner(id: number) {

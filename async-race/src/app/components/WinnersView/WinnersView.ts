@@ -82,7 +82,6 @@ export default class WinnersView extends BaseComponent {
   protected checkSortedTable() {
     const sortedField = state.getSortValue();
     const orderField = state.getOrderValue();
-    console.log('order2=', orderField);
     if (sortedField === SortState.wins) {
       if (orderField === OrderState.up) {
         this.winsColumn.addClass(styles.arrowUp);
@@ -106,8 +105,6 @@ export default class WinnersView extends BaseComponent {
     if (typeof page !== 'number') {
       throw new Error('page is not number');
     }
-    console.log('updateview');
-
     if (this.tableBody.children) {
       this.tableBody.destroyChildren();
     }
@@ -149,7 +146,6 @@ export default class WinnersView extends BaseComponent {
       }))
       .filter((el) => el.value !== '');
 
-    console.log('params!!!!! =', params, tableParams.page);
     getWinners(params, tableParams.page);
   };
 
@@ -189,7 +185,6 @@ export default class WinnersView extends BaseComponent {
 
   public onClickWinsSort = () => {
     const order = state.order === OrderState.up ? OrderState.down : OrderState.up;
-    console.log('order1=', order);
     this.getWinnersData({
       page: state.winnersPage,
       limit: limitWinners,

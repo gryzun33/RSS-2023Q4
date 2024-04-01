@@ -52,7 +52,6 @@ export default class CarView extends BaseComponent {
   };
 
   public clickOnStartBtn = () => {
-    console.log('status=', state.getCarStatus(this.id));
     this.fetchController = new AbortController();
     startCar(this.id, 'started', this.fetchController);
     this.startBtn.disable();
@@ -75,7 +74,6 @@ export default class CarView extends BaseComponent {
     if (this.id !== id) {
       return;
     }
-    console.log('car move to start');
     this.stopMoving(this.id);
     this.carImg.css('transform', `translateX(0px)`);
     this.startBtn.enable();

@@ -122,7 +122,6 @@ class State {
   public updateAllCarsCount(newCount: number) {
     this.allCarsCount = newCount;
     emitter.emit('updateCount', newCount);
-    console.log('??????updateCount');
   }
 
   public getCurrentPage(): number {
@@ -170,7 +169,6 @@ class State {
       throw new Error('carData is undefined');
     }
     carData.status = 'stop';
-    console.log('car stopped');
     emitter.emit('toStart', id);
   }
 
@@ -185,7 +183,6 @@ class State {
 
   public updatePromisesCount() {
     state.promisesCount += 1;
-    console.log('count=', state.promisesCount);
     if (state.promisesCount === this.carsMap.size) {
       emitter.emit('finishRace');
       state.promisesCount = 0;
@@ -203,7 +200,6 @@ class State {
       };
       return obj;
     });
-    console.log(winnersData);
     emitter.emit('updateWinnersView', winnersData, this.winnersPage);
   }
 
@@ -235,7 +231,6 @@ class State {
 
   public saveGarageState(formsState: FormState[]) {
     this.formsState = formsState;
-    console.log('formsState', this.formsState);
   }
 
   public getGarageFormsState() {
