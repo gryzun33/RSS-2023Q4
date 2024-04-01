@@ -17,8 +17,6 @@
 }
 
 .table-header {
-  // height: 20px;
-
   th {
     background-color: $color-bg-btn;
     border-radius: 3px;
@@ -93,7 +91,6 @@ td {
 }
 
 .pagination {
-  // width: 200px;
   align-self: center;
   margin-top: 20px;
   @include flex;

@@ -1,13 +1,9 @@
 import styles from './app.module.scss';
 import Button from '../utilsComponents/Button';
 import BaseComponent from '../utilsComponents/BaseComponent';
-// import { getCars } from '../api';
 import GarageView from '../GarageView/GarageView';
 import WinnersView from '../WinnersView/WinnersView';
-// import BaseComponent from '../BaseComponent';
 import state from '../State';
-// import { CarData } from '../../utils/types';
-// import { limitCarsOnPage } from '../../utils/constants';
 
 export default class App {
   protected root = new BaseComponent({ tag: 'div', classNames: [styles.wrapper] });
@@ -49,8 +45,6 @@ export default class App {
     this.root.append(this.garageView);
     this.garageBtn.disable();
     this.winnersBtn.enable();
-
-    // getWinners();
   };
 
   protected createWinnersView = () => {
@@ -66,9 +60,4 @@ export default class App {
 
     state.resetRace();
   };
-
-  // protected onClickGarageBtn = () => {
-  //   this.winnersView?.destroy();
-  //   this.garageView = new GarageView();
-  // };
 }

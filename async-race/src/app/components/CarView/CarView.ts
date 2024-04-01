@@ -37,25 +37,17 @@ export default class CarView extends BaseComponent {
     emitter.on('toStart', this.moveCarToStart);
   }
   protected createView(data: CarData) {
-    // console.log('carview', data);
-    // const carName = new BaseComponent({ tag: 'div', classNames: ['car-name'], text: data.name });
     this.carName.setTextContent(data.name);
     const buttons = new BaseComponent({ tag: 'div', classNames: [styles.buttonsBox] });
     const controls = new BaseComponent({ tag: 'div', classNames: [styles.controlsBox] });
     const flag = new BaseComponent({ tag: 'div', classNames: [styles.flagIcon] });
-
     this.carImg.html(carIcon(data.color));
-
     buttons.append(this.selectBtn, this.removeBtn);
     controls.append(this.startBtn, this.stopBtn);
     this.append(this.carName, buttons, controls, this.carImg, flag);
   }
 
   protected clickOnRemoveBtn = () => {
-    // const id = this.attr('id');
-    // if (typeof id !== 'string') {
-    //   throw new Error('id is not string');
-    // }
     deleteCar(this.id);
   };
 
@@ -64,27 +56,16 @@ export default class CarView extends BaseComponent {
     this.fetchController = new AbortController();
     startCar(this.id, 'started', this.fetchController);
     this.startBtn.disable();
-    // this.stopBtn.enable();
   };
 
   public clickOnStopBtn = () => {
-    // console.log('id=', this.id);
-    // console.log('name=', this.carName);
-    // console.log('status =', state.getCarStatus(this.id));
-
-    // console.log('clickstop');
     const status = state.getCarStatus(this.id);
     if (status === 'drive' || status === 'broken') {
       stopCar(this.id, this.fetchController);
-      // console.log('send request', this.id);
-      // this.fetchController.abort();
-      // this.stopMoving(this.id);
       this.carImg.removeClass(styles.carBroken);
     }
 
     this.stopBtn.disable();
-
-    // state.setCarStatusStop(this.id);
   };
 
   protected moveCarToStart = (id: unknown) => {
@@ -128,8 +109,6 @@ export default class CarView extends BaseComponent {
       throw new Error('duration is not number');
     }
     this.stopBtn.enable();
-    // const car = document.getElementById('car');
-    // const distance = endX - startX;
     const distance = getDistance(this.carImg.element);
     const speed = distance / duration;
     const startX = 0;
@@ -138,8 +117,6 @@ export default class CarView extends BaseComponent {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const newX = startX + speed * progress;
-
-      // this.carImg.element.style.transform = `translateX(${newX}px)`;
       this.carImg.css('transform', `translateX(${newX}px)`);
 
       if (progress < duration) {

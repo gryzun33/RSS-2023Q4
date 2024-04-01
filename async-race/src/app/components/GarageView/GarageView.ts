@@ -3,7 +3,6 @@ import BaseComponent from '../utilsComponents/BaseComponent';
 import CarView from '../CarView/CarView';
 import CreateCarForm from '../CreateCarForm/CreateCarForm';
 import UpdateCarForm from '../UpdateCarForm/UpdateCarForm';
-// import { CarData } from '../../utils/types';
 import emitter from '../EventEmitter';
 import isCarData from '../../utils/predicates';
 import Button from '../utilsComponents/Button';
@@ -36,13 +35,10 @@ export default class GarageView extends BaseComponent {
 
   protected prevBtn = new Button({ classNames: [styles.prevBtn] });
   protected nextBtn = new Button({ classNames: [styles.nextBtn] });
-  // protected totalCars: number = 0;
-  // protected page: number = 1;
   protected cars: CarView[] = [];
   constructor(protected winnersBtn: Button) {
     super({ tag: 'div', classNames: [styles.garageWrapper] });
     this.createView();
-    // this.winnersBtn = winnersBtn;
     getCars(state.currPage);
     this.updateFormsView();
     emitter.on('addNewCar', this.addNewCarToView);
@@ -107,14 +103,12 @@ export default class GarageView extends BaseComponent {
 
     const newCar = new CarView(car);
     this.cars.push(newCar);
-    // console.log('cars=', this.cars);
     this.garageList.append(newCar);
   };
 
   protected destroyGarage = () => {
     this.cars = [];
     if (this.garageList.children) {
-      // console.log('children=', this.garageList.children);
       this.garageList.destroyChildren();
     }
   };
@@ -139,8 +133,6 @@ export default class GarageView extends BaseComponent {
     this.resetBtn.disable();
     this.raceBtn.disable();
     this.winnersBtn.disable();
-    // const idArr = this.cars.map((car) => car.id);
-    // startAndDriveCars(idArr);
   };
 
   protected onClickResetBtn = (): void => {

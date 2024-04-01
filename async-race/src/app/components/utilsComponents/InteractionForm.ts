@@ -2,7 +2,7 @@ import styles from './form.module.scss';
 import { defaultColor } from '../../utils/constants';
 import BaseComponent from './BaseComponent';
 import Button from './Button';
-import { /* NewCarData, */ FormState, InputData } from '../../utils/types';
+import { FormState, InputData } from '../../utils/types';
 
 export default class InteractionForm extends BaseComponent<HTMLFormElement> {
   public inputName = new BaseComponent<HTMLInputElement>({
@@ -13,9 +13,6 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
     tag: 'input',
     classNames: [styles.inputColor],
   });
-
-  // public inputNameValue = this.getInputValue(this.inputName);
-  // public inputColorValue = this.getInputValue(this.inputColor);
 
   public submitBtn = new Button({ classNames: [styles.submitBtn] });
 
@@ -29,8 +26,6 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
   }
 
   protected configureView() {
-    // this.inputName.getElement().type = 'text';
-    // this.inputColor.getElement().type = 'color';
     this.inputName.attr('type', 'text');
     this.inputColor.attr('type', 'color');
     this.append(this.inputName, this.inputColor, this.submitBtn);
@@ -57,14 +52,6 @@ export default class InteractionForm extends BaseComponent<HTMLFormElement> {
     this.inputName.element.value = '';
     this.inputColor.element.value = defaultColor;
   }
-
-  // protected getNameValue() {
-  //   this.inputName.getElement().value;
-  // }
-
-  // protected getColorValue() {
-  //   this.inputColor.getElement().value;
-  // }
 
   public getInputValue(input: BaseComponent<HTMLInputElement>) {
     return input.getElement().value;

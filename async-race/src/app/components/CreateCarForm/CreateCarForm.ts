@@ -1,7 +1,6 @@
 import InteractionForm from '../utilsComponents/InteractionForm';
 import { createCar } from '../api';
 import { NewCarData } from '../../utils/types';
-// import emitter from './EventEmitter';
 
 export default class CreateCarForm extends InteractionForm {
   constructor(formName: string) {

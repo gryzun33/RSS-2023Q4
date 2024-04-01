@@ -1,15 +1,13 @@
 import {
-  CarData /* , NewCarData */,
+  CarData,
   NewWinnerData,
   WinnerData,
   SortState,
   OrderState,
   FormState,
 } from '../utils/types';
-// import isCarData from '../utils/predicates';
 import emitter from './EventEmitter';
 import { limitCarsOnPage, limitWinners } from '../utils/constants';
-// import { NewWinnerData } from '../utils/types';
 
 type EngineData = {
   velocity: number;
@@ -19,33 +17,18 @@ type EngineData = {
 class State {
   public race: boolean = false;
   public winner: number = 0;
-  // public isStart: boolean = true;
-
   public allCarsCount: number = 0;
   public allWinnersCount: number = 0;
-
   public currPage: number = 1;
-
   public winnersPage: number = 1;
-  // public carsOnPage: number = 0;
-
   public prevBtn: boolean = false;
   public nextBtn: boolean = true;
-
   public prevWinners: boolean = false;
   public nextWinners: boolean = false;
-
   protected promisesCount: number = 0;
-
   public sort: string = SortState.none;
   public order: string = OrderState.none;
-
   public formsState: FormState[] = [];
-
-  // public currGarageId: number = 0;
-
-  // public cars: CarData[] = [];
-
   public carsMap = new Map<number, CarData>();
 
   public resetRace() {
@@ -98,16 +81,11 @@ class State {
     return this.order;
   }
 
-  // public getWinnerId(): number {
-  //   return this.winner;
-  // }
-
   public getFisrtWinnerData(id: number): NewWinnerData {
     const carData = this.carsMap.get(id);
     if (!carData) {
       throw new Error('carData is undefined');
     }
-    // carData.wins += 1;
     const timeInSec = +(carData.duration / 1000).toFixed(2);
     return { id: carData.id, wins: 1, time: timeInSec };
   }
@@ -118,13 +96,11 @@ class State {
       status: 'stop',
       wins: 0,
     };
-    // this.cars.push(car);
     this.carsMap.set(car.id, newCar);
     emitter.emit('addNewCar', newCar);
   };
 
   public updateCarInState = (car: CarData) => {
-    // this.cars.push(car);
     this.carsMap.set(car.id, car);
     emitter.emit('updateCar', car);
   };
@@ -144,11 +120,9 @@ class State {
   }
 
   public updateAllCarsCount(newCount: number) {
-    // if (this.allCarsCount !== newCount) {
     this.allCarsCount = newCount;
     emitter.emit('updateCount', newCount);
     console.log('??????updateCount');
-    // }
   }
 
   public getCurrentPage(): number {
@@ -169,10 +143,6 @@ class State {
     }
     emitter.emit('updatePage', newPage, this.prevBtn, this.nextBtn);
   }
-
-  // public deleteCarFromState(id: string) {
-  //   this.carsMap.delete(Number(id));
-  // }
 
   public setCarStatusDrive(id: number, engineData: EngineData) {
     const duration = engineData.distance / engineData.velocity;
@@ -218,15 +188,11 @@ class State {
     console.log('count=', state.promisesCount);
     if (state.promisesCount === this.carsMap.size) {
       emitter.emit('finishRace');
-      // console.log('finishRace');
       state.promisesCount = 0;
     }
   }
 
   public setWinners(winners: NewWinnerData[], cars: CarData[]) {
-    // console.log('winners=', winners);
-    // console.log('cars=', cars);
-
     const winnersData = winners.map((winner, i) => {
       const obj = {
         id: winner.id,
@@ -238,7 +204,6 @@ class State {
       return obj;
     });
     console.log(winnersData);
-    // data.forEach(())
     emitter.emit('updateWinnersView', winnersData, this.winnersPage);
   }
 
@@ -246,10 +211,6 @@ class State {
     this.allWinnersCount = count;
     emitter.emit('updateWinnersCount', count);
   }
-
-  // public getWinnersCount(): number {
-  //   return this.allWinnersCount;
-  // }
 
   public setWinnersPage(page: number) {
     this.winnersPage = page;

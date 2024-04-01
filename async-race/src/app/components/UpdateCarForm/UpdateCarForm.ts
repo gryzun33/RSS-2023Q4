@@ -5,7 +5,6 @@ import { updateCar } from '../api';
 import state from '../State';
 
 export default class CreateCarForm extends InteractionForm {
-  // public currentId: number = 0;
   constructor(formName: string) {
     super(formName);
     this.addClass('update-form');

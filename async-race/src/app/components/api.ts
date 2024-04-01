@@ -219,8 +219,6 @@ export function getWinners(params: Params[], page: number) {
       return response.json();
     })
     .then((dataWinners: NewWinnerData[]) => {
-      // console.log('winners', dataWinners);
-
       const promises = dataWinners.map((car) =>
         fetch(`${baseURL}${path.garage}/${car.id}`, {
           method: 'GET',
@@ -249,7 +247,6 @@ export function updateWinner(id: number) {
     .then((response) => response.json())
     .then((data) => {
       console.log('winner', data);
-      // getWinners();
     })
 
     .catch((error) => {
@@ -276,53 +273,3 @@ export function getWinner(id: number) {
       }
     });
 }
-
-// export function startAndDriveCar(id: number) {
-//   return fetch(`${baseURL}${path.engine}?id=${id}&status=started`, {
-//     method: 'PATCH',
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       state.setCarStatusDrive(id, data);
-//     })
-//     .then(() =>
-//       fetch(`${baseURL}${path.engine}?id=${id}&status=drive`, {
-//         method: 'PATCH',
-//         /* signal: controller.signal, */
-//       })
-//     )
-//     .then((response) => {
-//       console.log('response281=', response);
-//       if (response.status === 500) {
-//         state.setCarStatusBroken(id);
-//         // throw new Error('car is broken');
-//       }
-
-//       return id;
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       if (error instanceof Error) {
-//         console.error('Error:', error.message);
-//       }
-//     });
-// }
-
-// export function startAndDriveCars(ids: number[]) {
-//   const promises = ids.map((id) => startAndDriveCar(id));
-//   Promise.any(promises)
-//     .then((id) => {
-//       console.log('response302=', id);
-//     })
-//     .catch((error) => {
-//       console.error('Error:', error.message);
-//     });
-
-//   Promise.allSettled(promises)
-//     .then((response) => {
-//       console.log('responseall=', response);
-//     })
-//     .catch((error) => {
-//       console.error('Error:', error.message);
-//     });
-// }

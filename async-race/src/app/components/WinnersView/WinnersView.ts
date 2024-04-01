@@ -2,7 +2,6 @@ import styles from './winnersview.module.scss';
 import BaseComponent from '../utilsComponents/BaseComponent';
 import Button from '../utilsComponents/Button';
 import { getWinners } from '../api';
-// import { Params } from '../utils/types';
 import { limitWinners } from '../../utils/constants';
 import state from '../State';
 import emitter from '../EventEmitter';
@@ -77,10 +76,7 @@ export default class WinnersView extends BaseComponent {
     const pagination = new BaseComponent({ tag: 'div', classNames: [styles.pagination] });
     pagination.append(this.prevBtn, this.pageTitle, this.nextBtn);
     this.append(this.winnersTitle, table, pagination);
-
     this.checkSortedTable();
-
-    // this.updateTableView({ page: state.winnersPage, limit: limitWinners });
   }
 
   protected checkSortedTable() {
