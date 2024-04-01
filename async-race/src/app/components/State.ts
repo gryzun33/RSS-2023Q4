@@ -90,6 +90,14 @@ class State {
     return this.carsMap.get(id);
   }
 
+  public getSortValue(): string {
+    return this.sort;
+  }
+
+  public getOrderValue(): string {
+    return this.order;
+  }
+
   // public getWinnerId(): number {
   //   return this.winner;
   // }

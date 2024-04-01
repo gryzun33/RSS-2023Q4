@@ -28,7 +28,7 @@ export default class WinnersView extends BaseComponent {
   protected timeColumn = new BaseComponent({
     tag: 'th',
     classNames: [styles.timeColumn],
-    text: 'Best time',
+    text: 'Best time,s',
   });
 
   protected prevBtn = new Button({ classNames: [styles.prevBtn] });
@@ -41,7 +41,7 @@ export default class WinnersView extends BaseComponent {
       page: state.winnersPage,
       limit: limitWinners,
       sort: state.sort,
-      order: state.sort,
+      order: state.order,
     });
     emitter.on('updateWinnersView', this.updateTableView);
     emitter.on('updateWinnersCount', this.updateWinnersTitle);
@@ -77,7 +77,29 @@ export default class WinnersView extends BaseComponent {
     const pagination = new BaseComponent({ tag: 'div', classNames: [styles.pagination] });
     pagination.append(this.prevBtn, this.pageTitle, this.nextBtn);
     this.append(this.winnersTitle, table, pagination);
+
+    this.checkSortedTable();
+
     // this.updateTableView({ page: state.winnersPage, limit: limitWinners });
+  }
+
+  protected checkSortedTable() {
+    const sortedField = state.getSortValue();
+    const orderField = state.getOrderValue();
+    console.log('order2=', orderField);
+    if (sortedField === SortState.wins) {
+      if (orderField === OrderState.up) {
+        this.winsColumn.addClass(styles.arrowUp);
+      } else {
+        this.winsColumn.addClass(styles.arrowDown);
+      }
+    } else if (sortedField === SortState.time) {
+      if (orderField === OrderState.up) {
+        this.timeColumn.addClass(styles.arrowUp);
+      } else {
+        this.timeColumn.addClass(styles.arrowDown);
+      }
+    }
   }
 
   protected updateTableView = (data: unknown, page: unknown) => {
@@ -121,8 +143,6 @@ export default class WinnersView extends BaseComponent {
       row.append(numbCell, iconCell, nameCell, winsCell, timeCell);
       this.tableBody.append(row);
     });
-
-    // const winnersData = state.getWinnersData(params);
   };
 
   protected getWinnersData = (tableParams: TableParams) => {
@@ -133,7 +153,7 @@ export default class WinnersView extends BaseComponent {
       }))
       .filter((el) => el.value !== '');
 
-    console.log('params =', params, tableParams.page);
+    console.log('params!!!!! =', params, tableParams.page);
     getWinners(params, tableParams.page);
   };
 
@@ -172,20 +192,25 @@ export default class WinnersView extends BaseComponent {
   };
 
   public onClickWinsSort = () => {
-    const order = state.order === OrderState.down ? OrderState.up : OrderState.down;
+    const order = state.order === OrderState.up ? OrderState.down : OrderState.up;
+    console.log('order1=', order);
     this.getWinnersData({
       page: state.winnersPage,
       limit: limitWinners,
       sort: SortState.wins,
       order,
     });
-    state.setOrderAndSortState(SortState.wins, order);
-    const classCss = state.order === OrderState.up ? styles.arrowDown : styles.arrowUp;
-    const prevClass = state.order === OrderState.down ? styles.arrowDown : styles.arrowUp;
+
+    const classCss = order === OrderState.up ? styles.arrowUp : styles.arrowDown;
+    let prevClass: string = '';
+    if (state.order) {
+      prevClass = state.order === OrderState.up ? styles.arrowUp : styles.arrowDown;
+      this.winsColumn.removeClass(prevClass);
+    }
     this.winsColumn.addClass(classCss);
-    this.winsColumn.removeClass(prevClass);
     this.timeColumn.removeClass(styles.arrowUp);
     this.timeColumn.removeClass(styles.arrowDown);
+    state.setOrderAndSortState(SortState.wins, order);
   };
 
   public onClickTimeSort = () => {
@@ -196,12 +221,17 @@ export default class WinnersView extends BaseComponent {
       sort: SortState.time,
       order,
     });
-    state.setOrderAndSortState(SortState.time, order);
-    const classCss = state.order === OrderState.up ? styles.arrowDown : styles.arrowUp;
-    const prevClass = state.order === OrderState.down ? styles.arrowDown : styles.arrowUp;
-    this.timeColumn.removeClass(prevClass);
+
+    const classCss = order === OrderState.up ? styles.arrowUp : styles.arrowDown;
+    let prevClass: string = '';
+    if (state.order) {
+      prevClass = state.order === OrderState.up ? styles.arrowUp : styles.arrowDown;
+      this.timeColumn.removeClass(prevClass);
+    }
+
     this.timeColumn.addClass(classCss);
     this.winsColumn.removeClass(styles.arrowUp);
     this.winsColumn.removeClass(styles.arrowDown);
+    state.setOrderAndSortState(SortState.time, order);
   };
 }
