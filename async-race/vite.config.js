@@ -1,7 +1,14 @@
+import path from 'node:path';
+
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@assets': path.resolve(import.meta.dirname, 'src', 'assets'),
+    },
+  },
   base: './',
   build: {
     sourcemap: true,
