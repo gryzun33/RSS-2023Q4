@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import { ButtonProps } from '../../utils/types';
 
 export default class Button extends BaseComponent<HTMLButtonElement> {
+  public enableState: boolean = true;
   constructor(props: ButtonProps) {
     super({ tag: 'button', ...props });
     if (props.type) {

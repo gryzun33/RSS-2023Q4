@@ -94,6 +94,8 @@ export default class GarageView extends BaseComponent {
     this.pageTitle.setTextContent(`${page}`);
     this.prevBtn.element.disabled = !prevBtnState;
     this.nextBtn.element.disabled = !nextBtnState;
+    this.prevBtn.enableState = prevBtnState;
+    this.nextBtn.enableState = nextBtnState;
   };
 
   public addNewCarToView = (car: unknown): void => {
@@ -101,7 +103,7 @@ export default class GarageView extends BaseComponent {
       throw new Error('argument is not type CarData');
     }
 
-    const newCar = new CarView(car);
+    const newCar = new CarView(car, this.raceBtn);
     this.cars.push(newCar);
     this.garageList.append(newCar);
   };
@@ -116,6 +118,7 @@ export default class GarageView extends BaseComponent {
   protected onClickGenerateBtn = (): void => {
     const newCars: NewCarData[] = getRandomCars();
     addRandomCars(newCars);
+    this.firstTitle.setTextContent('');
   };
 
   protected onClickPrevBtn = (): void => {
@@ -133,6 +136,9 @@ export default class GarageView extends BaseComponent {
     this.resetBtn.disable();
     this.raceBtn.disable();
     this.winnersBtn.disable();
+    this.prevBtn.disable();
+    this.nextBtn.disable();
+    this.generateBtn.disable();
   };
 
   protected onClickResetBtn = (): void => {
@@ -144,6 +150,14 @@ export default class GarageView extends BaseComponent {
     this.firstTitle.setTextContent('');
     this.raceBtn.enable();
     this.resetBtn.disable();
+    this.generateBtn.enable();
+    this.winnersBtn.enable();
+    if (this.prevBtn.enableState) {
+      this.prevBtn.enable();
+    }
+    if (this.nextBtn.enableState) {
+      this.nextBtn.enable();
+    }
   };
 
   protected showWinner = (carData: unknown): void => {

@@ -22,7 +22,10 @@ export default class CarView extends BaseComponent {
 
   public id: number = 0;
 
-  constructor(data: CarData) {
+  constructor(
+    data: CarData,
+    public raceBtn: Button
+  ) {
     super({ tag: 'div', classNames: [styles.carBlock] });
     this.id = data.id;
     this.element.id = data.id.toString();
