@@ -147,7 +147,7 @@ export default class GarageView extends BaseComponent {
     this.cars.forEach((car) => {
       car.clickOnStartBtn();
     });
-    this.resetBtn.disable();
+    this.resetBtn.enable();
     this.raceBtn.disable();
     this.winnersBtn.disable();
     this.prevBtn.disable();
@@ -168,6 +168,7 @@ export default class GarageView extends BaseComponent {
     this.resetBtn.disable();
     this.generateBtn.enable();
     this.winnersBtn.enable();
+    this.createForm.enable();
 
     if (this.prevBtn.enableState) {
       this.prevBtn.enable();
