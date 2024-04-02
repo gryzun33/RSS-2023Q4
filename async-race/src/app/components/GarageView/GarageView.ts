@@ -17,6 +17,7 @@ enum Forms {
 }
 
 export default class GarageView extends BaseComponent {
+  public firstTitle = new BaseComponent({ tag: 'p', classNames: [styles.firstTitle] });
   protected createForm = new CreateCarForm(Forms.CreateForm);
   protected updateForm = new UpdateCarForm(Forms.UpdateForm);
 
@@ -30,7 +31,6 @@ export default class GarageView extends BaseComponent {
 
   public pageTitle = new BaseComponent({ tag: 'p', classNames: [styles.pageTitle] });
 
-  public firstTitle = new BaseComponent({ tag: 'p', classNames: [styles.firstTitle] });
   protected garageList = new BaseComponent({ tag: 'div', classNames: [styles.garageList] });
 
   protected prevBtn = new Button({ classNames: [styles.prevBtn] });
@@ -139,6 +139,7 @@ export default class GarageView extends BaseComponent {
     this.prevBtn.disable();
     this.nextBtn.disable();
     this.generateBtn.disable();
+    this.createForm.disable();
   };
 
   protected onClickResetBtn = (): void => {
@@ -146,12 +147,17 @@ export default class GarageView extends BaseComponent {
     state.setWinner(0);
     this.cars.forEach((car) => {
       car.clickOnStopBtn();
+      // car.stopBtn.enable();
+      car.selectBtn.enable();
+      car.removeBtn.enable();
     });
     this.firstTitle.setTextContent('');
     this.raceBtn.enable();
     this.resetBtn.disable();
     this.generateBtn.enable();
     this.winnersBtn.enable();
+    this.createForm.enable();
+
     if (this.prevBtn.enableState) {
       this.prevBtn.enable();
     }

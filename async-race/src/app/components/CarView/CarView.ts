@@ -58,6 +58,13 @@ export default class CarView extends BaseComponent {
     this.fetchController = new AbortController();
     startCar(this.id, 'started', this.fetchController);
     this.startBtn.disable();
+    if (!state.race) {
+      this.raceBtn.disable();
+    } else {
+      // car.stopBtn.disable();
+      this.selectBtn.disable();
+      this.removeBtn.disable();
+    }
   };
 
   public clickOnStopBtn = () => {
@@ -68,6 +75,11 @@ export default class CarView extends BaseComponent {
     }
 
     this.stopBtn.disable();
+    if (!state.race) {
+      this.raceBtn.enable();
+    }
+    this.selectBtn.enable();
+    this.removeBtn.enable();
   };
 
   protected moveCarToStart = (id: unknown) => {
@@ -109,7 +121,10 @@ export default class CarView extends BaseComponent {
     if (typeof duration !== 'number') {
       throw new Error('duration is not number');
     }
-    this.stopBtn.enable();
+    if (!state.race) {
+      this.stopBtn.enable();
+    }
+
     const distance = getDistance(this.carImg.element);
     const speed = distance / duration;
     const startX = 0;
