@@ -52,6 +52,7 @@ export default class GarageView extends BaseComponent {
     this.nextBtn.on('click', this.onClickNextBtn);
     this.raceBtn.on('click', this.onClickRaceBtn);
     this.resetBtn.on('click', this.onClickResetBtn);
+    this.createForm.on('click', this.deleteFirstTitle);
   }
 
   protected createView(): void {
@@ -75,6 +76,10 @@ export default class GarageView extends BaseComponent {
       form.updateView(formState);
     });
   }
+
+  protected deleteFirstTitle = (): void => {
+    this.firstTitle.setTextContent('');
+  };
 
   public updateCarsCount = (count: unknown) => {
     if (typeof count !== 'number') {
@@ -106,6 +111,13 @@ export default class GarageView extends BaseComponent {
     const newCar = new CarView(car, this.raceBtn);
     this.cars.push(newCar);
     this.garageList.append(newCar);
+
+    // if (state.race) {
+    this.raceBtn.enable();
+    this.generateBtn.enable();
+    this.resetBtn.disable();
+    state.resetRace();
+    // }
   };
 
   protected destroyGarage = () => {
@@ -145,11 +157,9 @@ export default class GarageView extends BaseComponent {
   };
 
   protected onClickResetBtn = (): void => {
-    state.setRaceState(false);
-    state.setWinner(0);
+    state.resetRace();
     this.cars.forEach((car) => {
       car.clickOnStopBtn();
-      // car.stopBtn.enable();
       car.selectBtn.enable();
       car.removeBtn.enable();
     });
@@ -158,7 +168,6 @@ export default class GarageView extends BaseComponent {
     this.resetBtn.disable();
     this.generateBtn.enable();
     this.winnersBtn.enable();
-    this.createForm.enable();
 
     if (this.prevBtn.enableState) {
       this.prevBtn.enable();
@@ -179,6 +188,7 @@ export default class GarageView extends BaseComponent {
 
   protected enableWinnersBtn = (): void => {
     this.winnersBtn.enable();
+    this.createForm.enable();
   };
 
   public getFormsState(): FormState[] {
