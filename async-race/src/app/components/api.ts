@@ -147,7 +147,7 @@ export function driveCar(id: number, status: string, controller: AbortController
 
 export async function startCar(id: number, status: string, controller: AbortController) {
   try {
-    const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
+    const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}&speed=0`, {
       method: 'PATCH',
     });
 
@@ -163,7 +163,7 @@ export async function startCar(id: number, status: string, controller: AbortCont
 
 export async function stopCar(id: number, controller: AbortController) {
   try {
-    await fetch(`${baseURL}${path.engine}?id=${id}&status=stopped`, {
+    await fetch(`${baseURL}${path.engine}?id=${id}&status=stopped&speed=0`, {
       method: 'PATCH',
     });
     controller.abort();
