@@ -123,9 +123,11 @@ export default class GarageView extends BaseComponent {
 
   protected onClickPrevBtn = (): void => {
     getCars(state.currPage - 1);
+    this.raceBtn.enable();
   };
   protected onClickNextBtn = (): void => {
     getCars(state.currPage + 1);
+    this.raceBtn.enable();
   };
 
   protected onClickRaceBtn = (): void => {
