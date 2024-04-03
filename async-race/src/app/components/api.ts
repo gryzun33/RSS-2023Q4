@@ -145,14 +145,21 @@ export function driveCar(id: number, status: string, controller: AbortController
     });
 }
 
-export async function startCar(id: number, status: string, controller: AbortController) {
+export async function startCar(
+  id: number,
+  status: string,
+  driveControl: AbortController,
+  startControl: AbortController
+) {
   try {
-    const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}&speed=0`, {
+    const response = await fetch(`${baseURL}${path.engine}?id=${id}&status=${status}`, {
       method: 'PATCH',
+      signal: startControl.signal,
     });
+    state.updatePromisesStart();
 
     const data = await response.json();
-    driveCar(id, 'drive', controller);
+    driveCar(id, 'drive', driveControl);
     state.setCarStatusDrive(id, data);
   } catch (error) {
     if (error instanceof Error) {
@@ -161,12 +168,17 @@ export async function startCar(id: number, status: string, controller: AbortCont
   }
 }
 
-export async function stopCar(id: number, controller: AbortController) {
+export async function stopCar(
+  id: number,
+  driveControl: AbortController,
+  startControl: AbortController
+) {
   try {
-    await fetch(`${baseURL}${path.engine}?id=${id}&status=stopped&speed=0`, {
+    await fetch(`${baseURL}${path.engine}?id=${id}&status=stopped`, {
       method: 'PATCH',
     });
-    controller.abort();
+    driveControl.abort();
+    startControl.abort();
     state.setCarStatusStop(id);
   } catch (error) {
     if (error instanceof Error) {

@@ -26,6 +26,7 @@ class State {
   public prevWinners: boolean = false;
   public nextWinners: boolean = false;
   protected promisesCount: number = 0;
+  protected promisesStart: number = 0;
   public sort: string = SortState.none;
   public order: string = OrderState.none;
   public formsState: FormState[] = [];
@@ -35,6 +36,7 @@ class State {
     this.race = false;
     this.winner = 0;
     this.promisesCount = 0;
+    this.promisesStart = 0;
   }
 
   public setRaceState(raceState: boolean) {
@@ -172,6 +174,14 @@ class State {
     emitter.emit('toStart', id);
   }
 
+  // public setStatusStopNow(id: number) {
+  //   const carData = this.carsMap.get(id);
+  //   if (!carData) {
+  //     throw new Error('carData is undefined');
+  //   }
+  //   carData.status = 'stop';
+  // }
+
   public getCarStatus(id: number) {
     const carData = this.carsMap.get(id);
     if (!carData) {
@@ -186,6 +196,14 @@ class State {
     if (state.promisesCount === this.carsMap.size) {
       emitter.emit('finishRace');
       state.promisesCount = 0;
+    }
+  }
+
+  public updatePromisesStart() {
+    state.promisesStart += 1;
+    if (state.promisesStart === this.carsMap.size) {
+      emitter.emit('enableReset');
+      state.promisesStart = 0;
     }
   }
 

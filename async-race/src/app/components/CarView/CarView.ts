@@ -10,7 +10,8 @@ import state from '../State';
 import isCarData from '../../utils/predicates';
 
 export default class CarView extends BaseComponent {
-  public fetchController = new AbortController();
+  public driveController = new AbortController();
+  public startController = new AbortController();
   protected animationId?: number;
   public selectBtn = new Button({ classNames: [styles.selectBtn], text: 'Select' });
   public removeBtn = new Button({ classNames: [styles.removeBtn], text: 'Remove' });
@@ -55,8 +56,9 @@ export default class CarView extends BaseComponent {
   };
 
   public clickOnStartBtn = () => {
-    this.fetchController = new AbortController();
-    startCar(this.id, 'started', this.fetchController);
+    this.driveController = new AbortController();
+    this.startController = new AbortController();
+    startCar(this.id, 'started', this.driveController, this.startController);
     this.startBtn.disable();
     if (!state.race) {
       this.raceBtn.disable();
@@ -70,9 +72,14 @@ export default class CarView extends BaseComponent {
   public clickOnStopBtn = () => {
     const status = state.getCarStatus(this.id);
     if (status === 'drive' || status === 'broken') {
-      stopCar(this.id, this.fetchController);
-      this.carImg.removeClass(styles.carBroken);
+      stopCar(this.id, this.driveController, this.startController);
+
+      // this.carImg.removeClass(styles.carBroken);
+
+      // this.carImg.removeClass(styles.carBroken);
     }
+    // state.setStatusStopNow(this.id);
+    // this.carImg.removeClass(styles.carBroken);
 
     this.stopBtn.disable();
     if (!state.race) {
@@ -92,6 +99,7 @@ export default class CarView extends BaseComponent {
     this.stopMoving(this.id);
     this.carImg.css('transform', `translateX(0px)`);
     this.startBtn.enable();
+    this.carImg.removeClass(styles.carBroken);
   };
 
   protected clickOnSelectBtn = () => {
@@ -156,6 +164,7 @@ export default class CarView extends BaseComponent {
       throw new Error('animationid is undefined');
     }
     const status = state.getCarStatus(this.id);
+    console.log('status=', status);
     if (status === 'broken') {
       this.carImg.addClass(styles.carBroken);
     }

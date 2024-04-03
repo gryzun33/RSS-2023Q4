@@ -47,6 +47,7 @@ export default class GarageView extends BaseComponent {
     emitter.on('updatePage', this.updatePages);
     emitter.on('showWinner', this.showWinner);
     emitter.on('finishRace', this.enableWinnersBtn);
+    emitter.on('enableReset', this.enableResetBtn);
     this.generateBtn.on('click', this.onClickGenerateBtn);
     this.prevBtn.on('click', this.onClickPrevBtn);
     this.nextBtn.on('click', this.onClickNextBtn);
@@ -147,7 +148,7 @@ export default class GarageView extends BaseComponent {
     this.cars.forEach((car) => {
       car.clickOnStartBtn();
     });
-    this.resetBtn.enable();
+    // this.resetBtn.enable();
     this.raceBtn.disable();
     this.winnersBtn.disable();
     this.prevBtn.disable();
@@ -190,6 +191,12 @@ export default class GarageView extends BaseComponent {
   protected enableWinnersBtn = (): void => {
     this.winnersBtn.enable();
     this.createForm.enable();
+  };
+
+  protected enableResetBtn = (): void => {
+    this.resetBtn.enable();
+    // this.winnersBtn.enable();
+    // this.createForm.enable();
   };
 
   public getFormsState(): FormState[] {
