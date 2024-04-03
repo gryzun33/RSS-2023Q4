@@ -174,14 +174,6 @@ class State {
     emitter.emit('toStart', id);
   }
 
-  // public setStatusStopNow(id: number) {
-  //   const carData = this.carsMap.get(id);
-  //   if (!carData) {
-  //     throw new Error('carData is undefined');
-  //   }
-  //   carData.status = 'stop';
-  // }
-
   public getCarStatus(id: number) {
     const carData = this.carsMap.get(id);
     if (!carData) {

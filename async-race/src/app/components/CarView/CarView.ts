@@ -63,7 +63,6 @@ export default class CarView extends BaseComponent {
     if (!state.race) {
       this.raceBtn.disable();
     } else {
-      // car.stopBtn.disable();
       this.selectBtn.disable();
       this.removeBtn.disable();
     }
@@ -73,13 +72,7 @@ export default class CarView extends BaseComponent {
     const status = state.getCarStatus(this.id);
     if (status === 'drive' || status === 'broken') {
       stopCar(this.id, this.driveController, this.startController);
-
-      // this.carImg.removeClass(styles.carBroken);
-
-      // this.carImg.removeClass(styles.carBroken);
     }
-    // state.setStatusStopNow(this.id);
-    // this.carImg.removeClass(styles.carBroken);
 
     this.stopBtn.disable();
     if (!state.race) {
@@ -164,7 +157,6 @@ export default class CarView extends BaseComponent {
       throw new Error('animationid is undefined');
     }
     const status = state.getCarStatus(this.id);
-    console.log('status=', status);
     if (status === 'broken') {
       this.carImg.addClass(styles.carBroken);
     }
