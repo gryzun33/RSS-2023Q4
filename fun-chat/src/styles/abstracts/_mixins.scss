@@ -1,0 +1,53 @@
+@mixin laptop-1000 {
+  @media screen and (max-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin flex($justify: normal, $align: normal) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-column($justify: normal, $align: normal) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-wrap($justify: normal, $align: normal) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: $justify;
+  align-content: $align;
+}
+
+@mixin btn {
+  @include flex(center, center);
+  color: $color-bg;
+  background-color: $color-text;
+  font-size: 20px;
+  font-family: "Asap";
+  width: 200px;
+  height: 50px;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+@mixin btn-main-page {
+  @include btn;
+  background-color: $color-btn-bg-start;
+  color: $color-text;
+  width: 150px;
+  height: 40px;
+  font-size: 18px;
+
+  &:hover {
+    background-color: $color-bg;
+  }
+}
