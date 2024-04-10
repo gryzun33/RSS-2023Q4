@@ -32,7 +32,8 @@ export default class App {
   }
 
   start() {
-    // this.router.init();
+    document.body.append(this.root.element);
+    this.router.init();
   }
 
   createRoutes() {
@@ -42,15 +43,15 @@ export default class App {
         callback: () => this.setContent(new LoginPage()),
       },
       {
-        path: `/login`,
+        path: `login`,
         callback: () => this.setContent(new LoginPage()),
       },
       {
-        path: `/main`,
+        path: `main`,
         callback: () => this.setContent(new MainPage()),
       },
       {
-        path: `/about`,
+        path: `about`,
         callback: () => this.setContent(new AboutPage()),
       },
     ];

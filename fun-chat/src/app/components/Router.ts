@@ -1,4 +1,5 @@
 import { Route } from '../utils/types';
+import emitter from './EventEmitter';
 
 export default class Router {
   private routes: Route[];
@@ -6,35 +7,47 @@ export default class Router {
 
   constructor(routes: Route[]) {
     this.routes = routes;
-    window.addEventListener('popstate', () => this.handleRouteChange());
+
+    emitter.on('navigate', this.navigate);
+
+    window.addEventListener('popstate', this.handleRouteChange);
   }
 
   public init() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const path = window.location.pathname.slice(1);
+      console.log('path1=', path);
+      this.navigate(path);
+    });
     // this.loadInitialRoute();
-    this.navigate(this.routes[0].path);
+    // this.navigate(this.routes[0].path);
   }
 
-  private navigate = (url: string) => {
-    // if (typeof url === 'string') {
-    //   this.setHistory(url);
-    // }
-    // const urlString = window.location[this.params.locationField].slice(1);
+  private navigate = (url: unknown) => {
+    if (typeof url !== 'string') {
+      throw new Error('url isn`t string');
+    }
+    if (url.length > 0) {
+      console.log('url2=', url);
+      window.history.pushState(null, '', `/${url}`);
+      console.log('history length=', window.history.length);
+      console.log('history state=', window.history.state);
+    }
+    // console.log('url=', url);
 
     const route = this.routes.find((elem) => elem.path === url);
+    console.log('route=', route);
 
     if (!route) {
-      throw new Error('route is undefined');
+      this.navigate(this.routes[0].path);
+    } else {
+      route.callback();
     }
-    route.callback();
   };
 
-  protected handleRouteChange() {
-    const path = window.location.pathname.substring(window.location.pathname.lastIndexOf('/'));
-    const route = this.routes.find((route) => route.path === path);
-    if (route) {
-      console.log('Route found:', route);
-    } else {
-      console.error('Route not found for path:', path);
-    }
-  }
+  protected handleRouteChange = () => {
+    console.log('popstate');
+    const path = window.location.pathname.slice(1);
+    this.navigate(path);
+  };
 }
