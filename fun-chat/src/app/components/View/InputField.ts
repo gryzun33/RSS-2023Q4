@@ -2,12 +2,13 @@ import BaseComponent from './BaseComponent';
 import { InputProps } from '../../utils/types';
 
 export default class InputField extends BaseComponent {
-  protected input = new BaseComponent<HTMLInputElement>({ tag: 'input', classNames: ['input'] });
+  public input = new BaseComponent<HTMLInputElement>({ tag: 'input', classNames: ['input'] });
   protected toolTip = new BaseComponent({ tag: 'div', classNames: ['tooltip'] });
   constructor(props: InputProps) {
     super({ tag: 'div', classNames: ['input-wrapper'] });
 
     this.createView(props);
+    this.input.on('input', this.onInput);
   }
 
   protected createView(props: InputProps) {
@@ -24,6 +25,16 @@ export default class InputField extends BaseComponent {
     inputBox.append(this.input, this.toolTip);
     this.append(label, inputBox);
   }
+
+  protected onInput = () => {
+    if (!this.input.element.validity.valid) {
+      this.toolTip.addClass('visible');
+      this.input.addClass('incorrect');
+    } else {
+      this.toolTip.removeClass('visible');
+      this.input.removeClass('incorrect');
+    }
+  };
 
   // public validInput = (): void => {
   //   this.addClass('input-invalid');

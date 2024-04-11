@@ -9,7 +9,7 @@
   width: 350px;
   background-color: gray;
   @include flex-column;
-  padding: 20px;
+  padding: 30px 20px;
   gap: 20px;
   border-radius: 5px;
   background-color: $color-bg;
@@ -53,6 +53,10 @@
   text-shadow: 0 0 1px #000000;
   font-weight: 300;
   visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
 }
 
 .buttons-box {

@@ -4,6 +4,7 @@ import InputField from './InputField';
 // import emitter from '../EventEmitter';
 
 export default class LoginPage extends BaseComponent {
+  protected inputs: HTMLInputElement[] = [];
   protected loginForm = new BaseComponent<HTMLFormElement>({
     tag: 'form',
     classNames: ['login-form'],
@@ -24,7 +25,7 @@ export default class LoginPage extends BaseComponent {
     // placeholder: '',
     required: true,
     minlength: '8',
-    pattern: '^(?=.*[a-zA-Z])(?=.*d).{5,}$',
+    pattern: '^(?=.*[a-zA-Z])(?=.*\\d).{5,}$',
     toolTip: `Password must be at least 8 characters long, and contain at least one letter and one digit`,
     label: 'Password',
   });
@@ -44,7 +45,20 @@ export default class LoginPage extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: ['login-wrapper'] });
     this.createView();
+    this.loginForm.on('input', this.onChangeForm);
   }
+
+  protected onChangeForm = () => {
+    console.log('change');
+    this.inputs.forEach((input) => {
+      console.log('valid=', input.validity.valid);
+    });
+    if (this.inputs.every((input) => input.validity.valid && input.value !== '')) {
+      this.loginBtn.enable();
+    } else {
+      this.loginBtn.disable();
+    }
+  };
 
   // protected createView() {
   //   const button = new Button({ text: 'to About' });
@@ -65,6 +79,7 @@ export default class LoginPage extends BaseComponent {
 
     this.loginForm.attr('novalidate', 'true');
     this.loginBtn.disable();
+    this.inputs.push(this.inputLogin.input.getElement(), this.inputPassword.input.getElement());
     // this.inputs.push(this.inputName.getElement(), this.inputSurname.getElement());
     // this.loginBtn.on('click', this.checkValidity);
   }
