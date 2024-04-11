@@ -1,5 +1,83 @@
 .login-wrapper {
   width: 100%;
   height: 100%;
-  background-color: blue;
+  @include flex(center, center);
+  // background-color: blue;
+}
+
+.login-form {
+  width: 350px;
+  background-color: gray;
+  @include flex-column;
+  padding: 20px;
+  gap: 20px;
+  border-radius: 5px;
+  background-color: $color-bg;
+}
+
+.input-wrapper {
+  @include flex-column(normal, stretch);
+  width: 100%;
+}
+
+.input-box {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  margin-top: 5px;
+  height: 50px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 20px;
+  color: $color-text;
+  background-color: $color-input;
+}
+
+.incorrect {
+  border: 2px solid $color-fail;
+}
+
+.label {
+  font-size: 20px;
+  color: $color-label;
+}
+
+.tooltip {
+  width: 100%;
+  font-size: 12px;
+  color: $color-fail;
+  text-shadow: 0 0 1px #000000;
+  font-weight: 300;
+  visibility: hidden;
+}
+
+.buttons-box {
+  align-self: center;
+  position: relative;
+  width: 100%;
+  @include flex(center, center);
+
+  .info-btn {
+    @include bg-icon;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    background-image: url("./src/assets/icons/info.svg");
+    background-size: 80% auto;
+    // border: none;
+    // outline: none;
+    // background-color: transparent;
+
+    cursor: pointer;
+  }
+
+  .login-btn {
+    @include btn;
+  }
 }

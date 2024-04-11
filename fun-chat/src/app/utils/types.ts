@@ -19,3 +19,13 @@ export type ButtonProps = Omit<Props, 'tag'> & {
   type?: string;
   disabled?: boolean;
 };
+
+export type InputProps = Omit<Props, 'tag'> & {
+  type: string;
+  placeholder?: string;
+  required?: boolean;
+  minlength: string;
+  pattern: string;
+  toolTip: string;
+  label: string;
+};
