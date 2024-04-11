@@ -11,6 +11,7 @@ export default class LoginPage extends BaseComponent {
   protected createView() {
     const button = new Button({ text: 'to About' });
     this.append(button);
-    button.on('click', () => emitter.emit('navigate', 'about'));
+    // button.on('click', () => emitter.emit('navigate', 'about'));
+    button.on('click', () => emitter.emit('login'));
   }
 }
