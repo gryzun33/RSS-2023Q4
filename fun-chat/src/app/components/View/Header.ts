@@ -1,5 +1,6 @@
 import BaseComponent from './BaseComponent';
 import { Props } from '../../utils/types';
+import emitter from '../EventEmitter';
 
 export default class Header extends BaseComponent {
   protected infoBtn = new BaseComponent({
@@ -13,6 +14,7 @@ export default class Header extends BaseComponent {
   constructor(props: Props) {
     super(props);
     this.createView();
+    this.logoutBtn.on('click', () => emitter.emit('logout'));
   }
   protected createView() {
     this.append(this.infoBtn, this.logoutBtn);

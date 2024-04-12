@@ -1,5 +1,8 @@
 .about-wrapper {
+  max-width: 600px;
   width: 100%;
-  height: 100%;
-  background-color: red;
+  background-color: $color-bg;
+  height: 300px;
+  // @include flex(center, center);
+  // background-color: green;
 }
