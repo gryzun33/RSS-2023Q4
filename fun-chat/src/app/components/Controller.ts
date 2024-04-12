@@ -21,6 +21,7 @@ export default class Controller {
   constructor() {
     console.log(this.wsManager);
     emitter.on('login', this.authorize);
+    emitter.on('logout', this.logoutRequest);
   }
 
   protected authorize = (login: unknown, password: unknown) => {
@@ -41,6 +42,22 @@ export default class Controller {
       },
     };
 
+    this.wsManager.send(JSON.stringify(request));
+  };
+
+  protected logoutRequest = () => {
+    const { login, password } = state.getUser();
+    const requestId = crypto.randomUUID();
+    const request: LoginRequest = {
+      id: requestId,
+      type: 'USER_LOGOUT',
+      payload: {
+        user: {
+          login,
+          password,
+        },
+      },
+    };
     this.wsManager.send(JSON.stringify(request));
   };
 }

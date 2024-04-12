@@ -19,6 +19,7 @@ export default class DataHandler {
         break;
       case 'USER_LOGOUT':
         console.log('userlogout');
+        this.logoutResponse(data.payload.user);
         break;
       case 'USER_EXTERNAL_LOGIN':
         console.log('userlogout');
@@ -61,6 +62,13 @@ export default class DataHandler {
         storage.saveData('user', { login, password });
         emitter.emit('navigate', 'main');
       }
+    }
+  }
+
+  private logoutResponse(user: LoginResponse) {
+    if (!user.isLogined) {
+      storage.removeStorage();
+      emitter.emit('navigate', 'login');
     }
   }
 }
