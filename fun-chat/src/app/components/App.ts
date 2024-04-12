@@ -1,7 +1,7 @@
 import BaseComponent from './View/BaseComponent';
 // import View from './View';
 import Router from './Router';
-import Model from './Model';
+// import State from './State';
 import Controller from './Controller';
 import LoginPage from './View/LoginPage';
 import MainPage from './View/MainPage';
@@ -23,8 +23,8 @@ export default class App {
 
   constructor() {
     // const view = new View();
-    const model = new Model();
-    console.log(model);
+
+    // console.log(model);
     const controller = new Controller();
     console.log(controller);
     const routes = this.createRoutes();

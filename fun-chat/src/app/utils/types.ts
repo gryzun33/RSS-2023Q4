@@ -30,3 +30,9 @@ export type InputProps = Omit<Props, 'tag'> & {
   label: string;
   autocomplete?: string;
 };
+
+export type User = {
+  id: string;
+  login: string;
+  password: string;
+};

@@ -1,6 +1,7 @@
 import WebSocketManager from './WebSocketManager';
 import DataHandler from './DataHandler';
 import emitter from './EventEmitter';
+import state from './State';
 
 type LoginRequest = {
   id: string;
@@ -27,8 +28,10 @@ export default class Controller {
       throw new Error('login or password is not string');
     }
     console.log('authorize');
+    const requestId = crypto.randomUUID();
+    state.saveUser({ id: requestId, login, password });
     const request: LoginRequest = {
-      id: crypto.randomUUID(),
+      id: requestId,
       type: 'USER_LOGIN',
       payload: {
         user: {

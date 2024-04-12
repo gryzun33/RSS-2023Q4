@@ -1,4 +1,6 @@
 import emitter from './EventEmitter';
+import storage from './Storage';
+import state from './State';
 
 type LoginResponse = {
   login: string;
@@ -13,7 +15,7 @@ export default class DataHandler {
     switch (data.type) {
       case 'USER_LOGIN':
         console.log('userlogin');
-        this.authorize(data.payload.user);
+        this.authorize(data.payload.user, data.id);
         break;
       case 'USER_LOGOUT':
         console.log('userlogout');
@@ -52,10 +54,13 @@ export default class DataHandler {
     }
   };
 
-  private authorize(user: LoginResponse) {
+  private authorize(user: LoginResponse, idResponse: string) {
     if (user.isLogined) {
-      // отправляем в сессион сторедж
-      emitter.emit('navigate', 'main');
+      const { id, login, password } = state.getUser();
+      if (idResponse === id) {
+        storage.saveData('user', { login, password });
+        emitter.emit('navigate', 'main');
+      }
     }
   }
 }
