@@ -48,6 +48,7 @@ export default class LoginPage extends BaseComponent {
     this.createView();
     this.loginForm.on('input', this.onChangeForm);
     this.loginForm.on('submit', this.onSubmitForm);
+    this.infoBtn.on('click', () => emitter.emit('navigate', 'about'));
   }
 
   protected createView() {

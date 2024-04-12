@@ -15,6 +15,7 @@ export default class Header extends BaseComponent {
     super(props);
     this.createView();
     this.logoutBtn.on('click', () => emitter.emit('logout'));
+    this.infoBtn.on('click', () => emitter.emit('navigate', 'about'));
   }
   protected createView() {
     this.append(this.infoBtn, this.logoutBtn);

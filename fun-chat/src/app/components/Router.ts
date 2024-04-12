@@ -1,5 +1,6 @@
 import { Route } from '../utils/types';
 import emitter from './EventEmitter';
+import storage from './Storage';
 
 export default class Router {
   private routes: Route[];
@@ -11,7 +12,14 @@ export default class Router {
 
   public init() {
     document.addEventListener('DOMContentLoaded', () => {
-      const path = window.location.pathname.slice(1);
+      let path = window.location.pathname.slice(1);
+      const isUser = storage.getData('user');
+      if (path === 'main' && !isUser) {
+        path = 'login';
+      } else if (path === 'login' && isUser) {
+        path = 'main';
+      }
+      // console.log('pathhhhh=', path);
       this.navigate(path);
     });
   }
@@ -20,13 +28,18 @@ export default class Router {
     if (typeof url !== 'string') {
       throw new Error('url isn`t string');
     }
-    if (url.length > 0) {
-      window.history.pushState(null, '', `/${url}`);
-      // console.log('historylength=', window.history.length);
+
+    let path: string = url;
+    if (path === 'back') {
+      const isUser = storage.getData('user');
+      path = isUser ? 'main' : 'login';
     }
 
-    const route = this.routes.find((elem) => elem.path === url);
-    // console.log('route=', route);
+    if (path.length > 0) {
+      window.history.pushState(null, '', `/${path}`);
+    }
+
+    const route = this.routes.find((elem) => elem.path === path);
 
     if (!route) {
       this.navigate(this.routes[0].path);
@@ -36,9 +49,9 @@ export default class Router {
   };
 
   protected handleRouteChange = () => {
-    // console.log('popstate');
+    console.log('popstate');
     const path = window.location.pathname.slice(1);
-    console.log('path2=', path);
+    // console.log('path2=', path);
     this.navigate(path);
   };
 }

@@ -38,10 +38,10 @@ export default class App {
 
   createRoutes() {
     return [
-      {
-        path: ``,
-        callback: () => this.setContent(new LoginPage()),
-      },
+      // {
+      //   path: ``,
+      //   callback: () => this.setContent(new LoginPage()),
+      // },
       {
         path: `login`,
         callback: () => this.setContent(new LoginPage()),
