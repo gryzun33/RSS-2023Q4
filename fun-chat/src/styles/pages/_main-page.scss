@@ -1,5 +1,43 @@
 .main-wrapper {
+  max-width: 600px;
   width: 100%;
-  height: 100%;
-  background-color: green;
+  background-color: $color-bg;
+  // @include flex(center, center);
+  // background-color: green;
+}
+
+.header {
+  width: 100%;
+  height: 80px;
+  @include flex;
+}
+
+.main {
+  width: 100%;
+  height: 400px;
+}
+
+.footer {
+  width: 100%;
+  height: 80px;
+}
+
+.main-info-btn {
+  @include bg-icon;
+  display: block;
+  width: 50px;
+  height: 50px;
+  background-image: url("./src/assets/icons/info.svg");
+  background-size: 80% auto;
+  cursor: pointer;
+}
+
+.logout-btn {
+  display: block;
+  @include bg-icon;
+  width: 50px;
+  height: 50px;
+  background-image: url("./src/assets/icons/logout.svg");
+  background-size: 80% auto;
+  cursor: pointer;
 }
