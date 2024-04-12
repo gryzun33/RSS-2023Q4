@@ -28,4 +28,5 @@ export type InputProps = Omit<Props, 'tag'> & {
   pattern: string;
   toolTip: string;
   label: string;
+  autocomplete?: string;
 };

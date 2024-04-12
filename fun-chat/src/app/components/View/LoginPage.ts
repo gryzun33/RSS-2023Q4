@@ -1,7 +1,7 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
 import InputField from './InputField';
-// import emitter from '../EventEmitter';
+import emitter from '../EventEmitter';
 
 export default class LoginPage extends BaseComponent {
   protected inputs: HTMLInputElement[] = [];
@@ -21,13 +21,14 @@ export default class LoginPage extends BaseComponent {
   });
 
   protected inputPassword = new InputField({
-    type: 'text',
+    type: 'password',
     // placeholder: '',
     required: true,
     minlength: '8',
     pattern: '^(?=.*[a-zA-Z])(?=.*\\d).{5,}$',
     toolTip: `Password must be at least 8 characters long, and contain at least one letter and one digit`,
     label: 'Password',
+    autocomplete: 'off',
   });
 
   protected loginBtn = new Button({
@@ -46,13 +47,20 @@ export default class LoginPage extends BaseComponent {
     super({ tag: 'div', classNames: ['login-wrapper'] });
     this.createView();
     this.loginForm.on('input', this.onChangeForm);
+    this.loginForm.on('submit', this.onSubmitForm);
+  }
+
+  protected createView() {
+    const buttons = new BaseComponent({ tag: 'div', classNames: ['buttons-box'] });
+    buttons.append(this.loginBtn, this.infoBtn);
+    this.loginForm.append(this.inputLogin, this.inputPassword, buttons);
+    this.append(this.loginForm);
+    this.loginForm.attr('novalidate', 'true');
+    this.loginBtn.disable();
+    this.inputs.push(this.inputLogin.input.getElement(), this.inputPassword.input.getElement());
   }
 
   protected onChangeForm = () => {
-    console.log('change');
-    this.inputs.forEach((input) => {
-      console.log('valid=', input.validity.valid);
-    });
     if (this.inputs.every((input) => input.validity.valid && input.value !== '')) {
       this.loginBtn.enable();
     } else {
@@ -60,27 +68,10 @@ export default class LoginPage extends BaseComponent {
     }
   };
 
-  // protected createView() {
-  //   const button = new Button({ text: 'to About' });
-  //   this.append(button);
-  //   // button.on('click', () => emitter.emit('navigate', 'about'));
-  //   button.on('click', () => emitter.emit('login'));
-  // }
-
-  protected createView() {
-    // const loginContent = new BaseComponent({ tag: 'div', classNames: ['login-content'] });
-    const buttons = new BaseComponent({ tag: 'div', classNames: ['buttons-box'] });
-    buttons.append(this.loginBtn, this.infoBtn);
-
-    this.loginForm.append(this.inputLogin, this.inputPassword, buttons);
-    // loginContent.append(this.loginForm);
-
-    this.append(this.loginForm);
-
-    this.loginForm.attr('novalidate', 'true');
-    this.loginBtn.disable();
-    this.inputs.push(this.inputLogin.input.getElement(), this.inputPassword.input.getElement());
-    // this.inputs.push(this.inputName.getElement(), this.inputSurname.getElement());
-    // this.loginBtn.on('click', this.checkValidity);
-  }
+  protected onSubmitForm = (event: Event) => {
+    const loginValue = this.inputLogin.input.element.value;
+    const passValue = this.inputPassword.input.element.value;
+    emitter.emit('login', loginValue, passValue);
+    event.preventDefault();
+  };
 }

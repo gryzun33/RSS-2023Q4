@@ -20,6 +20,9 @@ export default class InputField extends BaseComponent {
     if (props.required) {
       this.input.element.required = true;
     }
+    if (props.autocomplete) {
+      this.input.attr('autocomplete', 'off');
+    }
     this.toolTip.setTextContent(props.toolTip);
 
     inputBox.append(this.input, this.toolTip);

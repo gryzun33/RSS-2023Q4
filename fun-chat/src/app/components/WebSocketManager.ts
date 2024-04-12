@@ -1,6 +1,8 @@
+type Handler = (arg: string) => void;
+
 export default class WebSocketManager {
   private ws = new WebSocket('ws://localhost:4000');
-  constructor() {
+  constructor(public dataHandler: Handler) {
     this.ws.addEventListener('open', this.onOpen);
   }
 
@@ -15,14 +17,17 @@ export default class WebSocketManager {
     console.log('disconnected');
   };
 
-  onMessage = () => {
-    console.log('Message from server:');
+  onMessage = (event: MessageEvent) => {
+    const { data } = event;
+    this.dataHandler(data);
+    console.log('Message from server:', event.data);
   };
 
-  onError = () => {
-    console.error('WebSocket error:', Error);
+  onError = (event: Event) => {
+    console.error('WebSocket error:', event);
   };
   send(message: string) {
+    console.log('send', message);
     this.ws.send(message);
   }
 }

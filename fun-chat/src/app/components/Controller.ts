@@ -1,4 +1,5 @@
 import WebSocketManager from './WebSocketManager';
+import DataHandler from './DataHandler';
 import emitter from './EventEmitter';
 
 type LoginRequest = {
@@ -13,20 +14,26 @@ type LoginRequest = {
 };
 
 export default class Controller {
-  private wsManager = new WebSocketManager();
+  private dataHandler = new DataHandler();
+  private wsManager = new WebSocketManager(this.dataHandler.getData);
+
   constructor() {
     console.log(this.wsManager);
     emitter.on('login', this.authorize);
   }
 
-  protected authorize = () => {
+  protected authorize = (login: unknown, password: unknown) => {
+    if (typeof login !== 'string' || typeof password !== 'string') {
+      throw new Error('login or password is not string');
+    }
+    console.log('authorize');
     const request: LoginRequest = {
-      id: '1',
+      id: crypto.randomUUID(),
       type: 'USER_LOGIN',
       payload: {
         user: {
-          login: 'masha',
-          password: '2222',
+          login,
+          password,
         },
       },
     };
