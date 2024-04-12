@@ -1,3 +1,10 @@
+import emitter from './EventEmitter';
+
+type LoginResponse = {
+  login: string;
+  isLogined: boolean;
+};
+
 export default class DataHandler {
   public getData = (dataStr: string) => {
     const data = JSON.parse(dataStr);
@@ -6,6 +13,7 @@ export default class DataHandler {
     switch (data.type) {
       case 'USER_LOGIN':
         console.log('userlogin');
+        this.authorize(data.payload.user);
         break;
       case 'USER_LOGOUT':
         console.log('userlogout');
@@ -34,7 +42,7 @@ export default class DataHandler {
       case 'MSG_EDIT':
         console.log('userlogout');
         break;
-      case 'MSG_ERROR':
+      case 'ERROR':
         console.log(data.payload.error);
         break;
 
@@ -43,4 +51,11 @@ export default class DataHandler {
         break;
     }
   };
+
+  private authorize(user: LoginResponse) {
+    if (user.isLogined) {
+      // отправляем в сессион сторедж
+      emitter.emit('navigate', 'main');
+    }
+  }
 }
