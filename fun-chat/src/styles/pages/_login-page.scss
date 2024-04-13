@@ -1,5 +1,6 @@
 .login-wrapper {
   width: 350px;
+  // height: 363px;
   position: relative;
 
   // @include flex(center, center);
@@ -90,7 +91,7 @@
 
 .modal-wrapper {
   width: 320px;
-  height: 80%;
+  height: 85%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -113,18 +114,22 @@
 
 @keyframes modal-show {
   from {
-    transform: scale(0);
+    // transform: scale(0) translate(-50%, -50%);
+    opacity: 0;
   }
   to {
-    transform: scale(1);
+    opacity: 1;
+    // transform: scale(1) translate(-50%, -50%);
   }
 }
 
 @keyframes modal-hide {
   from {
-    transform: scale(1);
+    opacity: 1;
+    // transform: scale(1) translate(-50%, -50%);
   }
   to {
-    transform: scale(0);
+    opacity: 0;
+    // transform: scale(0) translate(-50%, -50%);
   }
 }

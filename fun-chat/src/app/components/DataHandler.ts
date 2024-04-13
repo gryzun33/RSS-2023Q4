@@ -1,6 +1,7 @@
 import emitter from './EventEmitter';
 import storage from './Storage';
 import state from './State';
+import ErrorHandler from './ErrorHandler';
 
 type LoginResponse = {
   login: string;
@@ -8,6 +9,8 @@ type LoginResponse = {
 };
 
 export default class DataHandler {
+  protected errorHandler = new ErrorHandler();
+
   public getData = (dataStr: string) => {
     const data = JSON.parse(dataStr);
     console.log('data=', data);
@@ -46,6 +49,7 @@ export default class DataHandler {
         console.log('userlogout');
         break;
       case 'ERROR':
+        this.errorHandler.onError(data.payload.error);
         console.log(data.payload.error);
         break;
 

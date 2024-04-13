@@ -1,9 +1,11 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
 import InputField from './InputField';
+import Modal from './Modal';
 import emitter from '../EventEmitter';
 
 export default class LoginPage extends BaseComponent {
+  protected modal?: Modal;
   protected inputs: HTMLInputElement[] = [];
   protected loginForm = new BaseComponent<HTMLFormElement>({
     tag: 'form',
@@ -49,6 +51,7 @@ export default class LoginPage extends BaseComponent {
     this.loginForm.on('input', this.onChangeForm);
     this.loginForm.on('submit', this.onSubmitForm);
     this.infoBtn.on('click', () => emitter.emit('navigate', 'about'));
+    emitter.on('incorrectAuth', this.openModal);
   }
 
   protected createView() {
@@ -74,5 +77,13 @@ export default class LoginPage extends BaseComponent {
     const passValue = this.inputPassword.input.element.value;
     emitter.emit('login', loginValue, passValue);
     event.preventDefault();
+  };
+
+  protected openModal = (text: unknown) => {
+    if (typeof text !== 'string') {
+      throw new Error('modaltext isn`t string');
+    }
+    this.modal = new Modal(text);
+    this.append(this.modal);
   };
 }

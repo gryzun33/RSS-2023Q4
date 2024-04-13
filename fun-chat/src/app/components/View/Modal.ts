@@ -1,6 +1,5 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
-import emitter from '../EventEmitter';
 
 export default class Modal extends BaseComponent {
   protected okBtn = new Button({
@@ -9,12 +8,11 @@ export default class Modal extends BaseComponent {
   });
   protected modalText = new BaseComponent({ tag: 'p', classNames: ['modal-text'] });
 
-  constructor() {
+  constructor(text: string) {
     super({ tag: 'div', classNames: ['modal-wrapper'] });
     this.createView();
+    this.open(text);
     this.okBtn.on('click', this.close);
-    emitter.on('openModal', this.open);
-    // this.open();
   }
 
   protected createView(): void {
@@ -25,13 +23,9 @@ export default class Modal extends BaseComponent {
     this.modalText.setTextContent(text);
   }
 
-  protected open = (text: unknown): void => {
-    if (typeof text !== 'string') {
-      throw new Error('modaltext isn`t string');
-    }
-
+  protected open = (text: string): void => {
     this.addClass('modal-show');
-    this.setTextContent(text);
+    this.setContent(text);
     // this.modalContent.addClass('modal-show');
   };
 
@@ -39,8 +33,13 @@ export default class Modal extends BaseComponent {
     this.addClass('modal-hide');
     // this.modalContent.addClass('modal-hide');
     this.on('animationend', () => {
-      this.removeClass('modal-show');
-      this.removeClass('modal-hide');
+      this.destroy();
+      // this.removeClass('modal-show');
+      // this.removeClass('modal-hide');
     });
+
+    // function hideModal() {
+
+    // }
   };
 }
