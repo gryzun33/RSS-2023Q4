@@ -64,7 +64,9 @@ export default class DataHandler {
       const { id, login, password } = state.getUser();
       if (idResponse === id) {
         storage.saveData('user', { login, password });
-        emitter.emit('navigate', 'main');
+        let path = window.location.pathname.slice(1);
+        path = path === 'about' ? 'about' : 'main';
+        emitter.emit('navigate', path);
       }
     }
   }

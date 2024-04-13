@@ -29,6 +29,7 @@ export default class App {
     console.log(controller);
     const routes = this.createRoutes();
     this.router = new Router(routes);
+    console.log(this.router);
   }
 
   start() {
