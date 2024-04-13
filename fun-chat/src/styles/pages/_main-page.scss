@@ -1,88 +1,21 @@
 .main-wrapper {
   max-width: 800px;
   width: 100%;
-  background-color: $color-bg;
+  // background-color: $color-bg;
   // @include flex(center, center);
   // background-color: green;
   border-radius: 5px;
   box-shadow: 0 0 5px 3px rgba(37, 78, 88, 0.7);
 }
 
-.header {
-  width: 100%;
-  height: 80px;
-  @include flex;
-}
-
 .main {
   width: 100%;
   height: 500px;
+  background-color: $color-main-bg;
 }
 
 .footer {
   width: 100%;
   height: 80px;
-}
-
-.main-info-btn {
-  @include flex(center, center);
-  // @include bg-icon;
-  // display: block;
-  width: 50px;
-  height: 50px;
-  // background-image: url("./src/assets/icons/info.svg");
-  // background-size: 80% auto;
-  cursor: pointer;
-  // transition: 0.3s ease-in-out;
-
-  svg {
-    width: 80%;
-    transition: 0.3s ease-in-out;
-
-    circle,
-    path {
-      stroke: $color-icon;
-      transition: 0.3s ease-in-out;
-    }
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      circle,
-      path {
-        stroke: $color-icon-hover;
-      }
-    }
-  }
-}
-
-.logout-btn {
-  @include flex(center, center);
-  // display: block;
-
-  // @include bg-icon;
-  width: 50px;
-  height: 50px;
-  // background-image: url("./src/assets/icons/logout.svg");
-  // background-size: 80% auto;
-  cursor: pointer;
-  // transition: 0.3s ease-in-out;
-
-  svg {
-    width: 80%;
-    transition: 0.3s ease-in-out;
-
-    path {
-      stroke: $color-icon;
-      transition: 0.3s ease-in-out;
-    }
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      path {
-        stroke: $color-icon-hover;
-      }
-    }
-  }
+  background-color: $color-bg;
 }

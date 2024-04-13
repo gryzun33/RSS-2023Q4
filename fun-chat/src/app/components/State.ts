@@ -1,4 +1,5 @@
 import { User } from '../utils/types';
+import storage from './Storage';
 
 class State {
   // protected login: string = '';
@@ -9,6 +10,14 @@ class State {
     login: '',
     password: '',
   };
+
+  constructor() {
+    const user = storage.getData('user');
+    if (user) {
+      this.currUser.login = user.login;
+      this.currUser.password = user.password;
+    }
+  }
 
   public saveUser(user: User) {
     this.currUser = { ...user };
