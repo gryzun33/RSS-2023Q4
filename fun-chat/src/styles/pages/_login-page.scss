@@ -1,5 +1,6 @@
 .login-wrapper {
   width: 350px;
+  position: relative;
 
   // @include flex(center, center);
   // background-color: blue;
@@ -84,5 +85,46 @@
 
   .login-btn {
     @include btn;
+  }
+}
+
+.modal-wrapper {
+  width: 320px;
+  height: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $color-modal-bg;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 3px rgba(37, 78, 88, 0.7);
+  z-index: 1;
+  display: none;
+}
+
+.modal-show {
+  display: block;
+  animation: modal-show 0.3s ease-in-out forwards;
+}
+
+.modal-hide {
+  animation: modal-hide 0.3s ease-in-out forwards;
+}
+
+@keyframes modal-show {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes modal-hide {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
   }
 }
