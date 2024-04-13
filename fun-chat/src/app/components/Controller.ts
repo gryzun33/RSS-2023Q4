@@ -20,11 +20,11 @@ export default class Controller {
 
   constructor() {
     console.log(this.wsManager);
-    emitter.on('login', this.authorize);
+    emitter.on('login', this.loginRequest);
     emitter.on('logout', this.logoutRequest);
   }
 
-  protected authorize = (login: unknown, password: unknown) => {
+  protected loginRequest = (login: unknown, password: unknown) => {
     if (typeof login !== 'string' || typeof password !== 'string') {
       throw new Error('login or password is not string');
     }
