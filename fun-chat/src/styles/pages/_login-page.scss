@@ -1,17 +1,19 @@
 .login-wrapper {
   width: 350px;
+
   // @include flex(center, center);
   // background-color: blue;
 }
 
 .login-form {
   width: 100%;
-  background-color: gray;
+  // background-color: gray;
   @include flex-column;
   padding: 30px 20px;
   gap: 20px;
   border-radius: 5px;
   background-color: $color-bg;
+  box-shadow: 0 0 5px 3px rgba(37, 78, 88, 0.7);
 }
 
 .input-wrapper {

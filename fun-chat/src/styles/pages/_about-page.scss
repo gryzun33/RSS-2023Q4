@@ -8,6 +8,7 @@
   margin: 20px;
   @include flex-column(normal, center);
   color: $color-text;
+  box-shadow: 0 0 5px 3px rgba(37, 78, 88, 0.7);
   // @include flex(center, center);
   // background-color: green;
 }
