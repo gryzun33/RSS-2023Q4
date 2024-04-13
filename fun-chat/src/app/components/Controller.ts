@@ -2,6 +2,7 @@ import WebSocketManager from './WebSocketManager';
 import DataHandler from './DataHandler';
 import emitter from './EventEmitter';
 import state from './State';
+import storage from './Storage';
 
 type LoginRequest = {
   id: string;
@@ -16,13 +17,23 @@ type LoginRequest = {
 
 export default class Controller {
   private dataHandler = new DataHandler();
-  private wsManager = new WebSocketManager(this.dataHandler.getData);
+  private wsManager?: WebSocketManager;
 
   constructor() {
+    this.wsManager = new WebSocketManager(this.dataHandler.getData, this.checkAuthorized);
     console.log(this.wsManager);
     emitter.on('login', this.loginRequest);
     emitter.on('logout', this.logoutRequest);
   }
+
+  public checkAuthorized = () => {
+    const user = storage.getData('user');
+    if (user) {
+      console.log('userfromstorage=', user);
+      const { login, password } = user;
+      this.loginRequest(login, password);
+    }
+  };
 
   protected loginRequest = (login: unknown, password: unknown) => {
     if (typeof login !== 'string' || typeof password !== 'string') {
@@ -42,7 +53,7 @@ export default class Controller {
       },
     };
 
-    this.wsManager.send(JSON.stringify(request));
+    this.wsManager?.send(JSON.stringify(request));
   };
 
   protected logoutRequest = () => {
@@ -58,6 +69,6 @@ export default class Controller {
         },
       },
     };
-    this.wsManager.send(JSON.stringify(request));
+    this.wsManager?.send(JSON.stringify(request));
   };
 }

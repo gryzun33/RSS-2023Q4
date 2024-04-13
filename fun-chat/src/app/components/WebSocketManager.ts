@@ -1,8 +1,13 @@
+// import storage from "./Storage";
+
 type Handler = (arg: string) => void;
 
 export default class WebSocketManager {
   private ws = new WebSocket('ws://localhost:4000');
-  constructor(public dataHandler: Handler) {
+  constructor(
+    public dataHandler: Handler,
+    public checkAuthorized: () => void
+  ) {
     this.ws.addEventListener('open', this.onOpen);
   }
 
@@ -11,6 +16,8 @@ export default class WebSocketManager {
     this.ws.addEventListener('message', this.onMessage);
     this.ws.addEventListener('close', this.onClose);
     this.ws.addEventListener('error', this.onError);
+
+    this.checkAuthorized();
   };
 
   onClose = () => {

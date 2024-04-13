@@ -12,14 +12,24 @@ export default class Router {
 
   public init() {
     document.addEventListener('DOMContentLoaded', () => {
-      let path = window.location.pathname.slice(1);
-      const isUser = storage.getData('user');
-      if (path === 'main' && !isUser) {
-        path = 'login';
-      } else if (path === 'login' && isUser) {
-        path = 'main';
+      const path = window.location.pathname.slice(1);
+      const user = storage.getData('user');
+      // if (path === ('main' || 'login') && user) {
+      // emitter.emit('login', user.login, user.password);
+      // return;
+      // }
+      if (path === 'main') {
+        return;
       }
+      if (path === 'login' && user) {
+        return;
+      }
+
+      // if (path === 'main' && !user) {
+      // path = 'login';
+      // }
       // console.log('pathhhhh=', path);
+
       this.navigate(path);
     });
   }
