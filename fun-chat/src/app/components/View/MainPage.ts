@@ -3,6 +3,7 @@ import BaseComponent from './BaseComponent';
 import Header from './Header';
 import Footer from './Footer';
 import Users from './Users';
+import Dialog from './Dialog';
 
 // import Button from './Button';
 // import emitter from '../EventEmitter';
@@ -23,11 +24,11 @@ export default class MainPage extends BaseComponent {
 
     const main = new BaseComponent({ tag: 'main', classNames: ['main'] });
     const users = new Users({ tag: 'div', classNames: ['users-wrapper'] });
-    const dialogWrapper = new BaseComponent({ tag: 'div', classNames: ['dialog-wrapper'] });
     const messagesWrapper = new BaseComponent({ tag: 'div', classNames: ['messages-wrapper'] });
+    const dialogWrapper = new Dialog({ tag: 'div', classNames: ['dialog-wrapper'] });
     const newMessage = new BaseComponent({ tag: 'div', classNames: ['new-message-wrapper'] });
-    dialogWrapper.append(messagesWrapper, newMessage);
-    main.append(users, dialogWrapper);
+    messagesWrapper.append(dialogWrapper, newMessage);
+    main.append(users, messagesWrapper);
     this.append(header, main, footer);
   }
 }

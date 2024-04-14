@@ -59,7 +59,7 @@ export default class DataHandler {
         break;
 
       default:
-        console.log('unknown type');
+        console.error('unknown type');
         break;
     }
   };

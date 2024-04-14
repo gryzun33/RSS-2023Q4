@@ -25,6 +25,8 @@ export default class Users extends BaseComponent {
     emitter.on('addUsersToList', this.createUsersList);
     emitter.on('external-login', this.addActiveUser);
     emitter.on('external-logout', this.addInactiveUser);
+    this.userList.on('click', this.onClickUsers);
+    // this.inactiveList.on('click', this.onClickInactiveUsers);
   }
 
   protected createView() {
@@ -40,18 +42,6 @@ export default class Users extends BaseComponent {
     }
 
     data.forEach((user: UserResponse) => {
-      // const userItem = new BaseComponent<HTMLLIElement>({
-      //   tag: 'li',
-      //   classNames: ['user-item'],
-      // });
-      // const userLogin = new BaseComponent({
-      //   tag: 'div',
-      //   classNames: ['user-text'],
-      //   text: user.login,
-      // });
-      // userItem.append(userLogin);
-      // userItem.attr('id', `${user.login}`);
-
       const userItem = this.getNewUserItem(user.login);
 
       if (user.isLogined) {
@@ -73,7 +63,6 @@ export default class Users extends BaseComponent {
     if (!userItem) {
       userItem = this.getNewUserItem(userLogin);
     }
-    // const userItem = this.usersMap.get(userLogin)? this.usersMap.get(userLogin):this.getNewUserItem(userLogin);
 
     userItem.addClass('active-user');
     this.activeList.append(userItem);
@@ -107,4 +96,21 @@ export default class Users extends BaseComponent {
 
     return userItem;
   }
+
+  protected onClickUsers = (e: Event) => {
+    const { target } = e;
+    if (!(target instanceof HTMLElement)) {
+      throw new Error(`target isn't HTMLEelement`);
+    }
+    const userElement = target.closest('.user-item');
+    if (!userElement) {
+      throw new Error(`userElement is null`);
+    }
+    const login = userElement.id;
+    if (userElement.closest('.active-list')) {
+      emitter.emit('set-dialog-user', login, true);
+    } else if (userElement.closest('.inactive-list')) {
+      emitter.emit('set-dialog-user', login, false);
+    }
+  };
 }

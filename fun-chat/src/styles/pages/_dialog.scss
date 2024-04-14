@@ -1,0 +1,26 @@
+.messages-wrapper {
+  width: 70%;
+  height: 100%;
+  background-color: $color-main-bg;
+  border: 2px solid $color-input-border;
+  border-radius: 5px;
+  @include flex-column;
+}
+
+.dialog-wrapper {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.dialog-user {
+  width: 100%;
+  height: 40px;
+  padding: 0 50px;
+  border-bottom: 2px solid $color-input-border;
+  @include flex(space-between, center);
+  color: $color-dialog;
+}
+
+.status-inactive {
+  color: $color-fail;
+}

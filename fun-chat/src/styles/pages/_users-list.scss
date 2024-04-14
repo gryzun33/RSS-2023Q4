@@ -3,6 +3,8 @@
   height: 100%;
   background-color: $color-main-bg;
   padding: 5px;
+  border: 2px solid $color-input-border;
+  border-radius: 5px;
 }
 
 .user-search {
