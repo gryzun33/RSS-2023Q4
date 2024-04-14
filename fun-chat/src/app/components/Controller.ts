@@ -4,6 +4,13 @@ import emitter from './EventEmitter';
 import state from './State';
 import storage from './Storage';
 
+const REQUESTS = {
+  login: 'USER_LOGIN',
+  logout: 'USER_LOGOUT',
+  activeUsers: 'USER_ACTIVE',
+  inactiveUsers: 'USER_INACTIVE',
+};
+
 type LoginRequest = {
   id: string;
   type: string;
@@ -15,6 +22,12 @@ type LoginRequest = {
   };
 };
 
+type UsersRequest = {
+  id: string;
+  type: string;
+  payload: null;
+};
+
 export default class Controller {
   private dataHandler = new DataHandler();
   private wsManager?: WebSocketManager;
@@ -23,6 +36,8 @@ export default class Controller {
     this.wsManager = new WebSocketManager(this.dataHandler.getData, this.checkAuthorized);
     console.log(this.wsManager);
     emitter.on('login', this.loginRequest);
+    // emitter.on('login', this.getActiveUsersRequest);
+    // emitter.on('login', this.getInactiveUsersRequest);
     emitter.on('logout', this.logoutRequest);
   }
 
@@ -42,9 +57,9 @@ export default class Controller {
     console.log('authorize');
     const requestId = crypto.randomUUID();
     state.saveUser({ id: requestId, login, password });
-    const request: LoginRequest = {
+    const loginRequest: LoginRequest = {
       id: requestId,
-      type: 'USER_LOGIN',
+      type: REQUESTS.login,
       payload: {
         user: {
           login,
@@ -53,7 +68,12 @@ export default class Controller {
       },
     };
 
-    this.wsManager?.send(JSON.stringify(request));
+    const activeUsersRequest = this.getUsers(REQUESTS.activeUsers);
+    const inactiveUsersRequest = this.getUsers(REQUESTS.inactiveUsers);
+
+    this.wsManager?.send(JSON.stringify(loginRequest));
+    this.wsManager?.send(JSON.stringify(activeUsersRequest));
+    this.wsManager?.send(JSON.stringify(inactiveUsersRequest));
   };
 
   protected logoutRequest = () => {
@@ -61,7 +81,7 @@ export default class Controller {
     const requestId = crypto.randomUUID();
     const request: LoginRequest = {
       id: requestId,
-      type: 'USER_LOGOUT',
+      type: REQUESTS.logout,
       payload: {
         user: {
           login,
@@ -71,4 +91,13 @@ export default class Controller {
     };
     this.wsManager?.send(JSON.stringify(request));
   };
+
+  protected getUsers(status: string): UsersRequest {
+    const requestId = crypto.randomUUID();
+    return {
+      id: requestId,
+      type: status,
+      payload: null,
+    };
+  }
 }
