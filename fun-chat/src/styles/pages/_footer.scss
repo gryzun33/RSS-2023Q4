@@ -1,0 +1,40 @@
+.footer {
+  width: 100%;
+  height: 80px;
+  background-color: $color-bg;
+  @include flex(space-between, center);
+  padding: 0 30px;
+}
+
+.year {
+  color: $color-footer;
+}
+
+.icon-github {
+  width: 50px;
+}
+
+.icon-school {
+  width: 90px;
+}
+
+.icon-github,
+.icon-school {
+  cursor: pointer;
+  svg {
+    width: 100%;
+
+    path {
+      fill: $color-footer;
+      transition: 0.3s ease-in-out;
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      svg path {
+        fill: $color-footer-hover;
+      }
+    }
+  }
+}
