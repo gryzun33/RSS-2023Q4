@@ -21,10 +21,14 @@ export default class DataHandler {
         this.logoutResponse(data.payload.user);
         break;
       case 'USER_EXTERNAL_LOGIN':
-        console.log('userlogout');
+        console.log('userexternallogin');
+        // this.externalLogin(data.payload.user);
+        emitter.emit('external-login', data.payload.user.login);
         break;
       case 'USER_EXTERNAL_LOGOUT':
-        console.log('userlogout');
+        console.log('userexternallogout');
+        // this.externalLogout(data.payload.user);
+        emitter.emit('external-logout', data.payload.user.login);
         break;
       case 'USER_ACTIVE':
         console.log('useractive');
