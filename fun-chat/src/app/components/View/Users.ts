@@ -1,5 +1,7 @@
 import BaseComponent from './BaseComponent';
-import { Props } from '../../utils/types';
+import { Props, UserResponse } from '../../utils/types';
+import emitter from '../EventEmitter';
+// import state from '../State';
 
 export default class Users extends BaseComponent {
   public userSearch = new BaseComponent<HTMLInputElement>({
@@ -19,6 +21,7 @@ export default class Users extends BaseComponent {
   constructor(props: Props) {
     super(props);
     this.createView();
+    emitter.on('addUsersToList', this.createUsersList);
   }
 
   protected createView() {
@@ -27,24 +30,44 @@ export default class Users extends BaseComponent {
     this.userSearch.attr('placeholder', 'Search...');
   }
 
-  protected createActiveList = (data: []) => {
-    data.forEach((user) => {
-      const activeUser = new BaseComponent<HTMLLIElement>({
+  protected createUsersList = (data: unknown) => {
+    console.log('list=', data);
+    if (!Array.isArray(data)) {
+      throw new Error(`data isn't array`);
+    }
+
+    data.forEach((user: UserResponse) => {
+      // const className = user.isLogined ? 'active-user' : 'inactive-user';
+      const userItem = new BaseComponent<HTMLLIElement>({
         tag: 'li',
-        classNames: ['active-user'],
+        classNames: ['user-item'],
       });
-      activeUser.attr('id', `${user}`);
-      this.activeList.append(activeUser);
+      if (user.isLogined) {
+        userItem.addClass('active-user');
+      }
+      const userLogin = new BaseComponent({
+        tag: 'div',
+        classNames: ['user-text'],
+        text: user.login,
+      });
+      userItem.append(userLogin);
+      userItem.attr('id', `${user.login}`);
+
+      if (user.isLogined) {
+        this.activeList.append(userItem);
+      } else {
+        this.inactiveList.append(userItem);
+      }
     });
   };
-  protected createInactiveList = (data: []) => {
-    data.forEach((user) => {
-      const inactiveUser = new BaseComponent<HTMLLIElement>({
-        tag: 'li',
-        classNames: ['inactive-user'],
-      });
-      inactiveUser.attr('id', `${user}`);
-      this.activeList.append(inactiveUser);
-    });
-  };
+  // protected createInactiveList = (data: UserResponse[]) => {
+  //   data.forEach((user) => {
+  //     const inactiveUser = new BaseComponent<HTMLLIElement>({
+  //       tag: 'li',
+  //       classNames: ['inactive-user'],
+  //     });
+  //     inactiveUser.attr('id', `${user}`);
+  //     this.activeList.append(inactiveUser);
+  //   });
+  // };
 }

@@ -31,8 +31,19 @@ export type InputProps = Omit<Props, 'tag'> & {
   autocomplete?: string;
 };
 
-export type User = {
+export type CurrentUser = {
   id: string;
   login: string;
   password: string;
+};
+
+export type UserResponse = {
+  login: string;
+  isLogined: boolean;
+};
+
+export type User = {
+  login: string;
+  isLogined: boolean;
+  unreaded?: number;
 };

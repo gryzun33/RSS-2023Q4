@@ -1,11 +1,15 @@
-import { User } from '../utils/types';
+import { CurrentUser, UserResponse, User } from '../utils/types';
 import storage from './Storage';
+
+// type Users = User[];
 
 class State {
   // protected login: string = '';
   // protected password: string = '';
+  public users: User[] = [];
+  // public activeUser:User = {};
 
-  protected currUser: User = {
+  protected currUser: CurrentUser = {
     id: '',
     login: '',
     password: '',
@@ -19,12 +23,17 @@ class State {
     }
   }
 
-  public saveUser(user: User) {
+  public saveUser(user: CurrentUser) {
     this.currUser = { ...user };
   }
 
-  public getUser(): User {
+  public getUser(): CurrentUser {
     return this.currUser;
+  }
+
+  public setUsers(data: UserResponse[]) {
+    this.users = [...this.users, ...data];
+    // console.log('ALLUSERS=', this.users);
   }
 }
 
