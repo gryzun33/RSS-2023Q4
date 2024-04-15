@@ -1,23 +1,17 @@
 import BaseComponent from './BaseComponent';
-import Button from './Button';
+// import Button from './Button';
 
 export default class Modal extends BaseComponent {
   protected modalContent = new BaseComponent({ tag: 'div', classNames: ['modal-content'] });
-  protected okBtn = new Button({
-    classNames: ['ok-btn'],
-    text: 'Ok',
-  });
   protected modalText = new BaseComponent({ tag: 'p', classNames: ['modal-text'] });
 
   constructor(text: string) {
     super({ tag: 'div', classNames: ['modal-wrapper'] });
-    this.createView();
+    // this.createView();
     this.open(text);
-    this.okBtn.on('click', this.close);
   }
 
   protected createView(): void {
-    this.modalContent.append(this.modalText, this.okBtn);
     this.append(this.modalContent);
   }
 
@@ -33,7 +27,7 @@ export default class Modal extends BaseComponent {
     // this.modalContent.addClass('modal-show');
   };
 
-  protected close = (): void => {
+  public close = (): void => {
     this.addClass('overlay-hide');
     this.modalContent.addClass('modal-hide');
     this.on('animationend', () => {

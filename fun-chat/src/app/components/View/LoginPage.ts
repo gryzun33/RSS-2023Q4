@@ -1,11 +1,12 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
 import InputField from './InputField';
-import Modal from './Modal';
+// import Modal from './Modal';
+import ModalLogin from './ModalLogin';
 import emitter from '../EventEmitter';
 
 export default class LoginPage extends BaseComponent {
-  protected modal?: Modal;
+  protected modal?: ModalLogin;
   protected inputs: HTMLInputElement[] = [];
   protected loginForm = new BaseComponent<HTMLFormElement>({
     tag: 'form',
@@ -83,7 +84,7 @@ export default class LoginPage extends BaseComponent {
     if (typeof text !== 'string') {
       throw new Error('modaltext isn`t string');
     }
-    this.modal = new Modal(text);
+    this.modal = new ModalLogin(text);
     this.append(this.modal);
   };
 }
