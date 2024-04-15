@@ -5,6 +5,7 @@
   padding: 5px;
   border: 2px solid $color-input-border;
   border-radius: 5px;
+  @include flex-column;
 }
 
 .user-search {
@@ -22,6 +23,21 @@
 .users-list {
   margin-top: 10px;
   margin-left: 5px;
+  // height: 100%;
+  flex-grow: 1;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: $color-scrollbar;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 8px;
+    height: 8px;
+    background-color: $color-thumb;
+  }
 }
 
 ul {

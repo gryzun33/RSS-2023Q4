@@ -30,6 +30,19 @@
   flex-grow: 1;
   width: 100%;
   position: relative;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: $color-scrollbar;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 8px;
+    height: 8px;
+    background-color: $color-thumb;
+  }
 }
 
 .placeholder {
