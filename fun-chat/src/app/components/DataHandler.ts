@@ -4,6 +4,19 @@ import state from './State';
 import ErrorHandler from './ErrorHandler';
 import { UserResponse } from '../utils/types';
 
+// type MessageResponse = {
+//   id: string,
+//   from: string,
+//   to: string,
+//   text: string,
+//   datetime: number,
+//   status: {
+//     isDelivered: boolean,
+//     isReaded: boolean,
+//     isEdited: boolean,
+//   }
+// }
+
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
 
@@ -13,29 +26,29 @@ export default class DataHandler {
 
     switch (data.type) {
       case 'USER_LOGIN':
-        console.log('userlogin');
+        // console.log('userlogin');
         this.authorize(data.payload.user, data.id);
         break;
       case 'USER_LOGOUT':
-        console.log('userlogout');
+        // console.log('userlogout');
         this.logoutResponse(data.payload.user);
         break;
       case 'USER_EXTERNAL_LOGIN':
-        console.log('userexternallogin');
+        // console.log('userexternallogin');
         // this.externalLogin(data.payload.user);
         emitter.emit('external-login', data.payload.user.login);
         break;
       case 'USER_EXTERNAL_LOGOUT':
-        console.log('userexternallogout');
+        // console.log('userexternallogout');
         // this.externalLogout(data.payload.user);
         emitter.emit('external-logout', data.payload.user.login);
         break;
       case 'USER_ACTIVE':
-        console.log('useractive');
+        // console.log('useractive');
         this.usersResponse(data.payload.users, data.type);
         break;
       case 'USER_INACTIVE':
-        console.log('userinactive');
+        // console.log('userinactive');
         this.usersResponse(data.payload.users, data.type);
         break;
       case 'MSG_SEND':
@@ -55,7 +68,7 @@ export default class DataHandler {
         break;
       case 'ERROR':
         this.errorHandler.onError(data.payload.error);
-        console.log(data.payload.error);
+        // console.log(data.payload.error);
         break;
 
       default:

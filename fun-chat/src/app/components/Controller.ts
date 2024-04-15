@@ -9,6 +9,7 @@ const REQUESTS = {
   logout: 'USER_LOGOUT',
   activeUsers: 'USER_ACTIVE',
   inactiveUsers: 'USER_INACTIVE',
+  messSend: 'MSG_SEND',
 };
 
 type LoginRequest = {
@@ -27,6 +28,17 @@ type UsersRequest = {
   type: string;
   payload: null;
 };
+
+// type MessageRequest = {
+//   id: string;
+//   type: string;
+//   payload: {
+//     message: {
+//       to: string;
+//       text: string;
+//     };
+//   };
+// };
 
 export default class Controller {
   private dataHandler = new DataHandler();
