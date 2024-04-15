@@ -30,6 +30,10 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.element.textContent = text;
   }
 
+  public getTextContent() {
+    return this.element.textContent;
+  }
+
   public addClass(className: string): void {
     this.element.classList.add(className);
   }
@@ -59,7 +63,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   public attr(name: string, value?: string) {
     if (value) {
       this.element.setAttribute(name, value);
-      return this;
+      // return this;
     }
     return this.element.getAttribute(name);
   }

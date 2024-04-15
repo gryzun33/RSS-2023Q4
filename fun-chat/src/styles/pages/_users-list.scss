@@ -24,9 +24,9 @@
   margin-left: 5px;
 }
 
-ul {
-  list-style-type: none;
-}
+// ul {
+//   list-style-type: none;
+// }
 
 .user-item {
   width: 100%;
@@ -48,4 +48,8 @@ ul {
 
 .active-user {
   color: $color-active;
+}
+
+.user-hidden {
+  display: none;
 }

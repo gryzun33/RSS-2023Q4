@@ -26,6 +26,7 @@ export default class Users extends BaseComponent {
     emitter.on('external-login', this.addActiveUser);
     emitter.on('external-logout', this.addInactiveUser);
     this.userList.on('click', this.onClickUsers);
+    this.userSearch.on('input', this.searchUsers);
     // this.inactiveList.on('click', this.onClickInactiveUsers);
   }
 
@@ -91,7 +92,7 @@ export default class Users extends BaseComponent {
       text: login,
     });
     userItem.append(userLogin);
-    userItem.attr('id', `${login}`);
+    userItem.attr('data-login', `${login}`);
     this.usersMap.set(login, userItem);
 
     return userItem;
@@ -106,11 +107,41 @@ export default class Users extends BaseComponent {
     if (!userElement) {
       throw new Error(`userElement is null`);
     }
-    const login = userElement.id;
+    const login = userElement.getAttribute('data-login');
     if (userElement.closest('.active-list')) {
       emitter.emit('set-dialog-user', login, true);
     } else if (userElement.closest('.inactive-list')) {
       emitter.emit('set-dialog-user', login, false);
     }
+
+    this.resetUserList();
+  };
+
+  protected searchUsers = () => {
+    console.log('input');
+    const value = this.userSearch.getElement().value.toLowerCase();
+    const users = Array.from(this.usersMap.values());
+    if (value.trim() === '') {
+      users.forEach((user) => user.removeClass('user-hidden'));
+    } else {
+      users.forEach((user) => {
+        const login = user.attr('data-login');
+        if (!login) {
+          throw new Error('id is null');
+        }
+        const loginValue = login.toLowerCase();
+        if (!loginValue.includes(value)) {
+          user.addClass('user-hidden');
+        } else {
+          user.removeClass('user-hidden');
+        }
+      });
+    }
+  };
+
+  protected resetUserList = () => {
+    const users = Array.from(this.usersMap.values());
+    users.forEach((user) => user.removeClass('user-hidden'));
+    this.userSearch.getElement().value = '';
   };
 }
