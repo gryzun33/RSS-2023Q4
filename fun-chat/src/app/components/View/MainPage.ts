@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Users from './Users';
 import Dialog from './Dialog';
+import NewMessage from './NewMessage';
 
 // import Button from './Button';
 // import emitter from '../EventEmitter';
@@ -26,7 +27,7 @@ export default class MainPage extends BaseComponent {
     const users = new Users({ tag: 'div', classNames: ['users-wrapper'] });
     const messagesWrapper = new BaseComponent({ tag: 'div', classNames: ['messages-wrapper'] });
     const dialogWrapper = new Dialog({ tag: 'div', classNames: ['dialog-wrapper'] });
-    const newMessage = new BaseComponent({ tag: 'div', classNames: ['new-message-wrapper'] });
+    const newMessage = new NewMessage({ tag: 'div', classNames: ['new-message-wrapper'] });
     messagesWrapper.append(dialogWrapper, newMessage);
     main.append(users, messagesWrapper);
     this.append(header, main, footer);

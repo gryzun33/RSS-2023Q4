@@ -2,7 +2,7 @@ import BaseComponent from './BaseComponent';
 import Button from './Button';
 import { Props } from '../../utils/types';
 
-export default class newMessage extends BaseComponent {
+export default class NewMessage extends BaseComponent {
   protected messageForm = new BaseComponent<HTMLFormElement>({
     tag: 'form',
     classNames: ['message-form'],
@@ -12,7 +12,7 @@ export default class newMessage extends BaseComponent {
     classNames: ['message-input'],
   });
 
-  protected loginBtn = new Button({
+  protected sendBtn = new Button({
     type: 'submit',
     classNames: ['send-btn'],
     text: 'Send',
@@ -22,5 +22,13 @@ export default class newMessage extends BaseComponent {
     this.createView();
   }
 
-  protected createView() {}
+  protected createView() {
+    this.messageForm.append(this.messageInput, this.sendBtn);
+    this.append(this.messageForm);
+
+    this.messageInput.attr('type', 'text');
+    this.messageInput.attr('placeholder', 'Write a message...');
+    this.messageInput.getElement().disabled = true;
+    this.sendBtn.disable();
+  }
 }

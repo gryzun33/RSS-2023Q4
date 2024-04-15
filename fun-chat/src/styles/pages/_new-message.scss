@@ -1,0 +1,35 @@
+.new-message-wrapper {
+  height: 60px;
+  width: 100%;
+  background-color: $color-main-bg;
+  border-top: 2px solid $color-border;
+  padding: 0 15px;
+  @include flex(center, center);
+}
+
+.message-form {
+  width: 100%;
+  @include flex(space-between, center);
+  gap: 5%;
+}
+
+.message-input {
+  flex-grow: 1;
+  height: 35px;
+  background-color: $color-input-main;
+  border-radius: 5px;
+  padding: 3px;
+  border: 2px solid $color-input-border;
+  outline: none;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.send-btn {
+  @include btn;
+  width: 100px;
+  height: 35px;
+  font-size: 16px;
+}
