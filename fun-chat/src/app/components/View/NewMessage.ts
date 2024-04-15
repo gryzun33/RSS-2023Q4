@@ -1,6 +1,7 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
 import { Props } from '../../utils/types';
+import emitter from '../EventEmitter';
 
 export default class NewMessage extends BaseComponent {
   protected messageForm = new BaseComponent<HTMLFormElement>({
@@ -17,9 +18,13 @@ export default class NewMessage extends BaseComponent {
     classNames: ['send-btn'],
     text: 'Send',
   });
+
+  protected isEmpty: boolean = true;
   constructor(props: Props) {
     super(props);
     this.createView();
+    emitter.on('set-dialog-user', this.enableInput);
+    this.messageInput.on('input', this.onInputMessage);
   }
 
   protected createView() {
@@ -31,4 +36,17 @@ export default class NewMessage extends BaseComponent {
     this.messageInput.getElement().disabled = true;
     this.sendBtn.disable();
   }
+
+  protected enableInput = () => {
+    this.messageInput.getElement().disabled = false;
+  };
+
+  protected onInputMessage = () => {
+    const { value } = this.messageInput.getElement();
+    if (value.trim() === '') {
+      this.sendBtn.disable();
+    } else {
+      this.sendBtn.enable();
+    }
+  };
 }

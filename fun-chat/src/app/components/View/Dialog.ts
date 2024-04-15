@@ -10,6 +10,12 @@ enum Status {
 export default class Dialog extends BaseComponent {
   protected dialogUserLogin = new BaseComponent({ tag: 'p', classNames: ['dialog-user-login'] });
   protected dialogUserStatus = new BaseComponent({ tag: 'p', classNames: ['dialog-user-status'] });
+  protected messagesBox = new BaseComponent({ tag: 'div', classNames: ['messages-box'] });
+  protected placeholder = new BaseComponent({
+    tag: 'div',
+    classNames: ['placeholder'],
+    text: `Select a user to send a message to...`,
+  });
 
   constructor(props: Props) {
     super(props);
@@ -20,7 +26,9 @@ export default class Dialog extends BaseComponent {
   protected createView() {
     const dialogUser = new BaseComponent({ tag: 'div', classNames: ['dialog-user'] });
     dialogUser.append(this.dialogUserLogin, this.dialogUserStatus);
-    this.append(dialogUser);
+
+    this.messagesBox.append(this.placeholder);
+    this.append(dialogUser, this.messagesBox);
   }
 
   protected setDialogUser = (login: unknown, status: unknown) => {
@@ -35,5 +43,16 @@ export default class Dialog extends BaseComponent {
     } else {
       this.dialogUserStatus.removeClass('status-inactive');
     }
+
+    // this.enableInput();
+    this.changePlaceholder();
   };
+
+  protected changePlaceholder = () => {
+    this.placeholder.setTextContent(`Please write your first message...`);
+  };
+
+  // protected enableInput = () => {
+
+  // }
 }
