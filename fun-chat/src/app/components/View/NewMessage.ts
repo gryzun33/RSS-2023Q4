@@ -25,6 +25,7 @@ export default class NewMessage extends BaseComponent {
     this.createView();
     emitter.on('set-dialog-user', this.enableInput);
     this.messageInput.on('input', this.onInputMessage);
+    this.messageForm.on('submit', this.onSubmitForm);
   }
 
   protected createView() {
@@ -48,5 +49,13 @@ export default class NewMessage extends BaseComponent {
     } else {
       this.sendBtn.enable();
     }
+  };
+
+  protected onSubmitForm = (e: Event) => {
+    e.preventDefault();
+    const message = this.messageInput.getElement().value;
+    this.messageInput.getElement().value = '';
+    this.sendBtn.disable();
+    emitter.emit('send-message', message);
   };
 }

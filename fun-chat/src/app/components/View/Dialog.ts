@@ -21,6 +21,7 @@ export default class Dialog extends BaseComponent {
     super(props);
     this.createView();
     emitter.on('set-dialog-user', this.setDialogUser);
+    emitter.on('change-status', this.changeStatus);
   }
 
   protected createView() {
@@ -34,22 +35,34 @@ export default class Dialog extends BaseComponent {
   protected setDialogUser = (login: unknown, status: unknown) => {
     console.log('setUSER');
     if (typeof login !== 'string' || typeof status !== 'boolean') {
-      throw new Error(`login or status isn't string`);
+      throw new Error(`login or status does not match type `);
     }
     this.dialogUserLogin.setTextContent(login);
-    this.dialogUserStatus.setTextContent(status ? Status.online : Status.offline);
-    if (!status) {
-      this.dialogUserStatus.addClass('status-inactive');
-    } else {
-      this.dialogUserStatus.removeClass('status-inactive');
-    }
 
+    // if (!status) {
+    //   this.dialogUserStatus.addClass('status-inactive');
+    // } else {
+    //   this.dialogUserStatus.removeClass('status-inactive');
+    // }
+    this.changeStatus(status);
     // this.enableInput();
     this.changePlaceholder();
   };
 
   protected changePlaceholder = () => {
     this.placeholder.setTextContent(`Please write your first message...`);
+  };
+
+  protected changeStatus = (status: unknown) => {
+    if (typeof status !== 'boolean') {
+      throw new Error(`status isn't boolean`);
+    }
+    this.dialogUserStatus.setTextContent(status ? Status.online : Status.offline);
+    if (!status) {
+      this.dialogUserStatus.addClass('status-inactive');
+    } else {
+      this.dialogUserStatus.removeClass('status-inactive');
+    }
   };
 
   // protected enableInput = () => {

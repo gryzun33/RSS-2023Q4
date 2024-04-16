@@ -4,25 +4,25 @@ import state from './State';
 import ErrorHandler from './ErrorHandler';
 import { UserResponse } from '../utils/types';
 
-// type MessageResponse = {
-//   id: string,
-//   from: string,
-//   to: string,
-//   text: string,
-//   datetime: number,
-//   status: {
-//     isDelivered: boolean,
-//     isReaded: boolean,
-//     isEdited: boolean,
-//   }
-// }
+type MessageResponse = {
+  id: string;
+  from: string;
+  to: string;
+  text: string;
+  datetime: number;
+  status: {
+    isDelivered: boolean;
+    isReaded: boolean;
+    isEdited: boolean;
+  };
+};
 
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
 
   public getData = (dataStr: string) => {
     const data = JSON.parse(dataStr);
-    console.log('data=', data);
+    // console.log('data=', data);
 
     switch (data.type) {
       case 'USER_LOGIN':
@@ -35,13 +35,13 @@ export default class DataHandler {
         break;
       case 'USER_EXTERNAL_LOGIN':
         // console.log('userexternallogin');
-        // this.externalLogin(data.payload.user);
-        emitter.emit('external-login', data.payload.user.login);
+        this.userStatusResponse(data.payload.user);
+
         break;
       case 'USER_EXTERNAL_LOGOUT':
         // console.log('userexternallogout');
-        // this.externalLogout(data.payload.user);
-        emitter.emit('external-logout', data.payload.user.login);
+        this.userStatusResponse(data.payload.user);
+        // emitter.emit('external-logout', data.payload.user.login);
         break;
       case 'USER_ACTIVE':
         // console.log('useractive');
@@ -52,10 +52,15 @@ export default class DataHandler {
         this.usersResponse(data.payload.users, data.type);
         break;
       case 'MSG_SEND':
-        console.log('userlogout');
+        console.log('MSG-SENT-RESPONSE');
+        console.log('data=', data.payload);
+        this.messageResponse(data.payload);
+
         break;
       case 'MSG_FROM_USER':
-        console.log('userlogout');
+        console.log('MSGFROMUSER');
+        console.log('data=', data.payload);
+
         break;
       case 'MSG_DELIVER':
         console.log('userlogout');
@@ -107,4 +112,12 @@ export default class DataHandler {
     state.setUsers(users);
     emitter.emit('addUsersToList', users);
   }
+
+  private userStatusResponse(user: UserResponse) {
+    state.changeUserStatus(user);
+  }
+
+  private messageResponse = (msg: MessageResponse) => {
+    console.log('msg=', msg);
+  };
 }

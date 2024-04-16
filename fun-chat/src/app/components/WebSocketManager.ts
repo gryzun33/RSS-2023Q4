@@ -42,7 +42,7 @@ export default class WebSocketManager {
   onMessage = (event: MessageEvent) => {
     const { data } = event;
     this.dataHandler(data);
-    console.log('Message from server:', event.data);
+    // console.log('Message from server:', event.data);
   };
 
   onError = (event: Event) => {

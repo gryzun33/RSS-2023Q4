@@ -29,16 +29,16 @@ type UsersRequest = {
   payload: null;
 };
 
-// type MessageRequest = {
-//   id: string;
-//   type: string;
-//   payload: {
-//     message: {
-//       to: string;
-//       text: string;
-//     };
-//   };
-// };
+type MessageRequest = {
+  id: string | null;
+  type: string;
+  payload: {
+    message: {
+      to: string;
+      text: string;
+    };
+  };
+};
 
 export default class Controller {
   private dataHandler = new DataHandler();
@@ -51,6 +51,8 @@ export default class Controller {
     // emitter.on('login', this.getActiveUsersRequest);
     // emitter.on('login', this.getInactiveUsersRequest);
     emitter.on('logout', this.logoutRequest);
+    emitter.on('send-message', this.sendRequest);
+    emitter.on('set-dialog-user', this.dialogUserRequset);
   }
 
   public checkAuthorized = () => {
@@ -112,4 +114,40 @@ export default class Controller {
       payload: null,
     };
   }
+
+  protected dialogUserRequset = (login: unknown) => {
+    if (typeof login !== 'string') {
+      throw new Error(`login isnt't string`);
+    }
+    state.setDialogUser(login);
+
+    const request = {
+      id: null,
+      type: 'MSG_FROM_USER',
+      payload: {
+        user: {
+          login,
+        },
+      },
+    };
+    this.wsManager?.send(JSON.stringify(request));
+  };
+
+  protected sendRequest = (message: unknown) => {
+    if (typeof message !== 'string') {
+      throw new Error(`login isnt't string`);
+    }
+    const dialogUser = state.getDialogUser();
+    const request: MessageRequest = {
+      id: null,
+      type: REQUESTS.messSend,
+      payload: {
+        message: {
+          to: dialogUser.login,
+          text: message,
+        },
+      },
+    };
+    this.wsManager?.send(JSON.stringify(request));
+  };
 }
