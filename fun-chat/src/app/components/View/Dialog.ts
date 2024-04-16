@@ -17,6 +17,12 @@ enum DialogStatus {
 
 export default class Dialog extends BaseComponent {
   protected dialogStatus: string = DialogStatus.noDialogUser;
+
+  protected divider = new BaseComponent({
+    tag: 'div',
+    classNames: ['divider'],
+    text: 'New messages',
+  });
   protected dialogUserLogin = new BaseComponent({ tag: 'p', classNames: ['dialog-user-login'] });
   protected dialogUserStatus = new BaseComponent({ tag: 'p', classNames: ['dialog-user-status'] });
   protected messagesBox = new BaseComponent({ tag: 'div', classNames: ['messages-box'] });
@@ -33,6 +39,7 @@ export default class Dialog extends BaseComponent {
     emitter.on('set-dialog-user', this.setDialogUser);
     emitter.on('change-status', this.changeStatus);
     emitter.on('add-message', this.addNewMessage);
+    // this.messages.on('click', () => emitter.emit('setReaded'));
   }
 
   protected createView() {
@@ -79,6 +86,10 @@ export default class Dialog extends BaseComponent {
   };
 
   protected addNewMessage = (msg: unknown) => {
+    if (!isMessageProps(msg)) {
+      throw new Error('type of msg is not MessageProps');
+    }
+
     if (this.dialogStatus === DialogStatus.noDialogUser) {
       return;
     }
@@ -86,10 +97,9 @@ export default class Dialog extends BaseComponent {
     if (this.dialogStatus === DialogStatus.noMessages) {
       this.dialogStatus = DialogStatus.messages;
       this.placeholder.addClass('placeholder-hidden');
-    }
-
-    if (!isMessageProps(msg)) {
-      throw new Error('type of msg is not MessageProps');
+      if (!msg.author) {
+        this.showDivider();
+      }
     }
 
     const message = new Message(msg);
@@ -98,5 +108,10 @@ export default class Dialog extends BaseComponent {
       top: this.messages.element.scrollHeight,
       behavior: 'smooth',
     });
+  };
+
+  protected showDivider = () => {
+    this.messages.append(this.divider);
+    this.divider.removeClass('hidden');
   };
 }

@@ -42,10 +42,8 @@ export type UserResponse = {
   isLogined: boolean;
 };
 
-export type User = {
-  login: string;
-  isLogined: boolean;
-  unreaded?: number;
+export type User = UserResponse & {
+  notification: number;
 };
 
 export type MessageResponse = {
@@ -59,4 +57,13 @@ export type MessageResponse = {
     isReaded: boolean;
     isEdited: boolean;
   };
+};
+
+export type MessageProps = {
+  id: string;
+  text: string;
+  status: string;
+  date: string;
+  author: boolean;
+  dialogUser: string;
 };

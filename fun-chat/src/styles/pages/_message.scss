@@ -1,5 +1,6 @@
 .message {
-  width: 250px;
+  max-width: 60%;
+  width: 100%;
   @include flex-column;
   background-color: red;
   margin-bottom: 10px;
@@ -41,4 +42,5 @@
   margin-top: 10px;
   margin-left: 10px;
   align-self: flex-start;
+  background-color: greenyellow;
 }

@@ -71,3 +71,18 @@
     background-color: $color-thumb;
   }
 }
+
+.divider {
+  width: 90%;
+  height: 15px;
+  border-bottom: 1px solid $color-divider;
+  color: $color-divider;
+  font-size: 12px;
+  text-align: center;
+  align-self: center;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}

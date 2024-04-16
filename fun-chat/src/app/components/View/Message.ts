@@ -16,7 +16,10 @@ export default class Message extends BaseComponent {
     const date = new BaseComponent({ tag: 'p', classNames: ['msg-date'], text: msg.date });
     topInfo.append(author, date);
     this.msgText.setTextContent(msg.text);
-    this.msgStatus.setTextContent(msg.status);
+    if (msg.author) {
+      this.msgStatus.setTextContent(msg.status);
+    }
+
     this.append(topInfo, this.msgText, this.msgStatus);
     if (msg.author) {
       this.addClass('message-right');
