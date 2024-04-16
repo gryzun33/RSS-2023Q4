@@ -19,7 +19,6 @@ export default class NewMessage extends BaseComponent {
     text: 'Send',
   });
 
-  protected isEmpty: boolean = true;
   constructor(props: Props) {
     super(props);
     this.createView();

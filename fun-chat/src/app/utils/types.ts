@@ -47,3 +47,16 @@ export type User = {
   isLogined: boolean;
   unreaded?: number;
 };
+
+export type MessageResponse = {
+  id: string;
+  from: string;
+  to: string;
+  text: string;
+  datetime: number;
+  status: {
+    isDelivered: boolean;
+    isReaded: boolean;
+    isEdited: boolean;
+  };
+};

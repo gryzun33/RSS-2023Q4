@@ -1,6 +1,7 @@
-import { CurrentUser, UserResponse } from '../utils/types';
+import { CurrentUser, UserResponse, MessageResponse } from '../utils/types';
 import storage from './Storage';
 import emitter from './EventEmitter';
+import formatDate from '../utils/helpers';
 
 // type Users = User[];
 
@@ -10,7 +11,7 @@ class State {
   // public users: User[] = [];
   // public activeUser:User = {};
   public usersMap: Map<string, boolean> = new Map();
-
+  public messagesMap: Map<string, MessageResponse> = new Map();
   protected currUser: CurrentUser = {
     id: '',
     login: '',
@@ -91,6 +92,24 @@ class State {
 
   public getDialogUser(): UserResponse {
     return this.dialogUser;
+  }
+
+  public addMessage(msg: MessageResponse) {
+    console.log('msg98=', msg);
+    this.messagesMap.set(msg.id, msg);
+    const author = msg.from === this.currUser.login;
+    const dialogUser = msg.from;
+    const date = formatDate(msg.datetime);
+    const status = msg.status.isDelivered ? 'delivered' : 'sended';
+    const msgProps = {
+      id: msg.id,
+      author,
+      dialogUser,
+      date,
+      status,
+      text: msg.text,
+    };
+    emitter.emit('add-message', msgProps);
   }
 }
 

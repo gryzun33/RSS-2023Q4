@@ -1,0 +1,44 @@
+.message {
+  width: 250px;
+  @include flex-column;
+  background-color: red;
+  margin-bottom: 10px;
+}
+
+.msg-top-info {
+  width: 100%;
+  padding: 0 5px;
+  @include flex(space-between, center);
+  height: 15px;
+
+  .msg-author,
+  .msg-date {
+    font-size: 12px;
+  }
+}
+
+.msg-text {
+  font-size: 16px;
+  padding: 5px;
+  overflow-wrap: break-word;
+}
+
+.msg-status {
+  width: 100%;
+  padding: 0 5px;
+  @include flex(flex-end, center);
+  height: 15px;
+  font-size: 12px;
+}
+
+.message-right {
+  margin-top: 10px;
+  margin-right: 10px;
+  align-self: flex-end;
+}
+
+.message-left {
+  margin-top: 10px;
+  margin-left: 10px;
+  align-self: flex-start;
+}

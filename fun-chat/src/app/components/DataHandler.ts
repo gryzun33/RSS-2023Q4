@@ -2,20 +2,7 @@ import emitter from './EventEmitter';
 import storage from './Storage';
 import state from './State';
 import ErrorHandler from './ErrorHandler';
-import { UserResponse } from '../utils/types';
-
-type MessageResponse = {
-  id: string;
-  from: string;
-  to: string;
-  text: string;
-  datetime: number;
-  status: {
-    isDelivered: boolean;
-    isReaded: boolean;
-    isEdited: boolean;
-  };
-};
+import { UserResponse, MessageResponse } from '../utils/types';
 
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
@@ -53,13 +40,13 @@ export default class DataHandler {
         break;
       case 'MSG_SEND':
         console.log('MSG-SENT-RESPONSE');
-        console.log('data=', data.payload);
-        this.messageResponse(data.payload);
+        console.log('msg=', data.payload);
+        this.messageResponse(data.payload.message);
 
         break;
       case 'MSG_FROM_USER':
-        console.log('MSGFROMUSER');
-        console.log('data=', data.payload);
+        // console.log('MSGFROMUSER');
+        // console.log('data=', data.payload);
 
         break;
       case 'MSG_DELIVER':
@@ -118,6 +105,6 @@ export default class DataHandler {
   }
 
   private messageResponse = (msg: MessageResponse) => {
-    console.log('msg=', msg);
+    state.addMessage(msg);
   };
 }
