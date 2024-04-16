@@ -1,7 +1,7 @@
 import { CurrentUser, UserResponse, MessageResponse } from '../utils/types';
 import storage from './Storage';
 import emitter from './EventEmitter';
-import formatDate from '../utils/helpers';
+import { formatDate } from '../utils/helpers';
 
 // type Users = User[];
 

@@ -1,7 +1,8 @@
 import BaseComponent from './BaseComponent';
-import { Props, MessageProps } from '../../utils/types';
+import { Props } from '../../utils/types';
 import emitter from '../EventEmitter';
 import Message from './Message';
+import { isMessageProps } from '../../utils/helpers';
 
 enum Status {
   online = 'online',
@@ -85,19 +86,6 @@ export default class Dialog extends BaseComponent {
     if (this.dialogStatus === DialogStatus.noMessages) {
       this.dialogStatus = DialogStatus.messages;
       this.placeholder.addClass('placeholder-hidden');
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function isMessageProps(obj: any): obj is MessageProps {
-      return (
-        typeof obj === 'object' &&
-        typeof obj.id === 'string' &&
-        typeof obj.text === 'string' &&
-        typeof obj.status === 'string' &&
-        typeof obj.date === 'string' &&
-        typeof obj.author === 'boolean' &&
-        typeof obj.dialogUser === 'string'
-      );
     }
 
     if (!isMessageProps(msg)) {
