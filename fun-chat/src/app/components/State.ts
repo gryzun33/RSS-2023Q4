@@ -74,7 +74,7 @@ class State {
     }
   }
 
-  public addNotifications(login: string, notifications: number) {
+  public setNotifications(login: string, notifications: number) {
     const userData = this.usersMap.get(login);
     if (!userData) {
       throw new Error(`user is undefined`);
@@ -135,6 +135,20 @@ class State {
       text: msg.text,
     };
     emitter.emit('add-message', msgProps);
+    if (!author) {
+      state.addNotification(msg.from);
+    }
+  }
+
+  public addNotification(login: string) {
+    const userData = this.usersMap.get(login);
+    if (!userData) {
+      throw new Error(`user is undefined`);
+    }
+    userData.notifications += 1;
+    console.log('login=', login);
+    console.log('number=', userData.notifications);
+    emitter.emit('update-notifications', login, userData.notifications);
   }
 }
 

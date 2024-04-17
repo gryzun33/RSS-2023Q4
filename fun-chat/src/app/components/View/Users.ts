@@ -25,8 +25,10 @@ export default class Users extends BaseComponent {
     // emitter.on('addUsersToList', this.createUsersList);
     emitter.on('external-login', this.addActiveUser);
     emitter.on('external-logout', this.addInactiveUser);
+    emitter.on('update-notifications', this.updateNotifications);
     // emitter.on('draw-notifications', this.drawNotifications);
-    this.userList.on('click', this.onClickUsers);
+    this.activeList.on('click', this.onClickUsers);
+    this.inactiveList.on('click', this.onClickUsers);
     this.userSearch.on('input', this.searchUsers);
     // this.inactiveList.on('click', this.onClickInactiveUsers);
   }
@@ -154,7 +156,7 @@ export default class Users extends BaseComponent {
     this.userSearch.getElement().value = '';
   };
 
-  public drawNotifications = (login: unknown, notifications: unknown) => {
+  public updateNotifications = (login: unknown, notifications: unknown) => {
     if (typeof login !== 'string' || typeof notifications !== 'number') {
       throw new Error(`arguments don't match their types`);
     }

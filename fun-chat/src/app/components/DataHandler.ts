@@ -128,6 +128,6 @@ export default class DataHandler {
     const unReaded = msgs.filter((msg) => msg.from !== login && !msg.status.isReaded);
     console.log('unreaded=', unReaded);
     const notifications = unReaded.length;
-    state.addNotifications(id, notifications);
+    state.setNotifications(id, notifications);
   };
 }
