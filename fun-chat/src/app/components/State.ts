@@ -5,12 +5,17 @@ import { formatDate } from '../utils/helpers';
 
 // type Users = User[];
 
+type UserData = {
+  notifications: number;
+  isLogined: boolean;
+};
+
 class State {
   // protected login: string = '';
   // protected password: string = '';
   // public users: User[] = [];
   // public activeUser:User = {};
-  public usersMap: Map<string, boolean> = new Map();
+  public usersMap: Map<string, UserData> = new Map();
   public messagesMap: Map<string, MessageResponse> = new Map();
   protected currUser: CurrentUser = {
     id: '',
@@ -22,6 +27,8 @@ class State {
     login: '',
     isLogined: true,
   };
+
+  public dialogId: string = '';
 
   constructor() {
     const user = storage.getData('user');
@@ -44,46 +51,64 @@ class State {
     return this.currUser;
   }
 
-  public setUsers(data: UserResponse[]) {
-    data.forEach((user) => {
-      this.usersMap.set(user.login, user.isLogined);
-    });
+  // public setUsers(data: UserResponse[]) {
+  //   data.forEach((user) => {
+  //     this.usersMap.set(user.login, user.isLogined);
+  //   });
 
-    // this.usersMap = [...this.users, ...data];
-    console.log('ALLUSERS=', this.usersMap);
-  }
+  //   console.log('ALLUSERS=', this.usersMap);
+  // }
 
   public changeUserStatus(user: UserResponse) {
     // if (this.usersMap.has(user.login)) {
-    this.usersMap.set(user.login, user.isLogined);
-    // }
-    if (user.isLogined) {
-      emitter.emit('external-login', user.login);
+    // this.usersMap.set(user.login, {notifi});
+    const userData = this.usersMap.get(user.login);
+    if (userData) {
+      userData.isLogined = user.isLogined;
     } else {
-      emitter.emit('external-logout', user.login);
+      this.usersMap.set(user.login, { notifications: 0, isLogined: user.isLogined });
     }
+
     if (user.login === this.dialogUser.login) {
       emitter.emit('change-status', user.isLogined);
     }
   }
 
-  public getUserStatus(login: string): boolean {
-    const status = this.usersMap.get(login);
-    if (!status) {
-      throw new Error(`status is undefined`);
+  public addNotifications(login: string, notifications: number) {
+    const userData = this.usersMap.get(login);
+    if (!userData) {
+      throw new Error(`user is undefined`);
     }
-    return status;
+
+    userData.notifications = notifications;
+    if (userData.isLogined) {
+      emitter.emit('external-login', login, userData.notifications);
+    } else {
+      emitter.emit('external-logout', login, userData.notifications);
+    }
+
+    // emitter.emit('draw-notifications', login, userData.notifications);
   }
+
+  // public getUserStatus(login: string): boolean {
+  //   const status = this.usersMap.get(login);
+  //   if (!status) {
+  //     throw new Error(`status is undefined`);
+  //   }
+  //   return status;
+  // }
 
   public deleteUsers() {
     this.usersMap.clear();
   }
 
   public setDialogUser(login: string): void {
-    const isLogined = this.usersMap.get(login);
-    if (isLogined === undefined) {
+    const userData = this.usersMap.get(login);
+    if (userData === undefined) {
       throw new Error(`status is undefined`);
     }
+    const { isLogined } = userData;
+
     this.dialogUser = {
       login,
       isLogined,

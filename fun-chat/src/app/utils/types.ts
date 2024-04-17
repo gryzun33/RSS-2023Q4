@@ -43,7 +43,7 @@ export type UserResponse = {
 };
 
 export type User = UserResponse & {
-  notification: number;
+  notification?: number;
 };
 
 export type MessageResponse = {

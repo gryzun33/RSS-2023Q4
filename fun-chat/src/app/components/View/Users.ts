@@ -1,5 +1,5 @@
 import BaseComponent from './BaseComponent';
-import { Props, UserResponse } from '../../utils/types';
+import { Props } from '../../utils/types';
 import emitter from '../EventEmitter';
 // import state from '../State';
 
@@ -22,9 +22,10 @@ export default class Users extends BaseComponent {
   constructor(props: Props) {
     super(props);
     this.createView();
-    emitter.on('addUsersToList', this.createUsersList);
+    // emitter.on('addUsersToList', this.createUsersList);
     emitter.on('external-login', this.addActiveUser);
     emitter.on('external-logout', this.addInactiveUser);
+    // emitter.on('draw-notifications', this.drawNotifications);
     this.userList.on('click', this.onClickUsers);
     this.userSearch.on('input', this.searchUsers);
     // this.inactiveList.on('click', this.onClickInactiveUsers);
@@ -36,52 +37,52 @@ export default class Users extends BaseComponent {
     this.userSearch.attr('placeholder', 'Search...');
   }
 
-  protected createUsersList = (data: unknown) => {
-    console.log('list=', data);
-    if (!Array.isArray(data)) {
-      throw new Error(`data isn't array`);
-    }
+  // protected createUsersList = (data: unknown) => {
+  //   console.log('list=', data);
+  //   if (!Array.isArray(data)) {
+  //     throw new Error(`data isn't array`);
+  //   }
 
-    data.forEach((user: UserResponse) => {
-      const userItem = this.getNewUserItem(user.login);
+  //   data.forEach((user: UserResponse) => {
+  //     const userItem = this.getNewUserItem(user.login);
 
-      if (user.isLogined) {
-        userItem.addClass('active-user');
-      }
-      if (user.isLogined) {
-        this.activeList.append(userItem);
-      } else {
-        this.inactiveList.append(userItem);
-      }
-    });
-  };
+  //     if (user.isLogined) {
+  //       userItem.addClass('active-user');
+  //     }
+  //     if (user.isLogined) {
+  //       this.activeList.append(userItem);
+  //     } else {
+  //       this.inactiveList.append(userItem);
+  //     }
+  //   });
+  // };
 
-  protected addActiveUser = (userLogin: unknown) => {
-    if (typeof userLogin !== 'string') {
-      throw new Error(`userLogin isn't a string`);
+  protected addActiveUser = (userLogin: unknown, notifications: unknown) => {
+    if (typeof userLogin !== 'string' || typeof notifications !== 'number') {
+      throw new Error(`arguments don't match their types`);
     }
     let userItem = this.usersMap.get(userLogin);
     if (!userItem) {
-      userItem = this.getNewUserItem(userLogin);
+      userItem = this.getNewUserItem(userLogin, notifications);
     }
 
     userItem.addClass('active-user');
     this.activeList.append(userItem);
   };
 
-  protected addInactiveUser = (userLogin: unknown) => {
-    if (typeof userLogin !== 'string') {
-      throw new Error(`userLogin isn't a string`);
+  protected addInactiveUser = (userLogin: unknown, notifications: unknown) => {
+    if (typeof userLogin !== 'string' || typeof notifications !== 'number') {
+      throw new Error(`arguments don't match their types`);
     }
-    const userItem = this.usersMap.get(userLogin);
+    let userItem = this.usersMap.get(userLogin);
     if (!userItem) {
-      throw new Error(`user is undefined`);
+      userItem = this.getNewUserItem(userLogin, notifications);
     }
     userItem.removeClass('active-user');
     this.inactiveList.append(userItem);
   };
 
-  protected getNewUserItem(login: string): BaseComponent {
+  protected getNewUserItem(login: string, notifications: number): BaseComponent {
     const userItem = new BaseComponent<HTMLLIElement>({
       tag: 'li',
       classNames: ['user-item'],
@@ -91,10 +92,18 @@ export default class Users extends BaseComponent {
       classNames: ['user-text'],
       text: login,
     });
-    userItem.append(userLogin);
+    const notificationsElem = new BaseComponent({
+      tag: 'div',
+      classNames: ['user-notifications'],
+      text: String(notifications),
+    });
+    // if(notifications === 0) {
+
+    // }
+    userItem.append(userLogin, notificationsElem);
     userItem.attr('data-login', `${login}`);
     this.usersMap.set(login, userItem);
-
+    // emitter.emit('get-notifications', login);
     return userItem;
   }
 
@@ -143,5 +152,16 @@ export default class Users extends BaseComponent {
     const users = Array.from(this.usersMap.values());
     users.forEach((user) => user.removeClass('user-hidden'));
     this.userSearch.getElement().value = '';
+  };
+
+  public drawNotifications = (login: unknown, notifications: unknown) => {
+    if (typeof login !== 'string' || typeof notifications !== 'number') {
+      throw new Error(`arguments don't match their types`);
+    }
+    const userComponent = this.usersMap.get(login);
+    if (!userComponent) {
+      throw new Error(`user is undefined`);
+    }
+    userComponent.children[1].setTextContent(String(notifications));
   };
 }

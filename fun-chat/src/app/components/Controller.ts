@@ -53,6 +53,7 @@ export default class Controller {
     emitter.on('logout', this.logoutRequest);
     emitter.on('send-message', this.sendRequest);
     emitter.on('set-dialog-user', this.dialogUserRequset);
+    emitter.on('get-notifications', this.notificationsRequest);
   }
 
   public checkAuthorized = () => {
@@ -119,10 +120,33 @@ export default class Controller {
     if (typeof login !== 'string') {
       throw new Error(`login isnt't string`);
     }
+
     state.setDialogUser(login);
+    this.notificationsDialogRequest(login);
+  };
+
+  protected notificationsDialogRequest = (login: string) => {
+    const requestId = crypto.randomUUID();
+    state.dialogId = requestId;
+    const request = {
+      id: state.dialogId,
+      type: 'MSG_FROM_USER',
+      payload: {
+        user: {
+          login,
+        },
+      },
+    };
+    this.wsManager?.send(JSON.stringify(request));
+  };
+
+  protected notificationsRequest = (login: unknown) => {
+    if (typeof login !== 'string') {
+      throw new Error(`login isnt't string`);
+    }
 
     const request = {
-      id: null,
+      id: login,
       type: 'MSG_FROM_USER',
       payload: {
         user: {

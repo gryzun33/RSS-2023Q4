@@ -32,11 +32,11 @@ export default class DataHandler {
         break;
       case 'USER_ACTIVE':
         // console.log('useractive');
-        this.usersResponse(data.payload.users, data.type);
+        this.usersResponse(data.payload.users);
         break;
       case 'USER_INACTIVE':
         // console.log('userinactive');
-        this.usersResponse(data.payload.users, data.type);
+        this.usersResponse(data.payload.users);
         break;
       case 'MSG_SEND':
         console.log('MSG-SENT-RESPONSE');
@@ -45,18 +45,19 @@ export default class DataHandler {
 
         break;
       case 'MSG_FROM_USER':
-        // console.log('MSGFROMUSER');
-        // console.log('data=', data.payload);
+        console.log('MSGFROMUSER');
+        console.log('all=', data);
+        this.messagesResponse(data.payload.messages, data.id);
 
         break;
       case 'MSG_DELIVER':
-        console.log('userlogout');
+        console.log('deliver');
         break;
       case 'MSG_READ':
-        console.log('userlogout');
+        console.log('read');
         break;
       case 'MSG_EDIT':
-        console.log('userlogout');
+        console.log('edit');
         break;
       case 'ERROR':
         this.errorHandler.onError(data.payload.error);
@@ -88,23 +89,45 @@ export default class DataHandler {
     }
   }
 
-  private usersResponse(users: UserResponse[], type: string) {
-    if (type === 'USER_ACTIVE') {
-      const { login } = state.getUser();
-      const usersWithoutCurrent: UserResponse[] = users.filter((user) => user.login !== login);
-      state.setUsers(usersWithoutCurrent);
-      emitter.emit('addUsersToList', usersWithoutCurrent);
-      return;
-    }
-    state.setUsers(users);
-    emitter.emit('addUsersToList', users);
+  private usersResponse(users: UserResponse[]) {
+    // if (type === 'USER_ACTIVE') {
+    //
+    //   const usersWithoutCurrent: UserResponse[] = users.filter((user) => user.login !== login);
+    //   state.setUsers(usersWithoutCurrent);
+    //   emitter.emit('addUsersToList', usersWithoutCurrent);
+    //   return;
+    // }
+    // state.setUsers(users);
+    // emitter.emit('addUsersToList', users);
+    // state.setUsers(users);
+    const { login } = state.getUser();
+    users.forEach((user) => {
+      if (user.login !== login) {
+        emitter.emit('get-notifications', user.login);
+        state.changeUserStatus(user);
+      }
+    });
   }
 
   private userStatusResponse(user: UserResponse) {
+    emitter.emit('get-notifications', user.login);
     state.changeUserStatus(user);
   }
 
   private messageResponse = (msg: MessageResponse) => {
     state.addMessage(msg);
+  };
+
+  protected messagesResponse = (msgs: MessageResponse[], id: string) => {
+    if (id === state.dialogId) {
+      console.log('opendialog');
+      return;
+    }
+
+    const { login } = state.getUser();
+    const unReaded = msgs.filter((msg) => msg.from !== login && !msg.status.isReaded);
+    console.log('unreaded=', unReaded);
+    const notifications = unReaded.length;
+    state.addNotifications(id, notifications);
   };
 }
