@@ -115,6 +115,10 @@ class State {
     this.usersMap.clear();
   }
 
+  // public deleteMessages() {
+  //   this.messagesMap.clear();
+  // }
+
   public setDialogUser(login: string): void {
     const userData = this.usersMap.get(login);
     if (userData === undefined) {
@@ -155,6 +159,9 @@ class State {
 
   public addMessages(msgs: MessageResponse[]) {
     this.messagesMap.clear();
+    msgs.forEach((msg) => {
+      this.messagesMap.set(msg.id, msg);
+    });
     const messages = msgs.map((msg) => {
       const author = msg.from === this.currUser.login;
       const dialogUser = msg.from;
@@ -190,6 +197,15 @@ class State {
     console.log('login=', login);
     console.log('number=', userData.notifications);
     emitter.emit('update-notifications', login, userData.notifications);
+  }
+
+  public resetNotifications() {
+    const userData = this.usersMap.get(this.dialogUser.login);
+    if (!userData) {
+      throw new Error(`user is undefined`);
+    }
+    userData.notifications = 0;
+    emitter.emit('update-notifications', this.dialogUser.login, userData.notifications);
   }
 }
 

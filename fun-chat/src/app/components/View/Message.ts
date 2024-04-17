@@ -33,4 +33,8 @@ export default class Message extends BaseComponent {
   public setStatusDelivered() {
     this.msgStatus.setTextContent(MessageStatus.Delivered);
   }
+
+  public setStatusReaded() {
+    this.msgStatus.setTextContent(MessageStatus.Readed);
+  }
 }

@@ -11,6 +11,13 @@ type DeliveredResponse = {
   };
 };
 
+type ReadedResponse = {
+  id: string;
+  status: {
+    isReaded: boolean;
+  };
+};
+
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
 
@@ -63,7 +70,8 @@ export default class DataHandler {
 
         break;
       case 'MSG_READ':
-        console.log('read');
+        console.log('REAAAD');
+        this.readResponse(data.payload.message);
         break;
       case 'MSG_EDIT':
         console.log('edit');
@@ -147,5 +155,17 @@ export default class DataHandler {
     }
     msg.status.isDelivered = true;
     emitter.emit('delivered', data.id);
+  }
+
+  protected readResponse(data: ReadedResponse) {
+    const msg = state.messagesMap.get(data.id);
+    const { login } = state.getDialogUser();
+    if (!msg) {
+      throw new Error(`message is undefined`);
+    }
+    msg.status.isReaded = true;
+    if (login !== msg.from) {
+      emitter.emit('readed', data.id);
+    }
   }
 }

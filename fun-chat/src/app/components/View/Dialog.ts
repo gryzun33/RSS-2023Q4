@@ -43,7 +43,8 @@ export default class Dialog extends BaseComponent {
     emitter.on('add-message', this.addNewMessage);
     emitter.on('add-messages', this.addMessages);
     emitter.on('delivered', this.setStatusDelivered);
-    // this.messages.on('click', () => emitter.emit('setReaded'));
+    emitter.on('readed', this.setStatusReaded);
+    this.messages.on('click', this.onClickMessages);
   }
 
   protected createView() {
@@ -100,9 +101,10 @@ export default class Dialog extends BaseComponent {
 
     if (this.dialogStatus === DialogStatus.noMessages) {
       this.removePlaceholder();
-      if (!msg.author && !this.isDivider) {
-        this.showDivider();
-      }
+    }
+    if (!msg.author && !this.isDivider) {
+      this.isDivider = true;
+      this.showDivider();
     }
 
     this.addMessage(msg);
@@ -116,7 +118,8 @@ export default class Dialog extends BaseComponent {
     if (!Array.isArray(messages)) {
       throw new Error(`messages is not array`);
     }
-    this.messagesMap.clear();
+
+    this.destroyMessages();
 
     if (messages.length === 0) {
       return;
@@ -160,5 +163,35 @@ export default class Dialog extends BaseComponent {
       throw new Error(`messageComponent is undefined`);
     }
     messageComp.setStatusDelivered();
+  };
+
+  protected setStatusReaded = (id: unknown) => {
+    if (typeof id !== 'string') {
+      throw new Error(`id is not string`);
+    }
+    const messageComp = this.messagesMap.get(id);
+    if (!messageComp) {
+      throw new Error(`messageComponent is undefined`);
+    }
+    messageComp.setStatusReaded();
+  };
+
+  protected destroyMessages = () => {
+    // const messages = this.messagesMap.values();
+    this.messagesMap.forEach((message) => {
+      message.destroy();
+    });
+    this.messagesMap.clear();
+    this.hideDivider();
+  };
+
+  protected hideDivider = () => {
+    this.isDivider = false;
+    this.divider.addClass('hidden');
+  };
+
+  protected onClickMessages = () => {
+    this.hideDivider();
+    emitter.emit('set-readed');
   };
 }

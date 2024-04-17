@@ -9,7 +9,19 @@ const REQUESTS = {
   logout: 'USER_LOGOUT',
   activeUsers: 'USER_ACTIVE',
   inactiveUsers: 'USER_INACTIVE',
+  msgFromUser: 'MSG_FROM_USER',
   messSend: 'MSG_SEND',
+  messRead: 'MSG_READ',
+};
+
+type MsgStatusRequest = {
+  id: string | null;
+  type: string;
+  payload: {
+    message: {
+      id: string;
+    };
+  };
 };
 
 type LoginRequest = {
@@ -54,6 +66,7 @@ export default class Controller {
     emitter.on('send-message', this.sendRequest);
     emitter.on('set-dialog-user', this.dialogUserRequset);
     emitter.on('get-notifications', this.notificationsRequest);
+    emitter.on('set-readed', this.readedRequest);
   }
 
   public checkAuthorized = () => {
@@ -130,7 +143,7 @@ export default class Controller {
     state.dialogId = requestId;
     const request = {
       id: state.dialogId,
-      type: 'MSG_FROM_USER',
+      type: REQUESTS.msgFromUser,
       payload: {
         user: {
           login,
@@ -173,5 +186,27 @@ export default class Controller {
       },
     };
     this.wsManager?.send(JSON.stringify(request));
+  };
+
+  protected readedRequest = () => {
+    const messages = Array.from(state.messagesMap.values());
+    console.log(messages);
+    const messagesId = messages.filter((msg) => !msg.status.isReaded).map((msg) => msg.id);
+    console.log('readed', messagesId);
+
+    messagesId.forEach((id) => {
+      const request: MsgStatusRequest = {
+        id: '',
+        type: REQUESTS.messRead,
+        payload: {
+          message: {
+            id,
+          },
+        },
+      };
+      this.wsManager?.send(JSON.stringify(request));
+    });
+
+    state.resetNotifications();
   };
 }
