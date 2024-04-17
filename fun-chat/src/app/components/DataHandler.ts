@@ -120,7 +120,7 @@ export default class DataHandler {
 
   protected messagesResponse = (msgs: MessageResponse[], id: string) => {
     if (id === state.dialogId) {
-      console.log('opendialog');
+      state.addMessages(msgs);
       return;
     }
 

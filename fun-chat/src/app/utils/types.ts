@@ -67,3 +67,10 @@ export type MessageProps = {
   author: boolean;
   dialogUser: string;
 };
+
+export enum MessageStatus {
+  Sent = 'sent',
+  Delivered = 'delivered',
+  Readed = 'readed',
+  Edited = 'edited',
+}

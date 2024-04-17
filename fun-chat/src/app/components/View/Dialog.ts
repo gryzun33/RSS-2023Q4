@@ -1,10 +1,10 @@
 import BaseComponent from './BaseComponent';
-import { Props } from '../../utils/types';
+import { Props, MessageProps, MessageStatus } from '../../utils/types';
 import emitter from '../EventEmitter';
 import Message from './Message';
 import { isMessageProps } from '../../utils/helpers';
 
-enum Status {
+enum UserStatus {
   online = 'online',
   offline = 'offline',
 }
@@ -16,6 +16,7 @@ enum DialogStatus {
 }
 
 export default class Dialog extends BaseComponent {
+  protected isDivider: boolean = false;
   protected dialogStatus: string = DialogStatus.noDialogUser;
 
   protected divider = new BaseComponent({
@@ -39,6 +40,7 @@ export default class Dialog extends BaseComponent {
     emitter.on('set-dialog-user', this.setDialogUser);
     emitter.on('change-status', this.changeStatus);
     emitter.on('add-message', this.addNewMessage);
+    emitter.on('add-messages', this.addMessages);
     // this.messages.on('click', () => emitter.emit('setReaded'));
   }
 
@@ -77,7 +79,7 @@ export default class Dialog extends BaseComponent {
     if (typeof status !== 'boolean') {
       throw new Error(`status isn't boolean`);
     }
-    this.dialogUserStatus.setTextContent(status ? Status.online : Status.offline);
+    this.dialogUserStatus.setTextContent(status ? UserStatus.online : UserStatus.offline);
     if (!status) {
       this.dialogUserStatus.addClass('status-inactive');
     } else {
@@ -95,9 +97,8 @@ export default class Dialog extends BaseComponent {
     }
 
     if (this.dialogStatus === DialogStatus.noMessages) {
-      this.dialogStatus = DialogStatus.messages;
-      this.placeholder.addClass('placeholder-hidden');
-      if (!msg.author) {
+      this.removePlaceholder();
+      if (!msg.author && !this.isDivider) {
         this.showDivider();
       }
     }
@@ -110,8 +111,34 @@ export default class Dialog extends BaseComponent {
     });
   };
 
+  protected addMessages = (messages: unknown) => {
+    if (!Array.isArray(messages)) {
+      throw new Error(`messages is not array`);
+    }
+
+    if (messages.length === 0) {
+      return;
+    }
+    this.removePlaceholder();
+
+    messages.forEach((msg: MessageProps) => {
+      console.log(msg.status);
+      if (!msg.author && msg.status === MessageStatus.Delivered && !this.isDivider) {
+        this.showDivider();
+      }
+      const messageComp = new Message(msg);
+      this.messages.append(messageComp);
+    });
+  };
+
   protected showDivider = () => {
+    this.isDivider = true;
     this.messages.append(this.divider);
     this.divider.removeClass('hidden');
+  };
+
+  protected removePlaceholder = () => {
+    this.dialogStatus = DialogStatus.messages;
+    this.placeholder.addClass('placeholder-hidden');
   };
 }

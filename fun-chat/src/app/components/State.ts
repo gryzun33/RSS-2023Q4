@@ -1,4 +1,4 @@
-import { CurrentUser, UserResponse, MessageResponse } from '../utils/types';
+import { CurrentUser, UserResponse, MessageResponse, MessageStatus } from '../utils/types';
 import storage from './Storage';
 import emitter from './EventEmitter';
 import { formatDate } from '../utils/helpers';
@@ -8,6 +8,19 @@ import { formatDate } from '../utils/helpers';
 type UserData = {
   notifications: number;
   isLogined: boolean;
+};
+
+// enum Status {
+//   Sent = 'sent',
+//   Delivered = 'delivered',
+//   Readed = 'readed',
+//   Edited = 'edited',
+// }
+
+type StatusResponse = {
+  isDelivered: boolean;
+  isReaded: boolean;
+  isEdited: boolean;
 };
 
 class State {
@@ -125,7 +138,7 @@ class State {
     const author = msg.from === this.currUser.login;
     const dialogUser = msg.from;
     const date = formatDate(msg.datetime);
-    const status = msg.status.isDelivered ? 'delivered' : 'sended';
+    const status = msg.status.isDelivered ? MessageStatus.Delivered : MessageStatus.Sent;
     const msgProps = {
       id: msg.id,
       author,
@@ -138,6 +151,34 @@ class State {
     if (!author) {
       state.addNotification(msg.from);
     }
+  }
+
+  public addMessages(msgs: MessageResponse[]) {
+    this.messagesMap.clear();
+    const messages = msgs.map((msg) => {
+      const author = msg.from === this.currUser.login;
+      const dialogUser = msg.from;
+      const date = formatDate(msg.datetime);
+      const status = this.getStatus(msg.status);
+
+      return {
+        id: msg.id,
+        author,
+        dialogUser,
+        date,
+        status,
+        text: msg.text,
+      };
+    });
+    emitter.emit('add-messages', messages);
+  }
+
+  protected getStatus(statusResponse: StatusResponse): string {
+    let status = '';
+    status = statusResponse.isDelivered ? MessageStatus.Delivered : MessageStatus.Sent;
+    status = statusResponse.isReaded ? MessageStatus.Readed : status;
+    status = statusResponse.isEdited ? MessageStatus.Edited : status;
+    return status;
   }
 
   public addNotification(login: string) {
