@@ -1,5 +1,6 @@
-import { MessageProps } from '../../utils/types';
+import { MessageProps, MessageStatus } from '../../utils/types';
 import BaseComponent from './BaseComponent';
+// import emitter from '../EventEmitter';
 
 export default class Message extends BaseComponent {
   protected msgText = new BaseComponent({ tag: 'p', classNames: ['msg-text'] });
@@ -10,6 +11,7 @@ export default class Message extends BaseComponent {
   }
 
   protected createView(msg: MessageProps) {
+    this.attr('id', msg.id);
     const topInfo = new BaseComponent({ tag: 'div', classNames: ['msg-top-info'] });
     const authorName = msg.author ? 'you' : msg.dialogUser;
     const author = new BaseComponent({ tag: 'p', classNames: ['msg-author'], text: authorName });
@@ -26,5 +28,9 @@ export default class Message extends BaseComponent {
     } else {
       this.addClass('message-left');
     }
+  }
+
+  public setStatusDelivered() {
+    this.msgStatus.setTextContent(MessageStatus.Delivered);
   }
 }

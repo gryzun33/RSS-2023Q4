@@ -1,4 +1,10 @@
-import { CurrentUser, UserResponse, MessageResponse, MessageStatus } from '../utils/types';
+import {
+  CurrentUser,
+  UserResponse,
+  MessageResponse,
+  MessageStatus,
+  StatusResponse,
+} from '../utils/types';
 import storage from './Storage';
 import emitter from './EventEmitter';
 import { formatDate } from '../utils/helpers';
@@ -16,12 +22,6 @@ type UserData = {
 //   Readed = 'readed',
 //   Edited = 'edited',
 // }
-
-type StatusResponse = {
-  isDelivered: boolean;
-  isReaded: boolean;
-  isEdited: boolean;
-};
 
 class State {
   // protected login: string = '';

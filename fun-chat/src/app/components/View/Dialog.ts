@@ -16,6 +16,7 @@ enum DialogStatus {
 }
 
 export default class Dialog extends BaseComponent {
+  protected messagesMap: Map<string, Message> = new Map();
   protected isDivider: boolean = false;
   protected dialogStatus: string = DialogStatus.noDialogUser;
 
@@ -41,6 +42,7 @@ export default class Dialog extends BaseComponent {
     emitter.on('change-status', this.changeStatus);
     emitter.on('add-message', this.addNewMessage);
     emitter.on('add-messages', this.addMessages);
+    emitter.on('delivered', this.setStatusDelivered);
     // this.messages.on('click', () => emitter.emit('setReaded'));
   }
 
@@ -103,8 +105,7 @@ export default class Dialog extends BaseComponent {
       }
     }
 
-    const message = new Message(msg);
-    this.messages.append(message);
+    this.addMessage(msg);
     this.messages.element.scrollTo({
       top: this.messages.element.scrollHeight,
       behavior: 'smooth',
@@ -115,6 +116,7 @@ export default class Dialog extends BaseComponent {
     if (!Array.isArray(messages)) {
       throw new Error(`messages is not array`);
     }
+    this.messagesMap.clear();
 
     if (messages.length === 0) {
       return;
@@ -126,8 +128,9 @@ export default class Dialog extends BaseComponent {
       if (!msg.author && msg.status === MessageStatus.Delivered && !this.isDivider) {
         this.showDivider();
       }
-      const messageComp = new Message(msg);
-      this.messages.append(messageComp);
+      this.addMessage(msg);
+      // const messageComp = new Message(msg);
+      // this.messages.append(messageComp);
     });
   };
 
@@ -140,5 +143,22 @@ export default class Dialog extends BaseComponent {
   protected removePlaceholder = () => {
     this.dialogStatus = DialogStatus.messages;
     this.placeholder.addClass('placeholder-hidden');
+  };
+
+  protected addMessage(msg: MessageProps) {
+    const messageComp = new Message(msg);
+    this.messages.append(messageComp);
+    this.messagesMap.set(msg.id, messageComp);
+  }
+
+  protected setStatusDelivered = (id: unknown) => {
+    if (typeof id !== 'string') {
+      throw new Error(`id is not string`);
+    }
+    const messageComp = this.messagesMap.get(id);
+    if (!messageComp) {
+      throw new Error(`messageComponent is undefined`);
+    }
+    messageComp.setStatusDelivered();
   };
 }

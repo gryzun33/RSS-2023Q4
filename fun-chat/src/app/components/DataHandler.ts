@@ -4,6 +4,13 @@ import state from './State';
 import ErrorHandler from './ErrorHandler';
 import { UserResponse, MessageResponse } from '../utils/types';
 
+type DeliveredResponse = {
+  id: string;
+  status: {
+    isDelivered: boolean;
+  };
+};
+
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
 
@@ -45,13 +52,15 @@ export default class DataHandler {
 
         break;
       case 'MSG_FROM_USER':
-        console.log('MSGFROMUSER');
-        console.log('all=', data);
+        // console.log('MSGFROMUSER');
+        // console.log('all=', data);
         this.messagesResponse(data.payload.messages, data.id);
 
         break;
       case 'MSG_DELIVER':
         console.log('deliver');
+        this.deliverResponse(data.payload.message);
+
         break;
       case 'MSG_READ':
         console.log('read');
@@ -126,8 +135,17 @@ export default class DataHandler {
 
     const { login } = state.getUser();
     const unReaded = msgs.filter((msg) => msg.from !== login && !msg.status.isReaded);
-    console.log('unreaded=', unReaded);
+    // console.log('unreaded=', unReaded);
     const notifications = unReaded.length;
     state.setNotifications(id, notifications);
   };
+
+  protected deliverResponse(data: DeliveredResponse) {
+    const msg = state.messagesMap.get(data.id);
+    if (!msg) {
+      throw new Error(`message is undefined`);
+    }
+    msg.status.isDelivered = true;
+    emitter.emit('delivered', data.id);
+  }
 }

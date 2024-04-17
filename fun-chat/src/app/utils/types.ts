@@ -74,3 +74,9 @@ export enum MessageStatus {
   Readed = 'readed',
   Edited = 'edited',
 }
+
+export type StatusResponse = {
+  isDelivered: boolean;
+  isReaded: boolean;
+  isEdited: boolean;
+};
