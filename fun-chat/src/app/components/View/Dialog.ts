@@ -103,15 +103,16 @@ export default class Dialog extends BaseComponent {
       this.removePlaceholder();
     }
     if (!msg.author && !this.isDivider) {
-      this.isDivider = true;
+      // this.isDivider = true;
       this.showDivider();
     }
 
     this.addMessage(msg);
-    this.messages.element.scrollTo({
-      top: this.messages.element.scrollHeight,
-      behavior: 'smooth',
-    });
+    this.scrollMessages();
+    // this.messages.element.scrollTo({
+    //   top: this.messages.element.scrollHeight,
+    //   behavior: 'smooth',
+    // });
   };
 
   protected addMessages = (messages: unknown) => {
@@ -135,6 +136,7 @@ export default class Dialog extends BaseComponent {
       // const messageComp = new Message(msg);
       // this.messages.append(messageComp);
     });
+    this.scrollMessages();
   };
 
   protected showDivider = () => {
@@ -194,4 +196,31 @@ export default class Dialog extends BaseComponent {
     this.hideDivider();
     emitter.emit('set-readed');
   };
+
+  public scrollMessages() {
+    // if (!container || !divider) return;
+    const container = this.messages.element;
+    const divider = this.divider.element;
+
+    if (this.isDivider) {
+      const containerRect = container.getBoundingClientRect();
+      const dividerRect = divider.getBoundingClientRect();
+
+      const remainingHeight = container.scrollHeight - container.clientHeight;
+      if (dividerRect.top >= containerRect.top && remainingHeight > containerRect.height) {
+        container.scrollTo({
+          top: container.scrollTop + (dividerRect.top - containerRect.top) - 10,
+          behavior: 'smooth',
+        });
+      }
+    } else {
+      const isScrollable = container.scrollHeight > container.clientHeight;
+      if (isScrollable) {
+        container.scrollTo({
+          top: container.scrollHeight - container.clientHeight,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }
 }

@@ -161,7 +161,8 @@ export default class DataHandler {
     const msg = state.messagesMap.get(data.id);
     const { login } = state.getDialogUser();
     if (!msg) {
-      throw new Error(`message is undefined`);
+      // throw new Error(`message is undefined`);
+      return;
     }
     msg.status.isReaded = true;
     if (login !== msg.from) {

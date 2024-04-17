@@ -99,9 +99,10 @@ export default class Users extends BaseComponent {
       classNames: ['user-notifications'],
       text: String(notifications),
     });
-    // if(notifications === 0) {
 
-    // }
+    if (notifications === 0) {
+      notificationsElem.addClass('hidden');
+    }
     userItem.append(userLogin, notificationsElem);
     userItem.attr('data-login', `${login}`);
     this.usersMap.set(login, userItem);
@@ -164,6 +165,13 @@ export default class Users extends BaseComponent {
     if (!userComponent) {
       throw new Error(`user is undefined`);
     }
-    userComponent.children[1].setTextContent(String(notifications));
+
+    const notificationElem = userComponent.children[1];
+    notificationElem.setTextContent(String(notifications));
+    if (notifications > 0) {
+      notificationElem.removeClass('hidden');
+    } else {
+      notificationElem.addClass('hidden');
+    }
   };
 }
