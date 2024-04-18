@@ -70,7 +70,8 @@ export default class DataHandler {
 
         break;
       case 'MSG_READ':
-        console.log('REAAAD');
+        console.log('READ-RESPONSE');
+        console.log('messageread=', data.payload.message);
         this.readResponse(data.payload.message);
         break;
       case 'MSG_EDIT':

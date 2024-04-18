@@ -190,7 +190,7 @@ export default class Controller {
 
   protected readedRequest = () => {
     const messages = Array.from(state.messagesMap.values());
-    console.log(messages);
+    // console.log(messages);
     const messagesId = messages.filter((msg) => !msg.status.isReaded).map((msg) => msg.id);
     console.log('readed', messagesId);
 

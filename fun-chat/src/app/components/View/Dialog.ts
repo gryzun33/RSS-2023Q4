@@ -18,6 +18,7 @@ enum DialogStatus {
 export default class Dialog extends BaseComponent {
   protected messagesMap: Map<string, Message> = new Map();
   protected isDivider: boolean = false;
+  protected isProgrammScroll: boolean = false;
   protected dialogStatus: string = DialogStatus.noDialogUser;
 
   protected divider = new BaseComponent({
@@ -44,7 +45,16 @@ export default class Dialog extends BaseComponent {
     emitter.on('add-messages', this.addMessages);
     emitter.on('delivered', this.setStatusDelivered);
     emitter.on('readed', this.setStatusReaded);
-    this.messages.on('click', this.onClickMessages);
+    this.messages.on('click', this.onChangeMessages);
+    this.messages.on('scroll', this.onScrollMessages);
+    emitter.on('send-message', this.onChangeMessages);
+    window.addEventListener('focus', () => {
+      console.log('фокус');
+      setTimeout(() => {
+        this.isProgrammScroll = false;
+        console.log('scrollfalse');
+      }, 1000);
+    });
   }
 
   protected createView() {
@@ -109,10 +119,6 @@ export default class Dialog extends BaseComponent {
 
     this.addMessage(msg);
     this.scrollMessages(true);
-    // this.messages.element.scrollTo({
-    //   top: this.messages.element.scrollHeight,
-    //   behavior: 'smooth',
-    // });
   };
 
   protected addMessages = (messages: unknown) => {
@@ -192,12 +198,29 @@ export default class Dialog extends BaseComponent {
     this.divider.addClass('hidden');
   };
 
-  protected onClickMessages = () => {
-    this.hideDivider();
-    emitter.emit('set-readed');
+  protected onChangeMessages = () => {
+    // if (this.isProgrammScroll) {
+    //   this.isProgrammScroll = false;
+    // }
+    if (this.isDivider) {
+      this.hideDivider();
+      emitter.emit('set-readed');
+    }
+  };
+
+  protected onScrollMessages = () => {
+    console.log('xxxxx');
+    if (!this.isProgrammScroll) {
+      this.onChangeMessages();
+    }
   };
 
   public scrollMessages(isSmooth: boolean) {
+    this.isProgrammScroll = true;
+    console.log('scrolltrue');
+    // this.messages.off('scroll', this.onChangeMessages);
+    // console.log('scrolloff');
+    // this.isProgrammScroll = true;
     // if (!container || !divider) return;
     const container = this.messages.element;
     const divider = this.divider.element;
@@ -217,7 +240,7 @@ export default class Dialog extends BaseComponent {
       if (dividerRect.top >= containerRect.top) {
         container.scrollTo({
           top: container.scrollTop + (dividerRect.top - containerRect.top) - 10,
-          behavior: 'smooth',
+          behavior: isSmooth ? 'smooth' : 'auto',
         });
       }
     } else {
@@ -228,6 +251,15 @@ export default class Dialog extends BaseComponent {
           behavior: isSmooth ? 'smooth' : 'auto',
         });
       }
+    }
+    if (document.hasFocus()) {
+      setTimeout(() => {
+        this.isProgrammScroll = false;
+        console.log('scrollfalse');
+      }, 1000);
+      console.log('focus');
+    } else {
+      console.log('nofocus');
     }
   }
 }
