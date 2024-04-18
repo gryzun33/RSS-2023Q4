@@ -1,10 +1,17 @@
-import { Props, Handler } from '../../utils/types';
+import { Props, Handler, Listener } from '../../utils/types';
+import emitter from '../EventEmitter';
+
+type Unsubscriber = () => void;
 
 export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   public element: T;
   public children: BaseComponent[] = [];
 
   protected handlers: Handler[] = [];
+
+  protected emitterMap: Map<string, Listener> = new Map();
+
+  protected unsubscribes: Unsubscriber[] = [];
 
   constructor(props: Props) {
     this.element = document.createElement(props.tag || 'div') as T;
@@ -13,6 +20,9 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
       this.setTextContent(props.text);
     }
     this.children = [];
+    this.emitterMap.forEach((listener, eventName) => {
+      this.unsubscribes.push(emitter.on(eventName, listener));
+    });
   }
   public getElement() {
     return this.element;
@@ -110,6 +120,13 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.destroyChildren();
     this.element.remove();
     this.deleteHandlers();
+    this.unsubscribeEmitter();
+  }
+
+  public unsubscribeEmitter(): void {
+    this.unsubscribes.forEach((unsubscriber: Unsubscriber) => {
+      unsubscriber();
+    });
   }
 
   public deleteHandlers(): void {

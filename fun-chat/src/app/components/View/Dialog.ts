@@ -3,6 +3,7 @@ import { Props, MessageProps, MessageStatus } from '../../utils/types';
 import emitter from '../EventEmitter';
 import Message from './Message';
 import { isMessageProps } from '../../utils/helpers';
+// import { Listener } from '../../utils/types';
 
 enum UserStatus {
   online = 'online',
@@ -21,6 +22,7 @@ export default class Dialog extends BaseComponent {
   protected isProgrammScroll: boolean = false;
   protected dialogStatus: string = DialogStatus.noDialogUser;
 
+  // protected emitterMap: Map<string, Listener> = new Map([[]]);
   protected divider = new BaseComponent({
     tag: 'div',
     classNames: ['divider'],
@@ -39,15 +41,16 @@ export default class Dialog extends BaseComponent {
   constructor(props: Props) {
     super(props);
     this.createView();
-    emitter.on('set-dialog-user', this.setDialogUser);
-    emitter.on('change-status', this.changeStatus);
-    emitter.on('add-message', this.addNewMessage);
-    emitter.on('add-messages', this.addMessages);
-    emitter.on('delivered', this.setStatusDelivered);
-    emitter.on('readed', this.setStatusReaded);
+    // emitter.on('set-dialog-user', this.setDialogUser);
+    // emitter.on('change-status', this.changeStatus);
+    // emitter.on('add-message', this.addNewMessage);
+    // emitter.on('add-messages', this.addMessages);
+    // emitter.on('delivered', this.setStatusDelivered);
+    // emitter.on('readed', this.setStatusReaded);
+    // emitter.on('send-message', this.onChangeMessages);
     this.messages.on('click', this.onChangeMessages);
     this.messages.on('scroll', this.onScrollMessages);
-    emitter.on('send-message', this.onChangeMessages);
+
     // window.addEventListener('focus', () => {
     //   console.log('фокус');
     //   setTimeout(() => {
@@ -61,6 +64,20 @@ export default class Dialog extends BaseComponent {
         this.isProgrammScroll = false;
       }
     });
+
+    this.emitterMap = new Map([
+      ['set-dialog-user', this.setDialogUser],
+      ['change-status', this.changeStatus],
+      ['add-message', this.addNewMessage],
+      ['add-messages', this.addMessages],
+      ['delivered', this.setStatusDelivered],
+      ['readed', this.setStatusReaded],
+      ['send-message', this.onChangeMessages],
+    ]);
+    this.emitterMap.forEach((listener, eventName) => {
+      this.unsubscribes.push(emitter.on(eventName, listener));
+    });
+    console.log('unubscribes', this.unsubscribes);
   }
 
   protected createView() {

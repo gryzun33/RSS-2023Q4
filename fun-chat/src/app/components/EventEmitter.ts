@@ -1,13 +1,17 @@
-type Listener = (...args: unknown[]) => void;
+import { Listener } from '../utils/types';
 
 class EventEmitter {
   private listeners: { [event: string]: Listener[] } = {};
 
-  public on(event: string, listener: Listener): void {
+  public on(event: string, listener: Listener): () => void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
     this.listeners[event].push(listener);
+
+    return (): void => {
+      this.off(event, listener);
+    };
   }
 
   public off(event: string, listener: Listener): void {

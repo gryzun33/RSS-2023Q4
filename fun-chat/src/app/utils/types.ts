@@ -5,6 +5,8 @@ export type Props = {
   callback?: () => void;
 };
 
+export type Listener = (...args: unknown[]) => void;
+
 export type Handler = {
   eventType: string;
   callback: (event: Event) => void;
