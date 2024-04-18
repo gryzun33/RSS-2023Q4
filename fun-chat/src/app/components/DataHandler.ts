@@ -60,7 +60,7 @@ export default class DataHandler {
         break;
       case 'MSG_FROM_USER':
         // console.log('MSGFROMUSER');
-        // console.log('all=', data);
+        console.log('all=', data);
         this.messagesResponse(data.payload.messages, data.id);
 
         break;
@@ -96,6 +96,7 @@ export default class DataHandler {
         let path = window.location.pathname.slice(1);
         path = path === 'about' ? 'about' : 'main';
         emitter.emit('navigate', path);
+        console.log('PATH=', path);
       }
     }
   }
@@ -138,13 +139,14 @@ export default class DataHandler {
 
   protected messagesResponse = (msgs: MessageResponse[], id: string) => {
     if (id === state.dialogId) {
+      console.log('dialogID', id);
       state.addMessages(msgs);
       return;
     }
 
     const { login } = state.getUser();
     const unReaded = msgs.filter((msg) => msg.from !== login && !msg.status.isReaded);
-    // console.log('unreaded=', unReaded);
+    console.log('unreaded=', unReaded);
     const notifications = unReaded.length;
     state.setNotifications(id, notifications);
   };

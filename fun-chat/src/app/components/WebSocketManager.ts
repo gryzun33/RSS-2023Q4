@@ -47,6 +47,7 @@ export default class WebSocketManager {
 
   onError = (event: Event) => {
     console.error('WebSocket error:', event);
+
     this.ws?.close();
   };
   send(message: string) {

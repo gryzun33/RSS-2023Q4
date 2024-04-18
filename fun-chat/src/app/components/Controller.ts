@@ -70,6 +70,7 @@ export default class Controller {
   }
 
   public checkAuthorized = () => {
+    state.updateState();
     const user = storage.getData('user');
     if (user) {
       console.log('userfromstorage=', user);

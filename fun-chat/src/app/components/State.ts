@@ -97,8 +97,10 @@ class State {
     userData.notifications = notifications;
     if (userData.isLogined) {
       emitter.emit('external-login', login, userData.notifications);
+      console.log('external-login');
     } else {
       emitter.emit('external-logout', login, userData.notifications);
+      console.log('external-logout');
     }
 
     // emitter.emit('draw-notifications', login, userData.notifications);

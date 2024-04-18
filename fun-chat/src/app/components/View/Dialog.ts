@@ -48,12 +48,18 @@ export default class Dialog extends BaseComponent {
     this.messages.on('click', this.onChangeMessages);
     this.messages.on('scroll', this.onScrollMessages);
     emitter.on('send-message', this.onChangeMessages);
-    window.addEventListener('focus', () => {
-      console.log('фокус');
-      setTimeout(() => {
+    // window.addEventListener('focus', () => {
+    //   console.log('фокус');
+    //   setTimeout(() => {
+    //     this.isProgrammScroll = false;
+    //     console.log('scrollfalse');
+    //   }, 1000);
+    // });
+    this.messages.on('scrollend', () => {
+      console.log('scrollend');
+      if (this.isProgrammScroll) {
         this.isProgrammScroll = false;
-        console.log('scrollfalse');
-      }, 1000);
+      }
     });
   }
 
@@ -252,14 +258,14 @@ export default class Dialog extends BaseComponent {
         });
       }
     }
-    if (document.hasFocus()) {
-      setTimeout(() => {
-        this.isProgrammScroll = false;
-        console.log('scrollfalse');
-      }, 1000);
-      console.log('focus');
-    } else {
-      console.log('nofocus');
-    }
+    // if (document.hasFocus()) {
+    //   setTimeout(() => {
+    //     this.isProgrammScroll = false;
+    //     console.log('scrollfalse');
+    //   }, 1000);
+    //   console.log('focus');
+    // } else {
+    //   console.log('nofocus');
+    // }
   }
 }
