@@ -52,7 +52,8 @@ class State {
   }
 
   public updateState() {
-    this.deleteUsers();
+    this.usersMap.clear();
+    this.messagesMap.clear();
     this.dialogUser = { login: '', isLogined: true };
   }
 
@@ -110,10 +111,6 @@ class State {
   //   }
   //   return status;
   // }
-
-  public deleteUsers() {
-    this.usersMap.clear();
-  }
 
   // public deleteMessages() {
   //   this.messagesMap.clear();

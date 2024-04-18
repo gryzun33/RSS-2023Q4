@@ -108,7 +108,7 @@ export default class Dialog extends BaseComponent {
     }
 
     this.addMessage(msg);
-    this.scrollMessages();
+    this.scrollMessages(true);
     // this.messages.element.scrollTo({
     //   top: this.messages.element.scrollHeight,
     //   behavior: 'smooth',
@@ -136,7 +136,7 @@ export default class Dialog extends BaseComponent {
       // const messageComp = new Message(msg);
       // this.messages.append(messageComp);
     });
-    this.scrollMessages();
+    this.scrollMessages(false);
   };
 
   protected showDivider = () => {
@@ -197,7 +197,7 @@ export default class Dialog extends BaseComponent {
     emitter.emit('set-readed');
   };
 
-  public scrollMessages() {
+  public scrollMessages(isSmooth: boolean) {
     // if (!container || !divider) return;
     const container = this.messages.element;
     const divider = this.divider.element;
@@ -206,8 +206,15 @@ export default class Dialog extends BaseComponent {
       const containerRect = container.getBoundingClientRect();
       const dividerRect = divider.getBoundingClientRect();
 
-      const remainingHeight = container.scrollHeight - container.clientHeight;
-      if (dividerRect.top >= containerRect.top && remainingHeight > containerRect.height) {
+      // const remainingHeight = container.scrollHeight - container.clientHeight;
+      // if (dividerRect.top >= containerRect.top && remainingHeight > containerRect.height) {
+      //   container.scrollTo({
+      //     top: container.scrollTop + (dividerRect.top - containerRect.top) - 10,
+      //     behavior: 'smooth',
+      //   });
+      // }
+
+      if (dividerRect.top >= containerRect.top) {
         container.scrollTo({
           top: container.scrollTop + (dividerRect.top - containerRect.top) - 10,
           behavior: 'smooth',
@@ -218,7 +225,7 @@ export default class Dialog extends BaseComponent {
       if (isScrollable) {
         container.scrollTo({
           top: container.scrollHeight - container.clientHeight,
-          behavior: 'smooth',
+          behavior: isSmooth ? 'smooth' : 'auto',
         });
       }
     }
