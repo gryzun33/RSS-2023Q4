@@ -18,20 +18,25 @@ export default class Users extends BaseComponent {
     tag: 'ul',
     classNames: ['inactive-list'],
   });
+
   public userList = new BaseComponent<HTMLElement>({ tag: 'div', classNames: ['users-list'] });
   constructor(props: Props) {
     super(props);
     this.createView();
-    // emitter.on('addUsersToList', this.createUsersList);
-    emitter.on('external-login', this.addActiveUser);
-    emitter.on('external-logout', this.addInactiveUser);
-    emitter.on('update-notifications', this.updateNotifications);
-    // emitter.on('draw-notifications', this.drawNotifications);
+    // emitter.on('external-login', this.addActiveUser);
+    // emitter.on('external-logout', this.addInactiveUser);
+    // emitter.on('update-notifications', this.updateNotifications);
     this.activeList.on('click', this.onClickUsers);
     this.inactiveList.on('click', this.onClickUsers);
     this.userSearch.on('input', this.searchUsers);
     this.usersMap.clear();
-    // this.inactiveList.on('click', this.onClickInactiveUsers);
+
+    this.emitterMap = new Map([
+      ['external-login', this.addActiveUser],
+      ['external-logout', this.addInactiveUser],
+      ['update-notifications', this.updateNotifications],
+    ]);
+    this.addUnsubscribers();
   }
 
   protected createView() {
@@ -164,38 +169,37 @@ export default class Users extends BaseComponent {
     if (typeof login !== 'string' || typeof notifications !== 'number') {
       throw new Error(`arguments don't match their types`);
     }
-    console.log('LOGIN=', login);
-    const userElement = document.querySelector(`[data-login=${login}]`);
-    if (!userElement) {
-      throw new Error(`notificationElem is null`);
-    }
-    console.log('ELEMENT', userElement);
-    const notificationElem = userElement.querySelector('.user-notifications');
-
-    // const notificationElem = userComponent.element.querySelector('.user-notifications');
-    if (!notificationElem) {
-      throw new Error(`notificationElem is null`);
-    }
-    notificationElem.textContent = String(notifications);
-    if (notifications > 0) {
-      notificationElem.classList.remove('hidden');
-    } else {
-      notificationElem.classList.add('hidden');
-    }
-
-    // console.log('MAP=', this.usersMap);
-    // const userComponent = this.usersMap.get(login);
-    // console.log('usercomponent=', userComponent);
-    // if (!userComponent) {
-    //   throw new Error(`user is undefined`);
+    // console.log('LOGIN=', login);
+    // const userElement = document.querySelector(`[data-login=${login}]`);
+    // if (!userElement) {
+    //   throw new Error(`notificationElem is null`);
     // }
+    // console.log('ELEMENT', userElement);
+    // const notificationElem = userElement.querySelector('.user-notifications');
 
-    // const notificationElem = userComponent.children[1];
-    // notificationElem.setTextContent(String(notifications));
+    // if (!notificationElem) {
+    //   throw new Error(`notificationElem is null`);
+    // }
+    // notificationElem.textContent = String(notifications);
     // if (notifications > 0) {
-    //   notificationElem.removeClass('hidden');
+    //   notificationElem.classList.remove('hidden');
     // } else {
-    //   notificationElem.addClass('hidden');
+    //   notificationElem.classList.add('hidden');
     // }
+
+    console.log('MAP=', this.usersMap);
+    const userComponent = this.usersMap.get(login);
+    console.log('usercomponent=', userComponent);
+    if (!userComponent) {
+      throw new Error(`user is undefined`);
+    }
+
+    const notificationElem = userComponent.children[1];
+    notificationElem.setTextContent(String(notifications));
+    if (notifications > 0) {
+      notificationElem.removeClass('hidden');
+    } else {
+      notificationElem.addClass('hidden');
+    }
   };
 }

@@ -20,6 +20,9 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
       this.setTextContent(props.text);
     }
     // this.children = [];
+  }
+
+  protected addUnsubscribers() {
     this.emitterMap.forEach((listener, eventName) => {
       this.unsubscribes.push(emitter.on(eventName, listener));
     });
