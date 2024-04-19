@@ -29,7 +29,11 @@ export default class Dialog extends BaseComponent {
     text: 'New messages',
   });
   protected dialogUserLogin = new BaseComponent({ tag: 'p', classNames: ['dialog-user-login'] });
-  protected dialogUserStatus = new BaseComponent({ tag: 'p', classNames: ['dialog-user-status'] });
+  protected dialogUserStatus = new BaseComponent({
+    tag: 'p',
+    classNames: ['dialog-user-status'],
+    text: ``,
+  });
   protected messagesBox = new BaseComponent({ tag: 'div', classNames: ['messages-box'] });
   protected messages = new BaseComponent({ tag: 'div', classNames: ['messages'] });
   protected placeholder = new BaseComponent({
@@ -50,20 +54,7 @@ export default class Dialog extends BaseComponent {
     // emitter.on('send-message', this.onChangeMessages);
     this.messages.on('click', this.onChangeMessages);
     this.messages.on('scroll', this.onScrollMessages);
-
-    // window.addEventListener('focus', () => {
-    //   console.log('фокус');
-    //   setTimeout(() => {
-    //     this.isProgrammScroll = false;
-    //     console.log('scrollfalse');
-    //   }, 1000);
-    // });
-    this.messages.on('scrollend', () => {
-      console.log('scrollend');
-      if (this.isProgrammScroll) {
-        this.isProgrammScroll = false;
-      }
-    });
+    this.messages.on('scrollend', this.onScrollEndHandler);
 
     this.emitterMap = new Map([
       ['set-dialog-user', this.setDialogUser],
@@ -87,6 +78,12 @@ export default class Dialog extends BaseComponent {
     this.messagesBox.append(this.placeholder, this.messages);
     this.append(dialogUser, this.messagesBox);
   }
+
+  protected onScrollEndHandler = () => {
+    if (this.isProgrammScroll) {
+      this.isProgrammScroll = false;
+    }
+  };
 
   protected setDialogUser = (login: unknown, status: unknown) => {
     console.log('setUSER');

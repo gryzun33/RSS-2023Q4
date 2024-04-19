@@ -19,7 +19,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     if (props.text !== null) {
       this.setTextContent(props.text);
     }
-    this.children = [];
+    // this.children = [];
     this.emitterMap.forEach((listener, eventName) => {
       this.unsubscribes.push(emitter.on(eventName, listener));
     });
