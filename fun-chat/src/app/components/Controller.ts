@@ -97,13 +97,16 @@ export default class Controller {
       },
     };
 
+    this.wsManager?.send(JSON.stringify(loginRequest));
+    this.externalUsersRequest();
+  };
+
+  public externalUsersRequest() {
     const activeUsersRequest = this.getUsers(REQUESTS.activeUsers);
     const inactiveUsersRequest = this.getUsers(REQUESTS.inactiveUsers);
-
-    this.wsManager?.send(JSON.stringify(loginRequest));
     this.wsManager?.send(JSON.stringify(activeUsersRequest));
     this.wsManager?.send(JSON.stringify(inactiveUsersRequest));
-  };
+  }
 
   protected logoutRequest = () => {
     const { login, password } = state.getUser();

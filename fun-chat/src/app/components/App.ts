@@ -10,6 +10,7 @@ import ModalServer from './View/ModalServer';
 import emitter from './EventEmitter';
 
 export default class App {
+  protected page: string = '';
   protected root = new BaseComponent({ tag: 'div', classNames: ['wrapper'] });
   private router: Router;
   private currPage?: BaseComponent;
@@ -23,10 +24,9 @@ export default class App {
   // private model: Model;
 
   // private view: View;
-
+  protected controller = new Controller();
   constructor() {
-    const controller = new Controller();
-    console.log(controller);
+    // console.log(controller);
     const routes = this.createRoutes();
     this.router = new Router(routes);
     // console.log(this.router);
@@ -55,23 +55,27 @@ export default class App {
       // },
       {
         path: `login`,
-        callback: () => this.setContent(new LoginPage()),
+        callback: () => this.setContent(new LoginPage(), 'login'),
       },
       {
         path: `main`,
-        callback: () => this.setContent(new MainPage()),
+        callback: () => this.setContent(new MainPage(), 'main'),
       },
       {
         path: `about`,
-        callback: () => this.setContent(new AboutPage()),
+        callback: () => this.setContent(new AboutPage(), 'about'),
       },
     ];
   }
-  setContent(newPage: BaseComponent) {
+  setContent(newPage: BaseComponent, page: string) {
     if (this.currPage) {
       this.currPage.destroy();
     }
     this.currPage = newPage;
     this.root.append(newPage);
+    if (this.page === 'about' && page === 'main') {
+      this.controller.externalUsersRequest();
+    }
+    this.page = page;
   }
 }
