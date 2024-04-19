@@ -119,12 +119,12 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     }
   }
 
-  public destroy(): void {
+  public destroy = (): void => {
     this.destroyChildren();
     this.element.remove();
     this.deleteHandlers();
     this.unsubscribeEmitter();
-  }
+  };
 
   public unsubscribeEmitter(): void {
     this.unsubscribes.forEach((unsubscriber: Unsubscriber) => {

@@ -1,12 +1,16 @@
 import { MessageProps, MessageStatus } from '../../utils/types';
 import BaseComponent from './BaseComponent';
+import ContextMenu from './ContextMenu';
 // import emitter from '../EventEmitter';
 
 export default class Message extends BaseComponent {
+  protected id: string = '';
+  protected contextMenu?: ContextMenu;
   protected msgText = new BaseComponent({ tag: 'p', classNames: ['msg-text'] });
   protected msgStatus = new BaseComponent({ tag: 'p', classNames: ['msg-status'] });
   constructor(msg: MessageProps) {
     super({ tag: 'div', classNames: ['message'] });
+    this.id = msg.id;
     this.createView(msg);
   }
 
@@ -20,6 +24,7 @@ export default class Message extends BaseComponent {
     this.msgText.setTextContent(msg.text);
     if (msg.author) {
       this.msgStatus.setTextContent(msg.status);
+      this.on('contextmenu', this.onContextMenuHandler);
     }
 
     this.append(topInfo, this.msgText, this.msgStatus);
@@ -37,4 +42,18 @@ export default class Message extends BaseComponent {
   public setStatusReaded() {
     this.msgStatus.setTextContent(MessageStatus.Readed);
   }
+
+  protected onContextMenuHandler = (e: Event) => {
+    console.log('contextmenu');
+    e.preventDefault();
+    this.contextMenu = new ContextMenu();
+    this.append(this.contextMenu);
+    if (this.contextMenu) {
+      document.addEventListener('click', () => this.contextMenu?.destroy(), { once: true });
+    }
+  };
+
+  // protected removeContextMenu = () => {
+  //   this.contextMenu?.destroy();
+  // };
 }
