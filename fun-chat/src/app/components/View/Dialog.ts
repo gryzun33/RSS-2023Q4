@@ -105,6 +105,7 @@ export default class Dialog extends BaseComponent {
   };
 
   protected changePlaceholder = () => {
+    this.placeholder.removeClass('placeholder-hidden');
     this.placeholder.setTextContent(`Please write your first message...`);
   };
 

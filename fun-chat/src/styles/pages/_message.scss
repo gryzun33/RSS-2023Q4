@@ -2,9 +2,9 @@
   max-width: 60%;
   width: 100%;
   @include flex-column;
-  background-color: red;
   margin-bottom: 10px;
   position: relative;
+  border-radius: 5px;
 }
 
 .msg-top-info {
@@ -17,6 +17,14 @@
   .msg-date {
     font-size: 12px;
   }
+
+  // .message-right & {
+  //   background-color: $color-right-data;
+  // }
+
+  // .message-left & {
+  //   background-color: $color-left-data;
+  // }
 }
 
 .msg-text {
@@ -31,19 +39,29 @@
   @include flex(flex-end, center);
   height: 15px;
   font-size: 12px;
+
+  // .message-right & {
+  //   background-color: $color-right-data;
+  // }
+
+  // .message-left & {
+  //   background-color: $color-left-data;
+  // }
 }
 
 .message-right {
-  // margin-top: 10px;
   margin-right: 10px;
   align-self: flex-end;
+  background-color: $color-message-right;
+  color: $color-dialog;
 }
 
 .message-left {
   // margin-top: 10px;
   margin-left: 10px;
   align-self: flex-start;
-  background-color: greenyellow;
+  background-color: $color-message-left;
+  color: $color-text;
 }
 
 .context-menu {

@@ -71,7 +71,7 @@ export default class Users extends BaseComponent {
     }
     let userItem = this.usersMap.get(userLogin);
     if (!userItem) {
-      console.log('NEWEXTERNALUSER', userLogin);
+      // console.log('NEWEXTERNALUSER', userLogin);
       userItem = this.getNewUserItem(userLogin, notifications);
     }
 

@@ -66,6 +66,21 @@ ul {
       background-color: $color-user-hover;
     }
   }
+
+  .user-notifications {
+    border: 1px solid $color-notification;
+    border-radius: 50%;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    color: $color-notification;
+    font-size: 12px;
+    @include flex(center, center);
+  }
+
+  .hidden {
+    display: none;
+  }
 }
 
 .active-user {

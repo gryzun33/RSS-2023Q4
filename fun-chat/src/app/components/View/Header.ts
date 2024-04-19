@@ -30,6 +30,6 @@ export default class Header extends BaseComponent {
 
     const { login } = state.getUser();
     console.log('login=', login);
-    this.currUser.html(`User: <span>${login}</span>`);
+    this.currUser.html(`<span>${login}</span>`);
   }
 }
