@@ -5,6 +5,10 @@
   margin-bottom: 10px;
   position: relative;
   border-radius: 5px;
+
+  @include mobile-600 {
+    max-width: 80%;
+  }
 }
 
 .msg-top-info {
@@ -16,21 +20,41 @@
   .msg-author,
   .msg-date {
     font-size: 12px;
+
+    @include mobile-600 {
+      font-size: 10px;
+    }
   }
 
-  // .message-right & {
-  //   background-color: $color-right-data;
-  // }
+  .msg-date {
+    flex: none;
+  }
 
-  // .message-left & {
-  //   background-color: $color-left-data;
-  // }
+  .msg-author {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 5px;
+    // max-width: 130px;
+  }
+
+  .message-right & {
+    color: $color-right-data;
+  }
+
+  .message-left & {
+    color: $color-left-data;
+  }
 }
 
 .msg-text {
   font-size: 16px;
   padding: 5px;
   overflow-wrap: break-word;
+
+  @include mobile-600 {
+    font-size: 14px;
+  }
 }
 
 .msg-status-box {
@@ -39,17 +63,19 @@
   @include flex(space-between, center);
   height: 15px;
   font-size: 12px;
+
+  @include mobile-600 {
+    font-size: 10px;
+  }
+
+  .message-right & {
+    color: $color-right-data;
+  }
+
+  .message-left & {
+    color: $color-left-data;
+  }
 }
-
-// .msg-status {
-// .message-right & {
-//   background-color: $color-right-data;
-// }
-
-// .message-left & {
-//   background-color: $color-left-data;
-// }
-// }
 
 .message-right {
   margin-right: 10px;
@@ -72,7 +98,7 @@
   left: -10px;
   z-index: 5;
   background-color: $color-context-menu;
-  color: $color-text;
+  color: $color-icon;
   border-radius: 5px;
   padding: 5px;
   @include flex-column;

@@ -5,10 +5,21 @@
   background-color: $color-bg;
   padding: 0 20px;
   color: $color-text;
+  @include mobile-600 {
+    padding: 0 10px;
+  }
 }
 
 .curr-user {
   font-size: 20px;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include mobile-600 {
+    max-width: 150px;
+  }
 
   span {
     font-weight: 500;
@@ -18,11 +29,18 @@
 .header-title {
   font-size: 30px;
   color: #254e58;
+  text-align: center;
+  @include mobile-600 {
+    font-size: 25px;
+  }
 }
 
 .buttons {
   @include flex;
   gap: 15px;
+  @include mobile-600 {
+    gap: 0;
+  }
 }
 
 .main-info-btn {
@@ -32,6 +50,11 @@
   height: 50px;
 
   cursor: pointer;
+
+  @include mobile-600 {
+    width: 40px;
+    height: 40px;
+  }
 
   svg {
     width: 80%;
@@ -61,6 +84,11 @@
   height: 50px;
 
   cursor: pointer;
+
+  @include mobile-600 {
+    width: 40px;
+    height: 40px;
+  }
 
   svg {
     width: 80%;

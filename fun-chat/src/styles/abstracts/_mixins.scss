@@ -1,5 +1,5 @@
-@mixin laptop-1000 {
-  @media screen and (max-width: 1000px) {
+@mixin mobile-600 {
+  @media screen and (max-width: 600px) {
     @content;
   }
 }

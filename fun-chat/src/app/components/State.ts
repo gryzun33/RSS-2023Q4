@@ -83,6 +83,10 @@ class State {
     return this.editedMsg;
   }
 
+  public resetDialogUser(): void {
+    this.dialogUser = { login: '', isLogined: true };
+  }
+
   // public setUsers(data: UserResponse[]) {
   //   data.forEach((user) => {
   //     this.usersMap.set(user.login, user.isLogined);

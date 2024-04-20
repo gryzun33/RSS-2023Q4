@@ -20,10 +20,25 @@
   border-bottom: 2px solid $color-input-border;
   @include flex(space-between, center);
   color: $color-dialog;
+  @include mobile-600 {
+    padding: 0 20px;
+    font-size: 14px;
+  }
+}
+
+.dialog-user-login {
+  // max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // @include mobile-600 {
+  //   max-width: 150px;
+  // }
 }
 
 .dialog-user-status {
   color: rgb(14, 152, 14);
+  flex: none;
 }
 
 .status-inactive {

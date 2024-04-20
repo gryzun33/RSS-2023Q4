@@ -74,6 +74,7 @@ export default class Dialog extends BaseComponent {
   }
 
   protected createView() {
+    console.log('CREATEVIEW');
     const dialogUser = new BaseComponent({ tag: 'div', classNames: ['dialog-user'] });
     dialogUser.append(this.dialogUserLogin, this.dialogUserStatus);
 
@@ -115,6 +116,8 @@ export default class Dialog extends BaseComponent {
     if (typeof status !== 'boolean') {
       throw new Error(`status isn't boolean`);
     }
+
+    console.log('CHANGE STATUS');
     this.dialogUserStatus.setTextContent(status ? UserStatus.online : UserStatus.offline);
     if (!status) {
       this.dialogUserStatus.addClass('status-inactive');

@@ -18,7 +18,7 @@ export default class Header extends BaseComponent {
     super(props);
     this.createView();
     this.logoutBtn.on('click', () => emitter.emit('logout'));
-    this.infoBtn.on('click', () => emitter.emit('navigate', 'about'));
+    this.infoBtn.on('click', this.onClickInfoBtn);
   }
   protected createView() {
     const buttons = new BaseComponent({ tag: 'div', classNames: ['buttons'] });
@@ -32,4 +32,9 @@ export default class Header extends BaseComponent {
     console.log('login=', login);
     this.currUser.html(`<span>${login}</span>`);
   }
+
+  protected onClickInfoBtn = () => {
+    emitter.emit('navigate', 'about');
+    state.updateState();
+  };
 }

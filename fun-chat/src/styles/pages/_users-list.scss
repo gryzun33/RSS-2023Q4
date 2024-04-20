@@ -27,6 +27,11 @@
   flex-grow: 1;
   overflow-y: scroll;
 
+  @include mobile-600 {
+    margin-top: 5px;
+    margin-left: 0;
+  }
+
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -67,6 +72,16 @@ ul {
     }
   }
 
+  .user-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mobile-600 {
+      font-size: 14px;
+    }
+  }
+
   .user-notifications {
     border: 1px solid $color-notification;
     border-radius: 50%;
@@ -75,7 +90,13 @@ ul {
     text-align: center;
     color: $color-notification;
     font-size: 12px;
+    flex: none;
     @include flex(center, center);
+    @include mobile-600 {
+      width: 20px;
+      height: 15px;
+      font-size: 10px;
+    }
   }
 
   .hidden {
