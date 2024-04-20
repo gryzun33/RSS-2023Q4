@@ -1,7 +1,5 @@
 import BaseComponent from './View/BaseComponent';
-// import View from './View';
 import Router from './Router';
-// import State from './State';
 import Controller from './Controller';
 import LoginPage from './View/LoginPage';
 import MainPage from './View/MainPage';
@@ -15,21 +13,10 @@ export default class App {
   private router: Router;
   private currPage?: BaseComponent;
   protected modal?: ModalServer;
-
-  // private routerMap: Map = new Map([
-  //   ['/login', new LoginPage()],
-  //   ['/main', new MainPage()],
-  //   ['/about', new AboutPage()],
-  // ]);
-  // private model: Model;
-
-  // private view: View;
   protected controller = new Controller();
   constructor() {
-    // console.log(controller);
     const routes = this.createRoutes();
     this.router = new Router(routes);
-    // console.log(this.router);
     emitter.on('disconnect', this.openModal);
     emitter.on('connect', this.closeModal);
   }
@@ -49,10 +36,6 @@ export default class App {
   };
   createRoutes() {
     return [
-      // {
-      //   path: ``,
-      //   callback: () => this.setContent(new LoginPage()),
-      // },
       {
         path: `login`,
         callback: () => this.setContent(new LoginPage(), 'login'),

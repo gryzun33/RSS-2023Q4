@@ -23,55 +23,36 @@ export default class DataHandler {
 
   public getData = (dataStr: string) => {
     const data = JSON.parse(dataStr);
-    // console.log('data=', data);
 
     switch (data.type) {
       case 'USER_LOGIN':
-        // console.log('userlogin');
         this.authorize(data.payload.user, data.id);
         break;
       case 'USER_LOGOUT':
-        // console.log('userlogout');
         this.logoutResponse(data.payload.user);
         break;
       case 'USER_EXTERNAL_LOGIN':
-        // console.log('userexternallogin');
         this.userStatusResponse(data.payload.user);
-
         break;
       case 'USER_EXTERNAL_LOGOUT':
-        // console.log('userexternallogout');
         this.userStatusResponse(data.payload.user);
-        // emitter.emit('external-logout', data.payload.user.login);
         break;
       case 'USER_ACTIVE':
-        // console.log('useractive');
         this.usersResponse(data.payload.users);
         break;
       case 'USER_INACTIVE':
-        // console.log('userinactive');
         this.usersResponse(data.payload.users);
         break;
       case 'MSG_SEND':
-        console.log('MSG-SENT-RESPONSE');
-        console.log('msg=', data.payload);
         this.messageResponse(data.payload.message);
-
         break;
       case 'MSG_FROM_USER':
-        // console.log('MSGFROMUSER');
-        console.log('all=', data);
         this.messagesResponse(data.payload.messages, data.id);
-
         break;
       case 'MSG_DELIVER':
-        console.log('deliver');
         this.deliverResponse(data.payload.message);
-
         break;
       case 'MSG_READ':
-        console.log('READ-RESPONSE');
-        console.log('messageread=', data.payload.message);
         this.readResponse(data.payload.message);
         break;
       case 'MSG_EDIT':
@@ -79,9 +60,7 @@ export default class DataHandler {
         break;
       case 'ERROR':
         this.errorHandler.onError(data.payload.error);
-        // console.log(data.payload.error);
         break;
-
       default:
         console.error('unknown type');
         break;
@@ -96,7 +75,6 @@ export default class DataHandler {
         let path = window.location.pathname.slice(1);
         path = path === 'about' ? 'about' : 'main';
         emitter.emit('navigate', path);
-        console.log('PATH=', path);
       }
     }
   }
@@ -109,16 +87,6 @@ export default class DataHandler {
   }
 
   private usersResponse(users: UserResponse[]) {
-    // if (type === 'USER_ACTIVE') {
-    //
-    //   const usersWithoutCurrent: UserResponse[] = users.filter((user) => user.login !== login);
-    //   state.setUsers(usersWithoutCurrent);
-    //   emitter.emit('addUsersToList', usersWithoutCurrent);
-    //   return;
-    // }
-    // state.setUsers(users);
-    // emitter.emit('addUsersToList', users);
-    // state.setUsers(users);
     const { login } = state.getUser();
     users.forEach((user) => {
       if (user.login !== login) {
@@ -139,14 +107,12 @@ export default class DataHandler {
 
   protected messagesResponse = (msgs: MessageResponse[], id: string) => {
     if (id === state.dialogId) {
-      console.log('dialogID', id);
       state.addMessages(msgs);
       return;
     }
 
     const { login } = state.getUser();
     const unReaded = msgs.filter((msg) => msg.from !== login && !msg.status.isReaded);
-    console.log('unreaded=', unReaded);
     const notifications = unReaded.length;
     state.setNotifications(id, notifications);
   };
@@ -164,7 +130,6 @@ export default class DataHandler {
     const msg = state.messagesMap.get(data.id);
     const { login } = state.getDialogUser();
     if (!msg) {
-      // throw new Error(`message is undefined`);
       return;
     }
     msg.status.isReaded = true;

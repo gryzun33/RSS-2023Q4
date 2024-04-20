@@ -14,22 +14,12 @@ export default class Router {
     document.addEventListener('DOMContentLoaded', () => {
       let path = window.location.pathname.slice(1);
       const user = storage.getData('user');
-      // if (path === ('main' || 'login') && user) {
-      // emitter.emit('login', user.login, user.password);
-      // return;
-      // }
       if (user) {
         return;
       }
       if (path === 'main') {
         path = 'login';
       }
-
-      // if (path === 'main' && !user) {
-      // path = 'login';
-      // }
-      // console.log('pathhhhh=', path);
-
       this.navigate(path);
     });
   }
@@ -60,9 +50,7 @@ export default class Router {
   };
 
   protected handleRouteChange = () => {
-    console.log('popstate');
     const path = window.location.pathname.slice(1);
-    // console.log('path2=', path);
     this.navigate(path);
   };
 }

@@ -58,10 +58,7 @@ export default class Controller {
 
   constructor() {
     this.wsManager = new WebSocketManager(this.dataHandler.getData, this.checkAuthorized);
-    console.log(this.wsManager);
     emitter.on('login', this.loginRequest);
-    // emitter.on('login', this.getActiveUsersRequest);
-    // emitter.on('login', this.getInactiveUsersRequest);
     emitter.on('logout', this.logoutRequest);
     emitter.on('send-message', this.sendRequest);
     emitter.on('set-dialog-user', this.dialogUserRequset);
@@ -73,7 +70,6 @@ export default class Controller {
     state.updateState();
     const user = storage.getData('user');
     if (user) {
-      console.log('userfromstorage=', user);
       const { login, password } = user;
       this.loginRequest(login, password);
     }
@@ -83,7 +79,6 @@ export default class Controller {
     if (typeof login !== 'string' || typeof password !== 'string') {
       throw new Error('login or password is not string');
     }
-    console.log('authorize');
     const requestId = crypto.randomUUID();
     state.saveUser({ id: requestId, login, password });
     const loginRequest: LoginRequest = {
@@ -194,9 +189,7 @@ export default class Controller {
 
   protected readedRequest = () => {
     const messages = Array.from(state.messagesMap.values());
-    // console.log(messages);
     const messagesId = messages.filter((msg) => !msg.status.isReaded).map((msg) => msg.id);
-    console.log('readed', messagesId);
 
     messagesId.forEach((id) => {
       const request: MsgStatusRequest = {

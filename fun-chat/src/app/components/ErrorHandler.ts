@@ -9,14 +9,11 @@ export default class ErrorHandler {
   public onError(text: string) {
     switch (text) {
       case ERRORS.login:
-        // console.log('incorrectlogin');
         emitter.emit('incorrectAuth', ERRORS.login);
         break;
       case ERRORS.password:
-        // console.log('incorrectpass');
         emitter.emit('incorrectAuth', ERRORS.password);
         break;
-
       default:
         console.error('unknown error type');
         break;
