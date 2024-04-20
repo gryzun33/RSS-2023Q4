@@ -22,6 +22,7 @@ export default class ContextMenu extends BaseComponent {
     super({ tag: 'div', classNames: ['context-menu'] });
     this.createView();
     this.editBtn.on('click', this.onClickEditBtn);
+    this.deleteBtn.on('click', this.onClickDeleteBtn);
   }
 
   protected createView() {
@@ -31,5 +32,10 @@ export default class ContextMenu extends BaseComponent {
   protected onClickEditBtn = () => {
     emitter.emit('change-message', this.text);
     state.setEditedMsg(this.id, this.text);
+  };
+
+  protected onClickDeleteBtn = () => {
+    emitter.emit('delete-message', this.id);
+    // state.setEditedMsg(this.id, this.text);
   };
 }

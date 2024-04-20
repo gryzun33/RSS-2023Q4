@@ -26,6 +26,13 @@ type EditResponse = {
   };
 };
 
+type DeleteResponse = {
+  id: string;
+  status: {
+    isDeleted: boolean;
+  };
+};
+
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
 
@@ -67,6 +74,11 @@ export default class DataHandler {
       case 'MSG_EDIT':
         console.log('EDIT');
         this.editResponse(data.payload.message);
+        break;
+
+      case 'MSG_DELETE':
+        console.log('DELETE');
+        this.deleteResponse(data.payload.message);
         break;
       case 'ERROR':
         this.errorHandler.onError(data.payload.error);
@@ -156,5 +168,16 @@ export default class DataHandler {
     msg.status.isEdited = true;
     msg.text = data.text;
     emitter.emit('edited', data.id, data.text);
+  }
+
+  protected deleteResponse(data: DeleteResponse) {
+    state.messagesMap.delete(data.id);
+    // const msg = state.messagesMap.get(data.id);
+    // if (!msg) {
+    //   throw new Error(`message is undefined`);
+    // }
+    // msg.status.isEdited = true;
+    // msg.text = data.text;
+    emitter.emit('deleted', data.id);
   }
 }

@@ -169,10 +169,17 @@ class State {
       text: msg.text,
       isEdited: false,
     };
-    emitter.emit('add-message', msgProps);
+
     if (!author) {
       state.addNotification(msg.from);
     }
+    if (!author && msg.from !== this.dialogUser.login) {
+      console.log('from=', msg.from);
+      console.log('dialogUser=', this.dialogUser.login);
+      return;
+    }
+
+    emitter.emit('add-message', msgProps);
   }
 
   public addMessages(msgs: MessageResponse[]) {

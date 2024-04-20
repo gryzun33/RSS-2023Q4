@@ -65,6 +65,16 @@ type MsgEditRequest = {
   };
 };
 
+type MsgDeleteRequest = {
+  id: string;
+  type: string;
+  payload: {
+    message: {
+      id: string;
+    };
+  };
+};
+
 export default class Controller {
   private dataHandler = new DataHandler();
   private wsManager?: WebSocketManager;
@@ -78,6 +88,7 @@ export default class Controller {
     emitter.on('get-notifications', this.notificationsRequest);
     emitter.on('set-readed', this.readedRequest);
     emitter.on('edit-message', this.editRequest);
+    emitter.on('delete-message', this.deleteRequest);
   }
 
   public checkAuthorized = () => {
@@ -237,6 +248,23 @@ export default class Controller {
       },
     };
 
+    this.wsManager?.send(JSON.stringify(request));
+  };
+
+  protected deleteRequest = (id: unknown) => {
+    if (typeof id !== 'string') {
+      throw new Error(`id is not string`);
+    }
+
+    const request: MsgDeleteRequest = {
+      id: '',
+      type: REQUESTS.messDelete,
+      payload: {
+        message: {
+          id,
+        },
+      },
+    };
     this.wsManager?.send(JSON.stringify(request));
   };
 }
