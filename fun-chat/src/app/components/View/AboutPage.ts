@@ -1,5 +1,4 @@
 import BaseComponent from './BaseComponent';
-// import Button from './Button';
 import emitter from '../EventEmitter';
 
 export default class AboutPage extends BaseComponent {
@@ -14,7 +13,7 @@ export default class AboutPage extends BaseComponent {
     this.backBtn.on('click', () => emitter.emit('navigate', 'back'));
   }
 
-  protected createView() {
+  protected createView(): void {
     const title = new BaseComponent({ tag: 'h2', classNames: ['about-title'], text: 'Fun Chat' });
     const text = new BaseComponent({ tag: 'p', classNames: ['about-text'] });
     text.setTextContent(
@@ -27,9 +26,6 @@ export default class AboutPage extends BaseComponent {
     });
     author.attr('href', 'https://gryzun33.github.io/rsschool-cv/');
     author.attr('target', '_blank');
-    // const button = new Button({ text: 'to Main' });
     this.append(title, text, author, this.backBtn);
   }
-
-  // The "Fan Chat" application was developed as part of the RSSchool course in 2023Q3. The goal of the project was to create a web application for communication and message exchange between users.
 }

@@ -3,7 +3,6 @@ import { Props, MessageProps, MessageStatus } from '../../utils/types';
 import emitter from '../EventEmitter';
 import Message from './Message';
 import { isMessageProps } from '../../utils/helpers';
-// import { Listener } from '../../utils/types';
 
 enum UserStatus {
   online = 'online',
@@ -22,7 +21,6 @@ export default class Dialog extends BaseComponent {
   protected isProgrammScroll: boolean = false;
   protected dialogStatus: string = DialogStatus.noDialogUser;
 
-  // protected emitterMap: Map<string, Listener> = new Map([[]]);
   protected divider = new BaseComponent({
     tag: 'div',
     classNames: ['divider'],
@@ -45,13 +43,6 @@ export default class Dialog extends BaseComponent {
   constructor(props: Props) {
     super(props);
     this.createView();
-    // emitter.on('set-dialog-user', this.setDialogUser);
-    // emitter.on('change-status', this.changeStatus);
-    // emitter.on('add-message', this.addNewMessage);
-    // emitter.on('add-messages', this.addMessages);
-    // emitter.on('delivered', this.setStatusDelivered);
-    // emitter.on('readed', this.setStatusReaded);
-    // emitter.on('send-message', this.onChangeMessages);
     this.messages.on('click', this.onChangeMessages);
     this.messages.on('scroll', this.onScrollMessages);
     this.messages.on('scrollend', this.onScrollEndHandler);
@@ -70,54 +61,40 @@ export default class Dialog extends BaseComponent {
     this.emitterMap.forEach((listener, eventName) => {
       this.unsubscribes.push(emitter.on(eventName, listener));
     });
-    console.log('unubscribes', this.unsubscribes);
   }
 
-  protected createView() {
-    console.log('CREATEVIEW');
+  protected createView(): void {
     const dialogUser = new BaseComponent({ tag: 'div', classNames: ['dialog-user'] });
     dialogUser.append(this.dialogUserLogin, this.dialogUserStatus);
-
     this.messagesBox.append(this.placeholder, this.messages);
     this.append(dialogUser, this.messagesBox);
   }
 
-  protected onScrollEndHandler = () => {
+  protected onScrollEndHandler = (): void => {
     if (this.isProgrammScroll) {
       this.isProgrammScroll = false;
     }
   };
 
-  protected setDialogUser = (login: unknown, status: unknown) => {
-    console.log('setUSER');
+  protected setDialogUser = (login: unknown, status: unknown): void => {
     if (typeof login !== 'string' || typeof status !== 'boolean') {
       throw new Error(`login or status does not match type `);
     }
     this.dialogUserLogin.setTextContent(login);
-
-    // if (!status) {
-    //   this.dialogUserStatus.addClass('status-inactive');
-    // } else {
-    //   this.dialogUserStatus.removeClass('status-inactive');
-    // }
     this.changeStatus(status);
-    // this.enableInput();
     this.changePlaceholder();
-
     this.dialogStatus = DialogStatus.noMessages;
   };
 
-  protected changePlaceholder = () => {
+  protected changePlaceholder = (): void => {
     this.placeholder.removeClass('placeholder-hidden');
     this.placeholder.setTextContent(`Please write your first message...`);
   };
 
-  protected changeStatus = (status: unknown) => {
+  protected changeStatus = (status: unknown): void => {
     if (typeof status !== 'boolean') {
       throw new Error(`status isn't boolean`);
     }
-
-    console.log('CHANGE STATUS');
     this.dialogUserStatus.setTextContent(status ? UserStatus.online : UserStatus.offline);
     if (!status) {
       this.dialogUserStatus.addClass('status-inactive');
@@ -126,7 +103,7 @@ export default class Dialog extends BaseComponent {
     }
   };
 
-  protected addNewMessage = (msg: unknown) => {
+  protected addNewMessage = (msg: unknown): void => {
     if (!isMessageProps(msg)) {
       throw new Error('type of msg is not MessageProps');
     }
@@ -139,7 +116,6 @@ export default class Dialog extends BaseComponent {
       this.removePlaceholder();
     }
     if (!msg.author && !this.isDivider) {
-      // this.isDivider = true;
       this.showDivider();
     }
 
@@ -147,7 +123,7 @@ export default class Dialog extends BaseComponent {
     this.scrollMessages(true);
   };
 
-  protected addMessages = (messages: unknown) => {
+  protected addMessages = (messages: unknown): void => {
     if (!Array.isArray(messages)) {
       throw new Error(`messages is not array`);
     }
@@ -160,35 +136,32 @@ export default class Dialog extends BaseComponent {
     this.removePlaceholder();
 
     messages.forEach((msg: MessageProps) => {
-      console.log(msg.status);
       if (!msg.author && msg.status === MessageStatus.Delivered && !this.isDivider) {
         this.showDivider();
       }
       this.addMessage(msg);
-      // const messageComp = new Message(msg);
-      // this.messages.append(messageComp);
     });
     this.scrollMessages(false);
   };
 
-  protected showDivider = () => {
+  protected showDivider = (): void => {
     this.isDivider = true;
     this.messages.append(this.divider);
     this.divider.removeClass('hidden');
   };
 
-  protected removePlaceholder = () => {
+  protected removePlaceholder = (): void => {
     this.dialogStatus = DialogStatus.messages;
     this.placeholder.addClass('placeholder-hidden');
   };
 
-  protected addMessage(msg: MessageProps) {
+  protected addMessage(msg: MessageProps): void {
     const messageComp = new Message(msg);
     this.messages.append(messageComp);
     this.messagesMap.set(msg.id, messageComp);
   }
 
-  protected setStatusDelivered = (id: unknown) => {
+  protected setStatusDelivered = (id: unknown): void => {
     if (typeof id !== 'string') {
       throw new Error(`id is not string`);
     }
@@ -199,7 +172,7 @@ export default class Dialog extends BaseComponent {
     messageComp.setStatusDelivered();
   };
 
-  protected setStatusReaded = (id: unknown) => {
+  protected setStatusReaded = (id: unknown): void => {
     if (typeof id !== 'string') {
       throw new Error(`id is not string`);
     }
@@ -210,7 +183,7 @@ export default class Dialog extends BaseComponent {
     messageComp.setStatusReaded();
   };
 
-  protected setStatusEdited = (id: unknown, text: unknown) => {
+  protected setStatusEdited = (id: unknown, text: unknown): void => {
     if (typeof id !== 'string' || typeof text !== 'string') {
       throw new Error(`arguments are not string`);
     }
@@ -221,7 +194,7 @@ export default class Dialog extends BaseComponent {
     messageComp.setStatusEdited(text);
   };
 
-  protected deleteMessage = (id: unknown) => {
+  protected deleteMessage = (id: unknown): void => {
     if (typeof id !== 'string') {
       throw new Error(`id is not string`);
     }
@@ -234,8 +207,7 @@ export default class Dialog extends BaseComponent {
     messageComp.destroy();
   };
 
-  protected destroyMessages = () => {
-    // const messages = this.messagesMap.values();
+  protected destroyMessages = (): void => {
     this.messagesMap.forEach((message) => {
       message.destroy();
     });
@@ -243,49 +215,32 @@ export default class Dialog extends BaseComponent {
     this.hideDivider();
   };
 
-  protected hideDivider = () => {
+  protected hideDivider = (): void => {
     this.isDivider = false;
     this.divider.addClass('hidden');
   };
 
-  protected onChangeMessages = () => {
-    // if (this.isProgrammScroll) {
-    //   this.isProgrammScroll = false;
-    // }
+  protected onChangeMessages = (): void => {
     if (this.isDivider) {
       this.hideDivider();
       emitter.emit('set-readed');
     }
   };
 
-  protected onScrollMessages = () => {
-    console.log('xxxxx');
+  protected onScrollMessages = (): void => {
     if (!this.isProgrammScroll) {
       this.onChangeMessages();
     }
   };
 
-  public scrollMessages(isSmooth: boolean) {
+  public scrollMessages(isSmooth: boolean): void {
     this.isProgrammScroll = true;
-    console.log('scrolltrue');
-    // this.messages.off('scroll', this.onChangeMessages);
-    // console.log('scrolloff');
-    // this.isProgrammScroll = true;
-    // if (!container || !divider) return;
     const container = this.messages.element;
     const divider = this.divider.element;
 
     if (this.isDivider) {
       const containerRect = container.getBoundingClientRect();
       const dividerRect = divider.getBoundingClientRect();
-
-      // const remainingHeight = container.scrollHeight - container.clientHeight;
-      // if (dividerRect.top >= containerRect.top && remainingHeight > containerRect.height) {
-      //   container.scrollTo({
-      //     top: container.scrollTop + (dividerRect.top - containerRect.top) - 10,
-      //     behavior: 'smooth',
-      //   });
-      // }
 
       if (dividerRect.top >= containerRect.top) {
         container.scrollTo({
@@ -302,14 +257,5 @@ export default class Dialog extends BaseComponent {
         });
       }
     }
-    // if (document.hasFocus()) {
-    //   setTimeout(() => {
-    //     this.isProgrammScroll = false;
-    //     console.log('scrollfalse');
-    //   }, 1000);
-    //   console.log('focus');
-    // } else {
-    //   console.log('nofocus');
-    // }
   }
 }

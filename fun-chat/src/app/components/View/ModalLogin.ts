@@ -1,4 +1,3 @@
-// import BaseComponent from './BaseComponent';
 import Button from './Button';
 import Modal from './Modal';
 

@@ -1,7 +1,6 @@
 import BaseComponent from './BaseComponent';
 import Button from './Button';
 import InputField from './InputField';
-// import Modal from './Modal';
 import ModalLogin from './ModalLogin';
 import emitter from '../EventEmitter';
 
@@ -15,7 +14,6 @@ export default class LoginPage extends BaseComponent {
 
   protected inputLogin = new InputField({
     type: 'text',
-    // placeholder: '',
     required: true,
     minlength: '3',
     pattern: '^[a-zA-Z0-9]{3,}$',
@@ -25,7 +23,6 @@ export default class LoginPage extends BaseComponent {
 
   protected inputPassword = new InputField({
     type: 'password',
-    // placeholder: '',
     required: true,
     minlength: '8',
     pattern: '^(?=.*[a-zA-Z])(?=.*\\d).{5,}$',
@@ -43,7 +40,6 @@ export default class LoginPage extends BaseComponent {
   protected infoBtn = new BaseComponent({
     tag: 'a',
     classNames: ['info-btn'],
-    // text: 'Info',
   });
 
   constructor() {
@@ -55,7 +51,7 @@ export default class LoginPage extends BaseComponent {
     emitter.on('incorrectAuth', this.openModal);
   }
 
-  protected createView() {
+  protected createView(): void {
     const buttons = new BaseComponent({ tag: 'div', classNames: ['buttons-box'] });
     buttons.append(this.loginBtn, this.infoBtn);
     this.loginForm.append(this.inputLogin, this.inputPassword, buttons);
@@ -65,7 +61,7 @@ export default class LoginPage extends BaseComponent {
     this.inputs.push(this.inputLogin.input.getElement(), this.inputPassword.input.getElement());
   }
 
-  protected onChangeForm = () => {
+  protected onChangeForm = (): void => {
     if (this.inputs.every((input) => input.validity.valid && input.value !== '')) {
       this.loginBtn.enable();
     } else {
@@ -73,14 +69,14 @@ export default class LoginPage extends BaseComponent {
     }
   };
 
-  protected onSubmitForm = (event: Event) => {
+  protected onSubmitForm = (event: Event): void => {
     const loginValue = this.inputLogin.input.element.value;
     const passValue = this.inputPassword.input.element.value;
     emitter.emit('login', loginValue, passValue);
     event.preventDefault();
   };
 
-  protected openModal = (text: unknown) => {
+  protected openModal = (text: unknown): void => {
     if (typeof text !== 'string') {
       throw new Error('modaltext isn`t string');
     }

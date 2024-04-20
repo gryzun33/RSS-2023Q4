@@ -1,5 +1,4 @@
 import BaseComponent from './BaseComponent';
-// import Button from './Button';
 
 export default class Modal extends BaseComponent {
   protected modalContent = new BaseComponent({ tag: 'div', classNames: ['modal-content'] });
@@ -7,7 +6,6 @@ export default class Modal extends BaseComponent {
 
   constructor(text: string) {
     super({ tag: 'div', classNames: ['modal-wrapper'] });
-    // this.createView();
     this.open(text);
   }
 
@@ -24,7 +22,6 @@ export default class Modal extends BaseComponent {
     this.addClass('overlay-show');
     this.modalContent.addClass('modal-show');
     this.setContent(text);
-    // this.modalContent.addClass('modal-show');
   };
 
   public close = (): void => {
@@ -32,12 +29,6 @@ export default class Modal extends BaseComponent {
     this.modalContent.addClass('modal-hide');
     this.on('animationend', () => {
       this.destroy();
-      // this.removeClass('modal-show');
-      // this.removeClass('modal-hide');
     });
-
-    // function hideModal() {
-
-    // }
   };
 }

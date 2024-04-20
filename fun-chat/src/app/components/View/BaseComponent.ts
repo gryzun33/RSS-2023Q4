@@ -6,11 +6,8 @@ type Unsubscriber = () => void;
 export default class BaseComponent<T extends HTMLElement = HTMLElement> {
   public element: T;
   public children: BaseComponent[] = [];
-
   protected handlers: Handler[] = [];
-
   protected emitterMap: Map<string, Listener> = new Map();
-
   protected unsubscribes: Unsubscriber[] = [];
 
   constructor(props: Props) {
@@ -19,19 +16,18 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     if (props.text !== null) {
       this.setTextContent(props.text);
     }
-    // this.children = [];
   }
 
-  protected addUnsubscribers() {
+  protected addUnsubscribers(): void {
     this.emitterMap.forEach((listener, eventName) => {
       this.unsubscribes.push(emitter.on(eventName, listener));
     });
   }
-  public getElement() {
+  public getElement(): T {
     return this.element;
   }
 
-  public getChildren() {
+  public getChildren(): BaseComponent[] {
     return this.children;
   }
 
@@ -43,7 +39,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.element.textContent = text;
   }
 
-  public getTextContent() {
+  public getTextContent(): string | null {
     return this.element.textContent;
   }
 
@@ -68,32 +64,31 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     });
   }
 
-  public insertBefore(newComp: BaseComponent, child: BaseComponent, index: number) {
+  public insertBefore(newComp: BaseComponent, child: BaseComponent, index: number): void {
     this.element.insertBefore(newComp.element, child.element);
     this.children[index] = newComp;
   }
 
-  public attr(name: string, value?: string) {
+  public attr(name: string, value?: string): void | string | null {
     if (value) {
       this.element.setAttribute(name, value);
-      // return this;
     }
     return this.element.getAttribute(name);
   }
 
-  public removeAttr(name: string) {
+  public removeAttr(name: string): void {
     this.element.removeAttribute(name);
   }
 
-  public css(prop: string, value: string) {
+  public css(prop: string, value: string): void {
     this.element.style.setProperty(prop, value);
   }
 
-  public findAll(selector: string) {
+  public findAll(selector: string): Element[] {
     return [...this.element.querySelectorAll(selector)];
   }
 
-  public closest(selector: string) {
+  public closest(selector: string): HTMLElement | null {
     return this.element.closest(selector);
   }
 
@@ -106,7 +101,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.element.removeEventListener(eventType, callback);
   }
 
-  public html(html: string) {
+  public html(html: string): void {
     this.element.innerHTML = html;
   }
 

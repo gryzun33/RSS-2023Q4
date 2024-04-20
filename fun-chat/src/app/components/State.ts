@@ -9,8 +9,6 @@ import storage from './Storage';
 import emitter from './EventEmitter';
 import { formatDate } from '../utils/helpers';
 
-// type Users = User[];
-
 type UserData = {
   notifications: number;
   isLogined: boolean;
@@ -21,18 +19,7 @@ type EditedMsg = {
   text: string;
 };
 
-// enum Status {
-//   Sent = 'sent',
-//   Delivered = 'delivered',
-//   Readed = 'readed',
-//   Edited = 'edited',
-// }
-
 class State {
-  // protected login: string = '';
-  // protected password: string = '';
-  // public users: User[] = [];
-  // public activeUser:User = {};
   public usersMap: Map<string, UserData> = new Map();
   public messagesMap: Map<string, MessageResponse> = new Map();
   protected currUser: CurrentUser = {
@@ -83,21 +70,7 @@ class State {
     return this.editedMsg;
   }
 
-  public resetDialogUser(): void {
-    this.dialogUser = { login: '', isLogined: true };
-  }
-
-  // public setUsers(data: UserResponse[]) {
-  //   data.forEach((user) => {
-  //     this.usersMap.set(user.login, user.isLogined);
-  //   });
-
-  //   console.log('ALLUSERS=', this.usersMap);
-  // }
-
   public changeUserStatus(user: UserResponse) {
-    // if (this.usersMap.has(user.login)) {
-    // this.usersMap.set(user.login, {notifi});
     const userData = this.usersMap.get(user.login);
     if (userData) {
       userData.isLogined = user.isLogined;
@@ -119,26 +92,10 @@ class State {
     userData.notifications = notifications;
     if (userData.isLogined) {
       emitter.emit('external-login', login, userData.notifications);
-      console.log('external-login');
     } else {
       emitter.emit('external-logout', login, userData.notifications);
-      console.log('external-logout');
     }
-
-    // emitter.emit('draw-notifications', login, userData.notifications);
   }
-
-  // public getUserStatus(login: string): boolean {
-  //   const status = this.usersMap.get(login);
-  //   if (!status) {
-  //     throw new Error(`status is undefined`);
-  //   }
-  //   return status;
-  // }
-
-  // public deleteMessages() {
-  //   this.messagesMap.clear();
-  // }
 
   public setDialogUser(login: string): void {
     const userData = this.usersMap.get(login);
@@ -158,7 +115,6 @@ class State {
   }
 
   public addMessage(msg: MessageResponse) {
-    console.log('msg98=', msg);
     this.messagesMap.set(msg.id, msg);
     const author = msg.from === this.currUser.login;
     const dialogUser = msg.from;
@@ -178,8 +134,6 @@ class State {
       state.addNotification(msg.from);
     }
     if (!author && msg.from !== this.dialogUser.login) {
-      console.log('from=', msg.from);
-      console.log('dialogUser=', this.dialogUser.login);
       return;
     }
 
@@ -215,7 +169,6 @@ class State {
     let status = '';
     status = statusResponse.isDelivered ? MessageStatus.Delivered : MessageStatus.Sent;
     status = statusResponse.isReaded ? MessageStatus.Readed : status;
-    // status = statusResponse.isEdited ? MessageStatus.Edited : status;
     return status;
   }
 
@@ -225,8 +178,6 @@ class State {
       throw new Error(`user is undefined`);
     }
     userData.notifications += 1;
-    console.log('login=', login);
-    console.log('number=', userData.notifications);
     emitter.emit('update-notifications', login, userData.notifications);
   }
 

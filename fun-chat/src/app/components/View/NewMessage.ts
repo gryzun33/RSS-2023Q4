@@ -30,21 +30,20 @@ export default class NewMessage extends BaseComponent {
     this.messageForm.on('submit', this.onSubmitForm);
   }
 
-  protected createView() {
+  protected createView(): void {
     this.messageForm.append(this.messageInput, this.sendBtn);
     this.append(this.messageForm);
-
     this.messageInput.attr('type', 'text');
     this.messageInput.attr('placeholder', 'Write a message...');
     this.messageInput.getElement().disabled = true;
     this.sendBtn.disable();
   }
 
-  protected enableInput = () => {
+  protected enableInput = (): void => {
     this.messageInput.getElement().disabled = false;
   };
 
-  protected onInputMessage = () => {
+  protected onInputMessage = (): void => {
     const { value } = this.messageInput.getElement();
     if (value.trim() === '') {
       this.sendBtn.disable();
@@ -53,7 +52,7 @@ export default class NewMessage extends BaseComponent {
     }
   };
 
-  protected onSubmitForm = (e: Event) => {
+  protected onSubmitForm = (e: Event): void => {
     e.preventDefault();
     const message = this.messageInput.getElement().value;
     if (!this.isEdit) {
@@ -67,7 +66,7 @@ export default class NewMessage extends BaseComponent {
     this.sendBtn.disable();
   };
 
-  protected changeMessage = (text: unknown) => {
+  protected changeMessage = (text: unknown): void => {
     if (typeof text !== 'string') {
       throw new Error(`text is not string`);
     }

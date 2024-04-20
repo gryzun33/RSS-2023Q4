@@ -38,7 +38,6 @@ export default class DataHandler {
 
   public getData = (dataStr: string) => {
     const data = JSON.parse(dataStr);
-    console.log('response=', data);
 
     switch (data.type) {
       case 'USER_LOGIN':
@@ -72,12 +71,9 @@ export default class DataHandler {
         this.readResponse(data.payload.message);
         break;
       case 'MSG_EDIT':
-        console.log('EDIT');
         this.editResponse(data.payload.message);
         break;
-
       case 'MSG_DELETE':
-        console.log('DELETE');
         this.deleteResponse(data.payload.message);
         break;
       case 'ERROR':
@@ -172,12 +168,6 @@ export default class DataHandler {
 
   protected deleteResponse(data: DeleteResponse) {
     state.messagesMap.delete(data.id);
-    // const msg = state.messagesMap.get(data.id);
-    // if (!msg) {
-    //   throw new Error(`message is undefined`);
-    // }
-    // msg.status.isEdited = true;
-    // msg.text = data.text;
     emitter.emit('deleted', data.id);
   }
 }

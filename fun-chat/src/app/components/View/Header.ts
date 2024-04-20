@@ -27,9 +27,7 @@ export default class Header extends BaseComponent {
     buttons.append(this.infoBtn, this.logoutBtn);
     const title = new BaseComponent({ tag: 'h1', classNames: ['header-title'], text: 'Fun Chat' });
     this.append(this.currUser, title, buttons);
-
     const { login } = state.getUser();
-    console.log('login=', login);
     this.currUser.html(`<span>${login}</span>`);
   }
 

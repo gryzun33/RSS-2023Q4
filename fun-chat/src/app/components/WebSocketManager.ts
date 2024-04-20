@@ -48,7 +48,6 @@ export default class WebSocketManager {
     this.ws?.close();
   };
   send(message: string) {
-    console.log('send', message);
     this.ws?.send(message);
   }
 }

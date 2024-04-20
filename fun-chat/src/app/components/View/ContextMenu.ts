@@ -36,6 +36,5 @@ export default class ContextMenu extends BaseComponent {
 
   protected onClickDeleteBtn = () => {
     emitter.emit('delete-message', this.id);
-    // state.setEditedMsg(this.id, this.text);
   };
 }

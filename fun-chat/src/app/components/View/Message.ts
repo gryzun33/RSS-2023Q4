@@ -20,7 +20,7 @@ export default class Message extends BaseComponent {
     this.createView(msg);
   }
 
-  protected createView(msg: MessageProps) {
+  protected createView(msg: MessageProps): void {
     this.attr('id', msg.id);
     const topInfo = new BaseComponent({ tag: 'div', classNames: ['msg-top-info'] });
     const authorName = msg.author ? 'you' : msg.dialogUser;
@@ -47,21 +47,20 @@ export default class Message extends BaseComponent {
     }
   }
 
-  public setStatusDelivered() {
+  public setStatusDelivered(): void {
     this.msgStatus.setTextContent(MessageStatus.Delivered);
   }
 
-  public setStatusReaded() {
+  public setStatusReaded(): void {
     this.msgStatus.setTextContent(MessageStatus.Readed);
   }
 
-  public setStatusEdited(text: string) {
+  public setStatusEdited(text: string): void {
     this.msgStatusEdited.setTextContent(MessageStatus.Edited);
     this.msgText.setTextContent(text);
   }
 
-  protected onContextMenuHandler = (e: Event) => {
-    console.log('contextmenu');
+  protected onContextMenuHandler = (e: Event): void => {
     e.preventDefault();
     this.contextMenu = new ContextMenu(this.id, this.text);
     this.append(this.contextMenu);

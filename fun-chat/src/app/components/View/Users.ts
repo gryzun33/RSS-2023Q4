@@ -23,14 +23,10 @@ export default class Users extends BaseComponent {
   constructor(props: Props) {
     super(props);
     this.createView();
-    // emitter.on('external-login', this.addActiveUser);
-    // emitter.on('external-logout', this.addInactiveUser);
-    // emitter.on('update-notifications', this.updateNotifications);
     this.activeList.on('click', this.onClickUsers);
     this.inactiveList.on('click', this.onClickUsers);
     this.userSearch.on('input', this.searchUsers);
     this.usersMap.clear();
-
     this.emitterMap = new Map([
       ['external-login', this.addActiveUser],
       ['external-logout', this.addInactiveUser],
@@ -39,47 +35,25 @@ export default class Users extends BaseComponent {
     this.addUnsubscribers();
   }
 
-  protected createView() {
+  protected createView(): void {
     this.userList.append(this.activeList, this.inactiveList);
     this.append(this.userSearch, this.userList);
     this.userSearch.attr('placeholder', 'Search...');
   }
 
-  // protected createUsersList = (data: unknown) => {
-  //   console.log('list=', data);
-  //   if (!Array.isArray(data)) {
-  //     throw new Error(`data isn't array`);
-  //   }
-
-  //   data.forEach((user: UserResponse) => {
-  //     const userItem = this.getNewUserItem(user.login);
-
-  //     if (user.isLogined) {
-  //       userItem.addClass('active-user');
-  //     }
-  //     if (user.isLogined) {
-  //       this.activeList.append(userItem);
-  //     } else {
-  //       this.inactiveList.append(userItem);
-  //     }
-  //   });
-  // };
-
-  protected addActiveUser = (userLogin: unknown, notifications: unknown) => {
+  protected addActiveUser = (userLogin: unknown, notifications: unknown): void => {
     if (typeof userLogin !== 'string' || typeof notifications !== 'number') {
       throw new Error(`arguments don't match their types`);
     }
     let userItem = this.usersMap.get(userLogin);
     if (!userItem) {
-      // console.log('NEWEXTERNALUSER', userLogin);
       userItem = this.getNewUserItem(userLogin, notifications);
     }
-
     userItem.addClass('active-user');
     this.activeList.append(userItem);
   };
 
-  protected addInactiveUser = (userLogin: unknown, notifications: unknown) => {
+  protected addInactiveUser = (userLogin: unknown, notifications: unknown): void => {
     if (typeof userLogin !== 'string' || typeof notifications !== 'number') {
       throw new Error(`arguments don't match their types`);
     }
@@ -113,12 +87,10 @@ export default class Users extends BaseComponent {
     userItem.append(userLogin, notificationsElem);
     userItem.attr('data-login', `${login}`);
     this.usersMap.set(login, userItem);
-    console.log('usermap===', this.usersMap);
-    // emitter.emit('get-notifications', login);
     return userItem;
   }
 
-  protected onClickUsers = (e: Event) => {
+  protected onClickUsers = (e: Event): void => {
     const { target } = e;
     if (!(target instanceof HTMLElement)) {
       throw new Error(`target isn't HTMLEelement`);
@@ -137,8 +109,7 @@ export default class Users extends BaseComponent {
     this.resetUserList();
   };
 
-  protected searchUsers = () => {
-    console.log('input');
+  protected searchUsers = (): void => {
     const value = this.userSearch.getElement().value.toLowerCase();
     const users = Array.from(this.usersMap.values());
     if (value.trim() === '') {
@@ -159,37 +130,17 @@ export default class Users extends BaseComponent {
     }
   };
 
-  protected resetUserList = () => {
+  protected resetUserList = (): void => {
     const users = Array.from(this.usersMap.values());
     users.forEach((user) => user.removeClass('user-hidden'));
     this.userSearch.getElement().value = '';
   };
 
-  public updateNotifications = (login: unknown, notifications: unknown) => {
+  public updateNotifications = (login: unknown, notifications: unknown): void => {
     if (typeof login !== 'string' || typeof notifications !== 'number') {
       throw new Error(`arguments don't match their types`);
     }
-    // console.log('LOGIN=', login);
-    // const userElement = document.querySelector(`[data-login=${login}]`);
-    // if (!userElement) {
-    //   throw new Error(`notificationElem is null`);
-    // }
-    // console.log('ELEMENT', userElement);
-    // const notificationElem = userElement.querySelector('.user-notifications');
-
-    // if (!notificationElem) {
-    //   throw new Error(`notificationElem is null`);
-    // }
-    // notificationElem.textContent = String(notifications);
-    // if (notifications > 0) {
-    //   notificationElem.classList.remove('hidden');
-    // } else {
-    //   notificationElem.classList.add('hidden');
-    // }
-
-    console.log('MAP=', this.usersMap);
     const userComponent = this.usersMap.get(login);
-    console.log('usercomponent=', userComponent);
     if (!userComponent) {
       throw new Error(`user is undefined`);
     }
