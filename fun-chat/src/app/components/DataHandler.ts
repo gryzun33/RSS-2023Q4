@@ -18,11 +18,20 @@ type ReadedResponse = {
   };
 };
 
+type EditResponse = {
+  id: string;
+  text: string;
+  status: {
+    isEdited: boolean;
+  };
+};
+
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
 
   public getData = (dataStr: string) => {
     const data = JSON.parse(dataStr);
+    console.log('response=', data);
 
     switch (data.type) {
       case 'USER_LOGIN':
@@ -56,7 +65,8 @@ export default class DataHandler {
         this.readResponse(data.payload.message);
         break;
       case 'MSG_EDIT':
-        console.log('edit');
+        console.log('EDIT');
+        this.editResponse(data.payload.message);
         break;
       case 'ERROR':
         this.errorHandler.onError(data.payload.error);
@@ -136,5 +146,15 @@ export default class DataHandler {
     if (login !== msg.from) {
       emitter.emit('readed', data.id);
     }
+  }
+
+  protected editResponse(data: EditResponse) {
+    const msg = state.messagesMap.get(data.id);
+    if (!msg) {
+      throw new Error(`message is undefined`);
+    }
+    msg.status.isEdited = true;
+    msg.text = data.text;
+    emitter.emit('edited', data.id, data.text);
   }
 }

@@ -16,6 +16,11 @@ type UserData = {
   isLogined: boolean;
 };
 
+type EditedMsg = {
+  id: string;
+  text: string;
+};
+
 // enum Status {
 //   Sent = 'sent',
 //   Delivered = 'delivered',
@@ -43,6 +48,11 @@ class State {
 
   public dialogId: string = '';
 
+  public editedMsg: EditedMsg = {
+    id: '',
+    text: '',
+  };
+
   constructor() {
     const user = storage.getData('user');
     if (user) {
@@ -63,6 +73,14 @@ class State {
 
   public getUser(): CurrentUser {
     return this.currUser;
+  }
+
+  public setEditedMsg(id: string, text: string) {
+    this.editedMsg = { id, text };
+  }
+
+  public getEditedMsg(): EditedMsg {
+    return this.editedMsg;
   }
 
   // public setUsers(data: UserResponse[]) {
@@ -149,6 +167,7 @@ class State {
       date,
       status,
       text: msg.text,
+      isEdited: false,
     };
     emitter.emit('add-message', msgProps);
     if (!author) {
@@ -166,6 +185,7 @@ class State {
       const dialogUser = msg.from;
       const date = formatDate(msg.datetime);
       const status = this.getStatus(msg.status);
+      const { isEdited } = msg.status;
 
       return {
         id: msg.id,
@@ -174,6 +194,7 @@ class State {
         date,
         status,
         text: msg.text,
+        isEdited,
       };
     });
     emitter.emit('add-messages', messages);
@@ -183,7 +204,7 @@ class State {
     let status = '';
     status = statusResponse.isDelivered ? MessageStatus.Delivered : MessageStatus.Sent;
     status = statusResponse.isReaded ? MessageStatus.Readed : status;
-    status = statusResponse.isEdited ? MessageStatus.Edited : status;
+    // status = statusResponse.isEdited ? MessageStatus.Edited : status;
     return status;
   }
 

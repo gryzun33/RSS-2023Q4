@@ -64,6 +64,7 @@ export default class Dialog extends BaseComponent {
       ['delivered', this.setStatusDelivered],
       ['readed', this.setStatusReaded],
       ['send-message', this.onChangeMessages],
+      ['edited', this.setStatusEdited],
     ]);
     this.emitterMap.forEach((listener, eventName) => {
       this.unsubscribes.push(emitter.on(eventName, listener));
@@ -203,6 +204,17 @@ export default class Dialog extends BaseComponent {
       throw new Error(`messageComponent is undefined`);
     }
     messageComp.setStatusReaded();
+  };
+
+  protected setStatusEdited = (id: unknown, text: unknown) => {
+    if (typeof id !== 'string' || typeof text !== 'string') {
+      throw new Error(`arguments are not string`);
+    }
+    const messageComp = this.messagesMap.get(id);
+    if (!messageComp) {
+      throw new Error(`messageComponent is undefined`);
+    }
+    messageComp.setStatusEdited(text);
   };
 
   protected destroyMessages = () => {

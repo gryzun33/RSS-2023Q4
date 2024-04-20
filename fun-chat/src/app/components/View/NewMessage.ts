@@ -4,6 +4,8 @@ import { Props } from '../../utils/types';
 import emitter from '../EventEmitter';
 
 export default class NewMessage extends BaseComponent {
+  protected isEdit: boolean = false;
+  protected prevText: string = '';
   protected messageForm = new BaseComponent<HTMLFormElement>({
     tag: 'form',
     classNames: ['message-form'],
@@ -23,6 +25,7 @@ export default class NewMessage extends BaseComponent {
     super(props);
     this.createView();
     emitter.on('set-dialog-user', this.enableInput);
+    emitter.on('change-message', this.changeMessage);
     this.messageInput.on('input', this.onInputMessage);
     this.messageForm.on('submit', this.onSubmitForm);
   }
@@ -53,8 +56,24 @@ export default class NewMessage extends BaseComponent {
   protected onSubmitForm = (e: Event) => {
     e.preventDefault();
     const message = this.messageInput.getElement().value;
+    if (!this.isEdit) {
+      emitter.emit('send-message', message);
+    } else if (message.trim() !== this.prevText) {
+      emitter.emit('edit-message', message);
+      this.isEdit = false;
+    }
+
     this.messageInput.getElement().value = '';
     this.sendBtn.disable();
-    emitter.emit('send-message', message);
+  };
+
+  protected changeMessage = (text: unknown) => {
+    if (typeof text !== 'string') {
+      throw new Error(`text is not string`);
+    }
+    this.isEdit = true;
+    this.prevText = text;
+    this.sendBtn.enable();
+    this.messageInput.getElement().value = text;
   };
 }

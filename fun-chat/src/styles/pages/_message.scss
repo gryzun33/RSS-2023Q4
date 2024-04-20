@@ -33,21 +33,23 @@
   overflow-wrap: break-word;
 }
 
-.msg-status {
+.msg-status-box {
   width: 100%;
   padding: 0 5px;
-  @include flex(flex-end, center);
+  @include flex(space-between, center);
   height: 15px;
   font-size: 12px;
-
-  // .message-right & {
-  //   background-color: $color-right-data;
-  // }
-
-  // .message-left & {
-  //   background-color: $color-left-data;
-  // }
 }
+
+// .msg-status {
+// .message-right & {
+//   background-color: $color-right-data;
+// }
+
+// .message-left & {
+//   background-color: $color-left-data;
+// }
+// }
 
 .message-right {
   margin-right: 10px;

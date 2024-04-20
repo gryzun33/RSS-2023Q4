@@ -12,6 +12,8 @@ const REQUESTS = {
   msgFromUser: 'MSG_FROM_USER',
   messSend: 'MSG_SEND',
   messRead: 'MSG_READ',
+  messEdit: 'MSG_EDIT',
+  messDelete: 'MSG_DELETE',
 };
 
 type MsgStatusRequest = {
@@ -52,6 +54,17 @@ type MessageRequest = {
   };
 };
 
+type MsgEditRequest = {
+  id: string;
+  type: string;
+  payload: {
+    message: {
+      id: string;
+      text: string;
+    };
+  };
+};
+
 export default class Controller {
   private dataHandler = new DataHandler();
   private wsManager?: WebSocketManager;
@@ -64,6 +77,7 @@ export default class Controller {
     emitter.on('set-dialog-user', this.dialogUserRequset);
     emitter.on('get-notifications', this.notificationsRequest);
     emitter.on('set-readed', this.readedRequest);
+    emitter.on('edit-message', this.editRequest);
   }
 
   public checkAuthorized = () => {
@@ -205,5 +219,24 @@ export default class Controller {
     });
 
     state.resetNotifications();
+  };
+
+  protected editRequest = (text: unknown) => {
+    if (typeof text !== 'string') {
+      throw new Error(`text is not string`);
+    }
+    const { id } = state.getEditedMsg();
+    const request: MsgEditRequest = {
+      id: '',
+      type: REQUESTS.messEdit,
+      payload: {
+        message: {
+          id,
+          text,
+        },
+      },
+    };
+
+    this.wsManager?.send(JSON.stringify(request));
   };
 }

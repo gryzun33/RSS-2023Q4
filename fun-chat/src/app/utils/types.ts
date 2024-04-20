@@ -68,6 +68,7 @@ export type MessageProps = {
   date: string;
   author: boolean;
   dialogUser: string;
+  isEdited: boolean;
 };
 
 export enum MessageStatus {
