@@ -23,7 +23,7 @@
   height: 35px;
   background-color: $color-input-main;
   border-radius: 5px;
-  padding: 3px;
+  padding: 0 30px 0 3px;
   border: 2px solid $color-input-border;
   outline: none;
   color: $color-text-main;
@@ -41,7 +41,7 @@
   width: 25px;
   border: none;
   outline: none;
-  background-color: transparent;
+  background-color: $color-input-main;
   background-image: url("@assets/icons/undo-edit-btn.svg");
   background-size: 100% 100%;
   cursor: pointer;

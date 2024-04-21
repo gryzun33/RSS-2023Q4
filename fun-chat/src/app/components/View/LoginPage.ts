@@ -16,7 +16,7 @@ export default class LoginPage extends BaseComponent {
     type: 'text',
     required: true,
     minlength: '3',
-    pattern: '^[a-zA-Z0-9]{3,}$',
+    pattern: '^[a-zA-Zа-яА-Я0-9]{3,}$',
     toolTip: `Login must be at least three characters long, and can contain letters and numbers`,
     label: 'Login',
   });

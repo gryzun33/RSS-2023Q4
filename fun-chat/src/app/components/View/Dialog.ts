@@ -4,6 +4,7 @@ import emitter from '../EventEmitter';
 import Message from './Message';
 import { isMessageProps } from '../../utils/helpers';
 import ContextMenu from './ContextMenu';
+import state from '../State';
 
 enum UserStatus {
   online = 'online',
@@ -166,7 +167,7 @@ export default class Dialog extends BaseComponent {
     if (msg.author) {
       messageComp.on('contextmenu', (e: Event) => {
         e.preventDefault();
-        this.createContextMenu(msg.id, msg.text, messageComp);
+        this.createContextMenu(msg.id, messageComp);
       });
     }
   }
@@ -269,11 +270,16 @@ export default class Dialog extends BaseComponent {
     }
   }
 
-  protected createContextMenu = (id: string, text: string, message: Message): void => {
+  protected createContextMenu = (id: string, message: Message): void => {
     if (this.contextMenu) {
       this.contextMenu.destroy();
     }
-    this.contextMenu = new ContextMenu(id, text);
+    const msgData = state.messagesMap.get(id);
+    if (!msgData) {
+      throw new Error(`msgData is undefined`);
+    }
+    console.log('text=', state.messagesMap.get(id)?.text);
+    this.contextMenu = new ContextMenu(id, msgData.text);
     message.append(this.contextMenu);
     if (this.contextMenu) {
       document.addEventListener('click', () => this.contextMenu?.destroy(), { once: true });
