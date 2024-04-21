@@ -2,15 +2,12 @@
   max-width: 700px;
   width: 100%;
   background-color: $color-bg;
-  // height: 300px;
   border-radius: 5px;
   padding: 30px;
   margin: 20px;
   @include flex-column(normal, center);
   color: $color-text;
   box-shadow: 0 0 5px 3px rgba(37, 78, 88, 0.7);
-  // @include flex(center, center);
-  // background-color: green;
 }
 
 .about-title {

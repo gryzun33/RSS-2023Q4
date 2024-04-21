@@ -16,14 +16,11 @@
   padding: 3px;
   border: 2px solid $color-input-border;
   outline: none;
-
-  // margin-bottom: 10px;
 }
 
 .users-list {
   margin-top: 10px;
   margin-left: 5px;
-  // height: 100%;
   flex-grow: 1;
   overflow-y: scroll;
 

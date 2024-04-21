@@ -21,17 +21,26 @@ export default class NewMessage extends BaseComponent {
     text: 'Send',
   });
 
+  protected undoEditBtn = new BaseComponent({
+    tag: 'div',
+    classNames: ['undo-edit-btn', 'hidden'],
+  });
+
   constructor(props: Props) {
     super(props);
     this.createView();
     emitter.on('set-dialog-user', this.enableInput);
     emitter.on('change-message', this.changeMessage);
+    emitter.on('reset-new-message', this.resetForm);
     this.messageInput.on('input', this.onInputMessage);
     this.messageForm.on('submit', this.onSubmitForm);
+    this.undoEditBtn.on('click', this.resetForm);
   }
 
   protected createView(): void {
-    this.messageForm.append(this.messageInput, this.sendBtn);
+    const inputBox = new BaseComponent({ tag: 'div', classNames: ['input-box'] });
+    inputBox.append(this.messageInput, this.undoEditBtn);
+    this.messageForm.append(inputBox, this.sendBtn);
     this.append(this.messageForm);
     this.messageInput.attr('type', 'text');
     this.messageInput.attr('placeholder', 'Write a message...');
@@ -64,6 +73,7 @@ export default class NewMessage extends BaseComponent {
 
     this.messageInput.getElement().value = '';
     this.sendBtn.disable();
+    this.undoEditBtn.addClass('hidden');
   };
 
   protected changeMessage = (text: unknown): void => {
@@ -73,6 +83,14 @@ export default class NewMessage extends BaseComponent {
     this.isEdit = true;
     this.prevText = text;
     this.sendBtn.enable();
+    this.undoEditBtn.removeClass('hidden');
     this.messageInput.getElement().value = text;
+  };
+
+  protected resetForm = () => {
+    this.isEdit = false;
+    this.undoEditBtn.addClass('hidden');
+    this.messageInput.getElement().value = '';
+    this.sendBtn.disable();
   };
 }

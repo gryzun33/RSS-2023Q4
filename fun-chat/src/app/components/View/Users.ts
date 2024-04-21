@@ -105,6 +105,7 @@ export default class Users extends BaseComponent {
     } else if (userElement.closest('.inactive-list')) {
       emitter.emit('set-dialog-user', login, false);
     }
+    emitter.emit('reset-new-message');
 
     this.resetUserList();
   };

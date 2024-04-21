@@ -1,9 +1,6 @@
 .main-wrapper {
   max-width: 800px;
   width: 100%;
-  // background-color: $color-bg;
-  // @include flex(center, center);
-  // background-color: green;
   border-radius: 5px;
   box-shadow: 0 0 5px 5px rgba(37, 78, 88, 0.9);
   overflow: hidden;
@@ -15,8 +12,3 @@
   background-color: $color-bg;
   @include flex();
 }
-
-// .messages-wrapper {
-//   flex-grow: 1;
-//   width: 100%;
-// }

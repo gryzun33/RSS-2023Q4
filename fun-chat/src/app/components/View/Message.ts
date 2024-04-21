@@ -1,7 +1,6 @@
 import { MessageProps, MessageStatus } from '../../utils/types';
 import BaseComponent from './BaseComponent';
 import ContextMenu from './ContextMenu';
-// import emitter from '../EventEmitter';
 
 export default class Message extends BaseComponent {
   protected id: string = '';
@@ -33,7 +32,6 @@ export default class Message extends BaseComponent {
     }
     if (msg.author) {
       this.msgStatus.setTextContent(msg.status);
-      this.on('contextmenu', this.onContextMenuHandler);
     }
 
     const statusBox = new BaseComponent({ tag: 'p', classNames: ['msg-status-box'] });
@@ -59,13 +57,4 @@ export default class Message extends BaseComponent {
     this.msgStatusEdited.setTextContent(MessageStatus.Edited);
     this.msgText.setTextContent(text);
   }
-
-  protected onContextMenuHandler = (e: Event): void => {
-    e.preventDefault();
-    this.contextMenu = new ContextMenu(this.id, this.text);
-    this.append(this.contextMenu);
-    if (this.contextMenu) {
-      document.addEventListener('click', () => this.contextMenu?.destroy(), { once: true });
-    }
-  };
 }

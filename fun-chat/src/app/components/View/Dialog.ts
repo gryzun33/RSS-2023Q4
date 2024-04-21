@@ -3,6 +3,7 @@ import { Props, MessageProps, MessageStatus } from '../../utils/types';
 import emitter from '../EventEmitter';
 import Message from './Message';
 import { isMessageProps } from '../../utils/helpers';
+import ContextMenu from './ContextMenu';
 
 enum UserStatus {
   online = 'online',
@@ -20,6 +21,8 @@ export default class Dialog extends BaseComponent {
   protected isDivider: boolean = false;
   protected isProgrammScroll: boolean = false;
   protected dialogStatus: string = DialogStatus.noDialogUser;
+
+  protected contextMenu?: ContextMenu;
 
   protected divider = new BaseComponent({
     tag: 'div',
@@ -156,9 +159,17 @@ export default class Dialog extends BaseComponent {
   };
 
   protected addMessage(msg: MessageProps): void {
+    console.log('msg=author', msg);
     const messageComp = new Message(msg);
     this.messages.append(messageComp);
     this.messagesMap.set(msg.id, messageComp);
+
+    if (msg.author) {
+      messageComp.on('contextmenu', (e: Event) => {
+        e.preventDefault();
+        this.createContextMenu(msg.id, msg.text, messageComp);
+      });
+    }
   }
 
   protected setStatusDelivered = (id: unknown): void => {
@@ -258,4 +269,15 @@ export default class Dialog extends BaseComponent {
       }
     }
   }
+
+  protected createContextMenu = (id: string, text: string, message: Message): void => {
+    if (this.contextMenu) {
+      this.contextMenu.destroy();
+    }
+    this.contextMenu = new ContextMenu(id, text);
+    message.append(this.contextMenu);
+    if (this.contextMenu) {
+      document.addEventListener('click', () => this.contextMenu?.destroy(), { once: true });
+    }
+  };
 }
