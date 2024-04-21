@@ -159,7 +159,6 @@ export default class Dialog extends BaseComponent {
   };
 
   protected addMessage(msg: MessageProps): void {
-    console.log('msg=author', msg);
     const messageComp = new Message(msg);
     this.messages.append(messageComp);
     this.messagesMap.set(msg.id, messageComp);
