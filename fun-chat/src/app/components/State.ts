@@ -48,13 +48,13 @@ class State {
     }
   }
 
-  public updateState() {
+  public updateState(): void {
     this.usersMap.clear();
     this.messagesMap.clear();
     this.dialogUser = { login: '', isLogined: true };
   }
 
-  public saveUser(user: CurrentUser) {
+  public saveUser(user: CurrentUser): void {
     this.currUser = { ...user };
   }
 
@@ -62,7 +62,7 @@ class State {
     return this.currUser;
   }
 
-  public setEditedMsg(id: string, text: string) {
+  public setEditedMsg(id: string, text: string): void {
     this.editedMsg = { id, text };
   }
 
@@ -70,7 +70,7 @@ class State {
     return this.editedMsg;
   }
 
-  public changeUserStatus(user: UserResponse) {
+  public changeUserStatus(user: UserResponse): void {
     const userData = this.usersMap.get(user.login);
     if (userData) {
       userData.isLogined = user.isLogined;
@@ -83,7 +83,7 @@ class State {
     }
   }
 
-  public setNotifications(login: string, notifications: number) {
+  public setNotifications(login: string, notifications: number): void {
     const userData = this.usersMap.get(login);
     if (!userData) {
       throw new Error(`user is undefined`);
@@ -114,7 +114,7 @@ class State {
     return this.dialogUser;
   }
 
-  public addMessage(msg: MessageResponse) {
+  public addMessage(msg: MessageResponse): void {
     this.messagesMap.set(msg.id, msg);
     const author = msg.from === this.currUser.login;
     const dialogUser = msg.from;
@@ -140,7 +140,7 @@ class State {
     emitter.emit('add-message', msgProps);
   }
 
-  public addMessages(msgs: MessageResponse[]) {
+  public addMessages(msgs: MessageResponse[]): void {
     this.messagesMap.clear();
     msgs.forEach((msg) => {
       this.messagesMap.set(msg.id, msg);
@@ -172,7 +172,7 @@ class State {
     return status;
   }
 
-  public addNotification(login: string) {
+  public addNotification(login: string): void {
     const userData = this.usersMap.get(login);
     if (!userData) {
       throw new Error(`user is undefined`);
@@ -181,7 +181,7 @@ class State {
     emitter.emit('update-notifications', login, userData.notifications);
   }
 
-  public resetNotifications() {
+  public resetNotifications(): void {
     const userData = this.usersMap.get(this.dialogUser.login);
     if (!userData) {
       throw new Error(`user is undefined`);

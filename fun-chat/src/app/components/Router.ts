@@ -10,7 +10,7 @@ export default class Router {
     window.addEventListener('popstate', this.handleRouteChange);
   }
 
-  public init() {
+  public init(): void {
     document.addEventListener('DOMContentLoaded', () => {
       let path = window.location.pathname.slice(1);
       const user = storage.getData('user');
@@ -24,7 +24,7 @@ export default class Router {
     });
   }
 
-  private navigate = (url: unknown) => {
+  private navigate = (url: unknown): void => {
     if (typeof url !== 'string') {
       throw new Error('url isn`t string');
     }
@@ -49,7 +49,7 @@ export default class Router {
     }
   };
 
-  protected handleRouteChange = () => {
+  protected handleRouteChange = (): void => {
     const path = window.location.pathname.slice(1);
     this.navigate(path);
   };

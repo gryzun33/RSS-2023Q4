@@ -13,7 +13,7 @@ export default class WebSocketManager {
     this.connect();
   }
 
-  connect = () => {
+  public connect = (): void => {
     this.ws = new WebSocket('ws://localhost:4000');
     this.ws.addEventListener('open', this.onOpen);
     this.ws.addEventListener('message', this.onMessage);
@@ -21,13 +21,13 @@ export default class WebSocketManager {
     this.ws.addEventListener('error', this.onError);
   };
 
-  onOpen = () => {
+  public onOpen = (): void => {
     this.isConnect = true;
     emitter.emit('connect');
     this.checkAuthorized();
   };
 
-  onClose = () => {
+  public onClose = (): void => {
     if (this.isConnect) {
       this.isConnect = false;
       emitter.emit('disconnect');
@@ -37,17 +37,17 @@ export default class WebSocketManager {
     }, this.reconnectInterval);
   };
 
-  onMessage = (event: MessageEvent) => {
+  public onMessage = (event: MessageEvent): void => {
     const { data } = event;
     this.dataHandler(data);
   };
 
-  onError = (event: Event) => {
+  public onError = (event: Event): void => {
     console.error('WebSocket error:', event);
 
     this.ws?.close();
   };
-  send(message: string) {
+  public send(message: string): void {
     this.ws?.send(message);
   }
 }

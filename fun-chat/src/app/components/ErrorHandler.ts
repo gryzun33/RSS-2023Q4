@@ -6,7 +6,7 @@ const ERRORS = {
 };
 
 export default class ErrorHandler {
-  public onError(text: string) {
+  public onError(text: string): void {
     switch (text) {
       case ERRORS.login:
         emitter.emit('incorrectAuth', ERRORS.login);

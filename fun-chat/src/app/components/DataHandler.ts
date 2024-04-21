@@ -36,7 +36,7 @@ type DeleteResponse = {
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
 
-  public getData = (dataStr: string) => {
+  public getData = (dataStr: string): void => {
     const data = JSON.parse(dataStr);
 
     switch (data.type) {
@@ -85,7 +85,7 @@ export default class DataHandler {
     }
   };
 
-  private authorize(user: UserResponse, idResponse: string) {
+  private authorize(user: UserResponse, idResponse: string): void {
     if (user.isLogined) {
       const { id, login, password } = state.getUser();
       if (idResponse === id) {
@@ -97,14 +97,14 @@ export default class DataHandler {
     }
   }
 
-  private logoutResponse(user: UserResponse) {
+  private logoutResponse(user: UserResponse): void {
     if (!user.isLogined) {
       storage.removeStorage();
       emitter.emit('navigate', 'login');
     }
   }
 
-  private usersResponse(users: UserResponse[]) {
+  private usersResponse(users: UserResponse[]): void {
     const { login } = state.getUser();
     users.forEach((user) => {
       if (user.login !== login) {
@@ -114,16 +114,16 @@ export default class DataHandler {
     });
   }
 
-  private userStatusResponse(user: UserResponse) {
+  private userStatusResponse(user: UserResponse): void {
     emitter.emit('get-notifications', user.login);
     state.changeUserStatus(user);
   }
 
-  private messageResponse = (msg: MessageResponse) => {
+  private messageResponse = (msg: MessageResponse): void => {
     state.addMessage(msg);
   };
 
-  protected messagesResponse = (msgs: MessageResponse[], id: string) => {
+  protected messagesResponse = (msgs: MessageResponse[], id: string): void => {
     if (id === state.dialogId) {
       state.addMessages(msgs);
       return;
@@ -135,7 +135,7 @@ export default class DataHandler {
     state.setNotifications(id, notifications);
   };
 
-  protected deliverResponse(data: DeliveredResponse) {
+  protected deliverResponse(data: DeliveredResponse): void {
     const msg = state.messagesMap.get(data.id);
     if (!msg) {
       throw new Error(`message is undefined`);
@@ -144,7 +144,7 @@ export default class DataHandler {
     emitter.emit('delivered', data.id);
   }
 
-  protected readResponse(data: ReadedResponse) {
+  protected readResponse(data: ReadedResponse): void {
     const msg = state.messagesMap.get(data.id);
     const { login } = state.getDialogUser();
     if (!msg) {
@@ -156,7 +156,7 @@ export default class DataHandler {
     }
   }
 
-  protected editResponse(data: EditResponse) {
+  protected editResponse(data: EditResponse): void {
     const msg = state.messagesMap.get(data.id);
     if (!msg) {
       throw new Error(`message is undefined`);
@@ -166,7 +166,7 @@ export default class DataHandler {
     emitter.emit('edited', data.id, data.text);
   }
 
-  protected deleteResponse(data: DeleteResponse) {
+  protected deleteResponse(data: DeleteResponse): void {
     state.messagesMap.delete(data.id);
     emitter.emit('deleted', data.id);
   }

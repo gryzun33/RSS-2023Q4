@@ -6,12 +6,13 @@ import MainPage from './View/MainPage';
 import AboutPage from './View/AboutPage';
 import ModalServer from './View/ModalServer';
 import emitter from './EventEmitter';
+import { Route } from '../utils/types';
 
 export default class App {
   protected page: string = '';
   protected root = new BaseComponent({ tag: 'div', classNames: ['wrapper'] });
-  private router: Router;
-  private currPage?: BaseComponent;
+  protected router: Router;
+  protected currPage?: BaseComponent;
   protected modal?: ModalServer;
   protected controller = new Controller();
   constructor() {
@@ -21,20 +22,20 @@ export default class App {
     emitter.on('connect', this.closeModal);
   }
 
-  start() {
+  public start(): void {
     document.body.append(this.root.element);
     this.router.init();
   }
 
-  openModal = () => {
+  protected openModal = (): void => {
     this.modal = new ModalServer(`Connecting to the server`);
     this.root.append(this.modal);
   };
 
-  closeModal = () => {
+  protected closeModal = (): void => {
     this.modal?.close();
   };
-  createRoutes() {
+  protected createRoutes(): Route[] {
     return [
       {
         path: `login`,
@@ -50,7 +51,7 @@ export default class App {
       },
     ];
   }
-  setContent(newPage: BaseComponent, page: string) {
+  setContent(newPage: BaseComponent, page: string): void {
     if (this.currPage) {
       this.currPage.destroy();
     }
