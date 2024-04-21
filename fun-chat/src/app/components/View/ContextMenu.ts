@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import Button from './Button';
 import emitter from '../EventEmitter';
 import state from '../State';
+import { EVENT } from '../../utils/constants';
 
 export default class ContextMenu extends BaseComponent {
   protected editBtn = new Button({
@@ -30,11 +31,11 @@ export default class ContextMenu extends BaseComponent {
   }
 
   protected onClickEditBtn = () => {
-    emitter.emit('change-message', this.text);
+    emitter.emit(EVENT.change_message, this.text);
     state.setEditedMsg(this.id, this.text);
   };
 
   protected onClickDeleteBtn = () => {
-    emitter.emit('delete-message', this.id);
+    emitter.emit(EVENT.delete_message, this.id);
   };
 }

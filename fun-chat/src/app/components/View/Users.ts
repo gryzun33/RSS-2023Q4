@@ -1,7 +1,7 @@
 import BaseComponent from './BaseComponent';
 import { Props } from '../../utils/types';
 import emitter from '../EventEmitter';
-// import state from '../State';
+import { EVENT } from '../../utils/constants';
 
 export default class Users extends BaseComponent {
   protected usersMap: Map<string, BaseComponent> = new Map();
@@ -28,9 +28,9 @@ export default class Users extends BaseComponent {
     this.userSearch.on('input', this.searchUsers);
     this.usersMap.clear();
     this.emitterMap = new Map([
-      ['external-login', this.addActiveUser],
-      ['external-logout', this.addInactiveUser],
-      ['update-notifications', this.updateNotifications],
+      [EVENT.external_login, this.addActiveUser],
+      [EVENT.external_logout, this.addInactiveUser],
+      [EVENT.update_notifications, this.updateNotifications],
     ]);
     this.addUnsubscribers();
   }
@@ -101,11 +101,11 @@ export default class Users extends BaseComponent {
     }
     const login = userElement.getAttribute('data-login');
     if (userElement.closest('.active-list')) {
-      emitter.emit('set-dialog-user', login, true);
+      emitter.emit(EVENT.set_dialog_user, login, true);
     } else if (userElement.closest('.inactive-list')) {
-      emitter.emit('set-dialog-user', login, false);
+      emitter.emit(EVENT.set_dialog_user, login, false);
     }
-    emitter.emit('reset-new-message');
+    emitter.emit(EVENT.reset_new_message);
 
     this.resetUserList();
   };

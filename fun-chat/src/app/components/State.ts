@@ -1,23 +1,9 @@
-import {
-  CurrentUser,
-  UserResponse,
-  MessageResponse,
-  MessageStatus,
-  StatusResponse,
-} from '../utils/types';
+import { CurrentUser, MessageStatus, StatusResponse, UserData, EditedMsg } from '../utils/types';
 import storage from './Storage';
 import emitter from './EventEmitter';
 import { formatDate } from '../utils/helpers';
-
-type UserData = {
-  notifications: number;
-  isLogined: boolean;
-};
-
-type EditedMsg = {
-  id: string;
-  text: string;
-};
+import { UserResponse, MessageResponse } from '../utils/typesResponses';
+import { EVENT } from '../utils/constants';
 
 class State {
   public usersMap: Map<string, UserData> = new Map();
@@ -79,7 +65,7 @@ class State {
     }
 
     if (user.login === this.dialogUser.login) {
-      emitter.emit('change-status', user.isLogined);
+      emitter.emit(EVENT.change_status, user.isLogined);
     }
   }
 
@@ -91,9 +77,9 @@ class State {
 
     userData.notifications = notifications;
     if (userData.isLogined) {
-      emitter.emit('external-login', login, userData.notifications);
+      emitter.emit(EVENT.external_login, login, userData.notifications);
     } else {
-      emitter.emit('external-logout', login, userData.notifications);
+      emitter.emit(EVENT.external_logout, login, userData.notifications);
     }
   }
 
@@ -137,7 +123,7 @@ class State {
       return;
     }
 
-    emitter.emit('add-message', msgProps);
+    emitter.emit(EVENT.add_message, msgProps);
   }
 
   public addMessages(msgs: MessageResponse[]): void {
@@ -162,7 +148,7 @@ class State {
         isEdited,
       };
     });
-    emitter.emit('add-messages', messages);
+    emitter.emit(EVENT.add_messages, messages);
   }
 
   protected getStatus(statusResponse: StatusResponse): string {
@@ -178,7 +164,7 @@ class State {
       throw new Error(`user is undefined`);
     }
     userData.notifications += 1;
-    emitter.emit('update-notifications', login, userData.notifications);
+    emitter.emit(EVENT.update_notifications, login, userData.notifications);
   }
 
   public resetNotifications(): void {
@@ -187,7 +173,7 @@ class State {
       throw new Error(`user is undefined`);
     }
     userData.notifications = 0;
-    emitter.emit('update-notifications', this.dialogUser.login, userData.notifications);
+    emitter.emit(EVENT.update_notifications, this.dialogUser.login, userData.notifications);
   }
 }
 

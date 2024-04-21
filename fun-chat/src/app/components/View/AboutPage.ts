@@ -1,5 +1,6 @@
 import BaseComponent from './BaseComponent';
 import emitter from '../EventEmitter';
+import { AUTHOR_LINK } from '../../utils/constants';
 
 export default class AboutPage extends BaseComponent {
   protected backBtn = new BaseComponent({
@@ -24,7 +25,7 @@ export default class AboutPage extends BaseComponent {
       classNames: ['about-author'],
       text: 'Olga Yakusheva',
     });
-    author.attr('href', 'https://gryzun33.github.io/rsschool-cv/');
+    author.attr('href', AUTHOR_LINK);
     author.attr('target', '_blank');
     this.append(title, text, author, this.backBtn);
   }

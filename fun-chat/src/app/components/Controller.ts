@@ -3,77 +3,15 @@ import DataHandler from './DataHandler';
 import emitter from './EventEmitter';
 import state from './State';
 import storage from './Storage';
-
-const REQUESTS = {
-  login: 'USER_LOGIN',
-  logout: 'USER_LOGOUT',
-  activeUsers: 'USER_ACTIVE',
-  inactiveUsers: 'USER_INACTIVE',
-  msgFromUser: 'MSG_FROM_USER',
-  messSend: 'MSG_SEND',
-  messRead: 'MSG_READ',
-  messEdit: 'MSG_EDIT',
-  messDelete: 'MSG_DELETE',
-};
-
-type MsgStatusRequest = {
-  id: string | null;
-  type: string;
-  payload: {
-    message: {
-      id: string;
-    };
-  };
-};
-
-type LoginRequest = {
-  id: string;
-  type: string;
-  payload: {
-    user: {
-      login: string;
-      password: string;
-    };
-  };
-};
-
-type UsersRequest = {
-  id: string;
-  type: string;
-  payload: null;
-};
-
-type MessageRequest = {
-  id: string | null;
-  type: string;
-  payload: {
-    message: {
-      to: string;
-      text: string;
-    };
-  };
-};
-
-type MsgEditRequest = {
-  id: string;
-  type: string;
-  payload: {
-    message: {
-      id: string;
-      text: string;
-    };
-  };
-};
-
-type MsgDeleteRequest = {
-  id: string;
-  type: string;
-  payload: {
-    message: {
-      id: string;
-    };
-  };
-};
+import {
+  MsgStatusRequest,
+  LoginRequest,
+  UsersRequest,
+  MessageRequest,
+  MsgEditRequest,
+  MsgDeleteRequest,
+} from '../utils/typesRequests';
+import { EVENT, REQUESTS } from '../utils/constants';
 
 export default class Controller {
   private dataHandler = new DataHandler();
@@ -81,17 +19,17 @@ export default class Controller {
 
   constructor() {
     this.wsManager = new WebSocketManager(this.dataHandler.getData, this.checkAuthorized);
-    emitter.on('login', this.loginRequest);
-    emitter.on('logout', this.logoutRequest);
-    emitter.on('send-message', this.sendRequest);
-    emitter.on('set-dialog-user', this.dialogUserRequset);
-    emitter.on('get-notifications', this.notificationsRequest);
-    emitter.on('set-readed', this.readedRequest);
-    emitter.on('edit-message', this.editRequest);
-    emitter.on('delete-message', this.deleteRequest);
+    emitter.on(EVENT.login, this.loginRequest);
+    emitter.on(EVENT.logout, this.logoutRequest);
+    emitter.on(EVENT.send_message, this.sendRequest);
+    emitter.on(EVENT.set_dialog_user, this.dialogUserRequset);
+    emitter.on(EVENT.get_notifications, this.notificationsRequest);
+    emitter.on(EVENT.set_readed, this.readedRequest);
+    emitter.on(EVENT.edit_message, this.editRequest);
+    emitter.on(EVENT.delete_message, this.deleteRequest);
   }
 
-  public checkAuthorized = () => {
+  public checkAuthorized = (): void => {
     state.updateState();
     const user = storage.getData('user');
     if (user) {

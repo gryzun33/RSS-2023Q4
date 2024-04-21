@@ -5,6 +5,7 @@ import Message from './Message';
 import { isMessageProps } from '../../utils/helpers';
 import ContextMenu from './ContextMenu';
 import state from '../State';
+import { EVENT } from '../../utils/constants';
 
 enum UserStatus {
   online = 'online',
@@ -52,15 +53,15 @@ export default class Dialog extends BaseComponent {
     this.messages.on('scrollend', this.onScrollEndHandler);
 
     this.emitterMap = new Map([
-      ['set-dialog-user', this.setDialogUser],
-      ['change-status', this.changeStatus],
-      ['add-message', this.addNewMessage],
-      ['add-messages', this.addMessages],
-      ['delivered', this.setStatusDelivered],
-      ['readed', this.setStatusReaded],
-      ['send-message', this.onChangeMessages],
-      ['edited', this.setStatusEdited],
-      ['deleted', this.deleteMessage],
+      [EVENT.set_dialog_user, this.setDialogUser],
+      [EVENT.change_status, this.changeStatus],
+      [EVENT.add_message, this.addNewMessage],
+      [EVENT.add_messages, this.addMessages],
+      [EVENT.delivered, this.setStatusDelivered],
+      [EVENT.readed, this.setStatusReaded],
+      [EVENT.send_message, this.onChangeMessages],
+      [EVENT.edited, this.setStatusEdited],
+      [EVENT.deleted, this.deleteMessage],
     ]);
     this.emitterMap.forEach((listener, eventName) => {
       this.unsubscribes.push(emitter.on(eventName, listener));

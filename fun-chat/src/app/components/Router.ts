@@ -1,12 +1,13 @@
 import { Route } from '../utils/types';
 import emitter from './EventEmitter';
 import storage from './Storage';
+import { EVENT } from '../utils/constants';
 
 export default class Router {
   private routes: Route[];
   constructor(routes: Route[]) {
     this.routes = routes;
-    emitter.on('navigate', this.navigate);
+    emitter.on(EVENT.navigate, this.navigate);
     window.addEventListener('popstate', this.handleRouteChange);
   }
 

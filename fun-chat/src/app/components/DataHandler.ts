@@ -2,36 +2,15 @@ import emitter from './EventEmitter';
 import storage from './Storage';
 import state from './State';
 import ErrorHandler from './ErrorHandler';
-import { UserResponse, MessageResponse } from '../utils/types';
-
-type DeliveredResponse = {
-  id: string;
-  status: {
-    isDelivered: boolean;
-  };
-};
-
-type ReadedResponse = {
-  id: string;
-  status: {
-    isReaded: boolean;
-  };
-};
-
-type EditResponse = {
-  id: string;
-  text: string;
-  status: {
-    isEdited: boolean;
-  };
-};
-
-type DeleteResponse = {
-  id: string;
-  status: {
-    isDeleted: boolean;
-  };
-};
+import {
+  UserResponse,
+  MessageResponse,
+  DeliveredResponse,
+  ReadedResponse,
+  EditResponse,
+  DeleteResponse,
+} from '../utils/typesResponses';
+import { EVENT } from '../utils/constants';
 
 export default class DataHandler {
   protected errorHandler = new ErrorHandler();
@@ -92,7 +71,7 @@ export default class DataHandler {
         storage.saveData('user', { login, password });
         let path = window.location.pathname.slice(1);
         path = path === 'about' ? 'about' : 'main';
-        emitter.emit('navigate', path);
+        emitter.emit(EVENT.navigate, path);
       }
     }
   }
@@ -100,7 +79,7 @@ export default class DataHandler {
   private logoutResponse(user: UserResponse): void {
     if (!user.isLogined) {
       storage.removeStorage();
-      emitter.emit('navigate', 'login');
+      emitter.emit(EVENT.navigate, 'login');
     }
   }
 
@@ -108,14 +87,14 @@ export default class DataHandler {
     const { login } = state.getUser();
     users.forEach((user) => {
       if (user.login !== login) {
-        emitter.emit('get-notifications', user.login);
+        emitter.emit(EVENT.get_notifications, user.login);
         state.changeUserStatus(user);
       }
     });
   }
 
   private userStatusResponse(user: UserResponse): void {
-    emitter.emit('get-notifications', user.login);
+    emitter.emit(EVENT.get_notifications, user.login);
     state.changeUserStatus(user);
   }
 
@@ -141,7 +120,7 @@ export default class DataHandler {
       throw new Error(`message is undefined`);
     }
     msg.status.isDelivered = true;
-    emitter.emit('delivered', data.id);
+    emitter.emit(EVENT.delivered, data.id);
   }
 
   protected readResponse(data: ReadedResponse): void {
@@ -152,7 +131,7 @@ export default class DataHandler {
     }
     msg.status.isReaded = true;
     if (login !== msg.from) {
-      emitter.emit('readed', data.id);
+      emitter.emit(EVENT.readed, data.id);
     }
   }
 
@@ -163,11 +142,11 @@ export default class DataHandler {
     }
     msg.status.isEdited = true;
     msg.text = data.text;
-    emitter.emit('edited', data.id, data.text);
+    emitter.emit(EVENT.edited, data.id, data.text);
   }
 
   protected deleteResponse(data: DeleteResponse): void {
     state.messagesMap.delete(data.id);
-    emitter.emit('deleted', data.id);
+    emitter.emit(EVENT.deleted, data.id);
   }
 }

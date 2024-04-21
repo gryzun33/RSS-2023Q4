@@ -1,5 +1,7 @@
 import emitter from './EventEmitter';
+import { EVENT } from '../utils/constants';
 
+const URL = 'ws://localhost:4000';
 type Handler = (arg: string) => void;
 export default class WebSocketManager {
   private ws?: WebSocket;
@@ -14,7 +16,7 @@ export default class WebSocketManager {
   }
 
   public connect = (): void => {
-    this.ws = new WebSocket('ws://localhost:4000');
+    this.ws = new WebSocket(URL);
     this.ws.addEventListener('open', this.onOpen);
     this.ws.addEventListener('message', this.onMessage);
     this.ws.addEventListener('close', this.onClose);
@@ -23,14 +25,14 @@ export default class WebSocketManager {
 
   public onOpen = (): void => {
     this.isConnect = true;
-    emitter.emit('connect');
+    emitter.emit(EVENT.connect);
     this.checkAuthorized();
   };
 
   public onClose = (): void => {
     if (this.isConnect) {
       this.isConnect = false;
-      emitter.emit('disconnect');
+      emitter.emit(EVENT.disconnect);
     }
     setTimeout(() => {
       this.connect();

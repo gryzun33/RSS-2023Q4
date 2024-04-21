@@ -7,6 +7,7 @@ import AboutPage from './View/AboutPage';
 import ModalServer from './View/ModalServer';
 import emitter from './EventEmitter';
 import { Route } from '../utils/types';
+import { EVENT } from '../utils/constants';
 
 export default class App {
   protected page: string = '';
@@ -18,8 +19,8 @@ export default class App {
   constructor() {
     const routes = this.createRoutes();
     this.router = new Router(routes);
-    emitter.on('disconnect', this.openModal);
-    emitter.on('connect', this.closeModal);
+    emitter.on(EVENT.disconnect, this.openModal);
+    emitter.on(EVENT.connect, this.closeModal);
   }
 
   public start(): void {

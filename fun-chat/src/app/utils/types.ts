@@ -39,28 +39,6 @@ export type CurrentUser = {
   password: string;
 };
 
-export type UserResponse = {
-  login: string;
-  isLogined: boolean;
-};
-
-export type User = UserResponse & {
-  notification?: number;
-};
-
-export type MessageResponse = {
-  id: string;
-  from: string;
-  to: string;
-  text: string;
-  datetime: number;
-  status: {
-    isDelivered: boolean;
-    isReaded: boolean;
-    isEdited: boolean;
-  };
-};
-
 export type MessageProps = {
   id: string;
   text: string;
@@ -82,4 +60,14 @@ export type StatusResponse = {
   isDelivered: boolean;
   isReaded: boolean;
   isEdited: boolean;
+};
+
+export type UserData = {
+  notifications: number;
+  isLogined: boolean;
+};
+
+export type EditedMsg = {
+  id: string;
+  text: string;
 };

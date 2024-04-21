@@ -2,6 +2,7 @@ import BaseComponent from './BaseComponent';
 import Button from './Button';
 import { Props } from '../../utils/types';
 import emitter from '../EventEmitter';
+import { EVENT } from '../../utils/constants';
 
 export default class NewMessage extends BaseComponent {
   protected isEdit: boolean = false;
@@ -29,12 +30,18 @@ export default class NewMessage extends BaseComponent {
   constructor(props: Props) {
     super(props);
     this.createView();
-    emitter.on('set-dialog-user', this.enableInput);
-    emitter.on('change-message', this.changeMessage);
-    emitter.on('reset-new-message', this.resetForm);
     this.messageInput.on('input', this.onInputMessage);
     this.messageForm.on('submit', this.onSubmitForm);
     this.undoEditBtn.on('click', this.resetForm);
+
+    this.emitterMap = new Map([
+      [EVENT.set_dialog_user, this.enableInput],
+      [EVENT.change_message, this.changeMessage],
+      [EVENT.reset_new_message, this.resetForm],
+    ]);
+    this.emitterMap.forEach((listener, eventName) => {
+      this.unsubscribes.push(emitter.on(eventName, listener));
+    });
   }
 
   protected createView(): void {
