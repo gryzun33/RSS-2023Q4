@@ -53,7 +53,7 @@ export default class DataHandler {
         this.editResponse(data.payload.message);
         break;
       case 'MSG_DELETE':
-        this.deleteResponse(data.payload.message);
+        this.deleteResponse(data.payload.message, data.id);
         break;
       case 'ERROR':
         this.errorHandler.onError(data.payload.error);
@@ -110,8 +110,16 @@ export default class DataHandler {
 
     const { login } = state.getUser();
     const unReaded = msgs.filter((msg) => msg.from !== login && !msg.status.isReaded);
+    const unreadedData = unReaded.map((msg) => {
+      const data = {
+        id: msg.id,
+        from: msg.from,
+      };
+      return data;
+    });
     const notifications = unReaded.length;
     state.setNotifications(id, notifications);
+    state.setUnreadedMessage(unreadedData);
   };
 
   protected deliverResponse(data: DeliveredResponse): void {
@@ -130,6 +138,7 @@ export default class DataHandler {
       return;
     }
     msg.status.isReaded = true;
+    state.unreadEdMap.delete(data.id);
     if (login !== msg.from) {
       emitter.emit(EVENT.readed, data.id);
     }
@@ -145,8 +154,9 @@ export default class DataHandler {
     emitter.emit(EVENT.edited, data.id, data.text);
   }
 
-  protected deleteResponse(data: DeleteResponse): void {
-    state.messagesMap.delete(data.id);
-    emitter.emit(EVENT.deleted, data.id);
+  protected deleteResponse(data: DeleteResponse, id: string): void {
+    state.deleteMessage(data.id, id);
+    // state.messagesMap.delete(data.id);
+    // emitter.emit(EVENT.deleted, data.id);
   }
 }

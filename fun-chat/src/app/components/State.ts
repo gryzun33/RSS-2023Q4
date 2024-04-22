@@ -1,4 +1,11 @@
-import { CurrentUser, MessageStatus, StatusResponse, UserData, EditedMsg } from '../utils/types';
+import {
+  CurrentUser,
+  MessageStatus,
+  StatusResponse,
+  UserData,
+  EditedMsg,
+  Unreaded,
+} from '../utils/types';
 import storage from './Storage';
 import emitter from './EventEmitter';
 import { formatDate } from '../utils/helpers';
@@ -8,6 +15,8 @@ import { EVENT } from '../utils/constants';
 class State {
   public usersMap: Map<string, UserData> = new Map();
   public messagesMap: Map<string, MessageResponse> = new Map();
+
+  public unreadEdMap: Map<string, string> = new Map();
   protected currUser: CurrentUser = {
     id: '',
     login: '',
@@ -20,6 +29,7 @@ class State {
   };
 
   public dialogId: string = '';
+  public deleteRequestId: string = '';
 
   public editedMsg: EditedMsg = {
     id: '',
@@ -118,6 +128,7 @@ class State {
 
     if (!author) {
       state.addNotification(msg.from);
+      this.unreadEdMap.set(msg.id, msg.from);
     }
     if (!author && msg.from !== this.dialogUser.login) {
       return;
@@ -174,6 +185,40 @@ class State {
     }
     userData.notifications = 0;
     emitter.emit(EVENT.update_notifications, this.dialogUser.login, userData.notifications);
+  }
+
+  public setUnreadedMessage(data: Unreaded[]): void {
+    data.forEach((msg) => {
+      this.unreadEdMap.set(msg.id, msg.from);
+    });
+  }
+
+  public deleteMessage(msgId: string, responseId: string): void {
+    if (state.deleteRequestId === responseId) {
+      this.messagesMap.delete(msgId);
+      emitter.emit(EVENT.deleted, msgId);
+    } else {
+      const login = this.unreadEdMap.get(msgId);
+      if (!login) {
+        throw new Error(`login is undefined`);
+      }
+      if (login === this.dialogUser.login) {
+        this.messagesMap.delete(msgId);
+        emitter.emit(EVENT.deleted, msgId);
+      }
+
+      this.unreadEdMap.delete(msgId);
+      const userData = this.usersMap.get(login);
+      if (!userData) {
+        throw new Error(`userdata is undefined`);
+      }
+      userData.notifications -= 1;
+      if (userData.notifications === 0 && login === state.dialogUser.login) {
+        emitter.emit(EVENT.delete_divider);
+      }
+
+      emitter.emit(EVENT.update_notifications, login, userData.notifications);
+    }
   }
 }
 

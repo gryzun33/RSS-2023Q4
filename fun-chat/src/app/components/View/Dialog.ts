@@ -62,6 +62,7 @@ export default class Dialog extends BaseComponent {
       [EVENT.send_message, this.onChangeMessages],
       [EVENT.edited, this.setStatusEdited],
       [EVENT.deleted, this.deleteMessage],
+      [EVENT.delete_divider, this.hideDivider],
     ]);
     this.emitterMap.forEach((listener, eventName) => {
       this.unsubscribes.push(emitter.on(eventName, listener));
@@ -210,7 +211,6 @@ export default class Dialog extends BaseComponent {
     if (typeof id !== 'string') {
       throw new Error(`id is not string`);
     }
-
     const messageComp = this.messagesMap.get(id);
     if (!messageComp) {
       throw new Error(`messageComponent is undefined`);
@@ -279,7 +279,6 @@ export default class Dialog extends BaseComponent {
     if (!msgData) {
       throw new Error(`msgData is undefined`);
     }
-    console.log('text=', state.messagesMap.get(id)?.text);
     this.contextMenu = new ContextMenu(id, msgData.text);
     message.append(this.contextMenu);
     if (this.contextMenu) {

@@ -71,3 +71,8 @@ export type EditedMsg = {
   id: string;
   text: string;
 };
+
+export type Unreaded = {
+  id: string;
+  from: string;
+};

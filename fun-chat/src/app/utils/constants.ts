@@ -23,6 +23,7 @@ const EVENT = {
   incorrect_auth: 'incorrectAuth',
   connect: 'connect',
   disconnect: 'disconnect',
+  delete_divider: 'delete-divider',
 };
 
 const REQUESTS = {

@@ -194,8 +194,10 @@ export default class Controller {
       throw new Error(`id is not string`);
     }
 
+    const requestId = crypto.randomUUID();
+    state.deleteRequestId = requestId;
     const request: MsgDeleteRequest = {
-      id: '',
+      id: requestId,
       type: REQUESTS.messDelete,
       payload: {
         message: {
