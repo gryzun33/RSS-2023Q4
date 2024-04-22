@@ -198,13 +198,18 @@ class State {
       this.messagesMap.delete(msgId);
       emitter.emit(EVENT.deleted, msgId);
     } else {
-      const login = this.unreadEdMap.get(msgId);
-      if (!login) {
-        throw new Error(`login is undefined`);
-      }
-      if (login === this.dialogUser.login) {
+      if (this.messagesMap.has(msgId)) {
         this.messagesMap.delete(msgId);
         emitter.emit(EVENT.deleted, msgId);
+      }
+
+      if (!this.unreadEdMap.has(msgId)) {
+        return;
+      }
+      const login = this.unreadEdMap.get(msgId);
+
+      if (!login) {
+        throw new Error(`login is undefined`);
       }
 
       this.unreadEdMap.delete(msgId);

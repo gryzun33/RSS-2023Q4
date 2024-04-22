@@ -216,6 +216,10 @@ export default class Dialog extends BaseComponent {
       throw new Error(`messageComponent is undefined`);
     }
     this.messagesMap.delete(id);
+    if (this.messagesMap.size === 0) {
+      this.changePlaceholder();
+      this.dialogStatus = DialogStatus.noMessages;
+    }
     messageComp.destroy();
   };
 
