@@ -16,7 +16,7 @@ export default class ErrorHandler {
         emitter.emit(EVENT.incorrect_auth, ERRORS.password);
         break;
       default:
-        console.error('unknown error type');
+        console.error(text);
         break;
     }
   }
