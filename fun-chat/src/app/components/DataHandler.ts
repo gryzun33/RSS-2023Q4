@@ -156,7 +156,5 @@ export default class DataHandler {
 
   protected deleteResponse(data: DeleteResponse, id: string): void {
     state.deleteMessage(data.id, id);
-    // state.messagesMap.delete(data.id);
-    // emitter.emit(EVENT.deleted, data.id);
   }
 }

@@ -13,12 +13,13 @@ export default class Footer extends BaseComponent {
     iconGithub.attr('href', AUTHOR_LINK);
     iconGithub.attr('target', '_blank');
     iconGithub.html(githubSvg);
+    const name = new BaseComponent({ tag: 'p', classNames: ['author'], text: 'Olga Yakusheva' });
     const year = new BaseComponent({ tag: 'p', classNames: ['year'] });
     year.html(`&copy;${YEAR}`);
     const iconSchool = new BaseComponent({ tag: 'a', classNames: ['icon-school'] });
     iconSchool.attr('href', RSS_LINK);
     iconSchool.attr('target', '_blank');
     iconSchool.html(rssSvg);
-    this.append(iconGithub, year, iconSchool);
+    this.append(iconGithub, name, year, iconSchool);
   }
 }
