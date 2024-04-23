@@ -17,7 +17,7 @@ export default class App {
   }
 
   public start(): void {
-    if (this.isUserLogin()) {
+    if (this.getUserLogin()) {
       this.loadStartPage();
     } else {
       this.loadLoginPage();
@@ -48,7 +48,7 @@ export default class App {
     this.root.append(this.mainPage.getElement());
   };
 
-  protected isUserLogin(): string | null {
+  protected getUserLogin(): string | null {
     return storage.getData('name');
   }
 
