@@ -10,6 +10,14 @@ import level5 from '../puzzle-data/wordCollectionLevel5.json';
 import level6 from '../puzzle-data/wordCollectionLevel6.json';
 import { storage } from './Storage';
 
+export type PieceProps = {
+  comp: BaseComponent;
+  parent: string;
+  oldInd: number;
+  newInd: number;
+  word: string;
+};
+
 const roundCompleted = {
   done: 1,
   undone: 0,
@@ -107,13 +115,7 @@ class AppState {
     return roundsLength;
   }
 
-  public addToAppState = (
-    comp: BaseComponent,
-    parent: string,
-    oldInd: number,
-    newInd: number,
-    word: string
-  ) => {
+  public addToAppState = ({ comp, parent, oldInd, newInd, word }: PieceProps) => {
     const key = comp.getElement();
     const value: PieceData = {
       parent,

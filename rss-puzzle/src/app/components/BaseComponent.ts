@@ -15,11 +15,11 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.children = [];
   }
 
-  public getElement() {
+  public getElement(): T {
     return this.element;
   }
 
-  public getChildren() {
+  public getChildren(): BaseComponent[] {
     return this.children;
   }
 
@@ -52,41 +52,40 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     });
   }
 
-  public insertBefore(newComp: BaseComponent, child: BaseComponent, index: number) {
+  public insertBefore(newComp: BaseComponent, child: BaseComponent, index: number): void {
     this.element.insertBefore(newComp.element, child.element);
     this.children[index] = newComp;
   }
 
-  public attr(name: string, value?: string) {
+  public attr(name: string, value?: string): void | string | null {
     if (value) {
       this.element.setAttribute(name, value);
-      return this;
     }
     return this.element.getAttribute(name);
   }
 
-  public css(prop: string, value: string) {
+  public css(prop: string, value: string): void {
     this.element.style.setProperty(prop, value);
   }
 
-  public findAll(selector: string) {
+  public findAll(selector: string): Element[] {
     return [...this.element.querySelectorAll(selector)];
   }
 
-  public closest(selector: string) {
+  public closest(selector: string): HTMLElement | null {
     return this.element.closest(selector);
   }
 
-  public on(eventType: string, callback: (event: Event) => void) {
+  public on(eventType: string, callback: (event: Event) => void): void {
     this.element.addEventListener(eventType, callback);
     this.handlers.push({ eventType, callback });
   }
 
-  public off(eventType: string, callback: (event: Event) => void) {
+  public off(eventType: string, callback: (event: Event) => void): void {
     this.element.removeEventListener(eventType, callback);
   }
 
-  public html(html: string) {
+  public html(html: string): void {
     this.element.innerHTML = html;
   }
 

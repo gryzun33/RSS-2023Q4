@@ -10,15 +10,13 @@ import CheckBtn from './CheckBtn';
 import AutoCompleteBtn from './AutoCompleteBtn';
 import LevelSelect from './LevelSelect';
 import RoundSelect from './RoundSelect';
-import Hints from './HintsButtons';
+import HintButtonsBlock from './HintsButtons';
 import TranslationView from './TranslationView';
 import SoundHint from './SoundHint';
 import ResultsModal from './ResultsModal';
 import emitter from './EventEmitter';
 
 export default class MainPage extends BaseComponent {
-  // public resultField?: ResultField;
-  // public sourceBlock?: SourceBlock;
   public sourceBlock = new SourceBlock();
   public resultField = new ResultField();
 
@@ -51,7 +49,7 @@ export default class MainPage extends BaseComponent {
 
     selects.append(this.levelSelect, this.roundSelect);
 
-    const hints = new Hints();
+    const hints = new HintButtonsBlock();
 
     const logOutBtn = new Button({
       classNames: ['logout-btn'],

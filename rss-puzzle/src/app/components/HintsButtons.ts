@@ -1,7 +1,7 @@
 import BaseComponent from './BaseComponent';
 import HintButton from './HintButton';
 
-export default class HintButtons extends BaseComponent {
+export default class HintButtonsBlock extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: ['hints-box'] });
     this.createView();

@@ -9,7 +9,7 @@ export default class Input extends BaseComponent<HTMLInputElement> {
     this.attr('type', props.type);
     this.attr('placeholder', props.placeholder);
     if (props.required) {
-      this.element.required = true;
+      this.element.required = props.required;
     }
     this.on('input', this.validInput);
   }

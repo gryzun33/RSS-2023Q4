@@ -3,6 +3,14 @@ import { WordData } from '../utils/types';
 import appState from './AppState';
 import emitter from './EventEmitter';
 
+export type PieceProps = {
+  comp: BaseComponent;
+  parent: string;
+  oldInd: number;
+  newInd: number;
+  word: string;
+};
+
 export default class Piece extends BaseComponent {
   protected state: boolean = true;
   public image?: BaseComponent<HTMLImageElement>;
@@ -15,7 +23,15 @@ export default class Piece extends BaseComponent {
     this.css('width', `${props.width}`);
     this.addText(props.word);
     this.addImage(props);
-    appState.addToAppState(this, 'source', props.oldNumber, props.newNumber, props.word);
+    const pieceProps: PieceProps = {
+      comp: this,
+      parent: 'source',
+      oldInd: props.oldNumber,
+      newInd: props.newNumber,
+      word: props.word,
+    };
+
+    appState.addToAppState(pieceProps);
 
     emitter.on('toggleImage', this.toggleImage);
     emitter.on('iscorrect', this.changeStateInactive);
