@@ -1,8 +1,10 @@
-export type Props<T extends HTMLElement = HTMLElement> = Partial<T> & {
-  tag?: keyof HTMLElementTagNameMap;
-  classNames?: string[];
-  text?: string;
-  callback?: СallbackFunc;
+export type Props<T extends HTMLElement = HTMLElement> = Partial<T> & Partial<AddProps>;
+
+type AddProps = {
+  tag: keyof HTMLElementTagNameMap;
+  classNames: string[];
+  text: string;
+  callback: СallbackFunc;
 };
 
 export type InputProps = Omit<Props, 'tag'> & {

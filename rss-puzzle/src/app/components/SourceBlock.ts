@@ -25,7 +25,7 @@ export default class SourceBlock extends BaseComponent {
     if (!(piece instanceof HTMLElement)) {
       throw new Error(`piece isn't HTMLElement`);
     }
-    const index = appState.getIndex(piece);
+    const index = appState.getNewIndex(piece);
     appState.addEmptyInSource(index);
     const empty = new BaseComponent({ tag: 'div', classNames: ['empty'] });
     const currentPiece = this.children[+index];

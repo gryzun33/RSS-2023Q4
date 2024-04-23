@@ -1,6 +1,6 @@
 import level1 from '../puzzle-data/wordCollectionLevel1.json';
 import BaseComponent from './BaseComponent';
-import { numbRows } from '../utils/constants';
+import { numbRows, pathToData } from '../utils/constants';
 import emitter from './EventEmitter';
 import { HintsState, Statistics, PieceData } from '../utils/types';
 import level2 from '../puzzle-data/wordCollectionLevel2.json';
@@ -41,7 +41,7 @@ class AppState {
     translation: true,
     sound: true,
   };
-  public currPuzzle = new Map();
+  public currPuzzle: Map<HTMLElement, PieceData> = new Map();
 
   public statistics: Statistics = this.createStatisticsArray();
   constructor() {
@@ -115,8 +115,7 @@ class AppState {
 
   public getNumbOfRounds(): number {
     const levelData = this.levels[this.level];
-    const roundsLength = levelData.rounds.length;
-    return roundsLength;
+    return levelData.rounds.length;
   }
 
   public addToAppState = ({ comp, parent, oldInd, newInd, word }: PieceProps) => {
@@ -130,20 +129,27 @@ class AppState {
     this.currPuzzle.set(key, value);
   };
 
-  public getIndex(key: HTMLElement): number {
+  public getNewIndex(key: HTMLElement): number {
     const value = this.currPuzzle.get(key);
-    const index: number = value.newInd;
-    return index;
+    if (!value) {
+      throw new Error(`value is undefined`);
+    }
+    return value.newInd;
   }
 
   public getCorrectIndex(key: HTMLElement): number {
     const value = this.currPuzzle.get(key);
-    const index: number = value.oldInd;
-    return index;
+    if (!value) {
+      throw new Error(`value is undefined`);
+    }
+    return value.oldInd;
   }
 
   public setIndex(key: HTMLElement, ind: number, parent: string): void {
     const value = this.currPuzzle.get(key);
+    if (!value) {
+      throw new Error(`value is undefined`);
+    }
     value.newInd = ind;
     value.parent = parent;
   }
@@ -248,7 +254,7 @@ class AppState {
 
   public getSoundSrc = (rowInd: number): string => {
     const src = this.getRowData(rowInd).audioExample;
-    const fullSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${src}`;
+    const fullSrc = `${pathToData}${src}`;
     return fullSrc;
   };
 
@@ -259,7 +265,7 @@ class AppState {
 
   public getRoundDataForModal() {
     const { author, name, year, cutSrc } = this.getRoundData();
-    const fullcutSrc = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${cutSrc}`;
+    const fullcutSrc = `${pathToData}images/${cutSrc}`;
     return { author, name, year, fullcutSrc };
   }
 
@@ -273,7 +279,7 @@ class AppState {
     const resultData = data.map((example) => {
       const obj = {
         text: example.textExample,
-        audioSrc: `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${example.audioExample}`,
+        audioSrc: `${pathToData}${example.audioExample}`,
       };
       return obj;
     });
@@ -293,6 +299,9 @@ class AppState {
   public isCorrectPiece(piece: BaseComponent): boolean {
     const key = piece.getElement();
     const value = this.currPuzzle.get(key);
+    if (!value) {
+      throw new Error(`value is undefined`);
+    }
     return value.oldInd === value.newInd;
   }
 
@@ -327,15 +336,11 @@ class AppState {
   }
 
   public getDoneLevels(): boolean[] {
-    const levelsStatus = this.statistics.map((round) =>
-      round.every((item) => item === roundCompleted.done)
-    );
-    return levelsStatus;
+    return this.statistics.map((round) => round.every((item) => item === roundCompleted.done));
   }
 
   public getDoneRounds(ind: number): boolean[] {
-    const roundsStatus = this.statistics[ind].map((round) => round === roundCompleted.done);
-    return roundsStatus;
+    return this.statistics[ind].map((round) => round === roundCompleted.done);
   }
 
   protected addStateToStorage(): void {
