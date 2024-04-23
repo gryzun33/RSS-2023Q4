@@ -126,8 +126,8 @@ export default class MainPage extends BaseComponent {
       if (!this.roundSelect || !this.levelSelect) {
         throw new Error('select is undefined');
       }
-      this.roundSelect.setSelectValue(appState.getRound());
-      this.levelSelect.setSelectValue(appState.getLevel());
+      this.roundSelect.setSelectValue(appState.round);
+      this.levelSelect.setSelectValue(appState.level);
     }
   };
 

@@ -23,7 +23,7 @@ export default class LevelSelect extends Select {
     this.setSelectValue();
   }
 
-  public setSelectValue(value: number = appState.getLevel()): void {
+  public setSelectValue(value: number = appState.level): void {
     this.mainItem.setTextContent(`${value + 1}`);
   }
 
@@ -44,7 +44,7 @@ export default class LevelSelect extends Select {
       throw new Error('index is undefined');
     }
     this.setSelectValue(index);
-    appState.setLevel(index);
+    appState.level = index;
     const statusRounds = appState.getDoneRounds(index);
     const roundsLength = appState.getNumbOfRounds();
 

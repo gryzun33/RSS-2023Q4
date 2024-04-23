@@ -26,9 +26,9 @@ const roundCompleted = {
 class AppState {
   protected isStart: boolean = true;
   protected levels = [level1, level2, level3, level4, level5, level6];
-  public level: number = 0;
-  public round: number = 0;
-  public row: number = 0;
+  private appLevel: number = 0;
+  private appRound: number = 0;
+  private appRow: number = 0;
   protected numbRows: number = numbRows;
   protected roundStatistic: boolean[] = [];
   protected text: string;
@@ -53,24 +53,28 @@ class AppState {
     return this.levels.length;
   }
 
-  public getLevel(): number {
-    return this.level;
+  public get level(): number {
+    return this.appLevel;
   }
 
-  public getRound(): number {
-    return this.round;
+  public set level(value: number) {
+    this.appLevel = value;
   }
 
-  public setLevel(index: number): void {
-    this.level = index;
+  public get round(): number {
+    return this.appRound;
   }
 
-  public setRound(index: number): void {
-    this.round = index;
+  public set round(value: number) {
+    this.appRound = value;
   }
 
-  public setRow(index: number): void {
-    this.row = index;
+  public get row(): number {
+    return this.appRow;
+  }
+
+  public set row(value: number) {
+    this.appRow = value;
   }
 
   public changeHintState(hintName: keyof HintsState) {
