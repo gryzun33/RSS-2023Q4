@@ -21,7 +21,7 @@ export type ButtonProps = Omit<Props, 'tag'> & {
   disabled?: boolean;
 };
 
-export type СallbackFunc = () => void;
+export type СallbackFunc = (arg?: string) => void;
 
 export type WordData = {
   word: string;
@@ -51,3 +51,9 @@ export type Handler = {
   eventType: string;
   callback: (event: Event) => void;
 };
+
+export enum PageName {
+  MAIN = 'main',
+  LOGIN = 'login',
+  START = 'start',
+}

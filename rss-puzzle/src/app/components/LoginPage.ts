@@ -2,7 +2,7 @@ import BaseComponent from './BaseComponent';
 import Input from './Input';
 import Button from './Button';
 import { storage } from './Storage';
-import { СallbackFunc } from '../utils/types';
+import { СallbackFunc, PageName } from '../utils/types';
 
 export default class LoginPage extends BaseComponent {
   protected loginForm?: BaseComponent<HTMLFormElement>;
@@ -79,7 +79,7 @@ export default class LoginPage extends BaseComponent {
     } else {
       storage.saveData('name', this.inputName.getElement().value);
       storage.saveData('surname', this.inputSurname.getElement().value);
-      this.loadStartPage();
+      this.loadStartPage(PageName.START);
     }
   };
 }

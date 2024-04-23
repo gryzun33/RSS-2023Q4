@@ -1,6 +1,12 @@
 import { Props, Handler } from '../utils/types';
 
-export default class BaseComponent<T extends HTMLElement = HTMLElement> {
+export interface IBase<T> {
+  getElement: () => T;
+}
+
+export default class BaseComponent<T extends HTMLElement = HTMLElement>
+  implements IBase<HTMLElement>
+{
   protected element: T;
   protected children: BaseComponent[];
 

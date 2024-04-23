@@ -3,10 +3,10 @@ import Button from './Button';
 import { puzzleImg } from '../utils/icons';
 import { numbIconsOnStart } from '../utils/constants';
 import { storage } from './Storage';
-import { СallbackFunc } from '../utils/types';
+import { СallbackFunc, PageName } from '../utils/types';
 import startText from '../utils/textData';
 
-export default class StartPage extends BaseComponent {
+export default class StartPage extends BaseComponent<HTMLElement> {
   constructor(public loadMainPage: СallbackFunc) {
     super({ tag: 'div', classNames: ['start-page'] });
     this.createView();
@@ -37,7 +37,7 @@ export default class StartPage extends BaseComponent {
     const startBtn = new Button({
       classNames: ['start-btn'],
       text: 'Start',
-      callback: this.loadMainPage,
+      callback: () => this.loadMainPage(PageName.MAIN),
     });
     this.append(title, greeting, rules, startBtn);
   }

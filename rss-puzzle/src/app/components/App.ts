@@ -4,49 +4,54 @@ import StartPage from './StartPage';
 import MainPage from './MainPage';
 import { storage } from './Storage';
 import appState from './AppState';
+import { СallbackFunc, PageName } from '../utils/types';
 
 export default class App {
   protected root: HTMLElement;
   protected loginPage?: BaseComponent;
   protected mainPage?: BaseComponent;
   protected startPage?: BaseComponent;
+
+  protected currPage?: BaseComponent;
+  private pageMap: Map<string, new (arg: СallbackFunc) => BaseComponent> = new Map();
+
   constructor() {
     this.root = document.createElement('div') as HTMLElement;
     this.root.classList.add('wrapper');
     document.body.append(this.root);
+    this.pageMap.set(PageName.START, StartPage);
+    this.pageMap.set(PageName.LOGIN, LoginPage);
+    this.pageMap.set(PageName.MAIN, MainPage);
   }
+
+  public loadPage = (page?: string) => {
+    if (!page) {
+      return;
+    }
+
+    if (!this.pageMap.has(page)) {
+      throw new Error(`page with name <${page}> doesn't exist`);
+    }
+
+    if (this.currPage) {
+      this.currPage.destroy();
+    }
+
+    const PageClass = this.pageMap.get(page)!;
+    this.currPage = new PageClass(this.loadPageCallback(page));
+    this.root.append(this.currPage.getElement());
+  };
 
   public start(): void {
     if (this.getUserLogin()) {
-      this.loadStartPage();
+      this.loadPage(PageName.START);
     } else {
-      this.loadLoginPage();
+      this.loadPage(PageName.LOGIN);
     }
   }
 
-  public loadLoginPage = (): void => {
-    if (this.mainPage) {
-      this.mainPage.destroy();
-    }
-    this.loginPage = new LoginPage(this.loadStartPage);
-    this.root.append(this.loginPage.getElement());
-  };
-
-  public loadStartPage = (): void => {
-    if (this.loginPage) {
-      this.loginPage.destroy();
-    }
-    this.startPage = new StartPage(this.loadMainPage);
-    this.root.append(this.startPage.getElement());
-  };
-
-  public loadMainPage = (): void => {
-    if (this.startPage) {
-      this.startPage.destroy();
-    }
-    this.mainPage = new MainPage(this.reloadLoginPage);
-    this.root.append(this.mainPage.getElement());
-  };
+  private loadPageCallback = (name: string): СallbackFunc =>
+    name === 'main' ? this.reloadLoginPage : this.loadPage;
 
   protected getUserLogin(): string | null {
     return storage.getData('name');
@@ -54,7 +59,7 @@ export default class App {
 
   public reloadLoginPage = () => {
     storage.removeStorage();
-    this.loadLoginPage();
+    this.loadPage(PageName.LOGIN);
     appState.resetState();
   };
 }
