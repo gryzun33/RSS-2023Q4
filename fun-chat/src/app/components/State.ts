@@ -111,7 +111,10 @@ class State {
   }
 
   public addMessage(msg: MessageResponse): void {
-    this.messagesMap.set(msg.id, msg);
+    if (msg.from === this.dialogUser.login || msg.from === this.currUser.login) {
+      this.messagesMap.set(msg.id, msg);
+    }
+
     const author = msg.from === this.currUser.login;
     const dialogUser = msg.from;
     const date = formatDate(msg.datetime);
@@ -129,6 +132,7 @@ class State {
     if (!author) {
       state.addNotification(msg.from);
       this.unreadEdMap.set(msg.id, msg.from);
+      console.log('unreaded=', this.unreadEdMap);
     }
     if (!author && msg.from !== this.dialogUser.login) {
       return;
@@ -187,10 +191,11 @@ class State {
     emitter.emit(EVENT.update_notifications, this.dialogUser.login, userData.notifications);
   }
 
-  public setUnreadedMessage(data: Unreaded[]): void {
+  public setUnreadedMessages(data: Unreaded[]): void {
     data.forEach((msg) => {
       this.unreadEdMap.set(msg.id, msg.from);
     });
+    console.log('unreaded=', this.unreadEdMap);
   }
 
   public deleteMessage(msgId: string, responseId: string): void {
@@ -199,10 +204,13 @@ class State {
       emitter.emit(EVENT.deleted, msgId);
     } else {
       if (this.messagesMap.has(msgId)) {
+        console.log('true');
+        console.log('messagesMap=', this.messagesMap);
         this.messagesMap.delete(msgId);
         emitter.emit(EVENT.deleted, msgId);
       }
-
+      console.log('id=', msgId);
+      console.log('unreaded11=', this.unreadEdMap);
       if (!this.unreadEdMap.has(msgId)) {
         return;
       }

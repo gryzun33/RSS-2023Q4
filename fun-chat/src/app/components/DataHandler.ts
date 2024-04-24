@@ -119,7 +119,7 @@ export default class DataHandler {
     });
     const notifications = unReaded.length;
     state.setNotifications(id, notifications);
-    state.setUnreadedMessage(unreadedData);
+    state.setUnreadedMessages(unreadedData);
   };
 
   protected deliverResponse(data: DeliveredResponse): void {
