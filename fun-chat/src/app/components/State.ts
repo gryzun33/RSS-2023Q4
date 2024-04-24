@@ -132,7 +132,6 @@ class State {
     if (!author) {
       state.addNotification(msg.from);
       this.unreadEdMap.set(msg.id, msg.from);
-      console.log('unreaded=', this.unreadEdMap);
     }
     if (!author && msg.from !== this.dialogUser.login) {
       return;
@@ -195,7 +194,6 @@ class State {
     data.forEach((msg) => {
       this.unreadEdMap.set(msg.id, msg.from);
     });
-    console.log('unreaded=', this.unreadEdMap);
   }
 
   public deleteMessage(msgId: string, responseId: string): void {
@@ -204,13 +202,9 @@ class State {
       emitter.emit(EVENT.deleted, msgId);
     } else {
       if (this.messagesMap.has(msgId)) {
-        console.log('true');
-        console.log('messagesMap=', this.messagesMap);
         this.messagesMap.delete(msgId);
         emitter.emit(EVENT.deleted, msgId);
       }
-      console.log('id=', msgId);
-      console.log('unreaded11=', this.unreadEdMap);
       if (!this.unreadEdMap.has(msgId)) {
         return;
       }
