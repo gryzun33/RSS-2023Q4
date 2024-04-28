@@ -113,12 +113,10 @@ export default class GarageView extends BaseComponent {
     this.cars.push(newCar);
     this.garageList.append(newCar);
 
-    // if (state.race) {
     this.raceBtn.enable();
     this.generateBtn.enable();
     this.resetBtn.disable();
     state.resetRace();
-    // }
   };
 
   protected destroyGarage = () => {
@@ -148,7 +146,6 @@ export default class GarageView extends BaseComponent {
     this.cars.forEach((car) => {
       car.clickOnStartBtn();
     });
-    // this.resetBtn.enable();
     this.raceBtn.disable();
     this.winnersBtn.disable();
     this.prevBtn.disable();
@@ -195,8 +192,6 @@ export default class GarageView extends BaseComponent {
 
   protected enableResetBtn = (): void => {
     this.resetBtn.enable();
-    // this.winnersBtn.enable();
-    // this.createForm.enable();
   };
 
   public getFormsState(): FormState[] {

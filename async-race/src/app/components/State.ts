@@ -132,25 +132,17 @@ class State {
 
   public updatePageNumber(newPage: number) {
     this.currPage = newPage;
-    if (this.currPage === 1) {
-      this.prevBtn = false;
-    } else {
-      this.prevBtn = true;
-    }
-    if (Math.ceil(this.allCarsCount / limitCarsOnPage) === this.currPage) {
-      this.nextBtn = false;
-    } else {
-      this.nextBtn = true;
-    }
+    this.prevBtn = this.currPage !== 1;
+    this.nextBtn = Math.ceil(this.allCarsCount / limitCarsOnPage) !== this.currPage;
     emitter.emit('updatePage', newPage, this.prevBtn, this.nextBtn);
   }
 
   public setCarStatusDrive(id: number, engineData: EngineData) {
-    const duration = engineData.distance / engineData.velocity;
     const carData = this.carsMap.get(id);
     if (!carData) {
       throw new Error('carData is undefined');
     }
+    const duration = engineData.distance / engineData.velocity;
     carData.status = 'drive';
     carData.duration = duration;
     emitter.emit('startMoving', duration, id);
@@ -220,17 +212,8 @@ class State {
 
   public setWinnersPage(page: number) {
     this.winnersPage = page;
-    if (this.winnersPage === 1) {
-      this.prevWinners = false;
-    } else {
-      this.prevWinners = true;
-    }
-    if (Math.ceil(this.allWinnersCount / limitWinners) === this.winnersPage) {
-      this.nextWinners = false;
-    } else {
-      this.nextWinners = true;
-    }
-
+    this.prevWinners = this.winnersPage !== 1;
+    this.nextWinners = Math.ceil(this.allWinnersCount / limitWinners) !== this.winnersPage;
     emitter.emit('updateWinnersPage', page, this.prevWinners, this.nextWinners);
   }
 

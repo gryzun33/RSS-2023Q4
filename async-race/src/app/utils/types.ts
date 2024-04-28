@@ -1,8 +1,10 @@
-export type Props = {
-  tag?: keyof HTMLElementTagNameMap;
-  classNames?: string[];
-  text?: string;
-  callback?: () => void;
+export type Props = Partial<ElementProps>
+
+export type ElementProps = {
+  tag: keyof HTMLElementTagNameMap;
+  classNames: string[];
+  text: string;
+  callback: () => void;
 };
 
 export type Handler = {

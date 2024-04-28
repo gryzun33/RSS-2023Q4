@@ -1,14 +1,13 @@
-import cars from './carsData';
+import carsData from './carsData';
 import { RandomCar, NewCarData } from './types';
 import { randomCarsCount } from './constants';
 
-function getRandomModel(randomCars: RandomCar[]): string {
-  const randomBrandIndex = Math.floor(Math.random() * randomCars.length);
-  const randomBrandObj = randomCars[randomBrandIndex];
-  const brand = Object.keys(randomBrandObj)[0];
-  const models = randomBrandObj[brand];
-  const randomModelIndex = Math.floor(Math.random() * models.length);
-  const model = models[randomModelIndex];
+function getRandomModel(cars: RandomCar[]): string {
+  const brandIndex = Math.floor(Math.random() * cars.length);
+  const brandWithModels = cars[brandIndex];
+  const [brand, models] = Object.entries(brandWithModels)[0];
+  const modelIndex = Math.floor(Math.random() * models.length);
+  const model = models[modelIndex];
   return `${brand} ${model}`;
 }
 
@@ -25,7 +24,7 @@ export default function getRandomCars(): NewCarData[] {
   const carsArr = [];
   for (let i = 0; i < randomCarsCount; i += 1) {
     const randomCar = {
-      name: getRandomModel(cars),
+      name: getRandomModel(carsData),
       color: getRandomColor(),
     };
     carsArr.push(randomCar);

@@ -1,6 +1,6 @@
 import { RandomCar } from './types';
 
-const cars: RandomCar[] = [
+const carsData: RandomCar[] = [
   {
     Toyota: [
       'Corolla',
@@ -130,4 +130,4 @@ const cars: RandomCar[] = [
   },
 ];
 
-export default cars;
+export default carsData;
