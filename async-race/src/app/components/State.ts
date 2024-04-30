@@ -8,6 +8,7 @@ import {
 } from '../utils/types';
 import emitter from './EventEmitter';
 import { limitCarsOnPage, limitWinners } from '../utils/constants';
+import { getSeconds } from '../utils/helpers';
 
 type EngineData = {
   velocity: number;
@@ -67,7 +68,7 @@ class State {
     if (!carData) {
       throw new Error('carData is undefined');
     }
-    const timeInSec = +(carData.duration / 1000).toFixed(2);
+    const timeInSec = getSeconds(carData.duration);
     return { wins: carData.wins, time: timeInSec };
   }
 
@@ -88,7 +89,7 @@ class State {
     if (!carData) {
       throw new Error('carData is undefined');
     }
-    const timeInSec = +(carData.duration / 1000).toFixed(2);
+    const timeInSec = getSeconds(carData.duration);
     return { id: carData.id, wins: 1, time: timeInSec };
   }
 

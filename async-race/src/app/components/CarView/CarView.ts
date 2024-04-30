@@ -4,7 +4,7 @@ import { CarData } from '../../utils/types';
 import Button from '../utilsComponents/Button';
 import carIcon from '../../utils/icons';
 import { deleteCar, startCar, stopCar } from '../api';
-import getDistance from '../../utils/helpers';
+import { getDistance } from '../../utils/helpers';
 import emitter from '../EventEmitter';
 import state from '../State';
 import isCarData from '../../utils/predicates';
@@ -140,7 +140,9 @@ export default class CarView extends BaseComponent {
     const startX = 0;
     let startTime: number = 0;
     const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
+      if (!startTime) {
+        startTime = timestamp;
+      }
       const progress = timestamp - startTime;
       const newX = startX + speed * progress;
       this.carImg.css('transform', `translateX(${newX}px)`);
