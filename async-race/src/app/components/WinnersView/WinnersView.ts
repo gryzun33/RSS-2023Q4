@@ -30,6 +30,11 @@ export default class WinnersView extends BaseComponent {
     text: 'Best time,s',
   });
 
+  private ColumnMap = new Map([
+    [SortState.wins, this.winsColumn],
+    [SortState.time, this.timeColumn],
+  ]);
+
   protected prevBtn = new Button({ classNames: [styles.prevBtn] });
   protected nextBtn = new Button({ classNames: [styles.nextBtn] });
 
@@ -79,24 +84,21 @@ export default class WinnersView extends BaseComponent {
     this.checkSortedTable();
   }
 
+  private sorting(column: SortState, order: OrderState) {
+    const col = this.ColumnMap.get(column);
+    if (!col) {
+      throw new Error(`col is undefined`);
+    }
+    const orderClass = order === OrderState.up ? styles.arrowUp : styles.arrowDown;
+    col.addClass(orderClass);
+  }
+
   protected checkSortedTable() {
     const sortedField = state.getSortValue();
     const orderField = state.getOrderValue();
-    if (sortedField === SortState.wins) {
-      if (orderField === OrderState.up) {
-        this.winsColumn.addClass(styles.arrowUp);
-      } else {
-        this.winsColumn.addClass(styles.arrowDown);
-      }
-    } else if (sortedField === SortState.time) {
-      if (orderField === OrderState.up) {
-        this.timeColumn.addClass(styles.arrowUp);
-      } else {
-        this.timeColumn.addClass(styles.arrowDown);
-      }
-    }
-  }
 
+    this.sorting(sortedField, orderField);
+  }
   protected updateTableView = (data: unknown, page: unknown) => {
     if (!Array.isArray(data)) {
       throw new Error('argument is not array');

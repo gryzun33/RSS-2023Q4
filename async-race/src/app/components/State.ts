@@ -27,8 +27,8 @@ class State {
   public nextWinners: boolean = false;
   protected promisesCount: number = 0;
   protected promisesStart: number = 0;
-  public sort: string = SortState.none;
-  public order: string = OrderState.none;
+  public sort: SortState = SortState.none;
+  public order: OrderState = OrderState.none;
   public formsState: FormState[] = [];
   public carsMap = new Map<number, CarData>();
 
@@ -75,11 +75,11 @@ class State {
     return this.carsMap.get(id);
   }
 
-  public getSortValue(): string {
+  public getSortValue(): SortState {
     return this.sort;
   }
 
-  public getOrderValue(): string {
+  public getOrderValue(): OrderState {
     return this.order;
   }
 
@@ -217,7 +217,7 @@ class State {
     emitter.emit('updateWinnersPage', page, this.prevWinners, this.nextWinners);
   }
 
-  public setOrderAndSortState(sort: string, order: string) {
+  public setOrderAndSortState(sort: SortState, order: OrderState) {
     this.sort = sort;
     this.order = order;
   }
