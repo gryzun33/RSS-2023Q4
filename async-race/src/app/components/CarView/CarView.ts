@@ -59,13 +59,8 @@ export default class CarView extends BaseComponent {
     this.driveController = new AbortController();
     this.startController = new AbortController();
     startCar(this.id, 'started', this.driveController, this.startController);
-    this.startBtn.disable();
-    if (!state.race) {
-      this.raceBtn.disable();
-    } else {
-      this.selectBtn.disable();
-      this.removeBtn.disable();
-    }
+
+    this.disableButtons();
   };
 
   public clickOnStopBtn = () => {
@@ -74,13 +69,27 @@ export default class CarView extends BaseComponent {
       stopCar(this.id, this.driveController, this.startController);
     }
 
+    this.enableButtons();
+  };
+
+  private disableButtons() {
+    this.startBtn.disable();
+    if (!state.race) {
+      this.raceBtn.disable();
+    } else {
+      this.selectBtn.disable();
+      this.removeBtn.disable();
+    }
+  }
+
+  private enableButtons() {
     this.stopBtn.disable();
     if (!state.race) {
       this.raceBtn.enable();
     }
     this.selectBtn.enable();
     this.removeBtn.enable();
-  };
+  }
 
   protected moveCarToStart = (id: unknown) => {
     if (typeof id !== 'number') {

@@ -108,7 +108,7 @@ export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     this.deleteHandlers();
   }
 
-  public deleteHandlers(): void {
+  private deleteHandlers(): void {
     this.handlers.forEach((handler: Handler) => {
       this.off(handler.eventType, handler.callback);
     });
