@@ -68,12 +68,15 @@ export default class GarageView extends BaseComponent {
 
   protected updateFormsView() {
     const formsState = state.getGarageFormsState();
+
     if (formsState.length === 0) return;
     this.forms.forEach((form) => {
       const formState = formsState.find((fstate) => fstate.formName === form.formName);
+
       if (!formState) {
         throw new Error('formstate is undefined');
       }
+
       form.updateView(formState);
     });
   }
@@ -86,6 +89,7 @@ export default class GarageView extends BaseComponent {
     if (typeof count !== 'number') {
       throw new Error('count is not number');
     }
+
     this.garageTitle.setTextContent(`Garage (${count})`);
   };
 
@@ -121,6 +125,7 @@ export default class GarageView extends BaseComponent {
 
   protected destroyGarage = () => {
     this.cars = [];
+
     if (this.garageList.children) {
       this.garageList.destroyChildren();
     }

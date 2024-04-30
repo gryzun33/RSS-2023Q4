@@ -46,18 +46,22 @@ class State {
 
   public setWinner(id: number): void {
     this.winner = id;
+
     if (id === 0) {
       return;
     }
+
     const carData = this.carsMap.get(id);
     emitter.emit('showWinner', carData);
   }
 
   public setWinnerData(data: NewWinnerData): void {
     const carData = this.carsMap.get(data.id);
+
     if (!carData) {
       throw new Error('carData is undefined');
     }
+
     const timeInSec = data.time * 1000;
     carData.wins = data.wins + 1;
     carData.duration = timeInSec < carData.duration ? timeInSec : carData.duration;
@@ -86,9 +90,11 @@ class State {
 
   public getFisrtWinnerData(id: number): NewWinnerData {
     const carData = this.carsMap.get(id);
+
     if (!carData) {
       throw new Error('carData is undefined');
     }
+
     const timeInSec = getSeconds(carData.duration);
     return { id: carData.id, wins: 1, time: timeInSec };
   }
@@ -140,9 +146,11 @@ class State {
 
   public setCarStatusDrive(id: number, engineData: EngineData) {
     const carData = this.carsMap.get(id);
+
     if (!carData) {
       throw new Error('carData is undefined');
     }
+
     const duration = engineData.distance / engineData.velocity;
     carData.status = 'drive';
     carData.duration = duration;
@@ -151,33 +159,40 @@ class State {
 
   public setCarStatusBroken(id: number) {
     const carData = this.carsMap.get(id);
+
     if (!carData) {
       throw new Error('carData is undefined');
     }
+
     carData.status = 'broken';
     emitter.emit('stopMoving', id);
   }
 
   public setCarStatusStop(id: number) {
     const carData = this.carsMap.get(id);
+
     if (!carData) {
       throw new Error('carData is undefined');
     }
+
     carData.status = 'stop';
     emitter.emit('toStart', id);
   }
 
   public getCarStatus(id: number) {
     const carData = this.carsMap.get(id);
+
     if (!carData) {
       throw new Error('cardData is undefined');
     }
+
     const { status } = carData;
     return status;
   }
 
   public updatePromisesCount() {
     state.promisesCount += 1;
+
     if (state.promisesCount === this.carsMap.size) {
       emitter.emit('finishRace');
       state.promisesCount = 0;
@@ -186,6 +201,7 @@ class State {
 
   public updatePromisesStart() {
     state.promisesStart += 1;
+
     if (state.promisesStart === this.carsMap.size) {
       emitter.emit('enableReset');
       state.promisesStart = 0;

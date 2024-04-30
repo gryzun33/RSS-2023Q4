@@ -74,6 +74,7 @@ export default class CarView extends BaseComponent {
 
   private disableButtons() {
     this.startBtn.disable();
+
     if (!state.race) {
       this.raceBtn.disable();
     } else {
@@ -84,6 +85,7 @@ export default class CarView extends BaseComponent {
 
   private enableButtons() {
     this.stopBtn.disable();
+
     if (!state.race) {
       this.raceBtn.enable();
     }
@@ -95,9 +97,11 @@ export default class CarView extends BaseComponent {
     if (typeof id !== 'number') {
       throw new Error('id is not number');
     }
+
     if (this.id !== id) {
       return;
     }
+
     this.stopMoving(this.id);
     this.carImg.css('transform', `translateX(0px)`);
     this.startBtn.enable();
@@ -112,6 +116,7 @@ export default class CarView extends BaseComponent {
     if (!isCarData(car)) {
       throw new Error('argument is not type CarData');
     }
+
     if (this.element.id !== String(car.id)) {
       return;
     }
@@ -128,9 +133,11 @@ export default class CarView extends BaseComponent {
     if (this.id !== id) {
       return;
     }
+
     if (typeof duration !== 'number') {
       throw new Error('duration is not number');
     }
+
     if (!state.race) {
       this.stopBtn.enable();
     }
@@ -143,6 +150,7 @@ export default class CarView extends BaseComponent {
       if (!startTime) {
         startTime = timestamp;
       }
+
       const progress = timestamp - startTime;
       const newX = startX + speed * progress;
       this.carImg.css('transform', `translateX(${newX}px)`);
@@ -168,6 +176,7 @@ export default class CarView extends BaseComponent {
       throw new Error('animationid is undefined');
     }
     const status = state.getCarStatus(this.id);
+
     if (status === 'broken') {
       this.carImg.addClass(styles.carBroken);
     }

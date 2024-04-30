@@ -18,13 +18,16 @@ export default class CreateCarForm extends InteractionForm {
     if (typeof id !== 'number') {
       throw new Error('id is not string');
     }
+
     this.enable();
     this.inputName.element.focus();
     this.currentId = id;
     const carData = state.getCarData(id);
+
     if (!carData) {
       throw new Error('carData is undefined');
     }
+
     const { name, color } = carData;
     this.inputName.element.value = name;
     this.inputColor.element.value = color;

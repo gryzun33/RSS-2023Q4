@@ -5,6 +5,7 @@ export default class Button extends BaseComponent<HTMLButtonElement> {
   public enableState: boolean = true;
   constructor(props: ButtonProps) {
     super({ tag: 'button', ...props });
+
     if (props.type) {
       this.attr('type', props.type);
     }

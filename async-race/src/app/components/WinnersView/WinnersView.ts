@@ -86,9 +86,11 @@ export default class WinnersView extends BaseComponent {
 
   private sorting(column: SortState, order: OrderState) {
     const col = this.ColumnMap.get(column);
+
     if (!col) {
       throw new Error(`col is undefined`);
     }
+
     const orderClass = order === OrderState.up ? styles.arrowUp : styles.arrowDown;
     col.addClass(orderClass);
   }
@@ -107,6 +109,7 @@ export default class WinnersView extends BaseComponent {
     if (typeof page !== 'number') {
       throw new Error('page is not number');
     }
+
     if (this.tableBody.children) {
       this.tableBody.destroyChildren();
     }
@@ -159,9 +162,11 @@ export default class WinnersView extends BaseComponent {
     if (typeof page !== 'number') {
       throw new Error('count is not number');
     }
+
     if (typeof prevBtnState !== 'boolean' || typeof nextBtnState !== 'boolean') {
       throw new Error('state of pagination is not boolean');
     }
+
     this.pageTitle.setTextContent(`${page}`);
     this.prevBtn.element.disabled = !prevBtnState;
     this.nextBtn.element.disabled = !nextBtnState;
