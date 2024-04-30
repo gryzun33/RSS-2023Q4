@@ -31,9 +31,7 @@ export async function getCars(page: number) {
       state.updateGarageData(data, carsCount, page);
     }
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -49,9 +47,7 @@ export async function createCar(newCarData: NewCarData) {
 
     getCars(state.currPage);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -67,19 +63,15 @@ export async function updateCar(id: number, newCarData: NewCarData) {
     const data = await response.json();
     state.updateCarInState(data);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
+    handleError(error);
   }
 }
 
 export async function deleteWinner(id: number) {
   fetch(`${baseURL}${path.winners}/${id}`, {
     method: 'DELETE',
-  }).catch((error) => {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
+  }).catch((error: Error) => {
+    console.error('Error:', error.message);
   });
 }
 
@@ -93,10 +85,8 @@ export function deleteCar(id: number) {
     .then(() => {
       deleteWinner(id);
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.error('Error:', error.message);
-      }
+    .catch((error: Error) => {
+      console.error('Error:', error.message);
     });
 }
 
@@ -113,10 +103,8 @@ export function createWinner(id: number) {
         getWinner(id);
       }
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.error('Error:', error.message);
-      }
+    .catch((error: Error) => {
+      console.error('Error:', error.message);
     });
 }
 
@@ -138,10 +126,8 @@ export function driveCar(id: number, status: string, controller: AbortController
         }
       }
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error.message);
-      }
+    .catch((error: Error) => {
+      console.log(error.message);
     });
 }
 
@@ -162,9 +148,7 @@ export async function startCar(
     driveCar(id, 'drive', driveControl);
     state.setCarStatusDrive(id, data);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -181,9 +165,7 @@ export async function stopCar(
     startControl.abort();
     state.setCarStatusStop(id);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -202,9 +184,7 @@ export async function addRandomCars(newCars: NewCarData[]) {
 
     getCars(state.currPage);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -229,10 +209,8 @@ export function getWinners(params: Params[], page: number) {
         state.setWinners(dataWinners, dataCars);
       });
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.error('Error:', error.message);
-      }
+    .catch((error: Error) => {
+      console.error('Error:', error.message);
     });
 }
 
@@ -243,10 +221,8 @@ export function updateWinner(id: number) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(state.getWinnerData(id)),
-  }).catch((error) => {
-    if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
+  }).catch((error: Error) => {
+    console.error('Error:', error.message);
   });
 }
 
@@ -261,9 +237,13 @@ export function getWinner(id: number) {
     .then(() => {
       updateWinner(id);
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.error('Error:', error.message);
-      }
+    .catch((error: Error) => {
+      console.error('Error:', error.message);
     });
+}
+
+function handleError(error: unknown) {
+  if (error instanceof Error) {
+    console.error('Error:', error.message);
+  }
 }
