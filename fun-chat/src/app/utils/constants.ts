@@ -39,7 +39,8 @@ const REQUESTS = {
 };
 
 const AUTHOR_LINK = 'https://gryzun33.github.io/rsschool-cv/';
+const AUTHOR_NAME = 'Olga Yakusheva';
 const RSS_LINK = 'https://rs.school/';
 const YEAR = '2024';
 
-export { EVENT, AUTHOR_LINK, RSS_LINK, YEAR, REQUESTS };
+export { EVENT, AUTHOR_LINK, RSS_LINK, YEAR, REQUESTS, AUTHOR_NAME };

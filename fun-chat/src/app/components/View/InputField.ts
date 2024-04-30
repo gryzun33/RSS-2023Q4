@@ -16,9 +16,8 @@ export default class InputField extends BaseComponent {
     this.input.attr('minlength', props.minlength);
     this.input.attr('pattern', props.pattern);
     this.input.attr('type', props.type);
-    if (props.required) {
-      this.input.element.required = true;
-    }
+
+    this.input.element.required = !!props.required;
     if (props.autocomplete) {
       this.input.attr('autocomplete', 'off');
     }

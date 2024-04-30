@@ -6,7 +6,7 @@ import MainPage from './View/MainPage';
 import AboutPage from './View/AboutPage';
 import ModalServer from './View/ModalServer';
 import emitter from './EventEmitter';
-import { Route } from '../utils/types';
+import { Route, Navigation } from '../utils/types';
 import { EVENT } from '../utils/constants';
 
 export default class App {
@@ -39,16 +39,16 @@ export default class App {
   protected createRoutes(): Route[] {
     return [
       {
-        path: `login`,
-        callback: () => this.setContent(new LoginPage(), 'login'),
+        path: Navigation.LOGIN,
+        callback: () => this.setContent(new LoginPage(), Navigation.LOGIN),
       },
       {
-        path: `main`,
-        callback: () => this.setContent(new MainPage(), 'main'),
+        path: Navigation.MAIN,
+        callback: () => this.setContent(new MainPage(), Navigation.MAIN),
       },
       {
-        path: `about`,
-        callback: () => this.setContent(new AboutPage(), 'about'),
+        path: Navigation.ABOUT,
+        callback: () => this.setContent(new AboutPage(), Navigation.ABOUT),
       },
     ];
   }

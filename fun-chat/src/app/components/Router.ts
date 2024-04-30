@@ -1,4 +1,4 @@
-import { Route } from '../utils/types';
+import { Route, Navigation } from '../utils/types';
 import emitter from './EventEmitter';
 import storage from './Storage';
 import { EVENT } from '../utils/constants';
@@ -18,8 +18,8 @@ export default class Router {
       if (user) {
         return;
       }
-      if (path === 'main') {
-        path = 'login';
+      if (path === Navigation.MAIN) {
+        path = Navigation.LOGIN;
       }
       this.navigate(path);
     });
@@ -33,8 +33,8 @@ export default class Router {
     let path: string = url;
     const isUser = storage.getData('user');
 
-    if (path === 'back') {
-      path = isUser ? 'main' : 'login';
+    if (path === Navigation.BACK_FROM_ABOUT) {
+      path = isUser ? Navigation.MAIN : Navigation.LOGIN;
     }
 
     if (path.length > 0) {

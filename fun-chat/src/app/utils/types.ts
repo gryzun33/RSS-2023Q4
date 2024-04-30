@@ -76,3 +76,10 @@ export type Unreaded = {
   id: string;
   from: string;
 };
+
+export enum Navigation {
+  BACK_FROM_ABOUT = 'back',
+  MAIN = 'main',
+  ABOUT = 'about',
+  LOGIN = 'login',
+}

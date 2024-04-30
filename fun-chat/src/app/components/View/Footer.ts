@@ -1,7 +1,7 @@
 import BaseComponent from './BaseComponent';
 import { Props } from '../../utils/types';
 import { githubSvg, rssSvg } from '../../utils/icons';
-import { AUTHOR_LINK, RSS_LINK, YEAR } from '../../utils/constants';
+import { AUTHOR_LINK, RSS_LINK, YEAR, AUTHOR_NAME } from '../../utils/constants';
 
 export default class Footer extends BaseComponent {
   constructor(props: Props) {
@@ -13,7 +13,7 @@ export default class Footer extends BaseComponent {
     iconGithub.attr('href', AUTHOR_LINK);
     iconGithub.attr('target', '_blank');
     iconGithub.html(githubSvg);
-    const name = new BaseComponent({ tag: 'p', classNames: ['author'], text: 'Olga Yakusheva' });
+    const name = new BaseComponent({ tag: 'p', classNames: ['author'], text: AUTHOR_NAME });
     const year = new BaseComponent({ tag: 'p', classNames: ['year'] });
     year.html(`&copy;${YEAR}`);
     const iconSchool = new BaseComponent({ tag: 'a', classNames: ['icon-school'] });

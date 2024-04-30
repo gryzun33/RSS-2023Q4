@@ -72,9 +72,9 @@ export default class NewMessage extends BaseComponent {
     e.preventDefault();
     const message = this.messageInput.getElement().value;
     if (!this.isEdit) {
-      emitter.emit('send-message', message);
+      emitter.emit(EVENT.send_message, message);
     } else if (message.trim() !== this.prevText) {
-      emitter.emit('edit-message', message);
+      emitter.emit(EVENT.edit_message, message);
       this.isEdit = false;
     }
 

@@ -1,6 +1,7 @@
 import BaseComponent from './BaseComponent';
 import emitter from '../EventEmitter';
-import { AUTHOR_LINK } from '../../utils/constants';
+import { AUTHOR_LINK, AUTHOR_NAME } from '../../utils/constants';
+import { Navigation } from '../../utils/types';
 
 export default class AboutPage extends BaseComponent {
   protected backBtn = new BaseComponent({
@@ -11,7 +12,7 @@ export default class AboutPage extends BaseComponent {
   constructor() {
     super({ tag: 'div', classNames: ['about-wrapper'] });
     this.createView();
-    this.backBtn.on('click', () => emitter.emit('navigate', 'back'));
+    this.backBtn.on('click', () => emitter.emit('navigate', Navigation.BACK_FROM_ABOUT));
   }
 
   protected createView(): void {
@@ -23,7 +24,7 @@ export default class AboutPage extends BaseComponent {
     const author = new BaseComponent({
       tag: 'a',
       classNames: ['about-author'],
-      text: 'Olga Yakusheva',
+      text: AUTHOR_NAME,
     });
     author.attr('href', AUTHOR_LINK);
     author.attr('target', '_blank');

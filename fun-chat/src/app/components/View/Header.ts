@@ -1,8 +1,9 @@
 import BaseComponent from './BaseComponent';
-import { Props } from '../../utils/types';
+import { Props, Navigation } from '../../utils/types';
 import emitter from '../EventEmitter';
 import { infoIconSVG, exitIconSvg } from '../../utils/icons';
 import state from '../State';
+import { EVENT } from '../../utils/constants';
 
 export default class Header extends BaseComponent {
   protected currUser = new BaseComponent({ tag: 'p', classNames: ['curr-user'] });
@@ -17,7 +18,7 @@ export default class Header extends BaseComponent {
   constructor(props: Props) {
     super(props);
     this.createView();
-    this.logoutBtn.on('click', () => emitter.emit('logout'));
+    this.logoutBtn.on('click', () => emitter.emit(EVENT.logout));
     this.infoBtn.on('click', this.onClickInfoBtn);
   }
   protected createView() {
@@ -32,7 +33,7 @@ export default class Header extends BaseComponent {
   }
 
   protected onClickInfoBtn = () => {
-    emitter.emit('navigate', 'about');
+    emitter.emit('navigate', Navigation.ABOUT);
     state.updateState();
   };
 }

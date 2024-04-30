@@ -4,6 +4,7 @@ import InputField from './InputField';
 import ModalLogin from './ModalLogin';
 import emitter from '../EventEmitter';
 import { EVENT } from '../../utils/constants';
+import { Navigation } from '../../utils/types';
 
 export default class LoginPage extends BaseComponent {
   protected modal?: ModalLogin;
@@ -48,7 +49,7 @@ export default class LoginPage extends BaseComponent {
     this.createView();
     this.loginForm.on('input', this.onChangeForm);
     this.loginForm.on('submit', this.onSubmitForm);
-    this.infoBtn.on('click', () => emitter.emit('navigate', 'about'));
+    this.infoBtn.on('click', () => emitter.emit('navigate', Navigation.ABOUT));
     emitter.on(EVENT.incorrect_auth, this.openModal);
   }
 
