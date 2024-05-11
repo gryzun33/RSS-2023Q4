@@ -70,9 +70,7 @@ export async function updateCar(id: number, newCarData: NewCarData) {
 export async function deleteWinner(id: number) {
   fetch(`${baseURL}${path.winners}/${id}`, {
     method: 'DELETE',
-  }).catch((error: Error) => {
-    console.error('Error:', error.message);
-  });
+  }).catch(handleError);
 }
 
 export function deleteCar(id: number) {
@@ -85,9 +83,7 @@ export function deleteCar(id: number) {
     .then(() => {
       deleteWinner(id);
     })
-    .catch((error: Error) => {
-      console.error('Error:', error.message);
-    });
+    .catch(handleError);
 }
 
 export function createWinner(id: number) {
@@ -103,9 +99,7 @@ export function createWinner(id: number) {
         getWinner(id);
       }
     })
-    .catch((error: Error) => {
-      console.error('Error:', error.message);
-    });
+    .catch(handleError);
 }
 
 export function driveCar(id: number, status: string, controller: AbortController) {
@@ -126,9 +120,7 @@ export function driveCar(id: number, status: string, controller: AbortController
         }
       }
     })
-    .catch((error: Error) => {
-      console.log(error.message);
-    });
+    .catch(handleError);
 }
 
 export async function startCar(
@@ -209,9 +201,7 @@ export function getWinners(params: Params[], page: number) {
         state.setWinners(dataWinners, dataCars);
       });
     })
-    .catch((error: Error) => {
-      console.error('Error:', error.message);
-    });
+    .catch(handleError);
 }
 
 export function updateWinner(id: number) {
@@ -221,9 +211,7 @@ export function updateWinner(id: number) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(state.getWinnerData(id)),
-  }).catch((error: Error) => {
-    console.error('Error:', error.message);
-  });
+  }).catch(handleError);
 }
 
 export function getWinner(id: number) {
@@ -237,9 +225,7 @@ export function getWinner(id: number) {
     .then(() => {
       updateWinner(id);
     })
-    .catch((error: Error) => {
-      console.error('Error:', error.message);
-    });
+    .catch(handleError);
 }
 
 function handleError(error: unknown) {

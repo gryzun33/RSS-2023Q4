@@ -104,8 +104,8 @@ export default class GarageView extends BaseComponent {
     this.pageTitle.setTextContent(`${page}`);
     this.prevBtn.element.disabled = !prevBtnState;
     this.nextBtn.element.disabled = !nextBtnState;
-    this.prevBtn.enableState = prevBtnState;
-    this.nextBtn.enableState = nextBtnState;
+    this.prevBtn.stateBeforeRace = prevBtnState;
+    this.nextBtn.stateBeforeRace = nextBtnState;
   };
 
   public addNewCarToView = (car: unknown): void => {
@@ -164,10 +164,10 @@ export default class GarageView extends BaseComponent {
     this.firstTitle.setTextContent('');
     this.changeActivityBtnsAfterReset();
 
-    if (this.prevBtn.enableState) {
+    if (this.prevBtn.stateBeforeRace) {
       this.prevBtn.enable();
     }
-    if (this.nextBtn.enableState) {
+    if (this.nextBtn.stateBeforeRace) {
       this.nextBtn.enable();
     }
   };

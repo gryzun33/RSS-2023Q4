@@ -3,12 +3,16 @@ import { RandomCar, NewCarData } from './types';
 import { randomCarsCount } from './constants';
 
 function getRandomModel(cars: RandomCar[]): string {
-  const brandIndex = Math.floor(Math.random() * cars.length);
+  const brandIndex = getRandomIndex(cars.length);
   const brandWithModels = cars[brandIndex];
   const [brand, models] = Object.entries(brandWithModels)[0];
-  const modelIndex = Math.floor(Math.random() * models.length);
+  const modelIndex = getRandomIndex(models.length);
   const model = models[modelIndex];
   return `${brand} ${model}`;
+}
+
+function getRandomIndex(max: number): number {
+  return Math.floor(Math.random() * max);
 }
 
 function getRandomColor(): string {
