@@ -130,26 +130,17 @@ class AppState {
   };
 
   public getNewIndex(key: HTMLElement): number {
-    const value = this.currPuzzle.get(key);
-    if (!value) {
-      throw new Error(`value is undefined`);
-    }
+    const value = this.getPieceDataByKey(key);
     return value.newInd;
   }
 
   public getCorrectIndex(key: HTMLElement): number {
-    const value = this.currPuzzle.get(key);
-    if (!value) {
-      throw new Error(`value is undefined`);
-    }
+    const value = this.getPieceDataByKey(key);
     return value.oldInd;
   }
 
   public setIndex(key: HTMLElement, ind: number, parent: string): void {
-    const value = this.currPuzzle.get(key);
-    if (!value) {
-      throw new Error(`value is undefined`);
-    }
+    const value = this.getPieceDataByKey(key);
     value.newInd = ind;
     value.parent = parent;
   }
@@ -298,10 +289,7 @@ class AppState {
 
   public isCorrectPiece(piece: BaseComponent): boolean {
     const key = piece.getElement();
-    const value = this.currPuzzle.get(key);
-    if (!value) {
-      throw new Error(`value is undefined`);
-    }
+    const value = this.getPieceDataByKey(key);
     return value.oldInd === value.newInd;
   }
 
@@ -369,6 +357,14 @@ class AppState {
     if (hints) {
       this.hints = hints;
     }
+  }
+
+  private getPieceDataByKey(key: HTMLElement): PieceData {
+    const value = this.currPuzzle.get(key);
+    if (!value) {
+      throw new Error(`value is undefined`);
+    }
+    return value;
   }
 }
 

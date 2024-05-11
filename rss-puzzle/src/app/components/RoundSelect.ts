@@ -18,8 +18,12 @@ export default class RoundSelect extends Select {
     this.updateView(this.length, this.status);
   }
 
-  protected updateView = (l: unknown, status: unknown, value: unknown = appState.round) => {
-    if (typeof l !== 'number') {
+  protected updateView = (
+    roundLength: unknown,
+    status: unknown,
+    value: unknown = appState.round
+  ) => {
+    if (typeof roundLength !== 'number') {
       throw new Error('number of rounds is not defined');
     }
 
@@ -27,7 +31,7 @@ export default class RoundSelect extends Select {
       throw new Error('status of rounds is not defined');
     }
 
-    this.updateItemsView(l, status);
+    this.updateItemsView(roundLength, status);
     this.setSelectValue(value);
   };
 

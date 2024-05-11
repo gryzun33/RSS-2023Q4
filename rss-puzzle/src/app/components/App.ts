@@ -8,10 +8,6 @@ import { СallbackFunc, PageName } from '../utils/types';
 
 export default class App {
   protected root: HTMLElement;
-  protected loginPage?: BaseComponent;
-  protected mainPage?: BaseComponent;
-  protected startPage?: BaseComponent;
-
   protected currPage?: BaseComponent;
   private pageMap: Map<string, new (arg: СallbackFunc) => BaseComponent> = new Map();
 
@@ -51,7 +47,7 @@ export default class App {
   }
 
   private loadPageCallback = (name: string): СallbackFunc =>
-    name === 'main' ? this.reloadLoginPage : this.loadPage;
+    name === PageName.MAIN ? this.reloadLoginPage : this.loadPage;
 
   protected getUserLogin(): string | null {
     return storage.getData('name');

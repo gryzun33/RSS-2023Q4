@@ -7,7 +7,7 @@ import { СallbackFunc, PageName } from '../utils/types';
 import startText from '../utils/textData';
 
 export default class StartPage extends BaseComponent<HTMLElement> {
-  constructor(public loadMainPage: СallbackFunc) {
+  constructor(private loadPage: СallbackFunc) {
     super({ tag: 'div', classNames: ['start-page'] });
     this.createView();
   }
@@ -37,7 +37,7 @@ export default class StartPage extends BaseComponent<HTMLElement> {
     const startBtn = new Button({
       classNames: ['start-btn'],
       text: 'Start',
-      callback: () => this.loadMainPage(PageName.MAIN),
+      callback: () => this.loadPage(PageName.MAIN),
     });
     this.append(title, greeting, rules, startBtn);
   }
