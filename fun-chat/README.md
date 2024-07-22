@@ -10,9 +10,9 @@ How to run project
 
 4. start the local server using `npm run start`
 
-5. clone the project
+5. clone the repo
 
-[https://github.com/rolling-scopes-school/gryzun33-JSFE2023Q4/tree/fun-chat](https://github.com/rolling-scopes-school/gryzun33-JSFE2023Q4/tree/fun-chat)
+[https://github.com/gryzun33/RSS-2023Q4](https://github.com/gryzun33/RSS-2023Q4)
 
 6. switch to branch `fun-chat`
 
